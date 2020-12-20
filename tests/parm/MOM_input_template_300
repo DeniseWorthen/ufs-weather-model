@@ -55,6 +55,10 @@ NJGLOBAL = NY_GLB               !
 !IO_LAYOUT = 1, 1               ! default = 0
                                 ! The processor layout to be used, or 0,0 to automatically
                                 ! set the io_layout to be the same as the layout.
+WRITE_GEOM = 2                  ! default = 1
+                                ! If =0, never write the geometry and vertical grid files. If =1, write the
+                                ! geometry and vertical grid files only for a new simulation. If =2, always
+                                ! write the geometry and vertical grid files. Other values are invalid.
 
 ! === module MOM_grid ===
 ! Parameters providing information about the vertical grid.
@@ -128,7 +132,7 @@ HFREEZE = 20.0                  !   [m] default = -1.0
                                 ! over which melt potential is computed will be min(HFREEZE, OBLD)
                                 ! where OBLD is the boundary layer depth. If HFREEZE <= 0 (default)
                                 ! melt potential will not be computed.
-MIN_Z_DIAG_INTERVAL = 2.16E+04  !   [s] default = 0.0
+!MIN_Z_DIAG_INTERVAL = 2.16E+04  !   [s] default = 0.0
                                 ! The minimum amount of time in seconds between
                                 ! calculations of depth-space diagnostics. Making this
                                 ! larger than DT_THERM reduces the  performance penalty
@@ -480,7 +484,7 @@ FOX_KEMPER_ML_RESTRAT_COEF = 20.0 !   [nondim] default = 0.0
                                 ! geostrophic kinetic energy or 1 plus the square of the
                                 ! grid spacing over the deformation radius, as detailed
                                 ! by Fox-Kemper et al. (2010)
-Z_OUTPUT_GRID_FILE = "analysis_vgrid_lev35.v1.nc" ! default = ""
+!Z_OUTPUT_GRID_FILE = "analysis_vgrid_lev35.v1.nc" ! default = ""
                                 ! The file that specifies the vertical grid for
                                 ! depth-space diagnostics, or blank to disable
                                 ! depth-space output.
