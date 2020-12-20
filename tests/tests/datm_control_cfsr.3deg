@@ -1,0 +1,44 @@
+#
+#  DATM_MOM6_CICE_CMEPS_CFSR test
+#
+
+export TEST_DESCR="DATM-MOM6-CICE-CMEPS_CFSR - control 3deg"
+
+export CNTL_DIR="datm_control_cfsr"
+
+export LIST_FILES="RESTART/MOM.res.nc \
+                   RESTART/iced.2011-10-02-00000.nc \
+                   RESTART/DATM_CFSR.cpl.r.2011-10-02-00000.nc"
+
+export_datm
+
+export DATM_SRC="CFSR.3deg"
+export FILENAME_BASE='cfsr.3deg'
+export IATM=126
+export JATM=70
+export RESTART_N=12
+
+export TASKS=$TASKS_datm_300
+export TPN=$TPN_datm_300
+export atm_petlist_bounds=$APB_datm_300
+export med_petlist_bounds=$MPB_datm_300
+export ocn_petlist_bounds=$OPB_datm_300
+export ice_petlist_bounds=$IPB_datm_300
+export NPROC_ICE='2'
+
+# atm/ocn/ice resolution
+export OCNRES='300'
+export ICERES='3.00'
+export NX_GLB=120
+export NY_GLB=84
+
+# resolution dependent files
+export MOM_INPUT="MOM_input_template_${OCNRES}"
+export MESHICE="mesh.mx${OCNRES}.nc"
+export CICEGRID="grid_cice_NEMS_mx${OCNRES}.nc"
+export CICEMASK="kmtu_cice_NEMS_mx${OCNRES}.nc"
+export CHLCLIM='"seawifs_1998-2006_GOLD_smoothed_2X.nc"'
+export FRUNOFF="runoff_newgrid.nc"
+export MOM6_RESTART_SETTING='n'
+
+export FV3_RUN=cpld_datm_cfsr.3deg.IN
