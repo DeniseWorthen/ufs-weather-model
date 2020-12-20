@@ -36,11 +36,11 @@ NJHALO = 4                      ! default = 2
                                 ! y-direction.  With STATIC_MEMORY_ this is set as NJHALO_
                                 ! in MOM_memory.h at compile time; without STATIC_MEMORY_
                                 ! the default is NJHALO_ in MOM_memory.h (if defined) or 2.
-NIGLOBAL = 120                  !
+NIGLOBAL = NX_GLB               !
                                 ! The total number of thickness grid points in the
                                 ! x-direction in the physical domain. With STATIC_MEMORY_
                                 ! this is set in MOM_memory.h at compile time.
-NJGLOBAL = 84                   !
+NJGLOBAL = NY_GLB               !
                                 ! The total number of thickness grid points in the
                                 ! y-direction in the physical domain. With STATIC_MEMORY_
                                 ! this is set in MOM_memory.h at compile time.
@@ -113,16 +113,21 @@ MIXEDLAYER_RESTRAT = True       !   [Boolean] default = False
                                 ! If true, a density-gradient dependent re-stratifying
                                 ! flow is imposed in the mixed layer.
                                 ! This is only used if BULKMIXEDLAYER is true.
-DT = 7200.0                     !   [s]
+DT = DT_DYNAM_MOM6              !   [s]
                                 ! The (baroclinic) dynamics time step.  The time-step that
                                 ! is actually used will be an integer fraction of the
                                 ! forcing time-step (DT_FORCING in ocean-only mode or the
                                 ! coupling timestep in coupled mode.)
-DT_THERM = 7200.0               !   [s] default = 3600.0
+DT_THERM =  DT_THERM_MOM6       !   [s] default = 3600.0
                                 ! The thermodynamic and tracer advection time step.
                                 ! Ideally DT_THERM should be an integer multiple of DT
                                 ! and less than the forcing or coupling time-step.
                                 ! By default DT_THERM is set to DT.
+HFREEZE = 20.0                  !   [m] default = -1.0
+                                ! If HFREEZE > 0, melt potential will be computed. The actual depth
+                                ! over which melt potential is computed will be min(HFREEZE, OBLD)
+                                ! where OBLD is the boundary layer depth. If HFREEZE <= 0 (default)
+                                ! melt potential will not be computed.
 MIN_Z_DIAG_INTERVAL = 2.16E+04  !   [s] default = 0.0
                                 ! The minimum amount of time in seconds between
                                 ! calculations of depth-space diagnostics. Making this
@@ -140,7 +145,7 @@ FRAZIL = True                   !   [Boolean] default = False
                                 ! the accumulated heat deficit is returned in the
                                 ! surface state.  FRAZIL is only used if
                                 ! ENABLE_THERMODYNAMICS is true.
-DO_GEOTHERMAL = True            !   [Boolean] default = False
+DO_GEOTHERMAL = False           !   [Boolean] default = False
                                 ! If true, apply geothermal heating.
 BOUND_SALINITY = True           !   [Boolean] default = False
                                 ! If true, limit salinity to being positive. (The sea-ice
@@ -206,6 +211,13 @@ GRID_CONFIG = "mosaic"          !
                                 !     mercator - use a Mercator spherical grid.
 GRID_FILE = "ocean_hgrid.nc"    !
                                 ! Name of the file from which to read horizontal grid data.
+GRID_ROTATION_ANGLE_BUGS = False  ! [Boolean] default = True
+                                ! If true, use an older algorithm to calculate the sine and
+                                ! cosines needed rotate between grid-oriented directions and
+                                ! true north and east.  Differences arise at the tripolar fold
+USE_TRIPOLAR_GEOLONB_BUG = False !   [Boolean] default = True
+                                ! If true, use older code that incorrectly sets the longitude in some points
+                                ! along the tripolar fold to be off by 360 degrees.
 TOPO_CONFIG = "file"            !
                                 ! This specifies how bathymetry is specified:
                                 !     file - read bathymetric information from the file
@@ -260,13 +272,13 @@ INIT_LAYERS_FROM_Z_FILE = True  !   [Boolean] default = False
                                 ! If true, intialize the layer thicknesses, temperatures,
                                 ! and salnities from a Z-space file on a latitude-
                                 ! longitude grid.
-TEMP_SALT_Z_INIT_FILE = "WOA05_pottemp_salt.nc" ! default = "temp_salt_z.nc"
+TEMP_SALT_Z_INIT_FILE = "MOM6_IC_TS.nc" ! default = "temp_salt_z.nc"
                                 ! The name of the z-space input file used to initialize
                                 ! the layer thicknesses, temperatures and salinities.
-Z_INIT_FILE_PTEMP_VAR = "PTEMP" ! default = "ptemp"
+Z_INIT_FILE_PTEMP_VAR = "temp " ! default = "ptemp"
                                 ! The name of the potential temperature variable in
                                 ! TEMP_SALT_Z_INIT_FILE.
-Z_INIT_FILE_SALT_VAR = "SALT"   ! default = "salt"
+Z_INIT_FILE_SALT_VAR = "salt"   ! default = "salt"
                                 ! The name of the salinity variable in
                                 ! TEMP_SALT_Z_INIT_FILE.
 
@@ -545,6 +557,9 @@ TKE_ITIDE_MAX = 0.1             !   [W m-2] default = 1000.0
 READ_TIDEAMP = True             !   [Boolean] default = False
                                 ! If true, read a file (given by TIDEAMP_FILE) containing
                                 ! the tidal amplitude with INT_TIDE_DISSIPATION.
+TIDEAMP_FILE = "tideamp_MOM6_newgrid.nc" ! default = "tideamp.nc"
+                                ! The path to the file containing the spatially varying tidal amplitudes with
+                                ! INT_TIDE_DISSIPATION.
 H2_FILE = "sgs_h2_MOM6.nc" !
                                 ! The path to the file containing the sub-grid-scale
                                 ! topographic roughness amplitude with INT_TIDE_DISSIPATION.
@@ -665,11 +680,11 @@ ML_KHTR_SCALE = 0.0             !   [nondim] default = 1.0
 ENERGYSAVEDAYS = 1              !   [days] default = 1.0
                                 ! The interval in units of TIMEUNIT between saves of the
                                 ! energies of the run and other globally summed diagnostics.
-RESTORE_SALINITY = True         !   [Boolean] default = False
+RESTORE_SALINITY = False        !   [Boolean] default = False
                                 ! If true, the coupled driver will add a globally-balanced
                                 ! fresh-water flux that drives sea-surface salinity
                                 ! toward specified values.
-OCEAN_SURFACE_STAGGER = "B"     ! default = "B"
+OCEAN_SURFACE_STAGGER = "A"     ! default = "B"
                                 ! A case-insensitive character string to indicate the
                                 ! staggering of the surface velocity field that is
                                 ! returned to the coupler.  Valid values include
@@ -691,7 +706,7 @@ USE_LIMITED_PATM_SSH = False    !   [Boolean] default = True
                                 ! correction for the atmospheric (and sea-ice) pressure
                                 ! limited by max_p_surf instead of the full atmospheric
                                 ! pressure.
-WIND_STAGGER = "B"              ! default = "C"
+WIND_STAGGER = "A"              ! default = "C"
                                 ! A case-insensitive character string to indicate the
                                 ! staggering of the input wind stress field.  Valid
                                 ! values are 'A', 'B', or 'C'.

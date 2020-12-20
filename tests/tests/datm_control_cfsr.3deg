@@ -32,6 +32,18 @@ export ICERES='3.00'
 export NX_GLB=120
 export NY_GLB=84
 
+# set component and coupling timesteps
+export DT_ATMOS='7200'
+export DT_CICE=${DT_ATMOS}
+export DT_DYNAM_MOM6='7200'
+export DT_THERM_MOM6='7200'
+export CPL_SLOW=${DT_THERM_MOM6}
+export CPL_FAST=${DT_ATMOS}
+
+# nems.configure
+export coupling_interval_slow_sec=${CPL_SLOW}
+export coupling_interval_fast_sec=${CPL_FAST}
+
 # resolution dependent files
 export MOM_INPUT="MOM_input_template_${OCNRES}"
 export MESHICE="mesh.mx${OCNRES}.nc"

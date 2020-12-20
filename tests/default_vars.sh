@@ -131,6 +131,10 @@ elif [[ $MACHINE_ID = hera.* ]]; then
   MPB_datm_025="0 39"; APB_datm_025="0 39"
   OPB_datm_025="40 159"; IPB_datm_025="160 207"
 
+  TASKS_datm_300=40; TPN_datm_300=40
+  MPB_datm_300="0 25"; APB_datm_300="0 25"
+  OPB_datm_300="26 37"; IPB_datm_300="38 39"
+
 elif [[ $MACHINE_ID = linux.* ]]; then
 
   if [[ $CI_TEST = true ]]; then
