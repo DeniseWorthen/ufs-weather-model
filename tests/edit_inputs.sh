@@ -6,10 +6,16 @@ function edit_ice_in {
   jday=$(date -d "${SYEAR}-${SMONTH}-${SDAY} ${SHOUR}:00:00" +%j)
   istep0=$(( ((10#$jday-1)*86400 + 10#$SHOUR*3600) / DT_CICE ))
 
-  # assumes processor shape = "slenderX2"
-  np2=$((NPROC_ICE/2))
-  BLCKX=$((NX_GLB/$np2))
-  BLCKY=$((NY_GLB/2))
+  if [[ ${PSHAPE} == "slenderX2" ]] ; then
+   np2=$((NPROC_ICE/2))
+   BLCKX=$((NX_GLB/$np2))
+   BLCKY=$((NY_GLB/2))
+  else
+   # assume slenderX1
+   np2=$((NPROC_ICE))
+   BLCKX=$((NX_GLB/$np2))
+   BLCKY=$((NY_GLB))
+  fi
 
   sed -e "s/YEAR_INIT/$SYEAR/g" \
       -e "s/ISTEP0/$istep0/g" \
@@ -17,6 +23,7 @@ function edit_ice_in {
       -e "s/CICEGRID/$CICEGRID/g" \
       -e "s/CICEMASK/$CICEMASK/g" \
       -e "s/NPROC_ICE/$NPROC_ICE/g" \
+      -e "s/PSHAPE/$PSHAPE/g" \
       -e "s/NX_GLB/$NX_GLB/g" \
       -e "s/NY_GLB/$NY_GLB/g" \
       -e "s/BLCKX/$BLCKX/g" \

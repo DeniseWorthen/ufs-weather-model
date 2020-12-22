@@ -516,6 +516,7 @@ export MESHICE="mesh.mx${OCNRES}.nc"
 export CICEGRID="grid_cice_NEMS_mx${OCNRES}.nc"
 export CICEMASK="kmtu_cice_NEMS_mx${OCNRES}.nc"
 export RUNID='unknown'
+export PSHAPE='slenderX2'
 # set large; restart frequency now controlled by restart_n in nems.configure
 export DUMPFREQ='d'
 export DUMPFREQ_N=1000
@@ -592,7 +593,7 @@ export coupling_interval_fast_sec=${CPL_FAST}
 
 export RESTART_N=${FHMAX}
 export CPLMODE='nems_orig_data'
-export cap_dbug_flag="0"
+export cap_dbug_flag="6"
 export use_coldstart=".false."
 export RUNTYPE='startup'
 export flux_convergence='0.0'
@@ -621,6 +622,7 @@ export MESHICE="mesh.mx${OCNRES}.nc"
 export CICEGRID="grid_cice_NEMS_mx${OCNRES}.nc"
 export CICEMASK="kmtu_cice_NEMS_mx${OCNRES}.nc"
 export RUNID='unknown'
+export PSHAPE='slenderX2'
 # set large; restart frequency now controlled by restart_n in nems.configure
 export DUMPFREQ='d'
 export DUMPFREQ_N=1000

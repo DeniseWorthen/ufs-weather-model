@@ -2,6 +2,7 @@
 # Data Atmosphere tests
 #######################################################################################################################################################################################
 
-COMPILE | DATM=Y S2S=Y                                                                                                        | standard | hera.intel orion.intel wcoss_dell_p3 | fv3 |
+#COMPILE | DATM=Y S2S=Y                                                                                                        | standard | hera.intel orion.intel wcoss_dell_p3 | fv3 |
+COMPILE | DATM=Y S2S=Y DEBUG=Y                                                                                                 | standard | hera.intel orion.intel wcoss_dell_p3 | fv3 |
 #COMPILE | DATM=Y S2S=Y                                                                                                        | standard | cheyenne.intel                       | fv3 |
 RUN     | datm_control_cfsr.3deg                                                                                              | standard | hera.intel orion.intel wcoss_dell_p3 | fv3 |

@@ -13,7 +13,7 @@ export LIST_FILES="RESTART/MOM.res.nc \
 export_datm
 
 export DATM_SRC="CFSR.3deg"
-export FILENAME_BASE='cfsr.3deg'
+export FILENAME_BASE='cfsr.3deg.'
 export IATM=126
 export JATM=70
 export RESTART_N=12
@@ -31,12 +31,13 @@ export OCNRES='300'
 export ICERES='3.00'
 export NX_GLB=120
 export NY_GLB=84
+export PSHAPE='slenderX1'
 
 # set component and coupling timesteps
-export DT_ATMOS='7200'
+export DT_ATMOS='3600'
 export DT_CICE=${DT_ATMOS}
-export DT_DYNAM_MOM6='7200'
-export DT_THERM_MOM6='7200'
+export DT_DYNAM_MOM6='3600'
+export DT_THERM_MOM6='3600'
 export CPL_SLOW=${DT_THERM_MOM6}
 export CPL_FAST=${DT_ATMOS}
 
