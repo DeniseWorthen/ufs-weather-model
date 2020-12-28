@@ -239,7 +239,7 @@ elif [[ $MACHINE_ID = hera.* ]]; then
   QUEUE=batch
   COMPILE_QUEUE=batch
 
-#  ACCNR=fv3-cpu
+  #ACCNR=fv3-cpu
   PARTITION=
   dprefix=/scratch1/NCEPDEV
   DISKNM=$dprefix/nems/emc.nemspara/RT
@@ -423,13 +423,14 @@ if [[ $TESTS_FILE =~ '35d' ]]; then
 fi
 
 if [[ $MACHINE_ID = hera.* ]] || [[ $MACHINE_ID = orion.* ]] || [[ $MACHINE_ID = cheyenne.* ]] || [[ $MACHINE_ID = gaea.* ]] || [[ $MACHINE_ID = jet.* ]]; then
-  RTPWD=${RTPWD:-$DISKNM/NEMSfv3gfs/develop-20201217/${RT_COMPILER^^}}
+  RTPWD=${RTPWD:-$DISKNM/NEMSfv3gfs/develop-20201223/${RT_COMPILER^^}}
 else
-  RTPWD=${RTPWD:-$DISKNM/NEMSfv3gfs/develop-20201217}
+  RTPWD=${RTPWD:-$DISKNM/NEMSfv3gfs/develop-20201223}
 fi
 
-#INPUTDATA_ROOT=${INPUTDATA_ROOT:-$DISKNM/NEMSfv3gfs/input-data-20201201/}
+#INPUTDATA_ROOT=${INPUTDATA_ROOT:-$DISKNM/NEMSfv3gfs/input-data-20201220/}
 INPUTDATA_ROOT="/scratch1/NCEPDEV/stmp4/Denise.Worthen/input-data_update/"
+INPUTDATA_ROOT_WW3=${INPUTDATA_ROOT}/WW3_input_data_20201220/
 
 shift $((OPTIND-1))
 [[ $# -gt 1 ]] && usage
@@ -508,6 +509,7 @@ if [[ $ROCOTO == true ]]; then
   <!ENTITY PATHTR         "${PATHTR}">
   <!ENTITY RTPWD          "${RTPWD}">
   <!ENTITY INPUTDATA_ROOT "${INPUTDATA_ROOT}">
+  <!ENTITY INPUTDATA_ROOT_WW3 "${INPUTDATA_ROOT_WW3}">
   <!ENTITY RUNDIR_ROOT    "${RUNDIR_ROOT}">
   <!ENTITY NEW_BASELINE   "${NEW_BASELINE}">
 ]>
@@ -681,6 +683,7 @@ EOF
       export RT_COMPILER=${RT_COMPILER}
       export RTPWD=${RTPWD}
       export INPUTDATA_ROOT=${INPUTDATA_ROOT}
+      export INPUTDATA_ROOT_WW3=${INPUTDATA_ROOT_WW3}
       export PATHRT=${PATHRT}
       export PATHTR=${PATHTR}
       export NEW_BASELINE=${NEW_BASELINE}
