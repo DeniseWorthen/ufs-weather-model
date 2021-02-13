@@ -31,7 +31,7 @@ OCN_attributes::
   DumpFields = false
   ProfileMemory = false
   OverwriteSlice = true
-  mesh_ocn = @[MESHICE]
+  mesh_ocn = @[MESHOCN_ICE]
 ::
 
 # ICE #
@@ -42,7 +42,7 @@ ICE_attributes::
   DumpFields = false
   ProfileMemory = false
   OverwriteSlice = true
-  mesh_ice = @[MESHICE]
+  mesh_ice = @[MESHOCN_ICE]
   stop_n = @[RESTART_N]
   stop_option = nhours
   stop_ymd = -999
@@ -102,5 +102,5 @@ ALLCOMP_attributes::
       restart_ymd = -999
       dbug_flag = @[cap_dbug_flag]
       use_coldstart = @[use_coldstart]
-      use_mommesh = true
+      use_mommesh = @[use_mommesh]
 ::
