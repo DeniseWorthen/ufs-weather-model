@@ -522,6 +522,7 @@ export cap_dbug_flag="0"
 export use_coldstart="false"
 export use_mommesh="false"
 export RUNTYPE='startup'
+export CALTYPE='GREGORIAN'
 
 # FV3 defaults
 # to use new oro and ics created from 1deg ocean mask on c96 tiles
@@ -670,6 +671,8 @@ export cap_dbug_flag="0"
 export use_coldstart=".false."
 export use_mommesh=".false."
 export RUNTYPE='startup'
+export CALTYPE='GREGORIAN'
+
 export flux_convergence='0.0'
 export flux_iteration='2'
 export flux_scheme='0'
