@@ -1,0 +1,8 @@
+#COMPILE | APP=S2S SUITES=FV3_GFS_2017_coupled,FV3_GFS_2017_satmedmf_coupled,FV3_GFS_v15p2_coupled,FV3_GFS_v16_coupled             | - wcoss_cray jet.intel                  | fv3 |
+COMPILE | APP=S2S DEBUG=Y SUITES=FV3_GFS_2017_coupled,FV3_GFS_2017_satmedmf_coupled,FV3_GFS_v15p2_coupled,FV3_GFS_v16_coupled             | - wcoss_cray jet.intel                  | fv3 |
+
+RUN     | cpld_bmarkfrac                                                                                                          | - wcoss_cray jet.intel                  | fv3 |
+
+#6h/6h/12h restart test
+# test fails on gaea with esmfpio error
+RUN     | cpld_bmarkfrac_v16                                                                                                      | - wcoss_cray jet.intel                  | fv3 |
