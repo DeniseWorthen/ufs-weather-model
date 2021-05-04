@@ -240,39 +240,22 @@ if(NEMSdatm)
 endif()
 
 if(CDEPS)
-  message("ADD CDEPS-interface directory")
-#  add_subdirectory(CDEPS-interface)
+  add_subdirectory(CDEPS-interface)
 endif()
 
 ###############################################################################
 ### UFS Library [NEMS]
 ###############################################################################
 list(APPEND _nems_srcs NEMS/src/module_NEMS_UTILS.F90
-                       NEMS/src/module_MEDIATOR_methods.F90
-                       NEMS/src/module_MEDIATOR.F90
-                       NEMS/src/module_MEDIATOR_SpaceWeather.F90
-                       NEMS/src/module_EARTH_INTERNAL_STATE.F90
                        NEMS/src/module_EARTH_GRID_COMP.F90
-                       NEMS/src/module_NEMS_INTERNAL_STATE.F90
                        NEMS/src/module_NEMS_GRID_COMP.F90
                        NEMS/src/module_NEMS_Rusage.F90
                        NEMS/src/nems_c_rusage.c)
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/NEMS/src/ESMFVersionDefine_ESMF_NUOPC.h
-               ${CMAKE_CURRENT_BINARY_DIR}/NEMS/src/ESMFVersionDefine.h
-               COPYONLY)
-# until we remove "../ESMFVersionDefine.h" from ENS_Cpl/ENS_CplComp_ESMFMod_STUB.F90
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/NEMS/src/ESMFVersionDefine_ESMF_NUOPC.h
-               ${CMAKE_CURRENT_BINARY_DIR}/NEMS/ESMFVersionDefine.h
-               COPYONLY)
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/NEMS/src/ESMFConvenienceMacros.h
-               ${CMAKE_CURRENT_BINARY_DIR}/NEMS/src/ESMFConvenienceMacros.h
-               COPYONLY)
-
 add_library(ufs ${_nems_srcs})
 set_target_properties(ufs PROPERTIES Fortran_MODULE_DIRECTORY
                                      ${CMAKE_CURRENT_BINARY_DIR}/mod)
-target_include_directories(ufs PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/NEMS/src)
+target_include_directories(ufs PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/NEMS/src)
 target_include_directories(ufs INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/mod>
                                          $<INSTALL_INTERFACE:mod>)
 
@@ -331,7 +314,7 @@ if(CMEPS)
 endif()
 
 if(CDEPS)
-  message("Do CDEPS things here")
+  add_dependencies(ufs cdeps::datm)
 endif()
 
 target_compile_definitions(ufs PRIVATE "${_ufs_defs_private}")
@@ -357,7 +340,7 @@ endif()
 
 target_compile_definitions(ufs_model PRIVATE "${_ufs_model_defs_private}")
 
-if(NEMSdatm)
+if(NEMSdatm OR CDEPS)
   target_link_libraries(ufs_model PUBLIC ufs w3nco::w3nco_d)
 endif()
 
