@@ -64,11 +64,12 @@ export NFHOUT_HF="1"
 
 export RESTART_N=${FHMAX}
 
+# change dt
 # set component and coupling timesteps
-export DT_ATMOS='900'
+export DT_ATMOS='720'
 export DT_CICE=${DT_ATMOS}
-export DT_DYNAM_MOM6='1800'
-export DT_THERM_MOM6='1800'
+export DT_DYNAM_MOM6='1440'
+export DT_THERM_MOM6='1440'
 export CPL_SLOW=${DT_THERM_MOM6}
 export CPL_FAST=${DT_ATMOS}
 

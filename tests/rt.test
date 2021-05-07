@@ -1,0 +1,4 @@
+#
+COMPILE | APP=S2S DEBUG=Y SUITES=FV3_GFS_2017_coupled,FV3_GFS_2017_satmedmf_coupled,FV3_GFS_v15p2_coupled,FV3_GFS_v16_coupled     | - wcoss_cray                            | fv3 |
+RUN     | cpld_debugfrac                                                                                                          | - wcoss_cray                            | fv3 |
+RUN     | cpld_debugfrac_dt                                                                                                       | - wcoss_cray                            | fv3 |

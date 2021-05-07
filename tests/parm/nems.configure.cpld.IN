@@ -57,6 +57,7 @@ runSeq::
    @@[coupling_interval_fast_sec]
      MED med_phases_prep_atm
      MED med_phases_prep_ice
+     MED med_phases_history_write
      MED -> ATM :remapMethod=redist
      MED -> ICE :remapMethod=redist
      ATM
@@ -83,7 +84,7 @@ MED_attributes::
       ICE_model = @[ice_model]
       OCN_model = @[ocn_model]
       history_n = 1
-      history_option = nhours
+      history_option = nsteps
       history_ymd = -999
       coupling_mode = @[CPLMODE]
 ::
