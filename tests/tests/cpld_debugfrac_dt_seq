@@ -63,8 +63,16 @@ export FHMAX="3"
 export NFHOUT_HF="1"
 export RESTART_N=${FHMAX}
 
+export NEMS_CONFIGURE="nems.configure.cpld.seq.IN"
+export med_model="cmeps"
+export atm_model="fv3"
+export ocn_model="mom6"
+export ice_model="cice6"
+export wav_model="ww3"
+
+# change dt
 # set component and coupling timesteps
-export DT_ATMOS='900'
+export DT_ATMOS='720'
 export DT_CICE=${DT_ATMOS}
 export DT_DYNAM_MOM6=${DT_ATMOS}
 export DT_THERM_MOM6=${DT_ATMOS}

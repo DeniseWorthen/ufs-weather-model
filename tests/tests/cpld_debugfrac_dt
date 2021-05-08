@@ -61,15 +61,14 @@ export_cpl
 export DAYS="0.125"
 export FHMAX="3"
 export NFHOUT_HF="1"
-
 export RESTART_N=${FHMAX}
 
 # change dt
 # set component and coupling timesteps
 export DT_ATMOS='720'
 export DT_CICE=${DT_ATMOS}
-export DT_DYNAM_MOM6='1440'
-export DT_THERM_MOM6='1440'
+export DT_DYNAM_MOM6=${DT_ATMOS}
+export DT_THERM_MOM6=${DT_ATMOS}
 export CPL_SLOW=${DT_THERM_MOM6}
 export CPL_FAST=${DT_ATMOS}
 
