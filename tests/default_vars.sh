@@ -633,6 +633,7 @@ export cap_dbug_flag="0"
 export use_coldstart="false"
 export use_mommesh="true"
 export RUNTYPE='startup'
+export TESTMAP='mapconsf'
 
 # FV3 defaults
 # to use new oro and ics created from 1deg ocean mask on c96 tiles

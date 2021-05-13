@@ -87,7 +87,7 @@ MED_attributes::
       history_option = nsteps
       history_ymd = -999
       coupling_mode = @[CPLMODE]
-      test_interp = mapbilnr
+      test_interp = @[TESTMAP]
       dststatus_print = true
 ::
 ALLCOMP_attributes::
