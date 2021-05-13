@@ -88,6 +88,7 @@ MED_attributes::
       history_ymd = -999
       coupling_mode = @[CPLMODE]
       test_interp = mapbilnr
+      dststatus_print = true
 ::
 ALLCOMP_attributes::
       ScalarFieldCount = 2
