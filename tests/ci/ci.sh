@@ -24,7 +24,7 @@ usage_and_exit() {
   exit 2
 }
 
-IMG_NAME=$(sed -n 3p ci.test)
+IMG_NAME=ci-test-weather
 BUILD="false"
 RUN="false"
 TEST_NAME=""
@@ -48,7 +48,6 @@ while getopts :b:r:n: opt; do
 done
 
 # Read in TEST_NAME if not passed on
-TEST_NAME=${TEST_NAME:-$(sed -n 1p ci.test)}
 echo "test name is ${TEST_NAME}"
 
 if [ $BUILD = "true" ] && [ $RUN = "true" ]; then
@@ -72,15 +71,15 @@ if [ $BUILD = "true" ]; then
 
 elif [ $RUN == "true" ]; then
 
-  sudo docker run -d --rm -v DataVolume:/tmp minsukjinoaa/fv3-input-data:input-data-20210115
-  sudo docker run -d -e test_case=${TEST_CASE} -v DataVolume:/home/builder/data/NEMSfv3gfs/input-data-20210115 --name my-container ${IMG_NAME}
+  docker run -d --rm -v DataVolume:/tmp minsukjinoaa/fv3-input-data:input-data-20210115
+  docker run -d -e test_case=${TEST_CASE} --shm-size=512m -v DataVolume:/home/builder/data/NEMSfv3gfs/input-data-20210115 --name my-container ${IMG_NAME}
 
   echo 'cache,rss,shmem' >memory_stat
   sleep 3
-  containerID=$(sudo docker ps -q --no-trunc)
+  containerID=$(docker ps -q --no-trunc)
   check_memory_usage $containerID >>memory_stat &
 
-  sudo docker logs -f $containerID
-  exit $(sudo docker inspect $containerID --format='{{.State.ExitCode}}')
+  docker logs -f $containerID
+  exit $(docker inspect $containerID --format='{{.State.ExitCode}}')
 
 fi

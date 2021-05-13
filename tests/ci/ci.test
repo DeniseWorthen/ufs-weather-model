@@ -1,3 +1,2 @@
-fv3_ccpp_control
-rst bit
-ci-test-weather
+fv3_control
+thr mpi dcp rst bit dbg
