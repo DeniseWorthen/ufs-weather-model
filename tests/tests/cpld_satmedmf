@@ -62,5 +62,6 @@ export HYBEDMF='.false.'
 
 export FIELD_TABLE='field_table_satmedmf'
 export CCPP_SUITE='FV3_GFS_2017_satmedmf_coupled'
+export eps_imesh='2.5e-1'
 
 export FV3_RUN=cpld_control_run.IN

@@ -31,7 +31,7 @@
   #url = https://github.com/NOAA-EMC/CICE
   #branch = emc/develop
   url = https://github.com/DeniseWorthen/CICE
-  branch = feature/updcice
+  branch = feature/updcap_escomp
 [submodule "DATM"]
   path = DATM
   url = https://github.com/NOAA-EMC/NEMSdatm

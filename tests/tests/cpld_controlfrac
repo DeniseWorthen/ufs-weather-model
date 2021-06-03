@@ -62,5 +62,6 @@ export RESTART_N=${RESTART_INTERVAL}
 
 export FRAC_GRID='.T.'
 export CPLMODE='nems_frac'
+export eps_imesh='2.5e-1'
 
 export FV3_RUN=cpld_control_run.IN
