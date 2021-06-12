@@ -1,9 +1,7 @@
 [submodule "FV3"]
   path = FV3
-  #url = https://github.com/NOAA-EMC/fv3atm
-  #branch = develop
-  url = https://github.com/DeniseWorthen/fv3atm
-  branch = feature/noneg_zbot_export
+  url = https://github.com/NOAA-EMC/fv3atm
+  branch = develop
 [submodule "NEMS"]
   path = NEMS
   url = https://github.com/NOAA-EMC/NEMS
@@ -25,13 +23,11 @@
   #url = https://github.com/NOAA-EMC/CMEPS.git
   #branch = emc/develop
   url = https://github.com/DeniseWorthen/CMEPS.git
-  branch = bugfix/bilin
+  branch = bugfix/bilin_new
 [submodule "MOM6"]
   path = MOM6-interface/MOM6
   url = https://github.com/NOAA-EMC/MOM6
   branch = dev/emc
-  #url = https://github.com/DeniseWorthen/MOM6
-  #branch = feature/optmesh
 [submodule "CICE"]
   path = CICE-interface/CICE
   url = https://github.com/NOAA-EMC/CICE
