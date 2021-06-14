@@ -64,6 +64,6 @@ export NFHOUT_HF="1"
 
 export RESTART_N=${FHMAX}
 
-export TESTMAP='mapbilinr'
+export TESTMAP='mapbilnr'
 
 export FV3_RUN=cpld_control_run.IN
