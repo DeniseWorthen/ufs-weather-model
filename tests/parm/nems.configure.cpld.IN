@@ -66,11 +66,11 @@ runSeq::
      ICE -> MED :remapMethod=redist
      MED med_phases_post_ice
      MED med_phases_prep_ocn_accum
+     MED med_phases_history_write
    @
    OCN -> MED :remapMethod=redist
    MED med_phases_post_ocn
    MED med_phases_restart_write
-   MED med_phases_history_write
 @
 ::
 
