@@ -79,7 +79,8 @@ DT_ATMOS="600"
 export FV3_RUN=gfdlmp_run.IN
 export CCPP_SUITE=FV3_GFS_2017_ntiedtke
 export INPUT_NML=gfdlmp.nml.IN
-
+export FIELD_TABLE='field_table_gfdlmp'
+export DIAG_TABLE='diag_table_gfdlmp'
 
 export IMFSHALCNV=4
 export IMFDEEPCNV=4

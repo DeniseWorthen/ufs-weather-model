@@ -85,3 +85,5 @@ export NSTF_NAME=0,0,1,0,5
 export INPUT_NML=multi_gases.nml.IN
 export FV3_RUN=multigases_run.IN
 export CCPP_SUITE=FV3_GFS_2017_fv3wam
+export FIELD_TABLE='field_table_multi_gases'
+export DIAG_TABLE='diag_table_multi_gases'

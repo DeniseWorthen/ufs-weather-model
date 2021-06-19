@@ -51,3 +51,5 @@ export IAER=5111
 export OZ_PHYS_OLD=.F.
 export OZ_PHYS_NEW=.T.
 export H2O_PHYS=.T.
+export FIELD_TABLE='field_table_multi_gases'
+export DIAG_TABLE='diag_table_multi_gases'

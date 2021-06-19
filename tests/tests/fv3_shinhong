@@ -79,7 +79,8 @@ DT_ATMOS="1200"
 export FV3_RUN=gfdlmp_run.IN
 export CCPP_SUITE=FV3_GFS_2017_shinhong
 export INPUT_NML=gfdlmp.nml.IN
-
+export FIELD_TABLE='field_table_gfdlmp'
+export DIAG_TABLE='diag_table_gfdlmp'
 
 export HYBEDMF=.F.
 export SHINHONG=.T.
