@@ -1086,6 +1086,41 @@ Detailed descriptions of the supported suites can be found with the `CCPP v5.0.0
 ---------------------------------------
 A data stream is a time series of input forcing files. A data stream file describes the information about those input forcing files.
 
+.. list-table:: *Parameters that can be set in a data stream file at run-time.*
+      :widths: 20 30
+   :header-rows: 1
+
+   * - Parameter
+     - Meaning
+   * - taxmode01
+     - time axis mode
+   * - mapalgo01
+     - type of spatial mapping (default=bilinear)
+   * - tInterpAlgo01
+     - time interpolation algorithm option
+   * - readMode01
+     - number of forcing files to read in (current option is single)
+   * - dtimit01
+     - delta time ratio limits placed on the time interpolation (default=1. For monthly data, the ratio is 31/28.)
+   * - stream_offset01
+     - the shift of the time axis
+   * - yearFirst01
+     - the first year of the stream data
+   * - yearLast01
+     - the last year of the stream data
+   * - yearAlign01
+     - the simulation year corresponding to yearFirst01
+   * - stream_vectors01
+     - the paired vector field names
+   * - stream_mesh_file01
+     - stream mesh file name
+   * - stream_lev_dimname01
+     - null (only one ungrided dimension is used for the data stream)
+   * - stream_data_files01
+     - input forcing file names
+   * - stream_data_variables01
+     - a paired list with the name of the variable used in the file on the left and the name of the Fortran variable on the right
+
 A sample of the data stream file is shown below:
 
 .. code-block:: console
@@ -1106,23 +1141,6 @@ A sample of the data stream file is shown below:
   stream_data_files01:       DATM_INPUT/cfsr.201110.nc
   stream_data_variables01:  "slmsksfc Sa_mask" "DSWRF Faxa_swdn" "DLWRF Faxa_lwdn" "vbdsf_ave Faxa_swvdr" "vddsf_ave Faxa_swvdf" "nbdsf_ave Faxa_swndr" "nddsf_ave Faxa_swndf" "u10m Sa_u10m" "v10m Sa_v10m" "hgt_hyblev1 Sa_z" "psurf Sa_pslv" "tmp_hyblev1 Sa_tbot" "spfh_hyblev1 Sa_shum" "ugrd_hyblev1 Sa_u" "vgrd_hyblev1 Sa_v" "q2m Sa_q2m" "t2m Sa_t2m" "pres_hyblev1 Sa_pbot" "precp Faxa_rain" "fprecp Faxa_snow"
   ::
-
-
-where the suffix 01 refers to the first data stream and
-  taxmode01 is time axis mode
-  mapalgo01 is spatial interpolation algorithms
-  tInterpAlgo01 is time interpolation algorithm option
-  readMode01 is set to single at the moment (only a single forcing file is read in)
-  dtlimit01 specifies delta time ratio limits placed on the time interpolation (The default value is 1.0. For monthly data, the ratio is 31/28)
-  stream_offset01 specifies the shift of the time axis
-  yearFirst01 is the first year of the stream data
-  yearFirst01 is the last year of the stream data
-  yearAlign01 is the simulation year corresponding to yearFirst01
-  stream_vectors01 is the paired vector field names
-  stream_mesh_file01 is the stream mesh file name
-  stream_lev_dimname01 is null (only one ungrided dimension is used for the data stream)
-  stream_data_files01 specifies input forcing file names
-  stream_data_variables01 specifies a paired list with the name of the variable used in the file on the left and the name of the Fortran variable on the right)
 
 
 .. -------------------------------------------------------------------
