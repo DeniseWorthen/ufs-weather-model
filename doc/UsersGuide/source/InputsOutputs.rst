@@ -337,6 +337,7 @@ The configuration files used by the UFS Weather Model are listed here and descri
 - *model_configure*
 - *nems.configure*
 - *suite_[suite_name].xml* (used only at build time)
+- *datm.streams* (data stream configuration files used only for cdeps)
 
 While the *input.nml* file is also a configuration file used by the UFS Weather Model, it is described in
 :numref:`Section %s <InputNML>`.  The run-time configuration of model output fields is controlled by the combination of *diag_table* and *model_configure*, and is described in detail in :numref:`Section %s <OutputFiles>`.
@@ -1079,6 +1080,49 @@ There are two SDFs currently supported for the UFS Medium Range Weather App conf
 There are two SDFs currently supported for the UFS Short Range Weather App configuration: *suite_FV3_GFS_v15p2.xml* and *suite_FV3_RRFS_v1alpha.xml*.
 
 Detailed descriptions of the supported suites can be found with the `CCPP v5.0.0 Scientific Documentation <https://dtcenter.ucar.edu/GMTB/v5.0.0/sci_doc/>`_.
+
+---------------------------------------
+*The Data stream configuration file*
+---------------------------------------
+A data stream is a time series of input forcing files. A data stream file describes the information about those input forcing files.
+
+A sample of the data stream file is shown below:
+
+.. code-block:: console
+
+  stream_info:               cfsr.01
+  taxmode01:                 cycle
+  mapalgo01:                 bilinear
+  tInterpAlgo01:             linear
+  readMode01:                single
+  dtlimit01:                 1.0
+  stream_offset01:           0
+  yearFirst01:               2011
+  yearLast01:                2011
+  yearAlign01:               2011
+  stream_vectors01:          "u:v"
+  stream_mesh_file01:        DATM_INPUT/cfsr_mesh.nc
+  stream_lev_dimname01:      null
+  stream_data_files01:       DATM_INPUT/cfsr.201110.nc
+  stream_data_variables01:  "slmsksfc Sa_mask" "DSWRF Faxa_swdn" "DLWRF Faxa_lwdn" "vbdsf_ave Faxa_swvdr" "vddsf_ave Faxa_swvdf" "nbdsf_ave Faxa_swndr" "nddsf_ave Faxa_swndf" "u10m Sa_u10m" "v10m Sa_v10m" "hgt_hyblev1 Sa_z" "psurf Sa_pslv" "tmp_hyblev1 Sa_tbot" "spfh_hyblev1 Sa_shum" "ugrd_hyblev1 Sa_u" "vgrd_hyblev1 Sa_v" "q2m Sa_q2m" "t2m Sa_t2m" "pres_hyblev1 Sa_pbot" "precp Faxa_rain" "fprecp Faxa_snow"
+  ::
+
+
+where the suffix 01 refers to the first data stream and
+  taxmode01 is time axis mode
+  mapalgo01 is spatial interpolation algorithms
+  tInterpAlgo01 is time interpolation algorithm option
+  readMode01 is set to single at the moment (only a single forcing file is read in)
+  dtlimit01 specifies delta time ratio limits placed on the time interpolation (The default value is 1.0. For monthly data, the ratio is 31/28)
+  stream_offset01 specifies the shift of the time axis
+  yearFirst01 is the first year of the stream data
+  yearFirst01 is the last year of the stream data
+  yearAlign01 is the simulation year corresponding to yearFirst01
+  stream_vectors01 is the paired vector field names
+  stream_mesh_file01 is the stream mesh file name
+  stream_lev_dimname01 is null (only one ungrided dimension is used for the data stream)
+  stream_data_files01 specifies input forcing file names
+  stream_data_variables01 specifies a paired list with the name of the variable used in the file on the left and the name of the Fortran variable on the right)
 
 
 .. -------------------------------------------------------------------
