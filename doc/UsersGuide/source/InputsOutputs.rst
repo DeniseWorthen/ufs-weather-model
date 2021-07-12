@@ -1087,7 +1087,7 @@ Detailed descriptions of the supported suites can be found with the `CCPP v5.0.0
 A data stream is a time series of input forcing files. A data stream file describes the information about those input forcing files.
 
 .. list-table:: *Parameters that can be set in a data stream file at run-time.*
-      :widths: 20 30
+   :widths: 20 30
    :header-rows: 1
 
    * - Parameter
