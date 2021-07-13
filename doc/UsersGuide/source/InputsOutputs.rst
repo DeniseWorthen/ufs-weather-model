@@ -1082,7 +1082,7 @@ There are two SDFs currently supported for the UFS Short Range Weather App confi
 Detailed descriptions of the supported suites can be found with the `CCPP v5.0.0 Scientific Documentation <https://dtcenter.ucar.edu/GMTB/v5.0.0/sci_doc/>`_.
 
 ---------------------------------------
-*The Data stream configuration file*
+*The data stream configuration file*
 ---------------------------------------
 A data stream is a time series of input forcing files. A data stream file describes the information about those input forcing files.
 
@@ -1140,8 +1140,61 @@ A sample of the data stream file is shown below:
   stream_lev_dimname01:      null
   stream_data_files01:       DATM_INPUT/cfsr.201110.nc
   stream_data_variables01:  "slmsksfc Sa_mask" "DSWRF Faxa_swdn" "DLWRF Faxa_lwdn" "vbdsf_ave Faxa_swvdr" "vddsf_ave Faxa_swvdf" "nbdsf_ave Faxa_swndr" "nddsf_ave Faxa_swndf" "u10m Sa_u10m" "v10m Sa_v10m" "hgt_hyblev1 Sa_z" "psurf Sa_pslv" "tmp_hyblev1 Sa_tbot" "spfh_hyblev1 Sa_shum" "ugrd_hyblev1 Sa_u" "vgrd_hyblev1 Sa_v" "q2m Sa_q2m" "t2m Sa_t2m" "pres_hyblev1 Sa_pbot" "precp Faxa_rain" "fprecp Faxa_snow"
-  ::
 
+
+---------------------------------------
+*The data stream namelist file*
+---------------------------------------
+
+.. list-table:: *Parameters that can be set in a data stream namelist file at run-time.*
+   :widths: 20 30
+   :header-rows: 1
+
+   * - Parameter
+     - Meaning
+   * - datamode
+     - data mode (such as CFSR, GEFS, etc.)
+   * - factorfn_data
+     - file containing correction factor for input data
+   * - factorfn_mesh
+     - file containing correction factor for input mesh
+   * - flds_co2
+     - if true, prescribed co2 data is sent to the mediator
+   * - flds_presaero
+     - if true, prescribed aerosol data is sent to the mediator
+   * - flds_wiso
+     - if true, water isotops data is sent to the mediator
+   * - iradsw
+     - the frequency to update the shortwave radiation in number of steps (or hours if negative)
+   * - model_maskfile
+     - data stream mask file name
+   * - model_meshfile
+     - data stream mesh file name
+   * - nx_global 
+     - number of grid points in zonal direction 
+   * - ny_global 
+     - number of grid points in meridional direction 
+   * - restfilm
+     - model restart file namelist
+
+A sample of the data stream namelist file is shown below:
+
+.. code-block:: console
+
+  &datm_nml
+  datamode = "CFSR"
+  factorfn_data = "null"
+  factorfn_mesh = "null"
+  flds_co2 = .false.
+  flds_presaero = .false.
+  flds_wiso = .false.
+  iradsw = 1
+  model_maskfile = "DATM_INPUT/cfsr_mesh.nc"
+  model_meshfile = "DATM_INPUT/cfsr_mesh.nc"
+  nx_global = 1760
+  ny_global = 880
+  restfilm = "null"
+  /
 
 .. -------------------------------------------------------------------
 .. Include InputNML file describing the contents of the input.nml file
