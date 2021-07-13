@@ -337,7 +337,8 @@ The configuration files used by the UFS Weather Model are listed here and descri
 - *model_configure*
 - *nems.configure*
 - *suite_[suite_name].xml* (used only at build time)
-- *datm.streams* (data stream configuration files used only for cdeps)
+- *datm.streams* (used by cdeps)
+- *datm_in* (used by cdeps)
 
 While the *input.nml* file is also a configuration file used by the UFS Weather Model, it is described in
 :numref:`Section %s <InputNML>`.  The run-time configuration of model output fields is controlled by the combination of *diag_table* and *model_configure*, and is described in detail in :numref:`Section %s <OutputFiles>`.
@@ -1082,11 +1083,11 @@ There are two SDFs currently supported for the UFS Short Range Weather App confi
 Detailed descriptions of the supported suites can be found with the `CCPP v5.0.0 Scientific Documentation <https://dtcenter.ucar.edu/GMTB/v5.0.0/sci_doc/>`_.
 
 ---------------------------------------
-*The data stream configuration file*
+*datm.streams*
 ---------------------------------------
-A data stream is a time series of input forcing files. A data stream file describes the information about those input forcing files.
+A data stream is a time series of input forcing files. A data stream configuration file (datm.streams) describes the information about those input forcing files.
 
-.. list-table:: *Parameters that can be set in a data stream file at run-time.*
+.. list-table:: *Parameters that can be set in a data stream configuration file at run-time.*
    :widths: 20 30
    :header-rows: 1
 
@@ -1143,10 +1144,10 @@ A sample of the data stream file is shown below:
 
 
 ---------------------------------------
-*The data stream namelist file*
+*datm_in*
 ---------------------------------------
 
-.. list-table:: *Parameters that can be set in a data stream namelist file at run-time.*
+.. list-table:: *Parameters that can be set in a data stream namelist file (datm_in) at run-time.*
    :widths: 20 30
    :header-rows: 1
 
@@ -1163,7 +1164,7 @@ A sample of the data stream file is shown below:
    * - flds_presaero
      - if true, prescribed aerosol data is sent to the mediator
    * - flds_wiso
-     - if true, water isotops data is sent to the mediator
+     - if true, water isotopes data is sent to the mediator
    * - iradsw
      - the frequency to update the shortwave radiation in number of steps (or hours if negative)
    * - model_maskfile
