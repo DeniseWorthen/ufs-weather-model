@@ -1102,9 +1102,9 @@ A data stream is a time series of input forcing files. A data stream configurati
    * - readMode01
      - number of forcing files to read in (current option is single)
    * - dtimit01
-     - delta time ratio limits placed on the time interpolation (default=1. For monthly data, the ratio is 31/28.)
+     - ratio of max/min stream delta times (default=1.0. For monthly data, the ratio is 31/28.)
    * - stream_offset01
-     - the shift of the time axis
+     - shift of the time axis of a data stream in seconds (Positive offset advances the time axis forward.)
    * - yearFirst01
      - the first year of the stream data
    * - yearLast01
@@ -1116,7 +1116,7 @@ A data stream is a time series of input forcing files. A data stream configurati
    * - stream_mesh_file01
      - stream mesh file name
    * - stream_lev_dimname01
-     - null (only one ungrided dimension is used for the data stream)
+     - name of vertical dimension in data stream
    * - stream_data_files01
      - input forcing file names
    * - stream_data_variables01
