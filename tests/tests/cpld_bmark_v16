@@ -1,7 +1,6 @@
 #
 #  cpld_bmark_v16 test
 #
-
 export TEST_DESCR="Fully coupled FV3-CCPP-MOM6-CICE-CMEPS system - C384L127 MX025 - Benchmark test - v16"
 
 export CNTL_DIR="cpld_bmark_v16"
