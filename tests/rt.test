@@ -1,0 +1,8 @@
+COMPILE | -DAPP=S2S -DCCPP_SUITES=FV3_GFS_2017_coupled,FV3_GFS_v15p2_coupled,FV3_GFS_v16_coupled,FV3_GFS_v16_couplednsst          | - wcoss_cray       | fv3 |
+
+#3h/3h/6h restart test
+# test fails on gaea with esmfpio error for tiled output
+RUN     | cpld_bmark_v16                                                                                                          | - wcoss_cray                            | fv3 |
+RUN     | cpld_restart_bmark_v16                                                                                                  | - wcoss_cray                            |     | cpld_bmark_v16
+RUN     | cpld_bmark_v16_nsst                                                                                                     | - wcoss_cray                            | fv3 |
+RUN     | cpld_restart_bmark_v16_nsst                                                                                             | - wcoss_cray                            |     | cpld_bmark_v16_nsst
