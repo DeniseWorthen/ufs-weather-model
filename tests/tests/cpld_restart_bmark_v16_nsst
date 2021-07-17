@@ -112,7 +112,7 @@ export NPZ=127
 export NPZP=128
 export PSM_BC=1
 export DDDMP=0.2
-export NSTF_NAME=2,1,0,0,0
+export NSTF_NAME=2,0,0,0,0
 
 # P6 settings
 export IALB=1
