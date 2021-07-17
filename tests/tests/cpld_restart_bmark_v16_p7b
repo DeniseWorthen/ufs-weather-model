@@ -111,7 +111,6 @@ export NPZ=127
 export NPZP=128
 export PSM_BC=1
 export DDDMP=0.2
-export NSTF_NAME=2,1,0,0,0
 
 # P7 settings
 export IALB=2
@@ -167,6 +166,7 @@ export NA_INIT='0'
 export EXTERNAL_IC='.F.'
 export NGGPS_IC='.F.'
 export MOUNTAIN='.T.'
+export NSTF_NAME=2,0,0,0,0
 
 # ICE warm start
 export CICERUNTYPE='continue'
