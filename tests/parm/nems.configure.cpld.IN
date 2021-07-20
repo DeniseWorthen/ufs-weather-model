@@ -66,10 +66,12 @@ runSeq::
      ICE -> MED :remapMethod=redist
      MED med_phases_post_ice
      MED med_phases_prep_ocn_accum
+     MED med_phases_history_write
    @
    OCN -> MED :remapMethod=redist
    MED med_phases_post_ocn
    MED med_phases_restart_write
+   MED med_phases_history_write_ocn
 @
 ::
 
@@ -84,6 +86,12 @@ MED_attributes::
       OCN_model = @[ocn_model]
       history_n = 1
       history_option = nhours
+      history_n_ocn_inst = 1
+      history_option_ocn_inst = nsteps
+      history_n_atm_inst = 1
+      history_option_atm_inst = nsteps
+      history_n_ice_inst = 1
+      history_option_ice_inst = nsteps
       history_ymd = -999
       coupling_mode = @[CPLMODE]
 ::
