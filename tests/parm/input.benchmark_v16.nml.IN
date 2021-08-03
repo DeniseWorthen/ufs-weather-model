@@ -2,11 +2,6 @@
   blocksize = 32
   chksum_debug = .false.
   dycore_only = .false.
-  fdiag = @[FDIAG]
-  fhmax = @[FHMAX]
-  fhout = @[NFHOUT]
-  fhmaxhf = @[NFHMAX_HF]
-  fhouthf = @[NFHOUT_HF]
   ccpp_suite = '@[CCPP_SUITE]'
   
 /
@@ -122,7 +117,6 @@
   fhcyc        = 24
   use_ufo      = .true.
   pre_rad      = .false.
-  ncld         = 5
   imp_physics  = 11
   pdfcld       = .false.
   fhswr        = 3600.
@@ -146,7 +140,8 @@
   hybedmf      = .false.
   satmedmf     = .true.
   isatmedmf    = 1
-  lheatstrg    = .false.
+  lheatstrg    = @[LHEATSTRG]
+  lseaspray    = @[LSEASPRAY]
   random_clds  = .false.
   trans_trac   = .true.
   cnvcld       = .true.

@@ -2,7 +2,6 @@
        blocksize = 32
        chksum_debug = .false.
        dycore_only = .false.
-       fdiag = @[FDIAG]
        ccpp_suite = '@[CCPP_SUITE]'
 /
 
@@ -115,7 +114,6 @@
        nst_anl        = .true.
        use_ufo        = .true.
        pre_rad        = .false.
-       ncld           = 5
        imp_physics    = @[IMP_PHYSICS]
        ltaerosol      = @[LTAEROSOL]
        lradar         = @[LRADAR]
@@ -143,6 +141,7 @@
        satmedmf       = @[SATMEDMF]
        isatmedmf      = 1
        lheatstrg      = @[LHEATSTRG]
+       lseaspray      = @[LSEASPRAY]
        do_mynnedmf    = @[DO_MYNNEDMF]
        do_mynnsfclay  = @[DO_MYNNSFCLAY]
        effr_in        = .true.
