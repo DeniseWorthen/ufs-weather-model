@@ -1,7 +1,10 @@
+
 ###################################################################################################################################################################################
-# CPLD tests                                                                                                                                                                      #
+# S2S tests                                                                                                                                                                    #
 ###################################################################################################################################################################################
 
-COMPILE | -DAPP=S2S -DCCPP_SUITES=FV3_GFS_2017_coupled,FV3_GFS_v16_coupled,FV3_GFS_v16_couplednsst                                                        | - wcoss_cray             | fv3 |
-RUN     | cpld_control                                                                                                                                    | - wcoss_cray             | fv3 |
-RUN     | cpld_control_biln                                                                                                                               | - wcoss_cray             | fv3 |
+COMPILE | -DAPP=S2S -DCCPP_SUITES=FV3_GFS_v16_coupled_nsstNoahmpUGWPv1                                                            | - wcoss_cray                            | fv3 |
+#COMPILE | -DAPP=S2S -DDEBUG=ON -DCCPP_SUITES=FV3_GFS_v16_coupled_nsstNoahmpUGWPv1                                                 | - wcoss_cray                            | fv3 |
+# Waves off
+RUN     | cpld_control_p7                                                                                                         | - wcoss_cray                            | fv3 |
+RUN     | cpld_control_p7_biln                                                                                                    | - wcoss_cray                            | fv3 |
