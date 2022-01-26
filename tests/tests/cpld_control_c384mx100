@@ -65,7 +65,7 @@ export MOM_INPUT=MOM_input_template_${OCNRES}
 export MESHOCN_ICE=mesh.mx${OCNRES}.nc
 export CICEGRID=grid_cice_NEMS_mx${OCNRES}.nc
 export CICEMASK=kmtu_cice_NEMS_mx${OCNRES}.nc
-export CHLCLIM=''
+export CHLCLIM=seawifs_1998-2006_smoothed_2X.nc
 export FRUNOFF=''
 export MOM6_RIVER_RUNOFF=False
 
@@ -84,6 +84,8 @@ export CPLWAV=.false.
 export CPLWAV2ATM=.false.
 export MOM6_USE_WAVES=False
 export eps_imesh=2.5e-1
+export TOPOEDITS=ufs.topo_edits_011818.nc
+export MOM6_ALLOW_LANDMASK_CHANGES=True
 
 export NEMS_CONFIGURE=nems.configure.cpld.IN
 
