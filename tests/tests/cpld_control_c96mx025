@@ -51,10 +51,10 @@ export ocn_petlist_bounds=$OPB_cpl_c384
 export ice_petlist_bounds=$IPB_cpl_c384
 
 # explicit timesteps all components, all tests
-export DT_ATMOS=300
+export DT_ATMOS=720
 export DT_CICE=${DT_ATMOS}
-export DT_DYNAM_MOM6=300
-export DT_THERM_MOM6=300
+export DT_DYNAM_MOM6=720
+export DT_THERM_MOM6=720
 
 # nems.configure
 export coupling_interval_slow_sec=${DT_THERM_MOM6}
