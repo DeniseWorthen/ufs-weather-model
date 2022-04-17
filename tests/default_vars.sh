@@ -462,7 +462,8 @@ elif [[ $MACHINE_ID = cheyenne.* ]]; then
   TASKS_strnest=96 ; TPN_strnest=18 ; INPES_strnest=2 ; JNPES_strnest=4
 
   TASKS_cpl_atmw=180; TPN_cpl_atmw=40; INPES_cpl_atmw=3; JNPES_cpl_atmw=8
-  THRD_cpl_atmw=1; WPG_cpl_atmw=6; APB_cpl_atmw="0 149"; WPB_cpl_atmw="150 179"
+  THRD_cpl_atmw=1; WPG_cpl_atmw=6; MPB_cpl_c96="0 143"; APB_cpl_atmw="0 149"
+  WPB_cpl_atmw="150 179"
 
   TASKS_cpl_atmw_gdas=576; TPN_cpl_atmw_gdas=12; INPES_cpl_atmw_gdas=6; JNPES_cpl_atmw_gdas=8
   THRD_cpl_atmw_gdas=3; WPG_cpl_atmw_gdas=24; APB_cpl_atmw_gdas="0 311"; WPB_cpl_atmw_gdas="312 575"
