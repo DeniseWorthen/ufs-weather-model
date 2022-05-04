@@ -51,6 +51,12 @@ rt_single() {
       tmp_test=$(echo $line | cut -d'|' -f2 | sed -e 's/^ *//' -e 's/ *$//')
       if [[ $SINGLE_NAME == $tmp_test && $compile_line != '' ]]; then
         echo $compile_line >$TESTS_FILE
+        dep_test=$(echo $line | grep -w $tmp_test | cut -d'|' -f5 | sed -e 's/^ *//' -e 's/ *$//')
+        if [[ $dep_test != '' ]]; then
+          dep_line=$(cat rt.conf | grep -w "$dep_test" | grep -v "$tmp_test")
+          dep_line="${dep_line#"${dep_line%%[![:space:]]*}"}"
+          echo $dep_line >>$TESTS_FILE
+        fi
         echo $line >>$TESTS_FILE
         break
       fi
@@ -295,8 +301,8 @@ elif [[ $MACHINE_ID = jet.* ]]; then
 
   export PATH=/lfs4/HFIP/hfv3gfs/software/miniconda3/4.8.3/envs/ufs-weather-model/bin:/lfs4/HFIP/hfv3gfs/software/miniconda3/4.8.3/bin:$PATH
   export PYTHONPATH=/lfs4/HFIP/hfv3gfs/software/miniconda3/4.8.3/envs/ufs-weather-model/lib/python3.8/site-packages:/lfs4/HFIP/hfv3gfs/software/miniconda3/4.8.3/lib/python3.8/site-packages
-  ECFLOW_START=/lfs4/HFIP/hfv3gfs/software/miniconda3/4.8.3/envs/ufs-weather-model/bin/ecflow_start.sh
-  ECF_PORT=$(( $(id -u) + 1500 ))
+  module load ecflow
+  ECFLOW_START=/apps/ecflow/5.5.3/bin/ecflow_start.sh
 
   QUEUE=batch
   COMPILE_QUEUE=batch
@@ -349,7 +355,7 @@ elif [[ $MACHINE_ID = cheyenne.* ]]; then
   COMPILE_QUEUE=regular
   PARTITION=
   dprefix=/glade/scratch
-  DISKNM=/glade/p/ral/jntp/GMTB/ufs-weather-model/RT
+  DISKNM=/glade/scratch/epicufsrt/GMTB/ufs-weather-model/RT
   STMP=$dprefix
   PTMP=$dprefix
   SCHEDULER=pbs
@@ -479,18 +485,16 @@ if [[ $TESTS_FILE =~ '35d' ]] || [[ $TESTS_FILE =~ 'weekly' ]]; then
   TEST_35D=true
 fi
 
-BL_DATE=20220207
+BL_DATE=20220502
 if [[ $MACHINE_ID = hera.* ]] || [[ $MACHINE_ID = orion.* ]] || [[ $MACHINE_ID = cheyenne.* ]] || [[ $MACHINE_ID = gaea.* ]] || [[ $MACHINE_ID = jet.* ]] || [[ $MACHINE_ID = s4.* ]]; then
-  #RTPWD=${RTPWD:-$DISKNM/NEMSfv3gfs/develop-${BL_DATE}/${RT_COMPILER^^}}
-  RTPWD="/glade/scratch/worthen/FV3_RT/shel_wavebl_20220214"
+  RTPWD=${RTPWD:-$DISKNM/NEMSfv3gfs/develop-${BL_DATE}/${RT_COMPILER^^}}
 else
   RTPWD=${RTPWD:-$DISKNM/NEMSfv3gfs/develop-${BL_DATE}}
 fi
 
-INPUTDATA_ROOT="/glade/scratch/worthen/input-data-20220130"
-#INPUTDATA_ROOT=${INPUTDATA_ROOT:-$DISKNM/NEMSfv3gfs/input-data-20211210}
+INPUTDATA_ROOT=${INPUTDATA_ROOT:-$DISKNM/NEMSfv3gfs/input-data-20220414}
 INPUTDATA_ROOT_WW3=${INPUTDATA_ROOT}/WW3_input_data_20211113
-INPUTDATA_ROOT_BMIC=${INPUTDATA_ROOT_BMIC:-$DISKNM/NEMSfv3gfs/BM_IC-20210717}
+INPUTDATA_ROOT_BMIC=${INPUTDATA_ROOT_BMIC:-$DISKNM/NEMSfv3gfs/BM_IC-20220207}
 
 shift $((OPTIND-1))
 [[ $# -gt 1 ]] && usage
@@ -518,7 +522,6 @@ source default_vars.sh
 JOB_NR=0
 TEST_NR=0
 COMPILE_NR=0
-COMPILE_PREV_WW3_NR=''
 rm -f fail_test* fail_compile*
 
 export LOG_DIR=${PATHRT}/log_$MACHINE_ID
@@ -596,8 +599,7 @@ if [[ $ECFLOW == true ]]; then
   MAX_JOBS=30
 
   # Default number of tries to run jobs - on wcoss, no error tolerance
-  #ECF_TRIES=2
-  ECF_TRIES=1
+  ECF_TRIES=2
   if [[ $MACHINE_ID = wcoss* ]]; then
     ECF_TRIES=1
   fi
@@ -728,19 +730,8 @@ EOF
       ./run_compile.sh ${PATHRT} ${RUNDIR_ROOT} "${MAKE_OPT}" ${COMPILE_NR} > ${LOG_DIR}/compile_${COMPILE_NR}.log 2>&1
     fi
 
-    # Set RT_SUFFIX (regression test run directories and log files) and BL_SUFFIX
-    # (regression test baseline directories) for REPRO or PROD runs
-    if [[ ${MAKE_OPT^^} =~ "-DREPRO=ON" ]]; then
-      RT_SUFFIX="_repro"
-      BL_SUFFIX="_repro"
-    else
-      RT_SUFFIX=""
-      BL_SUFFIX=""
-    fi
-
-    if [[ ${MAKE_OPT^^} =~ "-DAPP=ATMW" ]] || [[ ${MAKE_OPT^^} =~ "-DAPP=S2SW" ]] || [[ ${MAKE_OPT^^} =~ "-DAPP=HAFSW" ]] || [[ ${MAKE_OPT^^} =~ "-DAPP=HAFS-ALL" ]] ; then
-       COMPILE_PREV_WW3_NR=${COMPILE_NR}
-    fi
+    RT_SUFFIX=""
+    BL_SUFFIX=""
 
     continue
 
@@ -817,6 +808,12 @@ EOF
       export skip_check_results=${skip_check_results}
       export delete_rundir=${delete_rundir}
 EOF
+      if [[ $MACHINE_ID = jet.* ]]; then
+        cat << EOF >> ${RUNDIR_ROOT}/run_test_${TEST_NR}.env
+      export PATH=/lfs4/HFIP/hfv3gfs/software/miniconda3/4.8.3/envs/ufs-weather-model/bin:/lfs4/HFIP/hfv3gfs/software/miniconda3/4.8.3/bin:$PATH
+      export PYTHONPATH=/lfs4/HFIP/hfv3gfs/software/miniconda3/4.8.3/envs/ufs-weather-model/lib/python3.8/site-packages:/lfs4/HFIP/hfv3gfs/software/miniconda3/4.8.3/lib/python3.8/site-packages
+EOF
+      fi
 
       if [[ $ROCOTO == true ]]; then
         rocoto_create_run_task
