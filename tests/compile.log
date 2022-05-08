@@ -1,0 +1,1478 @@
++ SECONDS=0
+++ uname -s
++ [[ Linux == Darwin ]]
+++++ readlink -f -n ./compile.sh
++++ dirname /glade/work/worthen/ufs_cesmwaves/tests/compile.sh
+++ cd /glade/work/worthen/ufs_cesmwaves/tests
+++ pwd -P
++ readonly MYDIR=/glade/work/worthen/ufs_cesmwaves/tests
++ MYDIR=/glade/work/worthen/ufs_cesmwaves/tests
++ readonly ARGC=5
++ ARGC=5
++ [[ 5 -lt 2 ]]
++ MACHINE_ID=cheyenne.intel
++ MAKE_OPT='-DAPP=S2SW -DDEBUG=ON -DCCPP_SUITES=FV3_GFS_v17_coupled_p8'
++ COMPILE_NR=
++ clean_before=NO
++ clean_after=NO
++ BUILD_NAME=fv3
+++ cd /glade/work/worthen/ufs_cesmwaves/tests/..
+++ pwd
++ PATHTR=/glade/work/worthen/ufs_cesmwaves
+++ pwd
++ BUILD_DIR=/glade/work/worthen/ufs_cesmwaves/tests/build_fv3
++ [[ cheyenne.intel == cheyenne.* ]]
++ BUILD_JOBS=3
++ BUILD_JOBS=3
++ hostname
+cheyenne6
++ set +x
+
+Due to MODULEPATH changes, the following have been reloaded:
+  1) ncarcompilers/0.5.0
+
+The following have been reloaded with a version change:
+  1) intel/19.1.1 => intel/2021.2     2) mpt/2.25 => mpt/2.22     3) netcdf/4.8.1 => netcdf/4.7.4
+
+
+Currently Loaded Modules:
+  1) vim/8.1        8) ncarcompilers/0.5.0  15) hdf5/1.10.8          22) g2/3.4.2            29) mapl/2.11.0-esmf-8.3.0b09
+  2) xxdiff/4.0.1   9) hpc/1.2.0            16) netcdf/4.7.4         23) g2tmpl/1.10.0       30) ufs_common_debug
+  3) cmake/3.22.0  10) hpc-intel/2021.2     17) pio/2.5.2            24) ip/3.3.3            31) ufs_cheyenne.intel_debug
+  4) python/3.7.9  11) hpc-mpt/2.22         18) esmf/8.3.0b09-debug  25) sp/2.3.3
+  5) ncarenv/1.3   12) jasper/2.0.22        19) fms/2022.01          26) w3nco/2.4.1
+  6) intel/2021.2  13) zlib/1.2.11          20) bacio/2.4.1          27) gftl-shared/v1.3.3
+  7) mpt/2.22      14) png/1.6.35           21) crtm/2.3.0           28) yafyaml/v0.5.1
+
+ 
+
++ echo 'Compiling -DAPP=S2SW -DDEBUG=ON -DCCPP_SUITES=FV3_GFS_v17_coupled_p8 into fv3.exe on cheyenne.intel'
+Compiling -DAPP=S2SW -DDEBUG=ON -DCCPP_SUITES=FV3_GFS_v17_coupled_p8 into fv3.exe on cheyenne.intel
++ CMAKE_FLAGS='-DAPP=S2SW -DDEBUG=ON -DCCPP_SUITES=FV3_GFS_v17_coupled_p8'
++ mkdir -p /glade/work/worthen/ufs_cesmwaves/FV3/ccpp/include
++ CMAKE_FLAGS+=' -DMPI=ON'
++ [[ -DAPP=S2SW -DDEBUG=ON -DCCPP_SUITES=FV3_GFS_v17_coupled_p8 == *\-\D\D\E\B\U\G\=\O\N* ]]
++ CMAKE_FLAGS+=' -DCMAKE_BUILD_TYPE=Debug'
++ set +ex
+Compiling suites FV3_GFS_v17_coupled_p8
++ [[ -DAPP=S2SW -DDEBUG=ON -DCCPP_SUITES=FV3_GFS_v17_coupled_p8 == *\-\D\A\P\P\=\S\2\S* ]]
++ CMAKE_FLAGS+=' -DMOM6SOLO=ON'
++ [[ -DAPP=S2SW -DDEBUG=ON -DCCPP_SUITES=FV3_GFS_v17_coupled_p8 == *\-\D\A\P\P\=\N\G\-\G\O\D\A\S* ]]
+++ trim '-DAPP=S2SW -DDEBUG=ON -DCCPP_SUITES=FV3_GFS_v17_coupled_p8 -DMPI=ON -DCMAKE_BUILD_TYPE=Debug -DMOM6SOLO=ON'
+++ local 'var=-DAPP=S2SW -DDEBUG=ON -DCCPP_SUITES=FV3_GFS_v17_coupled_p8 -DMPI=ON -DCMAKE_BUILD_TYPE=Debug -DMOM6SOLO=ON'
+++ var='-DAPP=S2SW -DDEBUG=ON -DCCPP_SUITES=FV3_GFS_v17_coupled_p8 -DMPI=ON -DCMAKE_BUILD_TYPE=Debug -DMOM6SOLO=ON'
+++ var='-DAPP=S2SW -DDEBUG=ON -DCCPP_SUITES=FV3_GFS_v17_coupled_p8 -DMPI=ON -DCMAKE_BUILD_TYPE=Debug -DMOM6SOLO=ON'
+++ echo -n '-DAPP=S2SW -DDEBUG=ON -DCCPP_SUITES=FV3_GFS_v17_coupled_p8 -DMPI=ON -DCMAKE_BUILD_TYPE=Debug -DMOM6SOLO=ON'
++ CMAKE_FLAGS='-DAPP=S2SW -DDEBUG=ON -DCCPP_SUITES=FV3_GFS_v17_coupled_p8 -DMPI=ON -DCMAKE_BUILD_TYPE=Debug -DMOM6SOLO=ON'
++ echo 'CMAKE_FLAGS = -DAPP=S2SW -DDEBUG=ON -DCCPP_SUITES=FV3_GFS_v17_coupled_p8 -DMPI=ON -DCMAKE_BUILD_TYPE=Debug -DMOM6SOLO=ON'
+CMAKE_FLAGS = -DAPP=S2SW -DDEBUG=ON -DCCPP_SUITES=FV3_GFS_v17_coupled_p8 -DMPI=ON -DCMAKE_BUILD_TYPE=Debug -DMOM6SOLO=ON
++ '[' NO = YES ']'
++ export BUILD_VERBOSE=1
++ BUILD_VERBOSE=1
++ export BUILD_DIR
++ export BUILD_JOBS
++ export CMAKE_FLAGS
++ bash -x /glade/work/worthen/ufs_cesmwaves/build.sh
++ set -eu
+++ uname -s
++ [[ Linux == Darwin ]]
+++++ readlink -f -n /glade/work/worthen/ufs_cesmwaves/build.sh
++++ dirname /glade/work/worthen/ufs_cesmwaves/build.sh
+++ cd /glade/work/worthen/ufs_cesmwaves
+++ pwd -P
++ readonly UFS_MODEL_DIR=/glade/work/worthen/ufs_cesmwaves
++ UFS_MODEL_DIR=/glade/work/worthen/ufs_cesmwaves
++ export CC=mpicc
++ CC=mpicc
++ export CXX=mpicxx
++ CXX=mpicxx
++ export FC=mpif90
++ FC=mpif90
++ BUILD_DIR=/glade/work/worthen/ufs_cesmwaves/tests/build_fv3
++ mkdir -p /glade/work/worthen/ufs_cesmwaves/tests/build_fv3
++ cd /glade/work/worthen/ufs_cesmwaves/tests/build_fv3
++ cmake /glade/work/worthen/ufs_cesmwaves -DAPP=S2SW -DDEBUG=ON -DCCPP_SUITES=FV3_GFS_v17_coupled_p8 -DMPI=ON -DCMAKE_BUILD_TYPE=Debug -DMOM6SOLO=ON
+
+Configuring UFS app in S2S with Waves mode
+
+FMS .............. ON
+FV3 .............. ON
+AQM .............. OFF
+GOCART ........... OFF
+MOM6 ............. ON
+HYCOM ............ OFF
+CICE6 ............ ON
+WW3 .............. ON
+STOCH_PHYS ....... ON
+CDEPS ............ OFF
+CMEPS ............ ON
+
+Setting configuration for cheyenne.intel
+
+32BIT ............ OFF
+AVX2 ............. ON
+SIMDMULTIARCH .... OFF
+DEBUG ............ ON
+DEBUG_LINKMPI .... OFF
+INLINE_POST ...... ON
+MULTI_GASES ...... OFF
+MOVING_NEST ...... OFF
+OPENMP ........... ON
+PARALLEL_NETCDF .. ON
+JEDI_DRIVER ...... OFF
+
+-- Found MPI: TRUE (found version "3.1")  
+-- Found OpenMP_C: -qopenmp (found version "5.0") 
+-- Found OpenMP_CXX: -qopenmp (found version "5.0") 
+-- Found OpenMP_Fortran: -qopenmp (found version "5.0") 
+-- Found OpenMP: TRUE (found version "5.0")  
+-- Found NetCDF: /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/netcdf/4.7.4/include (found version "4.7.4") found components: C Fortran 
+-- FindNetCDF defines targets:
+--   - NetCDF_VERSION [4.7.4]
+--   - NetCDF_PARALLEL [TRUE]
+--   - NetCDF_C_CONFIG_EXECUTABLE [/glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/netcdf/4.7.4/bin/nc-config]
+--   - NetCDF::NetCDF_C [SHARED] [Root: /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/netcdf/4.7.4] Lib: /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/netcdf/4.7.4/lib/libnetcdf.so 
+--   - NetCDF_Fortran_CONFIG_EXECUTABLE [/glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/netcdf/4.7.4/bin/nf-config]
+--   - NetCDF::NetCDF_Fortran [SHARED] [Root: /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/netcdf/4.7.4] Lib: /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/netcdf/4.7.4/lib/libnetcdff.so 
+-- Detected ESMF Beta snapshot v8.3.0b09
+-- Found MPI: TRUE (found version "3.1") found components: Fortran 
+-- Found OpenMP_Fortran: -qopenmp (found version "5.0") 
+-- Found OpenMP: TRUE (found version "5.0") found components: Fortran 
+-- Found MPI: TRUE (found version "3.1")  
+-- Found FMS: "/glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/fms/2022.01" (Version: "2022.1.0")
+-- FMS targets:
+--   - FMS::fms_r4 [Lib: /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/fms/2022.01/lib/libfms_r4.a]
+--   - FMS::fms_r8 [Lib: /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/fms/2022.01/lib/libfms_r8.a]
+-- FindPIO:
+--   - PIO_PREFIX [/glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/pio/2.5.2]
+--   - PIO Components Found: C;Fortran
+-- Found bacio: /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/bacio/2.4.1/lib/libbacio_4.a (found version "2.4.0")
+-- Found OpenMP_Fortran: -qopenmp (found version "5.0") 
+-- Found sp: /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/sp/2.3.3/lib/libsp_4.a (found version "2.3.3")
+-- Found w3nco: /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/w3nco/2.4.1/lib/libw3nco_4.a (found version "2.4.0")
+Found Python: /glade/u/apps/ch/opt/python/3.7.9/gnu/9.1.0/bin/python3.7
+Calling CCPP code generator (ccpp_prebuild.py) for suites --suites=FV3_GFS_v17_coupled_p8 ...
+-- Compile CCPP physics with 64-bit precision
+-- Found OpenMP_C: -qopenmp (found version "5.0") 
+-- Found OpenMP_CXX: -qopenmp (found version "5.0") 
+-- Found OpenMP_Fortran: -qopenmp (found version "5.0") 
+-- Found OpenMP: TRUE (found version "5.0")  
+-- Got CCPP TYPEDEFS from cmakefile include file
+-- Got CCPP SCHEMES from cmakefile include file
+-- Got CCPP CAPS from cmakefile include file
+-- Setting build type to 'Debug'.
+-- Found NetCDF: /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/netcdf/4.7.4/include (found version "4.7.4") found components: C Fortran 
+-- FindNetCDF defines targets:
+--   - NetCDF_VERSION [4.7.4]
+--   - NetCDF_PARALLEL [TRUE]
+--   - NetCDF_C_CONFIG_EXECUTABLE [/glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/netcdf/4.7.4/bin/nc-config]
+--   - NetCDF::NetCDF_C [SHARED] [Root: /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/netcdf/4.7.4] Lib: /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/netcdf/4.7.4/lib/libnetcdf.so 
+--   - NetCDF_Fortran_CONFIG_EXECUTABLE [/glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/netcdf/4.7.4/bin/nf-config]
+--   - NetCDF::NetCDF_Fortran [SHARED] [Root: /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/netcdf/4.7.4] Lib: /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/netcdf/4.7.4/lib/libnetcdff.so 
+-- Found NetCDF: /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/netcdf/4.7.4/include (found version "4.7.4") found components: Fortran 
+-- FindNetCDF defines targets:
+--   - NetCDF_VERSION [4.7.4]
+--   - NetCDF_PARALLEL [TRUE]
+--   - NetCDF_C_CONFIG_EXECUTABLE [/glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/netcdf/4.7.4/bin/nc-config]
+--   - NetCDF::NetCDF_C [SHARED] [Root: /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/netcdf/4.7.4] Lib: /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/netcdf/4.7.4/lib/libnetcdf.so 
+--   - NetCDF_Fortran_CONFIG_EXECUTABLE [/glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/netcdf/4.7.4/bin/nf-config]
+--   - NetCDF::NetCDF_Fortran [SHARED] [Root: /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/netcdf/4.7.4] Lib: /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/netcdf/4.7.4/lib/libnetcdff.so 
+-- Found OpenMP: TRUE (found version "5.0") found components: Fortran 
+-- Found bacio: /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/bacio/2.4.1/lib/libbacio_4.a (found version "2.4.0")
+-- Found crtm: /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/crtm/2.3.0/lib/libcrtm.a (found version "2.3.0")
+-- Found g2: /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/g2/3.4.2/lib64/libg2_4.a (found version "3.4.3")
+-- Found g2tmpl: /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/g2tmpl/1.10.0/lib/libg2tmpl.a (found version "1.10.0")
+-- Build with switch: /glade/work/worthen/ufs_cesmwaves/WW3/model/bin/switch_meshcap
+-- Found NetCDF: /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/netcdf/4.7.4/include (found version "4.7.4") found components: Fortran 
+-- FindNetCDF defines targets:
+--   - NetCDF_VERSION [4.7.4]
+--   - NetCDF_PARALLEL [TRUE]
+--   - NetCDF_C_CONFIG_EXECUTABLE [/glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/netcdf/4.7.4/bin/nc-config]
+--   - NetCDF::NetCDF_C [SHARED] [Root: /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/netcdf/4.7.4] Lib: /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/netcdf/4.7.4/lib/libnetcdf.so 
+--   - NetCDF_Fortran_CONFIG_EXECUTABLE [/glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/netcdf/4.7.4/bin/nf-config]
+--   - NetCDF::NetCDF_Fortran [SHARED] [Root: /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/netcdf/4.7.4] Lib: /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/netcdf/4.7.4/lib/libnetcdff.so 
+-- Found MPI: TRUE (found version "3.1") found components: Fortran 
+Building MOM6 standalone executable
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /glade/work/worthen/ufs_cesmwaves/tests/build_fv3
++ OMP_NUM_THREADS=1
++ make -j 3 VERBOSE=1
+/glade/u/apps/ch/opt/cmake/3.22.0/bin/cmake -S/glade/work/worthen/ufs_cesmwaves -B/glade/work/worthen/ufs_cesmwaves/tests/build_fv3 --check-build-system CMakeFiles/Makefile.cmake 0
+/glade/u/apps/ch/opt/cmake/3.22.0/bin/cmake -E cmake_progress_start /glade/work/worthen/ufs_cesmwaves/tests/build_fv3/CMakeFiles /glade/work/worthen/ufs_cesmwaves/tests/build_fv3//CMakeFiles/progress.marks
+make  -f CMakeFiles/Makefile2 all
+make[1]: Entering directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+make  -f CMEPS-interface/CMakeFiles/cmeps.dir/build.make CMEPS-interface/CMakeFiles/cmeps.dir/depend
+make  -f stochastic_physics/CMakeFiles/stochastic_physics.dir/build.make stochastic_physics/CMakeFiles/stochastic_physics.dir/depend
+make  -f FV3/upp/sorc/ncep_post.fd/CMakeFiles/upp.dir/build.make FV3/upp/sorc/ncep_post.fd/CMakeFiles/upp.dir/depend
+make[2]: Entering directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+cd /glade/work/worthen/ufs_cesmwaves/tests/build_fv3 && /glade/u/apps/ch/opt/cmake/3.22.0/bin/cmake -E cmake_depends "Unix Makefiles" /glade/work/worthen/ufs_cesmwaves /glade/work/worthen/ufs_cesmwaves/CMEPS-interface /glade/work/worthen/ufs_cesmwaves/tests/build_fv3 /glade/work/worthen/ufs_cesmwaves/tests/build_fv3/CMEPS-interface /glade/work/worthen/ufs_cesmwaves/tests/build_fv3/CMEPS-interface/CMakeFiles/cmeps.dir/DependInfo.cmake --color=
+make[2]: Entering directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+cd /glade/work/worthen/ufs_cesmwaves/tests/build_fv3 && /glade/u/apps/ch/opt/cmake/3.22.0/bin/cmake -E cmake_depends "Unix Makefiles" /glade/work/worthen/ufs_cesmwaves /glade/work/worthen/ufs_cesmwaves/stochastic_physics /glade/work/worthen/ufs_cesmwaves/tests/build_fv3 /glade/work/worthen/ufs_cesmwaves/tests/build_fv3/stochastic_physics /glade/work/worthen/ufs_cesmwaves/tests/build_fv3/stochastic_physics/CMakeFiles/stochastic_physics.dir/DependInfo.cmake --color=
+make[2]: Entering directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+cd /glade/work/worthen/ufs_cesmwaves/tests/build_fv3 && /glade/u/apps/ch/opt/cmake/3.22.0/bin/cmake -E cmake_depends "Unix Makefiles" /glade/work/worthen/ufs_cesmwaves /glade/work/worthen/ufs_cesmwaves/FV3/upp/sorc/ncep_post.fd /glade/work/worthen/ufs_cesmwaves/tests/build_fv3 /glade/work/worthen/ufs_cesmwaves/tests/build_fv3/FV3/upp/sorc/ncep_post.fd /glade/work/worthen/ufs_cesmwaves/tests/build_fv3/FV3/upp/sorc/ncep_post.fd/CMakeFiles/upp.dir/DependInfo.cmake --color=
+Dependee "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/CMEPS-interface/CMakeFiles/cmeps.dir/DependInfo.cmake" is newer than depender "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/CMEPS-interface/CMakeFiles/cmeps.dir/depend.internal".
+Dependee "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/CMEPS-interface/CMakeFiles/CMakeDirectoryInformation.cmake" is newer than depender "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/CMEPS-interface/CMakeFiles/cmeps.dir/depend.internal".
+Dependee "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/stochastic_physics/CMakeFiles/stochastic_physics.dir/DependInfo.cmake" is newer than depender "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/stochastic_physics/CMakeFiles/stochastic_physics.dir/depend.internal".
+Dependee "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/stochastic_physics/CMakeFiles/CMakeDirectoryInformation.cmake" is newer than depender "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/stochastic_physics/CMakeFiles/stochastic_physics.dir/depend.internal".
+Dependee "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/FV3/upp/sorc/ncep_post.fd/CMakeFiles/upp.dir/DependInfo.cmake" is newer than depender "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/FV3/upp/sorc/ncep_post.fd/CMakeFiles/upp.dir/depend.internal".
+Dependee "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/FV3/upp/sorc/ncep_post.fd/CMakeFiles/CMakeDirectoryInformation.cmake" is newer than depender "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/FV3/upp/sorc/ncep_post.fd/CMakeFiles/upp.dir/depend.internal".
+Scanning dependencies of target stochastic_physics
+make[2]: Leaving directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+make  -f stochastic_physics/CMakeFiles/stochastic_physics.dir/build.make stochastic_physics/CMakeFiles/stochastic_physics.dir/build
+make[2]: Entering directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+make[2]: Nothing to be done for 'stochastic_physics/CMakeFiles/stochastic_physics.dir/build'.
+make[2]: Leaving directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+Scanning dependencies of target cmeps
+make[2]: Leaving directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+make  -f CMEPS-interface/CMakeFiles/cmeps.dir/build.make CMEPS-interface/CMakeFiles/cmeps.dir/build
+[  2%] Built target stochastic_physics
+make  -f FV3/ccpp/physics/CMakeFiles/ccpp_physics.dir/build.make FV3/ccpp/physics/CMakeFiles/ccpp_physics.dir/depend
+make[2]: Entering directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+cd /glade/work/worthen/ufs_cesmwaves/tests/build_fv3 && /glade/u/apps/ch/opt/cmake/3.22.0/bin/cmake -E cmake_depends "Unix Makefiles" /glade/work/worthen/ufs_cesmwaves /glade/work/worthen/ufs_cesmwaves/FV3/ccpp/physics /glade/work/worthen/ufs_cesmwaves/tests/build_fv3 /glade/work/worthen/ufs_cesmwaves/tests/build_fv3/FV3/ccpp/physics /glade/work/worthen/ufs_cesmwaves/tests/build_fv3/FV3/ccpp/physics/CMakeFiles/ccpp_physics.dir/DependInfo.cmake --color=
+Dependee "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/FV3/ccpp/physics/CMakeFiles/ccpp_physics.dir/DependInfo.cmake" is newer than depender "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/FV3/ccpp/physics/CMakeFiles/ccpp_physics.dir/depend.internal".
+Dependee "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/FV3/ccpp/physics/CMakeFiles/CMakeDirectoryInformation.cmake" is newer than depender "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/FV3/ccpp/physics/CMakeFiles/ccpp_physics.dir/depend.internal".
+make[2]: Entering directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+make[2]: Nothing to be done for 'CMEPS-interface/CMakeFiles/cmeps.dir/build'.
+make[2]: Leaving directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+[  6%] Built target cmeps
+make  -f FV3/ccpp/framework/src/CMakeFiles/ccpp_framework.dir/build.make FV3/ccpp/framework/src/CMakeFiles/ccpp_framework.dir/depend
+make[2]: Entering directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+cd /glade/work/worthen/ufs_cesmwaves/tests/build_fv3 && /glade/u/apps/ch/opt/cmake/3.22.0/bin/cmake -E cmake_depends "Unix Makefiles" /glade/work/worthen/ufs_cesmwaves /glade/work/worthen/ufs_cesmwaves/FV3/ccpp/framework/src /glade/work/worthen/ufs_cesmwaves/tests/build_fv3 /glade/work/worthen/ufs_cesmwaves/tests/build_fv3/FV3/ccpp/framework/src /glade/work/worthen/ufs_cesmwaves/tests/build_fv3/FV3/ccpp/framework/src/CMakeFiles/ccpp_framework.dir/DependInfo.cmake --color=
+Scanning dependencies of target upp
+make[2]: Leaving directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+make  -f FV3/upp/sorc/ncep_post.fd/CMakeFiles/upp.dir/build.make FV3/upp/sorc/ncep_post.fd/CMakeFiles/upp.dir/build
+Dependee "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/FV3/ccpp/framework/src/CMakeFiles/ccpp_framework.dir/DependInfo.cmake" is newer than depender "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/FV3/ccpp/framework/src/CMakeFiles/ccpp_framework.dir/depend.internal".
+Dependee "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/FV3/ccpp/framework/src/CMakeFiles/CMakeDirectoryInformation.cmake" is newer than depender "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/FV3/ccpp/framework/src/CMakeFiles/ccpp_framework.dir/depend.internal".
+Scanning dependencies of target ccpp_framework
+make[2]: Leaving directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+make  -f FV3/ccpp/framework/src/CMakeFiles/ccpp_framework.dir/build.make FV3/ccpp/framework/src/CMakeFiles/ccpp_framework.dir/build
+make[2]: Entering directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+make[2]: Nothing to be done for 'FV3/ccpp/framework/src/CMakeFiles/ccpp_framework.dir/build'.
+make[2]: Leaving directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+[  6%] Built target ccpp_framework
+make  -f WW3/model/src/CMakeFiles/ww3_lib.dir/build.make WW3/model/src/CMakeFiles/ww3_lib.dir/depend
+make[2]: Entering directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+cd /glade/work/worthen/ufs_cesmwaves/tests/build_fv3 && /glade/u/apps/ch/opt/cmake/3.22.0/bin/cmake -E cmake_depends "Unix Makefiles" /glade/work/worthen/ufs_cesmwaves /glade/work/worthen/ufs_cesmwaves/WW3/model/src /glade/work/worthen/ufs_cesmwaves/tests/build_fv3 /glade/work/worthen/ufs_cesmwaves/tests/build_fv3/WW3/model/src /glade/work/worthen/ufs_cesmwaves/tests/build_fv3/WW3/model/src/CMakeFiles/ww3_lib.dir/DependInfo.cmake --color=
+Dependee "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/WW3/model/src/CMakeFiles/ww3_lib.dir/DependInfo.cmake" is newer than depender "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/WW3/model/src/CMakeFiles/ww3_lib.dir/depend.internal".
+Dependee "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/WW3/model/src/CMakeFiles/CMakeDirectoryInformation.cmake" is newer than depender "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/WW3/model/src/CMakeFiles/ww3_lib.dir/depend.internal".
+make[2]: Entering directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+make[2]: Nothing to be done for 'FV3/upp/sorc/ncep_post.fd/CMakeFiles/upp.dir/build'.
+make[2]: Leaving directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+[ 22%] Built target upp
+make  -f MOM6-interface/CMakeFiles/mom6_obj.dir/build.make MOM6-interface/CMakeFiles/mom6_obj.dir/depend
+make[2]: Entering directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+cd /glade/work/worthen/ufs_cesmwaves/tests/build_fv3 && /glade/u/apps/ch/opt/cmake/3.22.0/bin/cmake -E cmake_depends "Unix Makefiles" /glade/work/worthen/ufs_cesmwaves /glade/work/worthen/ufs_cesmwaves/MOM6-interface /glade/work/worthen/ufs_cesmwaves/tests/build_fv3 /glade/work/worthen/ufs_cesmwaves/tests/build_fv3/MOM6-interface /glade/work/worthen/ufs_cesmwaves/tests/build_fv3/MOM6-interface/CMakeFiles/mom6_obj.dir/DependInfo.cmake --color=
+Dependee "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/MOM6-interface/CMakeFiles/mom6_obj.dir/DependInfo.cmake" is newer than depender "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/MOM6-interface/CMakeFiles/mom6_obj.dir/depend.internal".
+Dependee "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/MOM6-interface/CMakeFiles/CMakeDirectoryInformation.cmake" is newer than depender "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/MOM6-interface/CMakeFiles/mom6_obj.dir/depend.internal".
+Scanning dependencies of target ccpp_physics
+make[2]: Leaving directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+make  -f FV3/ccpp/physics/CMakeFiles/ccpp_physics.dir/build.make FV3/ccpp/physics/CMakeFiles/ccpp_physics.dir/build
+make[2]: Entering directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+make[2]: Nothing to be done for 'FV3/ccpp/physics/CMakeFiles/ccpp_physics.dir/build'.
+make[2]: Leaving directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+[ 42%] Built target ccpp_physics
+make  -f CICE-interface/CMakeFiles/cice.dir/build.make CICE-interface/CMakeFiles/cice.dir/depend
+make[2]: Entering directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+cd /glade/work/worthen/ufs_cesmwaves/tests/build_fv3 && /glade/u/apps/ch/opt/cmake/3.22.0/bin/cmake -E cmake_depends "Unix Makefiles" /glade/work/worthen/ufs_cesmwaves /glade/work/worthen/ufs_cesmwaves/CICE-interface /glade/work/worthen/ufs_cesmwaves/tests/build_fv3 /glade/work/worthen/ufs_cesmwaves/tests/build_fv3/CICE-interface /glade/work/worthen/ufs_cesmwaves/tests/build_fv3/CICE-interface/CMakeFiles/cice.dir/DependInfo.cmake --color=
+Dependee "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/CICE-interface/CMakeFiles/cice.dir/DependInfo.cmake" is newer than depender "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/CICE-interface/CMakeFiles/cice.dir/depend.internal".
+Dependee "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/CICE-interface/CMakeFiles/CMakeDirectoryInformation.cmake" is newer than depender "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/CICE-interface/CMakeFiles/cice.dir/depend.internal".
+Scanning dependencies of target ww3_lib
+make[2]: Leaving directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+make  -f WW3/model/src/CMakeFiles/ww3_lib.dir/build.make WW3/model/src/CMakeFiles/ww3_lib.dir/build
+make[2]: Entering directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+/glade/u/apps/ch/opt/cmake/3.22.0/bin/cmake -E cmake_copy_f90_mod WW3/model/src/mod/w3iogomd.mod WW3/model/src/CMakeFiles/ww3_lib.dir/w3iogomd.mod.stamp Intel
+[ 42%] Building Fortran object WW3/model/src/CMakeFiles/ww3_lib.dir/w3initmd.F90.o
+cd /glade/work/worthen/ufs_cesmwaves/tests/build_fv3/WW3/model/src && /glade/u/apps/ch/opt/ncarcompilers/0.5.0/intel/2021.2/mpi/mpif90 -DW3_BS0 -DW3_BT1 -DW3_CRT1 -DW3_CRX1 -DW3_DB1 -DW3_DIST -DW3_FLD2 -DW3_FLX0 -DW3_IC0 -DW3_IS0 -DW3_MLIM -DW3_MPI -DW3_NCO -DW3_NL1 -DW3_NOGRB -DW3_O0 -DW3_O1 -DW3_O14 -DW3_O15 -DW3_O2 -DW3_O3 -DW3_O4 -DW3_O5 -DW3_O6 -DW3_O7 -DW3_OMPG -DW3_OMPH -DW3_PR3 -DW3_REF0 -DW3_RWND -DW3_SEED -DW3_ST4 -DW3_STAB0 -DW3_TR0 -DW3_UQ -DW3_UWM -DW3_UWMNCOUT -DW3_WNT1 -DW3_WNX1 -D__WW3_SWITCHES__="'UWM UWMNCOUT NCO NOGRB DIST MPI OMPG OMPH PR3 UQ FLX0 SEED ST4 STAB0 NL1 BT1 DB1 MLIM FLD2 TR0 BS0 RWND WNX1 WNT1 CRX1 CRT1 O0 O1 O2 O3 O4 O5 O6 O7 O14 O15 IC0 IS0 REF0'" -I/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/WW3/model/src/mod -I/glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/netcdf/4.7.4/include -I/glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/esmf/8.3.0b09-debug/mod -I/glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/esmf/8.3.0b09-debug/include -g -O0 -check -check noarg_temp_created -check nopointer -warn -warn noerrors -fp-stack-check -fstack-protector-all -fpe0 -debug -ftrapuv -init=snan,arrays -module mod -no-fma -ip -g -traceback -i4 -real-size 32 -fp-model precise -assume byterecl -convert big_endian -fno-alias -fno-fnalias -O0 -debug all -warn all -check all -check noarg_temp_created -fp-stack-check -heap-arrays -fpe0 -qopenmp -c /glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90 -o CMakeFiles/ww3_lib.dir/w3initmd.F90.o
+Scanning dependencies of target cice
+Dependencies file "CICE-interface/CMakeFiles/cice.dir/CICE/cicecore/cicedynB/infrastructure/ice_shr_reprosum86.c.o.d" is newer than depends file "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/CICE-interface/CMakeFiles/cice.dir/compiler_depend.internal".
+Consolidate compiler generated dependencies of target cice
+make[2]: Leaving directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+make  -f CICE-interface/CMakeFiles/cice.dir/build.make CICE-interface/CMakeFiles/cice.dir/build
+Scanning dependencies of target mom6_obj
+make[2]: Leaving directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+make  -f MOM6-interface/CMakeFiles/mom6_obj.dir/build.make MOM6-interface/CMakeFiles/mom6_obj.dir/build
+make[2]: Entering directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+make[2]: Nothing to be done for 'CICE-interface/CMakeFiles/cice.dir/build'.
+make[2]: Leaving directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+[ 53%] Built target cice
+/glade/u/apps/ch/opt/cmake/3.22.0/bin/cmake -E cmake_copy_f90_mod WW3/model/src/mod/w3wavemd.mod WW3/model/src/CMakeFiles/ww3_lib.dir/w3wavemd.mod.stamp Intel
+make  -f FV3/ccpp/CMakeFiles/fv3ccpp.dir/build.make FV3/ccpp/CMakeFiles/fv3ccpp.dir/depend
+make[2]: Entering directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+cd /glade/work/worthen/ufs_cesmwaves/tests/build_fv3 && /glade/u/apps/ch/opt/cmake/3.22.0/bin/cmake -E cmake_depends "Unix Makefiles" /glade/work/worthen/ufs_cesmwaves /glade/work/worthen/ufs_cesmwaves/FV3/ccpp /glade/work/worthen/ufs_cesmwaves/tests/build_fv3 /glade/work/worthen/ufs_cesmwaves/tests/build_fv3/FV3/ccpp /glade/work/worthen/ufs_cesmwaves/tests/build_fv3/FV3/ccpp/CMakeFiles/fv3ccpp.dir/DependInfo.cmake --color=
+Dependee "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/FV3/ccpp/CMakeFiles/fv3ccpp.dir/DependInfo.cmake" is newer than depender "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/FV3/ccpp/CMakeFiles/fv3ccpp.dir/depend.internal".
+Dependee "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/FV3/ccpp/CMakeFiles/CMakeDirectoryInformation.cmake" is newer than depender "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/FV3/ccpp/CMakeFiles/fv3ccpp.dir/depend.internal".
+Scanning dependencies of target fv3ccpp
+make[2]: Leaving directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+make  -f FV3/ccpp/CMakeFiles/fv3ccpp.dir/build.make FV3/ccpp/CMakeFiles/fv3ccpp.dir/build
+make[2]: Entering directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+make[2]: Nothing to be done for 'FV3/ccpp/CMakeFiles/fv3ccpp.dir/build'.
+make[2]: Leaving directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+[ 54%] Built target fv3ccpp
+make  -f FV3/atmos_cubed_sphere/CMakeFiles/fv3.dir/build.make FV3/atmos_cubed_sphere/CMakeFiles/fv3.dir/depend
+make[2]: Entering directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+cd /glade/work/worthen/ufs_cesmwaves/tests/build_fv3 && /glade/u/apps/ch/opt/cmake/3.22.0/bin/cmake -E cmake_depends "Unix Makefiles" /glade/work/worthen/ufs_cesmwaves /glade/work/worthen/ufs_cesmwaves/FV3/atmos_cubed_sphere /glade/work/worthen/ufs_cesmwaves/tests/build_fv3 /glade/work/worthen/ufs_cesmwaves/tests/build_fv3/FV3/atmos_cubed_sphere /glade/work/worthen/ufs_cesmwaves/tests/build_fv3/FV3/atmos_cubed_sphere/CMakeFiles/fv3.dir/DependInfo.cmake --color=
+Dependee "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/FV3/atmos_cubed_sphere/CMakeFiles/fv3.dir/DependInfo.cmake" is newer than depender "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/FV3/atmos_cubed_sphere/CMakeFiles/fv3.dir/depend.internal".
+Dependee "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/FV3/atmos_cubed_sphere/CMakeFiles/CMakeDirectoryInformation.cmake" is newer than depender "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/FV3/atmos_cubed_sphere/CMakeFiles/fv3.dir/depend.internal".
+make[2]: Entering directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+make[2]: Nothing to be done for 'MOM6-interface/CMakeFiles/mom6_obj.dir/build'.
+make[2]: Leaving directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+[ 82%] Built target mom6_obj
+make  -f MOM6-interface/CMakeFiles/mom6_nuopc_obj.dir/build.make MOM6-interface/CMakeFiles/mom6_nuopc_obj.dir/depend
+make[2]: Entering directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+cd /glade/work/worthen/ufs_cesmwaves/tests/build_fv3 && /glade/u/apps/ch/opt/cmake/3.22.0/bin/cmake -E cmake_depends "Unix Makefiles" /glade/work/worthen/ufs_cesmwaves /glade/work/worthen/ufs_cesmwaves/MOM6-interface /glade/work/worthen/ufs_cesmwaves/tests/build_fv3 /glade/work/worthen/ufs_cesmwaves/tests/build_fv3/MOM6-interface /glade/work/worthen/ufs_cesmwaves/tests/build_fv3/MOM6-interface/CMakeFiles/mom6_nuopc_obj.dir/DependInfo.cmake --color=
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(537): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_COMM_SIZE]
+      CALL MPI_COMM_SIZE ( MPI_COMM_WAVE, NTPROC, IERR_MPI )
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(539): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_COMM_RANK]
+      CALL MPI_COMM_RANK ( MPI_COMM_WAVE, IAPROC, IERR_MPI )
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(598): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_COMM_GROUP]
+          CALL MPI_COMM_GROUP ( MPI_COMM_WAVE, BGROUP, IERR_MPI )
+---------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(603): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_GROUP_INCL]
+          CALL MPI_GROUP_INCL ( BGROUP, NAPROC, TMPRNK, LGROUP,  &
+---------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(605): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_COMM_CREATE]
+          CALL MPI_COMM_CREATE ( MPI_COMM_WAVE, LGROUP,          &
+---------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(607): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_GROUP_FREE]
+          CALL MPI_GROUP_FREE ( LGROUP, IERR_MPI )
+---------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(608): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_GROUP_FREE]
+          CALL MPI_GROUP_FREE ( BGROUP, IERR_MPI )
+---------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2086): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_TYPE_VECTOR]
+      CALL MPI_TYPE_VECTOR ( NSEALM, 1, NAPROC, MPI_REAL,        &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2094): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_TYPE_VECTOR]
+      CALL MPI_TYPE_VECTOR ( NSEALM, 1, NSPEC, MPI_REAL,         &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2102): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_TYPE_COMMIT]
+      CALL MPI_TYPE_COMMIT ( WW3_FIELD_VEC, IERR_MPI )
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2109): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_TYPE_COMMIT]
+      CALL MPI_TYPE_COMMIT ( WW3_SPEC_VEC, IERR_MPI )
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2181): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+            CALL MPI_SEND_INIT ( VA(ISP,1), 1, WW3_SPEC_VEC,     &
+-----------------^
+Dependee "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/MOM6-interface/CMakeFiles/mom6_nuopc_obj.dir/DependInfo.cmake" is newer than depender "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/MOM6-interface/CMakeFiles/mom6_nuopc_obj.dir/depend.internal".
+Dependee "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/MOM6-interface/CMakeFiles/CMakeDirectoryInformation.cmake" is newer than depender "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/MOM6-interface/CMakeFiles/mom6_nuopc_obj.dir/depend.internal".
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2183): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+            CALL MPI_RECV_INIT ( VA(ISP,1), 1, WW3_SPEC_VEC,     &
+-----------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2261): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                  CALL MPI_RECV_INIT                             &
+-----------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2265): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+                  CALL MPI_SEND_INIT                             &
+-----------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2625): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (ICEF (IAPROC), 1, WW3_FIELD_VEC,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2639): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (HS   (1),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2653): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (WLM  (1),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2667): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (T02  (1),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2681): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (T0M1  (1),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2695): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (T01  (1),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2710): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (FP0  (1),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2724): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (THM  (1),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2738): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (THS  (1),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2752): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (THP0 (1),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2766): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (HSIG (1),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2780): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (STMAXE (1),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2794): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (STMAXD (1),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2808): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (HMAXE (1),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2822): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (HCMAXE (1),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2836): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (HMAXD (1),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2850): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (HCMAXD (1),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2864): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (WBT  (1),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2878): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (WNMEAN(1),NSEALM , MPI_REAL, IROOT,   &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2893): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (EF(1,IK),NSEALM , MPI_REAL, IROOT, &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2909): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (TH1M(1,IK),NSEALM , MPI_REAL, IROOT, &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2925): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (STH1M(1,IK),NSEALM , MPI_REAL, IROOT, &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2941): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (TH2M(1,IK),NSEALM , MPI_REAL, IROOT, &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2957): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (STH2M(1,IK),NSEALM , MPI_REAL, IROOT, &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2973): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (PHS(1,K),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2989): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (PTP(1,K),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3005): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (PLP(1,K),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3021): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (PDIR(1,K),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3037): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (PSI(1,K),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3053): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (PWS(1,K),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3069): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (PTHP0(1,K),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3085): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (PQP (1,K),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3101): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (PPE (1,K),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3117): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (PGW (1,K),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3133): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (PSW (1,K),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3149): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (PTM1(1,K),NSEALM , MPI_REAL, IROOT,   &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3166): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (PT1 (1,K),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3182): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (PT2 (1,K),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3198): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (PEP (1,K),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3213): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (PWST (1),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3227): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (PNR  (1),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3241): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (UST   (IAPROC), 1, WW3_FIELD_VEC,      &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3250): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (USTDIR(IAPROC), 1, WW3_FIELD_VEC,       &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3259): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (ASF   (IAPROC), 1, WW3_FIELD_VEC,       &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3273): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (CHARN(1),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3287): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (CGE  (1),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3301): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (PHIAW(1),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3315): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (TAUWIX(1),NSEALM , MPI_REAL, IROOT,   &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3324): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (TAUWIY(1),NSEALM , MPI_REAL, IROOT,   &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3338): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (TAUWNX(1),NSEALM , MPI_REAL, IROOT,   &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3347): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (TAUWNY(1),NSEALM , MPI_REAL, IROOT,   &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3361): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (WHITECAP(1,1),NSEALM , MPI_REAL, IROOT,&
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3375): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (WHITECAP(1,2),NSEALM , MPI_REAL, IROOT,&
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3389): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (WHITECAP(1,3),NSEALM , MPI_REAL, IROOT,&
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3403): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (WHITECAP(1,4),NSEALM , MPI_REAL, IROOT,&
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3417): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (TWS(1),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3431): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (SXX   (1),NSEALM , MPI_REAL, IROOT,   &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3440): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (SYY   (1),NSEALM , MPI_REAL, IROOT,   &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3449): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (SXY   (1),NSEALM , MPI_REAL, IROOT,   &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3463): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (TAUOX (1),NSEALM , MPI_REAL, IROOT,   &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3472): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (TAUOY (1),NSEALM , MPI_REAL, IROOT,   &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3486): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (BHD(1),NSEALM , MPI_REAL, IROOT,   &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3500): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (PHIOC (1),NSEALM , MPI_REAL, IROOT,   &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3514): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (TUSX  (1),NSEALM , MPI_REAL, IROOT,   &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3523): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (TUSY  (1),NSEALM , MPI_REAL, IROOT,   &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3537): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (USSX  (1),NSEALM , MPI_REAL, IROOT,   &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3546): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (USSY  (1),NSEALM , MPI_REAL, IROOT,   &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3560): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (PRMS  (1),NSEALM , MPI_REAL, IROOT,   &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3569): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (TPMS  (1),NSEALM , MPI_REAL, IROOT,   &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3584): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (US3D(1,IK),NSEALM , MPI_REAL, IROOT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3600): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (P2SMS(1,K),NSEALM , MPI_REAL, IROOT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3615): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (TAUICE (1,1),NSEALM , MPI_REAL, IROOT,   &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3624): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (TAUICE (1,2),NSEALM , MPI_REAL, IROOT,   &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3638): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (PHICE (1),NSEALM , MPI_REAL, IROOT,   &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3654): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (USSP(1,IK),NSEALM , MPI_REAL, IROOT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3670): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (TAUOCX(1),NSEALM , MPI_REAL, IROOT,   &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3679): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (TAUOCY(1),NSEALM , MPI_REAL, IROOT,   &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3690): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (LANGMT(1),NSEALM , MPI_REAL, IROOT,   &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3706): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (ABA   (1),NSEALM , MPI_REAL, IROOT,   &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3715): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (ABD   (1),NSEALM , MPI_REAL, IROOT,   &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3729): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (UBA   (1),NSEALM , MPI_REAL, IROOT,   &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3738): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (UBD   (1),NSEALM , MPI_REAL, IROOT,   &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3752): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (BEDFORMS(1,1),NSEALM , MPI_REAL,      &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3761): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (BEDFORMS(1,2),NSEALM , MPI_REAL,      &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3770): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (BEDFORMS(1,3),NSEALM , MPI_REAL,      &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3784): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (PHIBBL(1),NSEALM , MPI_REAL, IROOT,   &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3798): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (TAUBBL(1,1),NSEALM , MPI_REAL,        &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3807): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (TAUBBL(1,2),NSEALM , MPI_REAL,        &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3821): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (MSSX  (1),NSEALM , MPI_REAL, IROOT,   &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3830): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+       CALL MPI_SEND_INIT (MSSY  (1),NSEALM , MPI_REAL, IROOT,   &
+------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3844): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (MSCX  (1),NSEALM , MPI_REAL, IROOT,   &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3853): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (MSCY  (1),NSEALM , MPI_REAL, IROOT,   &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3867): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (MSSD  (1),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3881): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (MSCD  (1),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3895): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (QP    (1),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3909): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (DTDYN(1),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3923): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (FCUT (1),NSEALM , MPI_REAL, IROOT,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3937): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (CFLXYMAX(1),NSEALM , MPI_REAL, IROOT, &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3951): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (CFLTHMAX(1),NSEALM , MPI_REAL, IROOT, &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3965): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (CFLKMAX(1),NSEALM , MPI_REAL, IROOT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(3980): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+      CALL MPI_SEND_INIT (USERO(1,I),NSEALM , MPI_REAL, IROOT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4048): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (ICEF (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4062): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (HS   (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4076): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (WLM  (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4090): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (T02  (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4104): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (T0M1  (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4118): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (T01(I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4133): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (FP0  (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4147): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (THM  (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4161): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (THS  (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4175): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (THP0 (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4189): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (HSIG (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4203): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (STMAXE (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4217): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (STMAXD(I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4231): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (HMAXE (I0),1,WW3_FIELD_VEC, IFROM, IT, &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4245): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (HCMAXE(I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4259): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (HMAXD (I0),1,WW3_FIELD_VEC, IFROM, IT, &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4273): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (HCMAXD(I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4287): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (WBT(I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4301): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (WNMEAN(I0),1,WW3_FIELD_VEC, IFROM, IT, &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4316): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (EF(I0,IK),1,WW3_FIELD_VEC, IFROM, IT,&
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4332): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (TH1M(I0,IK),1,WW3_FIELD_VEC, IFROM, IT,&
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4348): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (STH1M(I0,IK),1,WW3_FIELD_VEC, IFROM, IT,&
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4364): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (TH2M(I0,IK),1,WW3_FIELD_VEC, IFROM, IT,&
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4380): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (STH2M(I0,IK),1,WW3_FIELD_VEC, IFROM, IT,&
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4396): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (PHS(I0,K),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4412): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (PTP(I0,K),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4428): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (PLP(I0,K),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4444): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (PDIR(I0,K),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4460): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (PSI(I0,K),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4476): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (PWS(I0,K),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4492): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (PTHP0(I0,K),1,WW3_FIELD_VEC, IFROM, IT,&
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4508): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (PQP(I0,K),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4524): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (PPE(I0,K),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4540): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (PGW(I0,K),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4556): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (PSW(I0,K),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4572): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (PTM1(I0,K),1,WW3_FIELD_VEC, IFROM, IT,&
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4588): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (PT1(I0,K),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4604): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (PT2(I0,K),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4620): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (PEP(I0,K),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4635): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (PWST (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4649): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (PNR  (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4663): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (UST   (I0), 1, WW3_FIELD_VEC, IFROM,   &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4672): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (USTDIR(I0), 1, WW3_FIELD_VEC, IFROM,   &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4681): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (ASF   (I0), 1, WW3_FIELD_VEC, IFROM,   &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4695): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (CHARN(I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4709): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (CGE  (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4723): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (PHIAW(I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4737): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (TAUWIX(I0),1,WW3_FIELD_VEC, IFROM, IT, &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4746): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (TAUWIY(I0),1,WW3_FIELD_VEC, IFROM, IT, &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4760): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (TAUWNX(I0),1,WW3_FIELD_VEC, IFROM, IT, &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4769): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (TAUWNY(I0),1,WW3_FIELD_VEC, IFROM, IT, &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4783): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (WHITECAP(I0,1),1,WW3_FIELD_VEC, IFROM,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4797): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (WHITECAP(I0,2),1,WW3_FIELD_VEC, IFROM,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4811): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (WHITECAP(I0,3),1,WW3_FIELD_VEC, IFROM,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4825): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (WHITECAP(I0,4),1,WW3_FIELD_VEC, IFROM,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4839): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (TWS(I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4853): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (SXX   (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+Scanning dependencies of target mom6_nuopc_obj
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4862): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (SYY   (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+make[2]: Leaving directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+make  -f MOM6-interface/CMakeFiles/mom6_nuopc_obj.dir/build.make MOM6-interface/CMakeFiles/mom6_nuopc_obj.dir/build
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4871): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (SXY   (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4885): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (TAUOX (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4894): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (TAUOY (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4908): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (BHD(I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4922): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (PHIOC (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4936): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (TUSX  (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4945): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (TUSY  (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4959): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (USSX  (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4968): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (USSY  (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4982): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (PRMS  (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(4991): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (TPMS  (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5006): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (US3D(I0,IK),1,WW3_FIELD_VEC, IFROM, IT, &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5022): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (P2SMS(I0,K),1,WW3_FIELD_VEC, IFROM, IT, &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5037): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (TAUICE (I0,1),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5046): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (TAUICE (I0,2),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5060): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (PHICE (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5075): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (USSP(I0,IK),1,WW3_FIELD_VEC, IFROM, IT, &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5090): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (TAUOCX(I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5099): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (TAUOCY(I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5109): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (LANGMT(I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5124): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (ABA   (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5133): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (ABD   (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5147): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (UBA   (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5156): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (UBD   (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5170): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (BEDFORMS(I0,1),1,WW3_FIELD_VEC, IFROM,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5179): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (BEDFORMS(I0,2),1,WW3_FIELD_VEC, IFROM,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5188): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (BEDFORMS(I0,3),1,WW3_FIELD_VEC, IFROM,  &
+-----------^
+make[2]: Entering directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+make[2]: Nothing to be done for 'MOM6-interface/CMakeFiles/mom6_nuopc_obj.dir/build'.
+make[2]: Leaving directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5202): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (PHIBBL(I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5216): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (TAUBBL(I0,1),1,WW3_FIELD_VEC, IFROM,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5225): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (TAUBBL(I0,2),1,WW3_FIELD_VEC, IFROM,    &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5239): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (MSSX  (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5248): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (MSSY  (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5262): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (MSCX  (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5271): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (MSCY  (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5285): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (MSSD  (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5299): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (MSCD (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5313): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (QP   (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5327): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (DTDYN(I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5341): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (FCUT (I0),1,WW3_FIELD_VEC, IFROM, IT,  &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5355): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (CFLXYMAX(I0),1,WW3_FIELD_VEC, IFROM, IT,&
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5369): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (CFLTHMAX(I0),1,WW3_FIELD_VEC, IFROM, IT,&
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5383): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (CFLKMAX(I0),1,WW3_FIELD_VEC, IFROM, IT, &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5399): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+      CALL MPI_RECV_INIT (USERO(I0,I),1,WW3_FIELD_VEC, IFROM, IT, &
+-----------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5474): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+              CALL MPI_SEND_INIT (UST (IAPROC), 1, WW3_FIELD_VEC, &
+-------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5484): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+              CALL MPI_SEND_INIT (USTDIR(IAPROC), 1, WW3_FIELD_VEC, &
+-------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5494): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+              CALL MPI_SEND_INIT (FPIS(IAPROC), 1, WW3_FIELD_VEC, &
+-------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5511): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                    CALL MPI_RECV_INIT (UST (I0),1,WW3_FIELD_VEC, &
+-------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5521): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                    CALL MPI_RECV_INIT (USTDIR(I0),1,WW3_FIELD_VEC, &
+-------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5531): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                    CALL MPI_RECV_INIT (FPIS(I0),1,WW3_FIELD_VEC, &
+-------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5548): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+                CALL MPI_SEND_INIT (CX(IAPROC), 1, WW3_FIELD_VEC,   &
+---------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5557): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+                CALL MPI_SEND_INIT (CY(IAPROC), 1, WW3_FIELD_VEC,   &
+---------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5571): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+                CALL MPI_SEND_INIT (ICEF(IAPROC), 1, WW3_FIELD_VEC, &
+---------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5585): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+                CALL MPI_SEND_INIT (HS   (1), NSEALM, MPI_REAL,     &
+---------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5599): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+                CALL MPI_SEND_INIT (WLM  (1), NSEALM, MPI_REAL,     &
+---------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5613): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+                CALL MPI_SEND_INIT (T0M1(1), NSEALM, MPI_REAL,      &
+---------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5627): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+                CALL MPI_SEND_INIT (T01 (1), NSEALM, MPI_REAL,      &
+---------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5641): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+                CALL MPI_SEND_INIT (FP0  (1), NSEALM, MPI_REAL,     &
+---------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5655): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+                CALL MPI_SEND_INIT (THM  (1), NSEALM, MPI_REAL,     &
+---------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5669): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+                CALL MPI_SEND_INIT (WNMEAN(1), NSEALM, MPI_REAL,    &
+---------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5683): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+                CALL MPI_SEND_INIT (CHARN(1), NSEALM, MPI_REAL,     &
+---------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5697): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+                CALL MPI_SEND_INIT (TAUWIX(1), NSEALM, MPI_REAL,    &
+---------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5706): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+                CALL MPI_SEND_INIT (TAUWIY(1), NSEALM, MPI_REAL,    &
+---------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5720): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+                CALL MPI_SEND_INIT (TWS  (1), NSEALM, MPI_REAL,     &
+---------------------^
+[ 83%] Built target mom6_nuopc_obj
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5734): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+                CALL MPI_SEND_INIT (TAUOX(1), NSEALM, MPI_REAL,     &
+---------------------^
+make  -f MOM6-interface/CMakeFiles/mom6solo.dir/build.make MOM6-interface/CMakeFiles/mom6solo.dir/depend
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5743): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+                CALL MPI_SEND_INIT (TAUOY(1), NSEALM, MPI_REAL,     &
+---------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5757): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+                CALL MPI_SEND_INIT (BHD  (1), NSEALM, MPI_REAL,     &
+---------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5771): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+                CALL MPI_SEND_INIT (PHIOC(1), NSEALM, MPI_REAL,     &
+---------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5785): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+                CALL MPI_SEND_INIT (TUSX (1), NSEALM, MPI_REAL,     &
+---------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5794): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+                CALL MPI_SEND_INIT (TUSY (1), NSEALM, MPI_REAL,     &
+---------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5808): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+                CALL MPI_SEND_INIT (USSX (1), NSEALM, MPI_REAL,     &
+---------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5817): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+                CALL MPI_SEND_INIT (USSY (1), NSEALM, MPI_REAL,     &
+---------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5831): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+                CALL MPI_SEND_INIT (TAUICE(1,1), NSEALM, MPI_REAL,  &
+---------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5840): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+                CALL MPI_SEND_INIT (TAUICE(1,2), NSEALM, MPI_REAL,  &
+---------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5854): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+                CALL MPI_SEND_INIT (TAUOCX(1), NSEALM, MPI_REAL,    &
+---------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5863): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+                CALL MPI_SEND_INIT (TAUOCY(1), NSEALM, MPI_REAL,    &
+---------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5877): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+                CALL MPI_SEND_INIT (UBA  (1), NSEALM, MPI_REAL,     &
+---------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5886): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+                CALL MPI_SEND_INIT (UBD  (1), NSEALM, MPI_REAL,     &
+---------------------^
+make[2]: Entering directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+cd /glade/work/worthen/ufs_cesmwaves/tests/build_fv3 && /glade/u/apps/ch/opt/cmake/3.22.0/bin/cmake -E cmake_depends "Unix Makefiles" /glade/work/worthen/ufs_cesmwaves /glade/work/worthen/ufs_cesmwaves/MOM6-interface /glade/work/worthen/ufs_cesmwaves/tests/build_fv3 /glade/work/worthen/ufs_cesmwaves/tests/build_fv3/MOM6-interface /glade/work/worthen/ufs_cesmwaves/tests/build_fv3/MOM6-interface/CMakeFiles/mom6solo.dir/DependInfo.cmake --color=
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5900): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+                CALL MPI_SEND_INIT (PHIBBL(1), NSEALM, MPI_REAL,    &
+---------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5914): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+                CALL MPI_SEND_INIT (TAUBBL(1,1), NSEALM, MPI_REAL,  &
+---------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5923): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+                CALL MPI_SEND_INIT (TAUBBL(1,2), NSEALM, MPI_REAL,  &
+---------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5945): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                    CALL MPI_RECV_INIT (CX   (I0),1,WW3_FIELD_VEC, &
+-------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5954): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                    CALL MPI_RECV_INIT (CY   (I0),1,WW3_FIELD_VEC, &
+-------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5968): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                    CALL MPI_RECV_INIT (ICEF (I0),1,WW3_FIELD_VEC, &
+-------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5982): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                    CALL MPI_RECV_INIT (HS   (I0),1,WW3_FIELD_VEC, &
+-------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(5996): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                    CALL MPI_RECV_INIT (WLM  (I0),1,WW3_FIELD_VEC,  &
+-------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6010): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                    CALL MPI_RECV_INIT (T0M1(I0),1,WW3_FIELD_VEC,  &
+-------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6024): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                    CALL MPI_RECV_INIT (T01 (I0),1,WW3_FIELD_VEC,  &
+-------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6038): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                    CALL MPI_RECV_INIT (FP0  (I0),1,WW3_FIELD_VEC, &
+-------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6052): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                    CALL MPI_RECV_INIT (THM  (I0),1,WW3_FIELD_VEC, &
+-------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6066): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                    CALL MPI_RECV_INIT (WNMEAN(I0),1,WW3_FIELD_VEC, &
+-------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6080): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                    CALL MPI_RECV_INIT (CHARN(I0),1,WW3_FIELD_VEC, &
+-------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6094): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                    CALL MPI_RECV_INIT (TAUWIX(I0),1,WW3_FIELD_VEC,&
+-------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6103): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                    CALL MPI_RECV_INIT (TAUWIY(I0),1,WW3_FIELD_VEC,&
+-------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6117): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                    CALL MPI_RECV_INIT (TWS  (I0),1,WW3_FIELD_VEC, &
+-------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6131): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                    CALL MPI_RECV_INIT (TAUOX(I0),1,WW3_FIELD_VEC, &
+-------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6140): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                    CALL MPI_RECV_INIT (TAUOY(I0),1,WW3_FIELD_VEC, &
+-------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6154): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                    CALL MPI_RECV_INIT (BHD  (I0),1,WW3_FIELD_VEC, &
+-------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6168): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                    CALL MPI_RECV_INIT (PHIOC(I0),1,WW3_FIELD_VEC, &
+-------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6182): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                    CALL MPI_RECV_INIT (TUSX (I0),1,WW3_FIELD_VEC, &
+-------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6191): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                    CALL MPI_RECV_INIT (TUSY (I0),1,WW3_FIELD_VEC, &
+-------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6205): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                    CALL MPI_RECV_INIT (USSX (I0),1,WW3_FIELD_VEC, &
+-------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6214): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                    CALL MPI_RECV_INIT (USSY (I0),1,WW3_FIELD_VEC, &
+-------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6228): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                    CALL MPI_RECV_INIT (TAUICE(I0,1),1,WW3_FIELD_VEC,&
+-------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6237): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                    CALL MPI_RECV_INIT (TAUICE(I0,2),1,WW3_FIELD_VEC,&
+-------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6251): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                    CALL MPI_RECV_INIT (TAUOCX(I0),1,WW3_FIELD_VEC,&
+-------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6260): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                    CALL MPI_RECV_INIT (TAUOCY(I0),1,WW3_FIELD_VEC,&
+-------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6274): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                    CALL MPI_RECV_INIT (UBA  (I0),1,WW3_FIELD_VEC, &
+-------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6283): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                    CALL MPI_RECV_INIT (UBD  (I0),1,WW3_FIELD_VEC, &
+-------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6297): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                    CALL MPI_RECV_INIT (PHIBBL(I0),1,WW3_FIELD_VEC,&
+-------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6311): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                    CALL MPI_RECV_INIT (TAUBBL(I0,1),1,WW3_FIELD_VEC,&
+-------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6320): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                    CALL MPI_RECV_INIT (TAUBBL(I0,2),1,WW3_FIELD_VEC,&
+-------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6388): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+                    CALL MPI_SEND_INIT (VA(1,JSEA0), NSPEC*NSEAB,&
+-------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6423): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                          CALL MPI_RECV_INIT (VAAUX(1,1+IBOFF,I0),&
+-------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6503): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+                  CALL MPI_SEND_INIT (VA(1,JSEA),NSPEC,MPI_REAL, &
+-----------------------^
+Dependee "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/MOM6-interface/CMakeFiles/mom6solo.dir/DependInfo.cmake" is newer than depender "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/MOM6-interface/CMakeFiles/mom6solo.dir/depend.internal".
+Dependee "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/MOM6-interface/CMakeFiles/CMakeDirectoryInformation.cmake" is newer than depender "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/MOM6-interface/CMakeFiles/mom6solo.dir/depend.internal".
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6564): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                  CALL MPI_RECV_INIT (ABPOS(1,IH),NSPEC,MPI_REAL,&
+-----------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6626): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+              CALL MPI_SEND_INIT (UST   (IAPROC),1,WW3_FIELD_VEC,&
+-------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6635): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+              CALL MPI_SEND_INIT (USTDIR(IAPROC),1,WW3_FIELD_VEC,&
+-------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6650): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                    CALL MPI_RECV_INIT(UST   (I0),1,WW3_FIELD_VEC,&
+-------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6659): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+                    CALL MPI_RECV_INIT(USTDIR(I0),1,WW3_FIELD_VEC,&
+-------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6935): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_SEND_INIT]
+              CALL MPI_SEND_INIT ( VA(1,JSEA), NSPEC, MPI_REAL, &
+-------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(7010): warning #8889: Explicit declaration of the EXTERNAL attribute is required.   [MPI_RECV_INIT]
+              CALL MPI_RECV_INIT ( SPPNT(1,1,J), NSPEC, MPI_REAL, &
+-------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2514): remark #7712: This variable has not been used.   [IS]
+                                 IFROM, IX(4), IY(4), IS(4),     &
+------------------------------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(121): remark #7712: This variable has not been used.   [ISMULTI]
+      SUBROUTINE W3INIT ( IMOD, IsMulti, FEXT, MDS, MTRACE, ODAT      &
+--------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6836): remark #7712: This variable has not been used.   [NX]
+      USE W3GDATMD, ONLY: NX, NY, NSPEC, MAPFS
+--------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2450): remark #7712: This variable has not been used.   [NX]
+      USE W3GDATMD, ONLY: NX, NSPEC, MAPFS, E3DF, P2MSF, US3DF, USSPF
+--------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6836): remark #7712: This variable has not been used.   [NY]
+      USE W3GDATMD, ONLY: NX, NY, NSPEC, MAPFS
+------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2447): remark #7712: This variable has not been used.   [NSEA]
+      USE W3GDATMD, ONLY: NSEA
+--------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2033): remark #7712: This variable has not been used.   [NSEA]
+      USE W3GDATMD, ONLY: NSEA
+--------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2450): remark #7712: This variable has not been used.   [MAPFS]
+      USE W3GDATMD, ONLY: NX, NSPEC, MAPFS, E3DF, P2MSF, US3DF, USSPF
+-------------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(352): remark #7712: This variable has not been used.   [MAPFS]
+      USE W3GDATMD, ONLY: NX, NY, NSEA, NSEAL, MAPSTA, MAPST2, MAPFS, &
+---------------------------------------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(354): remark #7712: This variable has not been used.   [ICLOSE]
+                          ICLOSE, ZB, TRNX, TRNY, DMIN, DTCFL, DTMAX, &
+--------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(354): remark #7712: This variable has not been used.   [TRNX]
+                          ICLOSE, ZB, TRNX, TRNY, DMIN, DTCFL, DTMAX, &
+--------------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(354): remark #7712: This variable has not been used.   [TRNY]
+                          ICLOSE, ZB, TRNX, TRNY, DMIN, DTCFL, DTMAX, &
+--------------------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(359): remark #7712: This variable has not been used.   [UST]
+      USE W3WDATMD, ONLY: TIME, TLEV, TICE, TRHO, WLV, UST, USTDIR, VA
+-------------------------------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(359): remark #7712: This variable has not been used.   [USTDIR]
+      USE W3WDATMD, ONLY: TIME, TLEV, TICE, TRHO, WLV, UST, USTDIR, VA
+------------------------------------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6839): remark #7712: This variable has not been used.   [NDST]
+      USE W3ODATMD, ONLY: NDST, NDSE, IAPROC, NAPROC, NAPPNT, FLOUT
+--------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2046): remark #7712: This variable has not been used.   [NDST]
+      USE W3ODATMD, ONLY: NDST, NAPROC, IAPROC
+--------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2481): remark #7712: This variable has not been used.   [NTPROC]
+      USE W3ODATMD, ONLY: NDST, IAPROC, NAPROC, NTPROC, FLOUT,   &
+------------------------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6839): remark #7712: This variable has not been used.   [NAPROC]
+      USE W3ODATMD, ONLY: NDST, NDSE, IAPROC, NAPROC, NAPPNT, FLOUT
+----------------------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(361): remark #7712: This variable has not been used.   [NAPOUT]
+                          NAPROC, IAPROC, NAPLOG, NAPOUT, NAPERR,     &
+--------------------------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2482): remark #7712: This variable has not been used.   [NAPPNT]
+                          NAPFLD, NAPPNT, NAPRST, NAPBPT, NAPTRK,&
+----------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6839): remark #7712: This variable has not been used.   [FLOUT]
+      USE W3ODATMD, ONLY: NDST, NDSE, IAPROC, NAPROC, NAPPNT, FLOUT
+--------------------------------------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2486): remark #7712: This variable has not been used.   [NOPTS]
+                          NOPTS, IPTINT, NRQRS, IRQRS, NBLKRS,   &
+--------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2486): remark #7712: This variable has not been used.   [IPTINT]
+                          NOPTS, IPTINT, NRQRS, IRQRS, NBLKRS,   &
+---------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(365): remark #7712: This variable has not been used.   [IPTINT]
+                          PTLOC, IPTINT, PTIFAC, UNDEF, IDOUT, FLBPI, &
+---------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(365): remark #7712: This variable has not been used.   [PTIFAC]
+                          PTLOC, IPTINT, PTIFAC, UNDEF, IDOUT, FLBPI, &
+-----------------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(365): remark #7712: This variable has not been used.   [FLBPI]
+                          PTLOC, IPTINT, PTIFAC, UNDEF, IDOUT, FLBPI, &
+---------------------------------------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(381): remark #7712: This variable has not been used.   [AC_TOT]
+      USE W3PARALL, ONLY : AC_tot
+---------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(399): remark #7712: This variable has not been used.   [FSN]
+      USE W3GDATMD, ONLY: FSN,FSPSI,FSFCT,FSNIMP, FSTOTALIMP, FSTOTALEXP
+--------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(399): remark #7712: This variable has not been used.   [FSPSI]
+      USE W3GDATMD, ONLY: FSN,FSPSI,FSFCT,FSNIMP, FSTOTALIMP, FSTOTALEXP
+------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(399): remark #7712: This variable has not been used.   [FSFCT]
+      USE W3GDATMD, ONLY: FSN,FSPSI,FSFCT,FSNIMP, FSTOTALIMP, FSTOTALEXP
+------------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(399): remark #7712: This variable has not been used.   [FSNIMP]
+      USE W3GDATMD, ONLY: FSN,FSPSI,FSFCT,FSNIMP, FSTOTALIMP, FSTOTALEXP
+------------------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(400): remark #7712: This variable has not been used.   [FSREFRACTION]
+      USE W3GDATMD, ONLY: FSREFRACTION, FSFREQSHIFT
+--------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(400): remark #7712: This variable has not been used.   [FSFREQSHIFT]
+      USE W3GDATMD, ONLY: FSREFRACTION, FSFREQSHIFT
+----------------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(420): remark #7712: This variable has not been used.   [IRANK]
+      integer :: IRANK, I, ISTAT
+-----------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(420): remark #7712: This variable has not been used.   [I]
+      integer :: IRANK, I, ISTAT
+------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(420): remark #7712: This variable has not been used.   [ISTAT]
+      integer :: IRANK, I, ISTAT
+---------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2515): remark #7712: This variable has not been used.   [IP]
+                                 IP(4), I, J, JSEA, ITARG, IB,   &
+---------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(422): remark #7712: This variable has not been used.   [ITH]
+                                 NTTARG, IK, IP, ITH, IX, IY, &
+-------------------------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2514): remark #7712: This variable has not been used.   [IX]
+                                 IFROM, IX(4), IY(4), IS(4),     &
+----------------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2514): remark #7712: This variable has not been used.   [IY]
+                                 IFROM, IX(4), IY(4), IS(4),     &
+-----------------------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(424): remark #7712: This variable has not been used.   [I1]
+                                 K, I1, I2, JSEA, NTTMAX
+------------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(424): remark #7712: This variable has not been used.   [I2]
+                                 K, I1, I2, JSEA, NTTMAX
+----------------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(476): remark #7712: This variable has not been used.   [ISPROC]
+      INTEGER                 :: ISPROC
+---------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2450): remark #7712: This variable has not been used.   [US3DF]
+      USE W3GDATMD, ONLY: NX, NSPEC, MAPFS, E3DF, P2MSF, US3DF, USSPF
+---------------------------------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2450): remark #7712: This variable has not been used.   [USSPF]
+      USE W3GDATMD, ONLY: NX, NSPEC, MAPFS, E3DF, P2MSF, US3DF, USSPF
+----------------------------------------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2458): remark #7712: This variable has not been used.   [FP1]
+      USE W3ADATMD, ONLY: T0M1, THM, THS, FP0, THP0, FP1, THP1,   &
+-----------------------------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2458): remark #7712: This variable has not been used.   [THP1]
+      USE W3ADATMD, ONLY: T0M1, THM, THS, FP0, THP0, FP1, THP1,   &
+----------------------------------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2459): remark #7712: This variable has not been used.   [SPPNT]
+                          DTDYN, FCUT, SPPNT, ABA, ABD, UBA, UBD,&
+---------------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2476): remark #7712: This variable has not been used.   [LAPROJ]
+      USE W3ADATMD, ONLY: LANGMT, LAPROJ, ALPHAL, LASL, LASLPJ,  &
+----------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2476): remark #7712: This variable has not been used.   [ALPHAL]
+      USE W3ADATMD, ONLY: LANGMT, LAPROJ, ALPHAL, LASL, LASLPJ,  &
+------------------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2476): remark #7712: This variable has not been used.   [LASL]
+      USE W3ADATMD, ONLY: LANGMT, LAPROJ, ALPHAL, LASL, LASLPJ,  &
+--------------------------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2476): remark #7712: This variable has not been used.   [LASLPJ]
+      USE W3ADATMD, ONLY: LANGMT, LAPROJ, ALPHAL, LASL, LASLPJ,  &
+--------------------------------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2477): remark #7712: This variable has not been used.   [ALPHALS]
+                          ALPHALS, LAMULT
+--------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2477): remark #7712: This variable has not been used.   [LAMULT]
+                          ALPHALS, LAMULT
+-----------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2485): remark #7712: This variable has not been used.   [NRQPO]
+                          FLOGRD, NRQPO, NRQPO2, IRQPO1, IRQPO2, &
+----------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2485): remark #7712: This variable has not been used.   [NRQPO2]
+                          FLOGRD, NRQPO, NRQPO2, IRQPO1, IRQPO2, &
+-----------------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2485): remark #7712: This variable has not been used.   [IRQPO1]
+                          FLOGRD, NRQPO, NRQPO2, IRQPO1, IRQPO2, &
+-------------------------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(2485): remark #7712: This variable has not been used.   [IRQPO2]
+                          FLOGRD, NRQPO, NRQPO2, IRQPO1, IRQPO2, &
+---------------------------------------------------------^
+/glade/work/worthen/ufs_cesmwaves/WW3/model/src/w3initmd.F90(6864): remark #7712: This variable has not been used.   [ITOUT]
+        INTEGER                 :: itout
+-----------------------------------^
+Scanning dependencies of target mom6solo
+make[2]: Leaving directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+make  -f MOM6-interface/CMakeFiles/mom6solo.dir/build.make MOM6-interface/CMakeFiles/mom6solo.dir/build
+make[2]: Entering directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+make[2]: Nothing to be done for 'MOM6-interface/CMakeFiles/mom6solo.dir/build'.
+make[2]: Leaving directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+[ 84%] Built target mom6solo
+make  -f MOM6-interface/CMakeFiles/mom6.dir/build.make MOM6-interface/CMakeFiles/mom6.dir/depend
+make[2]: Entering directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+cd /glade/work/worthen/ufs_cesmwaves/tests/build_fv3 && /glade/u/apps/ch/opt/cmake/3.22.0/bin/cmake -E cmake_depends "Unix Makefiles" /glade/work/worthen/ufs_cesmwaves /glade/work/worthen/ufs_cesmwaves/MOM6-interface /glade/work/worthen/ufs_cesmwaves/tests/build_fv3 /glade/work/worthen/ufs_cesmwaves/tests/build_fv3/MOM6-interface /glade/work/worthen/ufs_cesmwaves/tests/build_fv3/MOM6-interface/CMakeFiles/mom6.dir/DependInfo.cmake --color=
+make[2]: Leaving directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+make  -f MOM6-interface/CMakeFiles/mom6.dir/build.make MOM6-interface/CMakeFiles/mom6.dir/build
+make[2]: Entering directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+make[2]: Nothing to be done for 'MOM6-interface/CMakeFiles/mom6.dir/build'.
+make[2]: Leaving directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+[ 84%] Built target mom6
+Scanning dependencies of target fv3
+make[2]: Leaving directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+make  -f FV3/atmos_cubed_sphere/CMakeFiles/fv3.dir/build.make FV3/atmos_cubed_sphere/CMakeFiles/fv3.dir/build
+make[2]: Entering directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+make[2]: Nothing to be done for 'FV3/atmos_cubed_sphere/CMakeFiles/fv3.dir/build'.
+make[2]: Leaving directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+[ 90%] Built target fv3
+make  -f FV3/CMakeFiles/fv3atm.dir/build.make FV3/CMakeFiles/fv3atm.dir/depend
+make[2]: Entering directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+cd /glade/work/worthen/ufs_cesmwaves/tests/build_fv3 && /glade/u/apps/ch/opt/cmake/3.22.0/bin/cmake -E cmake_depends "Unix Makefiles" /glade/work/worthen/ufs_cesmwaves /glade/work/worthen/ufs_cesmwaves/FV3 /glade/work/worthen/ufs_cesmwaves/tests/build_fv3 /glade/work/worthen/ufs_cesmwaves/tests/build_fv3/FV3 /glade/work/worthen/ufs_cesmwaves/tests/build_fv3/FV3/CMakeFiles/fv3atm.dir/DependInfo.cmake --color=
+Dependee "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/FV3/CMakeFiles/fv3atm.dir/DependInfo.cmake" is newer than depender "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/FV3/CMakeFiles/fv3atm.dir/depend.internal".
+Dependee "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/FV3/CMakeFiles/CMakeDirectoryInformation.cmake" is newer than depender "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/FV3/CMakeFiles/fv3atm.dir/depend.internal".
+Scanning dependencies of target fv3atm
+make[2]: Leaving directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+make  -f FV3/CMakeFiles/fv3atm.dir/build.make FV3/CMakeFiles/fv3atm.dir/build
+make[2]: Entering directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+make[2]: Nothing to be done for 'FV3/CMakeFiles/fv3atm.dir/build'.
+make[2]: Leaving directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+[ 92%] Built target fv3atm
+/glade/u/apps/ch/opt/cmake/3.22.0/bin/cmake -E cmake_copy_f90_mod WW3/model/src/mod/w3initmd.mod WW3/model/src/CMakeFiles/ww3_lib.dir/w3initmd.mod.stamp Intel
+[ 93%] Linking Fortran static library ../../../lib/libww3.a
+cd /glade/work/worthen/ufs_cesmwaves/tests/build_fv3/WW3/model/src && /glade/u/apps/ch/opt/cmake/3.22.0/bin/cmake -P CMakeFiles/ww3_lib.dir/cmake_clean_target.cmake
+cd /glade/work/worthen/ufs_cesmwaves/tests/build_fv3/WW3/model/src && /glade/u/apps/ch/opt/cmake/3.22.0/bin/cmake -E cmake_link_script CMakeFiles/ww3_lib.dir/link.txt --verbose=1
+/usr/bin/ar qc ../../../lib/libww3.a CMakeFiles/ww3_lib.dir/constants.F90.o CMakeFiles/ww3_lib.dir/w3adatmd.F90.o CMakeFiles/ww3_lib.dir/w3arrymd.F90.o CMakeFiles/ww3_lib.dir/w3bullmd.F90.o CMakeFiles/ww3_lib.dir/w3cspcmd.F90.o CMakeFiles/ww3_lib.dir/w3dispmd.F90.o CMakeFiles/ww3_lib.dir/w3fldsmd.F90.o CMakeFiles/ww3_lib.dir/w3gdatmd.F90.o CMakeFiles/ww3_lib.dir/w3gridmd.F90.o CMakeFiles/ww3_lib.dir/w3gsrumd.F90.o CMakeFiles/ww3_lib.dir/w3idatmd.F90.o CMakeFiles/ww3_lib.dir/w3initmd.F90.o CMakeFiles/ww3_lib.dir/w3iobcmd.F90.o CMakeFiles/ww3_lib.dir/w3iogomd.F90.o CMakeFiles/ww3_lib.dir/w3iogrmd.F90.o CMakeFiles/ww3_lib.dir/w3iopomd.F90.o CMakeFiles/ww3_lib.dir/w3iorsmd.F90.o CMakeFiles/ww3_lib.dir/w3iosfmd.F90.o CMakeFiles/ww3_lib.dir/w3iotrmd.F90.o CMakeFiles/ww3_lib.dir/w3metamd.F90.o CMakeFiles/ww3_lib.dir/w3nmlbouncmd.F90.o CMakeFiles/ww3_lib.dir/w3nmlboundmd.F90.o CMakeFiles/ww3_lib.dir/w3nmlgridmd.F90.o CMakeFiles/ww3_lib.dir/w3nmlmultimd.F90.o CMakeFiles/ww3_lib.dir/w3nmlounfmd.F90.o CMakeFiles/ww3_lib.dir/w3nmlounpmd.F90.o CMakeFiles/ww3_lib.dir/w3nmlprncmd.F90.o CMakeFiles/ww3_lib.dir/w3nmlshelmd.F90.o CMakeFiles/ww3_lib.dir/w3nmltrncmd.F90.o CMakeFiles/ww3_lib.dir/w3nmluprstrmd.F90.o CMakeFiles/ww3_lib.dir/w3odatmd.F90.o CMakeFiles/ww3_lib.dir/w3parall.F90.o CMakeFiles/ww3_lib.dir/w3partmd.F90.o CMakeFiles/ww3_lib.dir/w3servmd.F90.o CMakeFiles/ww3_lib.dir/w3srcemd.F90.o CMakeFiles/ww3_lib.dir/w3strkmd.F90.o CMakeFiles/ww3_lib.dir/w3timemd.F90.o CMakeFiles/ww3_lib.dir/w3triamd.F90.o CMakeFiles/ww3_lib.dir/w3updtmd.F90.o CMakeFiles/ww3_lib.dir/w3wavemd.F90.o CMakeFiles/ww3_lib.dir/w3wdasmd.F90.o CMakeFiles/ww3_lib.dir/w3wdatmd.F90.o CMakeFiles/ww3_lib.dir/wmfinlmd.F90.o CMakeFiles/ww3_lib.dir/wmgridmd.F90.o CMakeFiles/ww3_lib.dir/wminiomd.F90.o CMakeFiles/ww3_lib.dir/wminitmd.F90.o CMakeFiles/ww3_lib.dir/wmiopomd.F90.o CMakeFiles/ww3_lib.dir/wmmdatmd.F90.o CMakeFiles/ww3_lib.dir/wmunitmd.F90.o CMakeFiles/ww3_lib.dir/wmupdtmd.F90.o CMakeFiles/ww3_lib.dir/wmwavemd.F90.o CMakeFiles/ww3_lib.dir/w3tidemd.F90.o CMakeFiles/ww3_lib.dir/w3profsmd.F90.o CMakeFiles/ww3_lib.dir/w3pro3md.F90.o CMakeFiles/ww3_lib.dir/w3uqckmd.F90.o CMakeFiles/ww3_lib.dir/w3fld1md.F90.o CMakeFiles/ww3_lib.dir/w3fld2md.F90.o CMakeFiles/ww3_lib.dir/w3src4md.F90.o CMakeFiles/ww3_lib.dir/w3snl1md.F90.o CMakeFiles/ww3_lib.dir/w3sbt1md.F90.o CMakeFiles/ww3_lib.dir/w3sdb1md.F90.o CMakeFiles/ww3_lib.dir/w3ounfmetamd.F90.o CMakeFiles/ww3_lib.dir/wav_kind_mod.F90.o CMakeFiles/ww3_lib.dir/wav_shr_mod.F90.o CMakeFiles/ww3_lib.dir/wav_shel_inp.F90.o CMakeFiles/ww3_lib.dir/wav_comp_nuopc.F90.o CMakeFiles/ww3_lib.dir/wav_import_export.F90.o CMakeFiles/ww3_lib.dir/w3iogoncdmd.F90.o CMakeFiles/ww3_lib.dir/wav_grdout.F90.o
+/usr/bin/ranlib ../../../lib/libww3.a
+make[2]: Leaving directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+[100%] Built target ww3_lib
+make  -f CMakeFiles/ufs.dir/build.make CMakeFiles/ufs.dir/depend
+make[2]: Entering directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+cd /glade/work/worthen/ufs_cesmwaves/tests/build_fv3 && /glade/u/apps/ch/opt/cmake/3.22.0/bin/cmake -E cmake_depends "Unix Makefiles" /glade/work/worthen/ufs_cesmwaves /glade/work/worthen/ufs_cesmwaves /glade/work/worthen/ufs_cesmwaves/tests/build_fv3 /glade/work/worthen/ufs_cesmwaves/tests/build_fv3 /glade/work/worthen/ufs_cesmwaves/tests/build_fv3/CMakeFiles/ufs.dir/DependInfo.cmake --color=
+Dependee "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/CMakeFiles/ufs.dir/DependInfo.cmake" is newer than depender "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/CMakeFiles/ufs.dir/depend.internal".
+Dependee "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/CMakeFiles/CMakeDirectoryInformation.cmake" is newer than depender "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/CMakeFiles/ufs.dir/depend.internal".
+Scanning dependencies of target ufs
+make[2]: Leaving directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+make  -f CMakeFiles/ufs.dir/build.make CMakeFiles/ufs.dir/build
+make[2]: Entering directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+make[2]: Nothing to be done for 'CMakeFiles/ufs.dir/build'.
+make[2]: Leaving directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+[100%] Built target ufs
+make  -f CMakeFiles/ufs_model.dir/build.make CMakeFiles/ufs_model.dir/depend
+make[2]: Entering directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+cd /glade/work/worthen/ufs_cesmwaves/tests/build_fv3 && /glade/u/apps/ch/opt/cmake/3.22.0/bin/cmake -E cmake_depends "Unix Makefiles" /glade/work/worthen/ufs_cesmwaves /glade/work/worthen/ufs_cesmwaves /glade/work/worthen/ufs_cesmwaves/tests/build_fv3 /glade/work/worthen/ufs_cesmwaves/tests/build_fv3 /glade/work/worthen/ufs_cesmwaves/tests/build_fv3/CMakeFiles/ufs_model.dir/DependInfo.cmake --color=
+Dependee "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/CMakeFiles/ufs_model.dir/DependInfo.cmake" is newer than depender "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/CMakeFiles/ufs_model.dir/depend.internal".
+Dependee "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/CMakeFiles/CMakeDirectoryInformation.cmake" is newer than depender "/glade/work/worthen/ufs_cesmwaves/tests/build_fv3/CMakeFiles/ufs_model.dir/depend.internal".
+Scanning dependencies of target ufs_model
+make[2]: Leaving directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+make  -f CMakeFiles/ufs_model.dir/build.make CMakeFiles/ufs_model.dir/build
+make[2]: Entering directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+[100%] Linking Fortran executable ufs_model
+/glade/u/apps/ch/opt/cmake/3.22.0/bin/cmake -E cmake_link_script CMakeFiles/ufs_model.dir/link.txt --verbose=1
+/glade/u/apps/ch/opt/ncarcompilers/0.5.0/intel/2021.2/mpi/mpif90  -g -traceback -fpp -fno-alias -auto -safe-cray-ptr -ftz -assume byterecl -nowarn -sox -align array64byte -qno-opt-dynamic-align -real-size 64 -g -O0 -check -check noarg_temp_created -check nopointer -warn -warn noerrors -fp-stack-check -fstack-protector-all -fpe0 -debug -ftrapuv -init=snan,arrays CMakeFiles/ufs_model.dir/driver/UFS.F90.o -o ufs_model  -Wl,-rpath,/glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/netcdf/4.7.4/lib libufs.a /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/esmf/8.3.0b09-debug/lib/libesmf.a /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/w3nco/2.4.1/lib/libw3nco_d.a lib/libww3.a FV3/libfv3atm.a FV3/atmos_cubed_sphere/libfv3.a FV3/ccpp/libfv3ccpp.a FV3/ccpp/framework/src/libccpp_framework.a -ldl FV3/ccpp/physics/libccpp_physics.a /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/w3nco/2.4.1/lib/libw3nco_d.a /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/sp/2.3.3/lib/libsp_d.a FV3/upp/sorc/ncep_post.fd/libupp.a /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/bacio/2.4.1/lib/libbacio_4.a /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/crtm/2.3.0/lib/libcrtm.a /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/g2/3.4.2/lib64/libg2_4.a /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/png/1.6.35/lib64/libpng.a /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/zlib/1.2.11/lib/libz.a -lm /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/jasper/2.0.22/lib64/libjasper.a /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/jpeg/9.1.0/lib/libjpeg.a /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/g2tmpl/1.10.0/lib/libg2tmpl.a MOM6-interface/libmom6.a stochastic_physics/libstochastic_physics.a /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/fms/2022.01/lib/libfms_r8.a CICE-interface/libcice.a /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/netcdf/4.7.4/lib/libnetcdff.so -L/glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/netcdf/4.7.4/lib -lnetcdff /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/netcdf/4.7.4/lib/libnetcdf.so -L/glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/netcdf/4.7.4/lib -lnetcdf CMEPS-interface/libcmeps.a /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/esmf/8.3.0b09-debug/lib/libesmf.a -Wl,-rpath,/glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/esmf/8.3.0b09-debug/lib -L/glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/esmf/8.3.0b09-debug/lib -L/glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/hdf5/1.10.6/lib   -L/glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/zlib/1.2.11/lib -L/glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/esmf/8.3.0b09-debug/lib -L/glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/netcdf/4.7.4/lib -lmpi++ -cxxlib -lrt -ldl -lnetcdff -lnetcdf -lhdf5_hl -lhdf5  -lz -ldl -lm -m64 -mcmodel=small -pthread -threads -Wl,--no-as-needed  -qopenmp /glade/u/apps/opt/intel/2021.2/compiler/2021.2.0/linux/compiler/lib/intel64_lin/libiomp5.so /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/pio/2.5.2/lib/libpiof.a /glade/work/epicufsrt/GMTB/tools/hpc-stack-v1.2.0_6eb6/intel-2021.2/mpt-2.22/pio/2.5.2/lib/libpioc.a -lirng -ldecimal -lcilkrts -lstdc++ 
+make[2]: Leaving directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+[100%] Built target ufs_model
+make[1]: Leaving directory '/glade/work/worthen/ufs_cesmwaves/tests/build_fv3'
+/glade/u/apps/ch/opt/cmake/3.22.0/bin/cmake -E cmake_progress_start /glade/work/worthen/ufs_cesmwaves/tests/build_fv3/CMakeFiles 0
++ mv /glade/work/worthen/ufs_cesmwaves/tests/build_fv3/ufs_model /glade/work/worthen/ufs_cesmwaves/tests/fv3.exe
++ [[ -DAPP=S2SW -DDEBUG=ON -DCCPP_SUITES=FV3_GFS_v17_coupled_p8 == \-\D\D\E\B\U\G\=\O\N ]]
++ cp /glade/work/worthen/ufs_cesmwaves/modulefiles/ufs_cheyenne.intel /glade/work/worthen/ufs_cesmwaves/tests/modules.fv3
++ '[' NO = YES ']'
++ elapsed=84
++ echo 'Elapsed time 84 seconds. Compiling -DAPP=S2SW -DDEBUG=ON -DCCPP_SUITES=FV3_GFS_v17_coupled_p8 -DMPI=ON -DCMAKE_BUILD_TYPE=Debug -DMOM6SOLO=ON finished'
+Elapsed time 84 seconds. Compiling -DAPP=S2SW -DDEBUG=ON -DCCPP_SUITES=FV3_GFS_v17_coupled_p8 -DMPI=ON -DCMAKE_BUILD_TYPE=Debug -DMOM6SOLO=ON finished
++ echo 'Compile  elapsed time 84 seconds. -DAPP=S2SW -DDEBUG=ON -DCCPP_SUITES=FV3_GFS_v17_coupled_p8 -DMPI=ON -DCMAKE_BUILD_TYPE=Debug -DMOM6SOLO=ON'
