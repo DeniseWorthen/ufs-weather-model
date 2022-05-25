@@ -28,7 +28,7 @@ export NPZP=128
 export ATMTILESIZE=`expr $NPX - 1`
 
 # set mannually for cheyenne, using C384 ATM and MX100 OCN
-export TPN=$TPN_cpl_c384
+export TASKS=$TASKS_cpl_c384
 export INPES=$INPES_cpl_c384
 export JNPES=$JNPES_cpl_c384
 export THRD=$THRD_cpl_c384
