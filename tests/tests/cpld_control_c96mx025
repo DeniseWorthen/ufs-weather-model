@@ -27,28 +27,16 @@ export NPZ=127
 export NPZP=128
 export ATMTILESIZE=`expr $NPX - 1`
 
-# set mannually for cheyenne, using C96 ATM and MX025 OCN
-export TASKS=$TASKS_cpl_c96
-export INPES=$INPES_cpl_c96
-export JNPES=$JNPES_cpl_c96
-export THRD=$THRD_cpl_c96
-export WRTTASK_PER_GROUP=$WPG_cpl_c96
+export TASKS=$TASKS_cpl_c96mx025
+export INPES=$INPES_cpl_c96mx025
+export JNPES=$JNPES_cpl_c96mx025
+export THRD=$THRD_cpl_c96mx025
+export WRTTASK_PER_GROUP=$WPG_cpl_c96mx025
 
-export NPROC_ICE=48
+export NPROC_ICE=$ICE_tasks
 export np2=`expr $NPROC_ICE / 2`
 export BLCKX=`expr $NX_GLB / $np2`
 export BLCKY=`expr $NY_GLB / 2`
-
-export APB_cpl_c96="0 149"
-export MPB_cpl_c96="0 143"
-export OPB_cpl_c384="150 269"
-export IPB_cpl_c384="270 317"
-
-export TASKS=318
-export med_petlist_bounds=$MPB_cpl_c96
-export atm_petlist_bounds=$APB_cpl_c96
-export ocn_petlist_bounds=$OPB_cpl_c384
-export ice_petlist_bounds=$IPB_cpl_c384
 
 # explicit timesteps all components, all tests
 export DT_ATMOS=720

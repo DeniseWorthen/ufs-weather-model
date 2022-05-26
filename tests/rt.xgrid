@@ -4,6 +4,6 @@
 
 #COMPILE | -DAPP=S2SW -DCCPP_SUITES=FV3_GFS_v16_coupled_nsstNoahmpUGWPv1,FV3_GFS_v16_coupled_p7_rrtmgp,FV3_GFS_v16_coupled_p8      | - wcoss_cray                            | fv3 |
 COMPILE | -DAPP=S2S -DDEBUG=ON -DCCPP_SUITES=FV3_GFS_v16_coupled_nsstNoahmpUGWPv1,FV3_GFS_v17_coupled_p8                          | - wcoss_cray                            | fv3 |
-RUN     | cpld_control_c96mx100                                                                                                   | - wcoss_cray                            | fv3 |
-RUN     | cpld_control_c384mx100                                                                                                  | - wcoss_cray                            | fv3 |
+#RUN     | cpld_control_c96mx100                                                                                                   | - wcoss_cray                            | fv3 |
+#RUN     | cpld_control_c384mx100                                                                                                  | - wcoss_cray                            | fv3 |
 RUN     | cpld_control_c96mx025                                                                                                   | - wcoss_cray                            | fv3 |
