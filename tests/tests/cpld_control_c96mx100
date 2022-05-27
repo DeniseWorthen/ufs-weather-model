@@ -36,21 +36,10 @@ export WRTTASK_PER_GROUP=$WPG_cpl_c96
 export OCN_tasks=$OCN_tasks_cpl_c96
 export ICE_tasks=$ICE_tasks_cpl_c96
 
-export NPROC_ICE=12
+export NPROC_ICE=$ICE_tasks
 export np2=`expr $NPROC_ICE / 2`
 export BLCKX=`expr $NX_GLB / $np2`
 export BLCKY=`expr $NY_GLB / 2`
-
-export APB_cpl_c96="0 149"
-export MPB_cpl_c96="0 143"
-export OPB_cpl_c96="150 179"
-export IPB_cpl_c96="180 191"
-
-export TASKS=192
-export med_petlist_bounds=$MPB_cpl_c96
-export atm_petlist_bounds=$APB_cpl_c96
-export ocn_petlist_bounds=$OPB_cpl_c96
-export ice_petlist_bounds=$IPB_cpl_c96
 
 # explicit timesteps all components, all tests
 export DT_ATMOS=720
