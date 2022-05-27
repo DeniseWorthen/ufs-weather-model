@@ -33,6 +33,9 @@ export JNPES=$JNPES_cpl_c96mx025
 export THRD=$THRD_cpl_c96mx025
 export WRTTASK_PER_GROUP=$WPG_cpl_c96mx025
 
+OCN_tasks=$OCN_tasks_cpl_c96mx025
+ICE_tasks=$ICE_tasks_cpl_c96mx025
+
 export NPROC_ICE=$ICE_tasks
 export np2=`expr $NPROC_ICE / 2`
 export BLCKX=`expr $NX_GLB / $np2`
