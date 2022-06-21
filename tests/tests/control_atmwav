@@ -81,7 +81,6 @@ export RST_END=$RUN_END
 export RST_2_END=$RUN_END
 
 export TASKS=$TASKS_cpl_atmw
-export TPN=$TPN_cpl_atmw
 export INPES=$INPES_cpl_atmw
 export JNPES=$JNPES_cpl_atmw
 export THRD=$THRD_cpl_atmw
