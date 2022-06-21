@@ -114,13 +114,9 @@ else
   ls -1 ./INPUT/${RFILE}>ice.restart_file
 
   # WAVE restart file
-<<<<<<< HEAD
-  cp ../${DEP_RUN}${SUFFIX}/${RESTART_FILE_PREFIX}.restart.ww3 ./restart.ww3
-=======
   if [[ $CPLWAV == .true. ]]; then
     cp ../${DEP_RUN}${SUFFIX}/${RESTART_FILE_PREFIX}.restart.ww3 ./restart.ww3
   fi
->>>>>>> develop
 fi
 
 #inline post
@@ -156,14 +152,11 @@ fi
 
 #prognostic aerosols; explictly list files since AERO_HIST.rc is from parm/gocart
 if [ $CPLCHM = .true. ]; then
-<<<<<<< HEAD
   cp      @[INPUTDATA_ROOT]/GOCART/p8/rc/*instance* .
   cp      @[INPUTDATA_ROOT]/GOCART/p8/rc/AERO_ExtData.rc .
   cp      @[INPUTDATA_ROOT]/GOCART/p8/rc/AERO.rc .
   cp      @[INPUTDATA_ROOT]/GOCART/p8/rc/AGCM.rc .
   cp      @[INPUTDATA_ROOT]/GOCART/p8/rc/CAP.rc .
   cp      @[INPUTDATA_ROOT]/GOCART/p8/rc/GOCART2G_GridComp.rc .
-=======
->>>>>>> develop
   ln -sf  @[INPUTDATA_ROOT]/GOCART/p8/ExtData .
 fi
