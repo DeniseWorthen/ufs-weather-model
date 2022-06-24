@@ -609,10 +609,6 @@
        canonical_units: N m-2
        description: ocean import - meridional surface stress to ocean
      #
-     - standard_name: Sw_lamult
-       canonical_units: 1
-       description: ocean import - Langmuir multiplier
-     #
      #-----------------------------------
      # mediator fields
      #-----------------------------------
