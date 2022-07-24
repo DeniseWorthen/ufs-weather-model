@@ -150,7 +150,7 @@ if [ $IMP_PHYSICS = 8 ]; then
   cp    @[INPUTDATA_ROOT]/FV3_input_data_gsd/qr_acr_qs.dat qr_acr_qs.dat
 fi
 
-#prognostic aerosols; explictly list files since AERO_HIST.rc is from parm/gocart
+#prognostic aerosols
 if [ $CPLCHM = .true. ]; then
   ln -sf  @[INPUTDATA_ROOT]/GOCART/p8/ExtData .
 fi
