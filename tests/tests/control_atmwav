@@ -85,6 +85,7 @@ export INPES=$INPES_cpl_atmw
 export JNPES=$JNPES_cpl_atmw
 export THRD=$THRD_cpl_atmw
 export WRTTASK_PER_GROUP=$WPG_cpl_atmw
+export WAV_tasks=$WAV_tasks_cpl_atmw
 
 export MULTIGRID=false
 export RESTART_N=${FHMAX}
@@ -94,10 +95,6 @@ export cap_dbug_flag=0
 export RUNTYPE=startup
 export ATMTILESIZE=`expr $NPX - 1`
 export MESH_WAV=mesh.glo_1deg.nc
-
-export med_petlist_bounds=$MPB_cpl_dflt
-export atm_petlist_bounds=$APB_cpl_atmw
-export wav_petlist_bounds=$WPB_cpl_atmw
 
 export CPL=.true.
 export CPLWAV=.true.

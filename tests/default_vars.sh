@@ -13,7 +13,7 @@
 
   TASKS_cpl_atmw=180; THRD_cpl_atmw=1
   INPES_cpl_atmw=3; JNPES_cpl_atmw=8; WPG_cpl_atmw=6
-  WAV_tasks_atmw=30
+  WAV_tasks_cpl_atmw=30
 
   TASKS_cpl_dflt=200; THRD_cpl_dflt=1
   INPES_cpl_dflt=3; JNPES_cpl_dflt=8; WPG_cpl_dflt=6
