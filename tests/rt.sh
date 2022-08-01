@@ -425,7 +425,7 @@ BL_DATE=20220629
 RTPWD=${RTPWD:-$DISKNM/NEMSfv3gfs/develop-${BL_DATE}/${RT_COMPILER^^}}
 
 INPUTDATA_ROOT=${INPUTDATA_ROOT:-$DISKNM/NEMSfv3gfs/input-data-20220414}
-INPUTDATA_ROOT_WW3=${INPUTDATA_ROOT}/WW3_input_data_20220418
+INPUTDATA_ROOT_WW3=${INPUTDATA_ROOT}/WW3_input_data_20220624
 INPUTDATA_ROOT_BMIC=${INPUTDATA_ROOT_BMIC:-$DISKNM/NEMSfv3gfs/BM_IC-20220207}
 
 shift $((OPTIND-1))
@@ -520,7 +520,8 @@ if [[ $ECFLOW == true ]]; then
   MAX_JOBS=30
 
   # Default number of tries to run jobs - on wcoss, no error tolerance
-  ECF_TRIES=2
+  #ECF_TRIES=2
+  ECF_TRIES=1
   if [[ $MACHINE_ID = wcoss* ]]; then
     ECF_TRIES=1
   fi
