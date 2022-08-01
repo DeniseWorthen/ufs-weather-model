@@ -70,9 +70,9 @@ MED_attributes::
       history_tile_atm = @[ATMTILESIZE]
       dststatus_print = true
       history_n_atm_inst = 1
-      history_option_atm_inst = nsteps
+      history_option_atm_inst = nhours
       history_n_wav_inst = 1
-      history_option_wav_inst = nsteps
+      history_option_wav_inst = nhours
 ::
 
 ALLCOMP_attributes::

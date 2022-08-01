@@ -48,7 +48,7 @@ export LIST_FILES="sfcf000.nc \
                    RESTART/sfc_data.tile4.nc \
                    RESTART/sfc_data.tile5.nc \
                    RESTART/sfc_data.tile6.nc \
-                   20210322.180000.restart.glo_1deg"
+                   20210322.180000.restart.ww3"
 
 export_fv3
 export NPZ=127

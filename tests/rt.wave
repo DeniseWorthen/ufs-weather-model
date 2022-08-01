@@ -1,0 +1,32 @@
+###################################################################################################################################################################################
+# S2S tests                                                                                                                                                                       #
+###################################################################################################################################################################################
+
+COMPILE | -DAPP=S2SWA -DCCPP_SUITES=FV3_GFS_v17_coupled_p8,FV3_GFS_cpld_rasmgshocnsstnoahmp_ugwp                                  | - wcoss2.intel                          | fv3 |
+RUN     | cpld_control_p8                                                                                                         | - wcoss2.intel                          | fv3 |
+RUN     | cpld_restart_p8                                                                                                         | - wcoss2.intel                          |     | cpld_control_p8
+
+COMPILE | -DAPP=S2SWA -DDEBUG=ON -DCCPP_SUITES=FV3_GFS_v17_coupled_p8,FV3_GFS_cpld_rasmgshocnsstnoahmp_ugwp                       | - wcoss2.intel                          | fv3 |
+RUN     | cpld_debug_p8                                                                                                           | - wcoss2.intel                          | fv3 |
+
+COMPILE | -DAPP=S2SW -DCCPP_SUITES=FV3_GFS_v17_coupled_p8                                                                         |                                         | fv3 |
+RUN     | cpld_control_noaero_p8                                                                                                  |                                         | fv3 |
+
+COMPILE | -DAPP=S2SW -DDEBUG=ON -DCCPP_SUITES=FV3_GFS_v17_coupled_p8                                                              |                                         | fv3 |
+RUN     | cpld_debug_noaero_p8                                                                                                    | - wcoss2.intel                          | fv3 |
+
+###################################################################################################################################################################################
+# HAFS    tests                                                                                                                                                                   #
+###################################################################################################################################################################################
+
+COMPILE | -DAPP=HAFSW -DMOVING_NEST=ON -DCCPP_SUITES=FV3_HAFS_v0_gfdlmp_tedmf,FV3_HAFS_v0_gfdlmp_tedmf_nonsst,FV3_HAFS_v0_thompson_tedmf_gfdlsf -D32BIT=ON |                | fv3 |
+RUN     | hafs_regional_atm_wav                                                                                                   |                                         | fv3 |
+RUN     | hafs_regional_atm_ocn_wav                                                                                               |                                         | fv3 |
+RUN     | hafs_regional_storm_following_1nest_atm_ocn_wav                                                                         | - jet.intel                             | fv3 |
+
+###################################################################################################################################################################################
+# ATM-WAV tests                                                                                                                                                                   #
+###################################################################################################################################################################################
+
+COMPILE | -DAPP=ATMW -DCCPP_SUITES=FV3_GFS_v16 -D32BIT=ON                                                                       | - wcoss2.intel                            | fv3 |
+RUN     | control_atmwav                                                                                                        | - wcoss2.intel                            | fv3 |
