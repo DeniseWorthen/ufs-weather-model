@@ -16,7 +16,7 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMakeModules/Modules)
 ###############################################################################
 
 # Valid applications and choices
-list(APPEND VALID_APPS ATM ATMAERO ATMAQ ATMW S2S S2SA S2SW S2SWA HAFS HAFSW HAFS-ALL NG-GODAS)
+list(APPEND VALID_APPS ATM ATMAERO ATMAQ ATMW ATMWM S2S S2SA S2SW S2SWA HAFS HAFSW HAFS-ALL NG-GODAS)
 set(APP NONE CACHE BOOL "Application Name")
 if(NOT (APP IN_LIST VALID_APPS))
   message(FATAL_ERROR "${APP} is not a valid application.\nValid Applications are: ${VALID_APPS}")
@@ -168,15 +168,15 @@ endif()
 ### Wave components [WW3]
 ###############################################################################
 if(WW3)
-  #if(APP MATCHES "^(ATMW)$")
-  #  set(SWITCH "multi_esmf" CACHE STRING "ESMF cap")
-  #  set(UFS_CAP "MULTI_ESMF" CACHE STRING "Build with MULTI_ESMF cap")
-  #  list(APPEND _ufs_defs_private FRONT_WW3=WMESMFMD)
-  #else()
+  if(APP MATCHES "^(ATMWM)$")
+    set(SWITCH "multi_esmf" CACHE STRING "ESMF cap")
+    set(UFS_CAP "MULTI_ESMF" CACHE STRING "Build with MULTI_ESMF cap")
+    list(APPEND _ufs_defs_private FRONT_WW3=WMESMFMD)
+  else()
     set(SWITCH "meshcap" CACHE STRING "NUOPC mesh cap")
     set(UFS_CAP "NUOPC_MESH" CACHE STRING "Build with NUOPC_MESH cap")
     list(APPEND _ufs_defs_private FRONT_WW3=wav_comp_nuopc)
-  #endif()
+  endif()
   add_subdirectory(WW3)
 endif()
 

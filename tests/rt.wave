@@ -28,5 +28,11 @@ RUN     | hafs_regional_storm_following_1nest_atm_ocn_wav                       
 # ATM-WAV tests                                                                                                                                                                   #
 ###################################################################################################################################################################################
 
+#CMEPS version
 COMPILE | -DAPP=ATMW -DCCPP_SUITES=FV3_GFS_v16 -D32BIT=ON                                                                       | - wcoss2.intel                            | fv3 |
+#COMPILE | -DAPP=ATMW -DDEBUG=ON -DCCPP_SUITES=FV3_GFS_v16 -D32BIT=ON                                                            | - wcoss2.intel                            | fv3 |
+RUN     | control_atmwav_cmeps                                                                                                  | - wcoss2.intel                            | fv3 |
+#connectors (wmesmf)
+COMPILE | -DAPP=ATMWM -DCCPP_SUITES=FV3_GFS_v16 -D32BIT=ON                                                                      | - wcoss2.intel                            | fv3 |
+#COMPILE | -DAPP=ATMWM -DDEBUG=ON -DCCPP_SUITES=FV3_GFS_v16 -D32BIT=ON                                                           | - wcoss2.intel                            | fv3 |
 RUN     | control_atmwav                                                                                                        | - wcoss2.intel                            | fv3 |
