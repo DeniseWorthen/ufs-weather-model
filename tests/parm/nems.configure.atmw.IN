@@ -34,6 +34,8 @@ WAV_attributes::
   logfile = wav.log
   mesh_wav = @[MESH_WAV]
   multigrid = @[MULTIGRID]
+  gridded_netcdfout = true
+  user_sets_histname = true
 ::
 
 

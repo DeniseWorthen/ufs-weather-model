@@ -6,7 +6,7 @@
 
 export TEST_DESCR="Compare global control results with previous trunk version"
 
-export CNTL_DIR=atmwav_control_noaero_p8
+export CNTL_DIR=atmwav_unstr_control_noaero_p8
 
 export LIST_FILES="sfcf000.tile1.nc \
                    sfcf000.tile2.nc \
@@ -96,8 +96,9 @@ export atm_model='fv3'
 export wav_model='ww3'
 
 export ATMTILESIZE=`expr $NPX - 1`
-export MESH_WAV=mesh.glo_1deg.nc
-export MODDEF_WAV=mod_def.glo_1deg
+#the mesh file depeds only on land/noland. it is dentical for either CD or DD
+export MESH_WAV=mesh.no_land_CardDeck.nc
+export MODDEF_WAV=mod_def.no_land_CardDeck
 
 # nems.configure
 export coupling_interval_sec=${DT_ATMOS}
