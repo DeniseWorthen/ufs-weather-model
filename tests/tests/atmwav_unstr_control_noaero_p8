@@ -82,7 +82,7 @@ export RESTART_INTERVAL="12 -1"
 export OUTPUT_GRID='cubed_sphere_grid'
 export OUTPUT_FH='0 24'
 
-export FHMAX=12
+export FHMAX=24
 export RESTART_INTERVAL="12 -1"
 
 export TASKS=$TASKS_cpl_atmw
