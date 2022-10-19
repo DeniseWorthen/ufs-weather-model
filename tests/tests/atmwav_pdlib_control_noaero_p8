@@ -14,24 +14,24 @@ export LIST_FILES="sfcf000.tile1.nc \
                    sfcf000.tile4.nc \
                    sfcf000.tile5.nc \
                    sfcf000.tile6.nc \
-                   sfcf018.tile1.nc \
-                   sfcf018.tile2.nc \
-                   sfcf018.tile3.nc \
-                   sfcf018.tile4.nc \
-                   sfcf018.tile5.nc \
-                   sfcf018.tile6.nc \
+                   sfcf024.tile1.nc \
+                   sfcf024.tile2.nc \
+                   sfcf024.tile3.nc \
+                   sfcf024.tile4.nc \
+                   sfcf024.tile5.nc \
+                   sfcf024.tile6.nc \
                    atmf000.tile1.nc \
                    atmf000.tile2.nc \
                    atmf000.tile3.nc \
                    atmf000.tile4.nc \
                    atmf000.tile5.nc \
                    atmf000.tile6.nc \
-                   atmf018.tile1.nc \
-                   atmf018.tile2.nc \
-                   atmf018.tile3.nc \
-                   atmf018.tile4.nc \
-                   atmf018.tile5.nc \
-                   atmf018.tile6.nc \
+                   atmf024.tile1.nc \
+                   atmf024.tile2.nc \
+                   atmf024.tile3.nc \
+                   atmf024.tile4.nc \
+                   atmf024.tile5.nc \
+                   atmf024.tile6.nc \
                    RESTART/coupler.res \
                    RESTART/fv_core.res.nc \
                    RESTART/fv_core.res.tile1.nc \
@@ -64,10 +64,10 @@ export LIST_FILES="sfcf000.tile1.nc \
                    RESTART/sfc_data.tile4.nc \
                    RESTART/sfc_data.tile5.nc \
                    RESTART/sfc_data.tile6.nc \
-		   RESTART/ufs.atmw.cpl.r.2021-03-22-64800.nc \
-                   20210322.180000.out_pnt.ww3 \
-                   ufs.atmw.ww3.hi.2021-03-22-64800.nc \
-                   20210322.180000.restart.ww3"
+		   RESTART/ufs.atmw.cpl.r.2021-03-23-21600.nc \
+                   20210323.060000.out_pnt.ww3 \
+                   ufs.atmw.ww3.hi.2021-03-23-21600.nc \
+                   20210323.060000.restart.ww3"
 
 export_fv3
 export NPZ=127
@@ -80,6 +80,7 @@ export SDAY=22
 export SHOUR=06
 export RESTART_INTERVAL="12 -1"
 export OUTPUT_GRID='cubed_sphere_grid'
+export OUTPUT_FH='0 24'
 
 export FHMAX=12
 export RESTART_INTERVAL="12 -1"
@@ -96,7 +97,7 @@ export atm_model='fv3'
 export wav_model='ww3'
 
 export ATMTILESIZE=`expr $NPX - 1`
-#the mesh file depeds only on land/noland. it is identical for either CD or DD
+#the mesh file depends only on land/noland. it is dentical for either CD or DD
 export MESH_WAV=mesh.no_land_CardDeck.nc
 export MODDEF_WAV=mod_def.no_land_Domain_Decomposition
 
