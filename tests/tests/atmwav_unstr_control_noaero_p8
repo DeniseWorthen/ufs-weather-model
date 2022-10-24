@@ -98,8 +98,8 @@ export wav_model='ww3'
 
 export ATMTILESIZE=`expr $NPX - 1`
 #the mesh file depends only on land/noland. it is dentical for either CD or DD
-export MESH_WAV=mesh.no_land_CardDeck.nc
-export MODDEF_WAV=mod_def.no_land_CardDeck
+export MESH_WAV=mesh.trip1degmask.nc
+export MODDEF_WAV=mod_def.trip1degmask_cd
 
 # nems.configure
 export coupling_interval_sec=${DT_ATMOS}
