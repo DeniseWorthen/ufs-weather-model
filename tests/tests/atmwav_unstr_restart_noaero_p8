@@ -6,7 +6,7 @@
 
 export TEST_DESCR="Compare global control results with previous trunk version"
 
-export CNTL_DIR=atmwav_pdlib_control_noaero_p8
+export CNTL_DIR=atmwav_unstr_control_noaero_p8
 
 export LIST_FILES="sfcf000.tile1.nc \
                    sfcf000.tile2.nc \
@@ -82,8 +82,10 @@ export RESTART_INTERVAL="12 -1"
 export OUTPUT_GRID='cubed_sphere_grid'
 export OUTPUT_FH='0 24'
 
-export FHMAX=24
-export RESTART_INTERVAL="12 -1"
+export FHROT=12
+export RESTART_FILE_PREFIX="${SYEAR}${SMONTH}${SDAY}.$(printf "%02d" $(( ${SHOUR} + ${FHROT}  )))0000"
+export RESTART_FILE_SUFFIX_HRS="${SYEAR}-${SMONTH}-${SDAY}-$(printf "%02d" $(( ${FHROT} + ${SHOUR})))"
+export RESTART_FILE_SUFFIX_SECS="${SYEAR}-${SMONTH}-${SDAY}-$(printf "%05d" $(( (${FHROT}+ ${SHOUR})*3600 )))"
 
 export TASKS=$TASKS_cpl_atmw
 export INPES=$INPES_cpl_atmw
@@ -99,7 +101,7 @@ export wav_model=ww3
 export ATMTILESIZE=`expr $NPX - 1`
 #the mesh file depends only on land/noland. it is dentical for either CD or DD
 export MESH_WAV=mesh.trip1degmask.nc
-export MODDEF_WAV=mod_def.trip1degmask_dd
+export MODDEF_WAV=mod_def.trip1degmask_cd
 
 # nems.configure
 export coupling_interval_sec=${DT_ATMOS}
@@ -129,7 +131,7 @@ export DDDMP=0.1
 # P7 Merra2 Aerosols & NSST
 export USE_MERRA2=.true.
 export IAER=1011
-export NSTF_NAME=2,1,0,0,0
+export NSTF_NAME=2,0,0,0,0
 export LHEATSTRG=.false.
 export LSEASPRAY=.true.
 
@@ -190,7 +192,16 @@ export RESTART_N=${FHMAX}
 #TODO: what should cplmode be?
 export CPLMODE=nems_frac
 export cap_dbug_flag=0
-export RUNTYPE=startup
+
+# ATM warm start
+export WARM_START=.true.
+export MAKE_NH=.false.
+export NA_INIT=0
+export EXTERNAL_IC=.false.
+export NGGPS_IC=.false.
+export MOUNTAIN=.true.
+# CMEPS
+export RUNTYPE=continue
 
 export CPL=.true.
 export CPLWAV=.true.

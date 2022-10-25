@@ -6,9 +6,12 @@
 COMPILE | -DAPP=ATMW -DCCPP_SUITES=FV3_GFS_v17_p8 -D32BIT=ON                                                                     | - wcoss2.intel                            | fv3 |
 #COMPILE | -DAPP=ATMW -DCCPP_SUITES=FV3_GFS_v17_p8 -D32BIT=ON -DDEBUG=ON                                                          | - wcoss2.intel                            | fv3 |
 RUN     | atmwav_control_noaero_p8                                                                                               | - wcoss2.intel                            | fv3 |
+
 RUN     | atmwav_unstr_control_noaero_p8                                                                                         | - wcoss2.intel                            | fv3 |
+RUN     | atmwav_unstr_restart_noaero_p8                                                                                         | - wcoss2.intel                            |     | atmwav_unstr_control_noaero_p8
 
 #mediator (cmeps) + pdlib
 COMPILE | -DAPP=ATMW -DCCPP_SUITES=FV3_GFS_v17_p8 -D32BIT=ON -DPDLIB=ON                                                          | - wcoss2.intel                            | fv3 |
 #COMPILE | -DAPP=ATMW -DCCPP_SUITES=FV3_GFS_v17_p8 -D32BIT=ON -DPDLIB=ON -DDEBUG=ON                                               | - wcoss2.intel                            | fv3 |
 RUN     | atmwav_pdlib_control_noaero_p8                                                                                         | - wcoss2.intel                            | fv3 |
+RUN     | atmwav_pdlib_restart_noaero_p8                                                                                         | - wcoss2.intel                            |     | atmwav_pdlib_control_noaero_p8
