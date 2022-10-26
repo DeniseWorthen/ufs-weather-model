@@ -91,10 +91,13 @@ export JNPES=$JNPES_cpl_atmw
 export THRD=$THRD_cpl_atmw
 export WRTTASK_PER_GROUP=$WPG_cpl_atmw
 export WAV_tasks=$WAV_tasks_cpl_atmw
+if [[ $MACHINE_ID = cheyenne.* ]]; then
+  TPN=24
+fi
 
 export med_model=cmeps
-export atm_model='fv3'
-export wav_model='ww3'
+export atm_model=fv3
+export wav_model=ww3
 
 export ATMTILESIZE=`expr $NPX - 1`
 export MESH_WAV=mesh.glo_1deg.nc
