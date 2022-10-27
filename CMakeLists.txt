@@ -16,7 +16,7 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMakeModules/Modules)
 ###############################################################################
 
 # Valid applications and choices
-list(APPEND VALID_APPS ATM ATMAERO ATMAQ ATMW S2S S2SA S2SW S2SWA HAFS HAFSW HAFS-ALL NG-GODAS)
+list(APPEND VALID_APPS ATM ATMAERO ATMAQ ATMW ATMWM S2S S2SA S2SW S2SWA HAFS HAFSW HAFS-ALL NG-GODAS)
 set(APP NONE CACHE BOOL "Application Name")
 if(NOT (APP IN_LIST VALID_APPS))
   message(FATAL_ERROR "${APP} is not a valid application.\nValid Applications are: ${VALID_APPS}")
@@ -68,6 +68,7 @@ set(OPENMP          ON  CACHE BOOL "Enable OpenMP threading")
 set(PARALLEL_NETCDF OFF CACHE BOOL "Enable parallel NetCDF")
 set(JEDI_DRIVER     OFF CACHE BOOL "Enable JEDI as top level driver")
 set(CMEPS_AOFLUX    OFF CACHE BOOL "Enable atmosphere-ocean flux calculation in mediator") 
+set(PDLIB           OFF CACHE BOOL "Enable Domain Decomposition in WW3 via PDLIB")
 
 set(CMAKE_Platform $ENV{CMAKE_Platform})
 if(CMAKE_Platform)
@@ -94,7 +95,7 @@ message("OPENMP ........... ${OPENMP}")
 message("PARALLEL_NETCDF .. ${PARALLEL_NETCDF}")
 message("JEDI_DRIVER ...... ${JEDI_DRIVER}")
 message("CMEPS_AOFLUX ..... ${CMEPS_AOFLUX}")
-
+message("PDLIB ............ ${PDLIB}")
 message("")
 
 ###############################################################################
@@ -170,12 +171,16 @@ endif()
 ### Wave components [WW3]
 ###############################################################################
 if(WW3)
-  if(APP MATCHES "^(ATMW)$")
+  if(APP MATCHES "^(ATMWM)$")
     set(SWITCH "multi_esmf" CACHE STRING "ESMF cap")
     set(UFS_CAP "MULTI_ESMF" CACHE STRING "Build with MULTI_ESMF cap")
     list(APPEND _ufs_defs_private FRONT_WW3=WMESMFMD)
   else()
+    if(PDLIB)
+      set(SWITCH "meshcap_pdlib" CACHE STRING "NUOPC mesh cap")
+    else()
     set(SWITCH "meshcap" CACHE STRING "NUOPC mesh cap")
+    endif()
     set(UFS_CAP "NUOPC_MESH" CACHE STRING "Build with NUOPC_MESH cap")
     list(APPEND _ufs_defs_private FRONT_WW3=wav_comp_nuopc)
   endif()
