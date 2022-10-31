@@ -16,7 +16,7 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMakeModules/Modules)
 ###############################################################################
 
 # Valid applications and choices
-list(APPEND VALID_APPS ATM ATMAERO ATMAQ ATMW ATMWM S2S S2SA S2SW S2SWA HAFS HAFSW HAFS-ALL NG-GODAS)
+list(APPEND VALID_APPS ATM ATMAERO ATMAQ ATMW ATMWM ATML LND S2S S2SA S2SW S2SWA S2SWAL HAFS HAFSW HAFS-ALL NG-GODAS)
 set(APP NONE CACHE BOOL "Application Name")
 if(NOT (APP IN_LIST VALID_APPS))
   message(FATAL_ERROR "${APP} is not a valid application.\nValid Applications are: ${VALID_APPS}")
@@ -33,6 +33,7 @@ set(WW3             OFF CACHE BOOL "Enable WW3")
 set(STOCH_PHYS      OFF CACHE BOOL "Enable Stochastic Physics")
 set(CMEPS           OFF CACHE BOOL "Enable CMEPS")
 set(CDEPS           OFF CACHE BOOL "Enable CDEPS")
+set(NOAHMP          OFF CACHE BOOL "Enable NOAHMP")
 
 # Configure selected application specific components
 message("")
@@ -50,6 +51,7 @@ message("WW3 .............. ${WW3}")
 message("STOCH_PHYS ....... ${STOCH_PHYS}")
 message("CDEPS ............ ${CDEPS}")
 message("CMEPS ............ ${CMEPS}")
+message("NOAHMP ........... ${NOAHMP}")
 
 ###############################################################################
 ### Build Options
@@ -67,7 +69,7 @@ set(MOVING_NEST     OFF CACHE BOOL "Enable moving nest code")
 set(OPENMP          ON  CACHE BOOL "Enable OpenMP threading")
 set(PARALLEL_NETCDF OFF CACHE BOOL "Enable parallel NetCDF")
 set(JEDI_DRIVER     OFF CACHE BOOL "Enable JEDI as top level driver")
-set(CMEPS_AOFLUX    OFF CACHE BOOL "Enable atmosphere-ocean flux calculation in mediator") 
+set(CMEPS_AOFLUX    OFF CACHE BOOL "Enable atmosphere-ocean flux calculation in mediator")
 set(PDLIB           OFF CACHE BOOL "Enable Domain Decomposition in WW3 via PDLIB")
 
 set(CMAKE_Platform $ENV{CMAKE_Platform})
@@ -217,6 +219,13 @@ if(CDEPS)
 endif()
 
 ###############################################################################
+### Land Components [NOAHMP]
+###############################################################################
+if(NOAHMP)
+  add_subdirectory(NOAHMP-interface)
+endif()
+
+###############################################################################
 ### UFS Library
 ###############################################################################
 add_library(ufs driver/UFSDriver.F90)
@@ -286,6 +295,12 @@ if(CDEPS)
   list(APPEND _ufs_defs_private FRONT_CDEPS_DATM=cdeps_datm_comp)
   list(APPEND _ufs_defs_private FRONT_CDEPS_DOCN=cdeps_docn_comp)
   target_link_libraries(ufs PUBLIC cdeps::cdeps)
+endif()
+
+if(NOAHMP)
+  add_dependencies(ufs noahmp)
+  list(APPEND _ufs_defs_private FRONT_NOAHMP=lnd_comp_nuopc)
+  list(APPEND _ufs_libs_public noahmp)
 endif()
 
 target_compile_definitions(ufs PRIVATE "${_ufs_defs_private}")
