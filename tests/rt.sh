@@ -446,7 +446,7 @@ fi
 BL_DATE=20221026
 
 #RTPWD=${RTPWD:-$DISKNM/NEMSfv3gfs/develop-${BL_DATE}/${RT_COMPILER^^}}
-RTPWD="/glade/scratch/worthen/bl.20221026"
+RTPWD="/glade/scratch/worthen/bl.20221031"
 INPUTDATA_ROOT=${INPUTDATA_ROOT:-$DISKNM/NEMSfv3gfs/input-data-20220414}
 #INPUTDATA_ROOT_WW3=${INPUTDATA_ROOT}/WW3_input_data_20220624
 INPUTDATA_ROOT_WW3="/glade/scratch/worthen/WW3_input_data_20220624"

@@ -87,8 +87,9 @@ export TOPOEDITS=ufs.topo_edits_011818.nc
 export MOM6_ALLOW_LANDMASK_CHANGES=True
 export eps_imesh=2.5e-1
 
-export MESH_WAV=mesh.trip1degmask.nc
-export MODDEF_WAV=mod_def.trip1degmask_cd
+export WAVDOMAIN=trip1degmask
+export MESH_WAV=mesh.${WAVDOMAIN}.nc
+export MODDEF_WAV=mod_def.${WAVDOMAIN}_cd
 
 export DIAG_TABLE=diag_table_template
 export FIELD_TABLE=field_table_thompson_noaero_tke
