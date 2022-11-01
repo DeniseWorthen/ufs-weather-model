@@ -24,6 +24,7 @@ RUN     | atmwav_pdlib_debug_noaero_p8                                          
 # S2S tests                                                                                                                                                                       #
 ###################################################################################################################################################################################
 COMPILE | -DAPP=S2SW -DCCPP_SUITES=FV3_GFS_v17_coupled_p8                                                                         |                                         | fv3 |
+RUN     | cpld_control_noaero_p8                                                                                                  |                                         | fv3 |
 RUN     | cpld_control_unstr_p8                                                                                                   |                                         | fv3 |
 RUN     | cpld_restart_unstr_p8                                                                                                   |                                         | fv3 | cpld_control_unstr_p8
 

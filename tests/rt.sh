@@ -443,13 +443,15 @@ if [[ $TESTS_FILE =~ '35d' ]] || [[ $TESTS_FILE =~ 'weekly' ]]; then
   TEST_35D=true
 fi
 
-BL_DATE=20221028
+BL_DATE=20221026
 
 #RTPWD=${RTPWD:-$DISKNM/NEMSfv3gfs/develop-${BL_DATE}/${RT_COMPILER^^}}
-RTPWD="/glade/scratch/worthen/bl.20221031"
+#RTPWD="/glade/scratch/worthen/bl.20221031"
+RTPWD="/scratch1/NCEPDEV/stmp4/Denise.Worthen/FV3_RT/bl.unstr.20221101"
 INPUTDATA_ROOT=${INPUTDATA_ROOT:-$DISKNM/NEMSfv3gfs/input-data-20220414}
 #INPUTDATA_ROOT_WW3=${INPUTDATA_ROOT}/WW3_input_data_20220624
-INPUTDATA_ROOT_WW3="/glade/scratch/worthen/WW3_input_data_20220624"
+#INPUTDATA_ROOT_WW3="/glade/scratch/worthen/WW3_input_data_20220624"
+INPUTDATA_ROOT_WW3="/scratch1/NCEPDEV/stmp2/Denise.Worthen/WW3_input_data_20220624"
 INPUTDATA_ROOT_BMIC=${INPUTDATA_ROOT_BMIC:-$DISKNM/NEMSfv3gfs/BM_IC-20220207}
 
 shift $((OPTIND-1))
