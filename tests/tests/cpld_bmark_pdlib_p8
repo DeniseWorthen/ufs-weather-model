@@ -1,9 +1,9 @@
 #
 #  cpld_bmark_p8 test
 #
-export TEST_DESCR="Fully coupled FV3-CCPP-GOCART-MOM6-CICE-CMEPS-WW3 system - C384L127 MX025 - Benchmark P8 test"
+export TEST_DESCR="Fully coupled FV3-CCPP-GOCART-MOM6-CICE-CMEPS-WW3 system - C384L127 MX025 - unstr WW3 PDLIB"
 
-export CNTL_DIR="cpld_bmark_p8"
+export CNTL_DIR="cpld_bmark_pdlib_p8"
 
 export LIST_FILES="sfcf006.nc \
                    atmf006.nc \
@@ -47,7 +47,7 @@ export LIST_FILES="sfcf006.nc \
                    RESTART/iced.2013-04-01-21600.nc \
                    RESTART/ufs.cpld.cpl.r.2013-04-01-21600.nc \
                    20130401.060000.out_pnt.ww3 \
-                   20130401.060000.out_grd.ww3 "
+                   ufs.cpld.ww3.hi.2013-04-01-21600.nc "
 
 export_fv3
 export_cpl
@@ -107,8 +107,9 @@ export NPROC_ICE=$ICE_tasks
 export np2=`expr $NPROC_ICE / 2`
 export BLCKX=`expr $NX_GLB / $np2`
 export BLCKY=`expr $NY_GLB / 2`
-export WAVDOMAIN=gwes_30m
+export WAVDOMAIN=trip15minmask
 export MESH_WAV=mesh.${WAVDOMAIN}.nc
+export MODDEF_WAV=mod_def.${WAVDOMAIN}_dd
 
 # set component and coupling timesteps
 export DT_ATMOS=300
