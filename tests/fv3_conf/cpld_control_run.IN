@@ -125,11 +125,15 @@ else
 
      # CICE restart and pointer files
      RFILE=iced.${RESTART_FILE_SUFFIX_SECS}.nc
-     cp  ../${DEP_RUN}${SUFFIX}/RESTART/${RFILE} ./INPUT
-     ls -1 ./INPUT/${RFILE}>ice.restart_file
+     if [[ $RUNTYPE == startup ]]; then
+        cp  ../${DEP_RUN}${SUFFIX}/RESTART/${RFILE} ./cice_model.res.nc
+     else
+        cp  ../${DEP_RUN}${SUFFIX}/RESTART/${RFILE} ./INPUT
+        ls -1 ./INPUT/${RFILE}>ice.restart_file
+     fi
 
      # WAVE restart file
-     if [[ $CPLWAV == .true. ]]; then
+     if [[ $CPLWAV == .true. && $RUNTYPE == continue ]]; then
        cp ../${DEP_RUN}${SUFFIX}/${RESTART_FILE_PREFIX}.restart.ww3 ./restart.ww3
      fi
 
