@@ -63,8 +63,8 @@ export LIST_FILES="sfcf021.tile1.nc \
                    RESTART/20210323.060000.sfc_data.tile5.nc \
                    RESTART/20210323.060000.sfc_data.tile6.nc \
                    RESTART/20210323.060000.MOM.res.nc \
-                   RESTART/20210323.060000.iced.nc \
-                   RESTART/20210323.060000.ufs.cpld.cpl.r.nc"
+                   RESTART/iced.2021-03-23-21600.nc \
+                   RESTART/ufs.cpld.cpl.r.2021-03-23-21600.nc"
 
 #TODO: add comparison of CA restart files?
 
