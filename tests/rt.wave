@@ -26,18 +26,21 @@
 #COMPILE | -DAPP=S2SW -DCCPP_SUITES=FV3_GFS_v17_coupled_p8                                                                         |                                         | fv3 |
 #RUN     | cpld_control_noaero_p8                                                                                                  |                                         | fv3 |
 #RUN     | cpld_control_unstr_p8                                                                                                   |                                         | fv3 |
-#RUN     | cpld_restart_unstr_p8                                                                                                   |                                         | fv3 | cpld_control_unstr_p8
+#RUN     | cpld_restart_unstr_p8                                                                                                   |                                         |     | cpld_control_unstr_p8
 #
 #COMPILE | -DAPP=S2SW -DCCPP_SUITES=FV3_GFS_v17_coupled_p8 -DDEBUG=ON                                                              |                                         | fv3 |
 #RUN     | cpld_debug_unstr_p8                                                                                                     |                                         | fv3 |
 #
-#COMPILE | -DAPP=S2SW -DCCPP_SUITES=FV3_GFS_v17_coupled_p8 -DPDLIB=ON                                                              |                                         | fv3 |
-#RUN     | cpld_control_pdlib_p8                                                                                                   |                                         | fv3 |
-#RUN     | cpld_restart_pdlib_p8                                                                                                   |                                         | fv3 | cpld_control_pdlib_p8
+
+COMPILE | -DAPP=S2SW -DCCPP_SUITES=FV3_GFS_v17_coupled_p8 -DPDLIB=ON                                                              |                                         | fv3 |
+RUN     | cpld_control_pdlib_p8                                                                                                   |                                         | fv3 |
+RUN     | cpld_restart_pdlib_p8                                                                                                   |                                         |     | cpld_control_pdlib_p8
+RUN     | cpld_mpi_pdlib_p8                                                                                                       |                                         |     | cpld_control_pdlib_p8
+
 #
 #COMPILE | -DAPP=S2SW -DCCPP_SUITES=FV3_GFS_v17_coupled_p8 -DPDLIB=ON -DDEBUG=ON                                                   |                                         | fv3 |
 #RUN     | cpld_debug_pdlib_p8                                                                                                     |                                         | fv3 |
 
-COMPILE | -DAPP=S2SWA -DDEBUG=ON -DPDLIB=ON -DCCPP_SUITES=FV3_GFS_v17_coupled_p8,FV3_GFS_cpld_rasmgshocnsstnoahmp_ugwp            | - wcoss2.intel                          | fv3 |
+#COMPILE | -DAPP=S2SWA -DDEBUG=ON -DPDLIB=ON -DCCPP_SUITES=FV3_GFS_v17_coupled_p8,FV3_GFS_cpld_rasmgshocnsstnoahmp_ugwp            | - wcoss2.intel                          | fv3 |
 #COMPILE | -DAPP=S2SWA -DPDLIB=ON -DCCPP_SUITES=FV3_GFS_v17_coupled_p8,FV3_GFS_cpld_rasmgshocnsstnoahmp_ugwp                       | - wcoss2.intel                          | fv3 |
-RUN     | cpld_bmark_pdlib_p8                                                                                                     | - wcoss2.intel jet.intel cheyenne.intel acorn.intel | fv3 |
+#RUN     | cpld_bmark_pdlib_p8                                                                                                     | - wcoss2.intel jet.intel cheyenne.intel acorn.intel | fv3 |
