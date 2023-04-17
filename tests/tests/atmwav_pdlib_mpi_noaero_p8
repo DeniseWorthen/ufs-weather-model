@@ -66,8 +66,7 @@ export LIST_FILES="sfcf000.tile1.nc \
                    RESTART/sfc_data.tile6.nc \
 		   RESTART/ufs.atmw.cpl.r.2021-03-23-21600.nc \
                    20210323.060000.out_pnt.ww3 \
-                   ufs.atmw.ww3.hi.2021-03-23-21600.nc \
-                   20210323.060000.restart.ww3"
+                   ufs.atmw.ww3.hi.2021-03-23-21600.nc"
 
 export_fv3
 export NPZ=127
@@ -102,7 +101,7 @@ export wav_model=ww3
 export ATMTILESIZE=`expr $NPX - 1`
 #the mesh file depends only on land/noland. it is dentical for either CD or DD
 export MESH_WAV=mesh.trip1degmask.nc
-export MODDEF_WAV=mod_def.exp.trip1degmask
+export MODDEF_WAV=mod_def.exp.wise.trip1degmask
 
 # nems.configure
 export coupling_interval_sec=${DT_ATMOS}

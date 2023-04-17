@@ -82,7 +82,7 @@ export eps_imesh=2.5e-1
 
 export WAVDOMAIN=trip1degmask
 export MESH_WAV=mesh.${WAVDOMAIN}.nc
-export MODDEF_WAV=mod_def.exp.${WAVDOMAIN}
+export MODDEF_WAV=mod_def.exp.wise.${WAVDOMAIN}
 export WAV_tasks=30
 
 export DIAG_TABLE=diag_table_template
