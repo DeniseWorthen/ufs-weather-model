@@ -19,7 +19,7 @@
   #url = https://github.com/NOAA-EMC/CMEPS.git
   #branch = emc/develop
   url = https://github.com/DeniseWorthen/CMEPS.git
-  branch = bugfix/bilin_new
+  branch = bugfix/bilin_new_medfix
 [submodule "HYCOM"]
   path = HYCOM-interface/HYCOM
   url = https://github.com/NOAA-EMC/HYCOM-src
