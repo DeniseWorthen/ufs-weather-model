@@ -1,10 +1,2 @@
-
-###################################################################################################################################################################################
-# S2S tests                                                                                                                                                                    #
-###################################################################################################################################################################################
-
-COMPILE | -DAPP=S2S -DCCPP_SUITES=FV3_GFS_v16_coupled_nsstNoahmpUGWPv1                                                            | - wcoss_cray                            | fv3 |
-#COMPILE | -DAPP=S2S -DDEBUG=ON -DCCPP_SUITES=FV3_GFS_v16_coupled_nsstNoahmpUGWPv1                                                 | - wcoss_cray                            | fv3 |
-# Waves off
-RUN     | cpld_control_p7                                                                                                         | - wcoss_cray                            | fv3 |
-RUN     | cpld_control_p7_biln                                                                                                    | - wcoss_cray                            | fv3 |
+COMPILE | s2s | intel | -DAPP=S2SW -DCCPP_SUITES=FV3_GFS_v17_coupled_p8 | | fv3 |
+RUN | cpld_control_nowave_noaero_p8                     |                            | baseline |

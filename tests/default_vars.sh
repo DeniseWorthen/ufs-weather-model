@@ -700,6 +700,8 @@ export ocn_model=mom6
 export ice_model=cice6
 export wav_model=ww3
 export pio_rearranger=box
+export ocean_albedo_limit=0.06
+export use_mean_albedos=.false.
 
 export coupling_interval_slow_sec=${DT_THERM_MOM6}
 export coupling_interval_fast_sec=${DT_ATMOS}
@@ -711,7 +713,6 @@ export use_coldstart=false
 export use_mommesh=true
 export RUNTYPE=startup
 export CICERUNTYPE=initial
-export TESTMAP=mapconsf
 export eps_imesh=1.0e-1
 export ATMTILESIZE=`expr $NPX - 1`
 export MULTIGRID=false
@@ -956,6 +957,8 @@ export atm_model=datm
 export ocn_model=mom6
 export ice_model=cice6
 export pio_rearranger=box
+export ocean_albedo_limit=0.06
+export use_mean_albedos=.false.
 
 export ATM_compute_tasks=$ATM_compute_tasks_cdeps_100
 export OCN_tasks=$OCN_tasks_cdeps_100
