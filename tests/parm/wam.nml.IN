@@ -36,7 +36,7 @@
        ncnst     = 11
        make_nh = @[MAKE_NH]
        fv_debug = .false.
-       molecular_diffusion=.true.    
+       molecular_diffusion=.true.
        range_warn = .false.
        reset_eta = .false.
        n_sponge = -1
@@ -96,20 +96,6 @@
        res_latlon_dynamics = "fv3_increment.nc"
 /
 
-#&coupler_nml
-#       months = 0
-#       days  = 1
-#       hours = 0
-#       dt_atmos = 225
-#       dt_ocean = 225
-#       current_date =  2016,10,03,00,0,0
-#       calendar = 'julian'
-#       memuse_verbose = .false.
-#       atmos_nthreads = 1
-#       use_hyper_thread = .false.
-#       ncores_per_node = 24
-#/
-
 &external_ic_nml
        filtered_terrain = .true.
        levp = @[NPZP]
@@ -131,7 +117,7 @@
        fhlwr          = 3600.
        ialb           = 1
        iems           = 1
-       IAER           = 111
+       IAER           = @[IAER]
        ico2           = 2
        isubc_sw       = 2
        isubc_lw       = 2
@@ -170,6 +156,8 @@
        iopt_snf       = 4
        iopt_tbot      = 2
        iopt_stc       = 1
+       iopt_trs       = 2
+       iopt_diag      = 2
        debug          = .false.
        levr           = 90
        h2o_phys       = @[H2O_PHYS]
@@ -343,4 +331,3 @@
   md_consv_te = 1.0
   md_wait_hr  = 0.0
 /
-  

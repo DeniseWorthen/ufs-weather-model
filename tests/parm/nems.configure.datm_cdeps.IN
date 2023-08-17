@@ -2,6 +2,10 @@
 ####  NEMS Run-Time Configuration File  #####
 #############################################
 
+# ESMF #
+logKindFlag:            ESMF_LOGKIND_MULTI
+globalResourceControl:  true
+
 # EARTH #
 EARTH_component_list: MED ATM OCN ICE
 EARTH_attributes::
@@ -11,14 +15,12 @@ EARTH_attributes::
 # MED #
 MED_model:                      @[med_model]
 MED_petlist_bounds:             @[med_petlist_bounds]
-  Verbosity = 5
-  dbug_flag = 5
-
-::
+MED_omp_num_threads:            @[med_omp_num_threads]
 
 # ATM #
 ATM_model:                      @[atm_model]
 ATM_petlist_bounds:             @[atm_petlist_bounds]
+ATM_omp_num_threads:            @[atm_omp_num_threads]
 ATM_attributes::
   Verbosity = 0
   DumpFields = false
@@ -34,6 +36,7 @@ ATM_attributes::
 # OCN #
 OCN_model:                      @[ocn_model]
 OCN_petlist_bounds:             @[ocn_petlist_bounds]
+OCN_omp_num_threads:            @[ocn_omp_num_threads]
 OCN_attributes::
   Verbosity = 0
   DumpFields = false
@@ -45,6 +48,7 @@ OCN_attributes::
 # ICE #
 ICE_model:                      @[ice_model]
 ICE_petlist_bounds:             @[ice_petlist_bounds]
+ICE_omp_num_threads:            @[ice_omp_num_threads]
 ICE_attributes::
   Verbosity = 0
   DumpFields = false
@@ -87,6 +91,8 @@ DRIVER_attributes::
 ::
 
 MED_attributes::
+      Verbosity = 0
+      dbug_flag = 0
       ATM_model = @[atm_model]
       ICE_model = @[ice_model]
       OCN_model = @[ocn_model]
@@ -94,6 +100,7 @@ MED_attributes::
       history_option = nhours
       history_ymd = -999
       coupling_mode = nems_orig_data
+      pio_rearranger = @[pio_rearranger]
 ::
 ALLCOMP_attributes::
       ScalarFieldCount = 3

@@ -1,38 +1,33 @@
 #!/bin/bash
 
-# Default account "nems"
-export ACCNR=${ACCNR:-nems}
+# Do not set ACCNR here or it will break the per-system defaults in rt.sh.
 
 case $(hostname -f) in
 
-  llogin1)                 MACHINE_ID=wcoss_cray ;; ### luna
-  llogin2)                 MACHINE_ID=wcoss_cray ;; ### luna
-  llogin3)                 MACHINE_ID=wcoss_cray ;; ### luna
+  clogin01.cactus.wcoss2.ncep.noaa.gov)	  MACHINE_ID=wcoss2 ;; ### cactus
+  clogin02.cactus.wcoss2.ncep.noaa.gov)	  MACHINE_ID=wcoss2 ;; ### cactus
+  clogin03.cactus.wcoss2.ncep.noaa.gov)	  MACHINE_ID=wcoss2 ;; ### cactus
+  clogin04.cactus.wcoss2.ncep.noaa.gov)	  MACHINE_ID=wcoss2 ;; ### cactus
+  clogin05.cactus.wcoss2.ncep.noaa.gov)	  MACHINE_ID=wcoss2 ;; ### cactus
+  clogin06.cactus.wcoss2.ncep.noaa.gov)	  MACHINE_ID=wcoss2 ;; ### cactus
+  clogin07.cactus.wcoss2.ncep.noaa.gov)	  MACHINE_ID=wcoss2 ;; ### cactus
+  clogin08.cactus.wcoss2.ncep.noaa.gov)	  MACHINE_ID=wcoss2 ;; ### cactus
+  clogin09.cactus.wcoss2.ncep.noaa.gov)	  MACHINE_ID=wcoss2 ;; ### cactus
 
-  slogin1)                 MACHINE_ID=wcoss_cray ;; ### surge
-  slogin2)                 MACHINE_ID=wcoss_cray ;; ### surge
-  slogin3)                 MACHINE_ID=wcoss_cray ;; ### surge
+  dlogin01.dogwood.wcoss2.ncep.noaa.gov)  MACHINE_ID=wcoss2 ;; ### dogwood
+  dlogin02.dogwood.wcoss2.ncep.noaa.gov)  MACHINE_ID=wcoss2 ;; ### dogwood
+  dlogin03.dogwood.wcoss2.ncep.noaa.gov)  MACHINE_ID=wcoss2 ;; ### dogwood
+  dlogin04.dogwood.wcoss2.ncep.noaa.gov)  MACHINE_ID=wcoss2 ;; ### dogwood
+  dlogin05.dogwood.wcoss2.ncep.noaa.gov)  MACHINE_ID=wcoss2 ;; ### dogwood
+  dlogin06.dogwood.wcoss2.ncep.noaa.gov)  MACHINE_ID=wcoss2 ;; ### dogwood
+  dlogin07.dogwood.wcoss2.ncep.noaa.gov)  MACHINE_ID=wcoss2 ;; ### dogwood
+  dlogin08.dogwood.wcoss2.ncep.noaa.gov)  MACHINE_ID=wcoss2 ;; ### dogwood
+  dlogin09.dogwood.wcoss2.ncep.noaa.gov)  MACHINE_ID=wcoss2 ;; ### dogwood
 
-  v71a1.ncep.noaa.gov)     MACHINE_ID=wcoss_dell_p3 ;; ### venus
-  v71a2.ncep.noaa.gov)     MACHINE_ID=wcoss_dell_p3 ;; ### venus
-  v71a3.ncep.noaa.gov)     MACHINE_ID=wcoss_dell_p3 ;; ### venus
-  v72a1.ncep.noaa.gov)     MACHINE_ID=wcoss_dell_p3 ;; ### venus
-  v72a2.ncep.noaa.gov)     MACHINE_ID=wcoss_dell_p3 ;; ### venus
-  v72a3.ncep.noaa.gov)     MACHINE_ID=wcoss_dell_p3 ;; ### venus
+  alogin01.acorn.wcoss2.ncep.noaa.gov)  MACHINE_ID=acorn ;; ### acorn
+  alogin02.acorn.wcoss2.ncep.noaa.gov)  MACHINE_ID=acorn ;; ### acorn
+  alogin03.acorn.wcoss2.ncep.noaa.gov)  MACHINE_ID=acorn ;; ### acorn
 
-  m71a1.ncep.noaa.gov)     MACHINE_ID=wcoss_dell_p3 ;; ### mars
-  m71a2.ncep.noaa.gov)     MACHINE_ID=wcoss_dell_p3 ;; ### mars
-  m71a3.ncep.noaa.gov)     MACHINE_ID=wcoss_dell_p3 ;; ### mars
-  m72a1.ncep.noaa.gov)     MACHINE_ID=wcoss_dell_p3 ;; ### mars
-  m72a2.ncep.noaa.gov)     MACHINE_ID=wcoss_dell_p3 ;; ### mars
-  m72a3.ncep.noaa.gov)     MACHINE_ID=wcoss_dell_p3 ;; ### mars
-
-  alogin01.acorn.wcoss2.ncep.noaa.gov)   MACHINE_ID=wcoss2 ;; ### acorn
-  alogin02.acorn.wcoss2.ncep.noaa.gov)   MACHINE_ID=wcoss2 ;; ### acorn
-  adecflow01.acorn.wcoss2.ncep.noaa.gov) MACHINE_ID=wcoss2 ;; ### acorn
-  adecflow02.acorn.wcoss2.ncep.noaa.gov) MACHINE_ID=wcoss2 ;; ### acorn
-
-  gaea9)                   MACHINE_ID=gaea ;; ### gaea9
   gaea10)                  MACHINE_ID=gaea ;; ### gaea10
   gaea11)                  MACHINE_ID=gaea ;; ### gaea11
   gaea12)                  MACHINE_ID=gaea ;; ### gaea12
@@ -40,7 +35,6 @@ case $(hostname -f) in
   gaea14)                  MACHINE_ID=gaea ;; ### gaea14
   gaea15)                  MACHINE_ID=gaea ;; ### gaea15
   gaea16)                  MACHINE_ID=gaea ;; ### gaea16
-  gaea9.ncrc.gov)          MACHINE_ID=gaea ;; ### gaea9
   gaea10.ncrc.gov)         MACHINE_ID=gaea ;; ### gaea10
   gaea11.ncrc.gov)         MACHINE_ID=gaea ;; ### gaea11
   gaea12.ncrc.gov)         MACHINE_ID=gaea ;; ### gaea12
@@ -104,18 +98,21 @@ case $(hostname -f) in
   login2.stampede2.tacc.utexas.edu) MACHINE_ID=stampede ;; ### stampede2
   login3.stampede2.tacc.utexas.edu) MACHINE_ID=stampede ;; ### stampede3
   login4.stampede2.tacc.utexas.edu) MACHINE_ID=stampede ;; ### stampede4
-
+  
+  
   login01.expanse.sdsc.edu) MACHINE_ID=expanse ;; ### expanse1
   login02.expanse.sdsc.edu) MACHINE_ID=expanse ;; ### expanse2
+  
 esac
+
+case $(echo ${PW_CSP:-nono}) in
+
+  aws) MACHINE_ID=aws ;; ### parallelworks aws
+  google)  MACHINE_ID=gcp ;; ### parallelworks gcp
+  azure)  MACHINE_ID=azure ;; ### parallelworks azure
+  
+esac
+[[ ${MACHINE_ID} =~ "aws" || ${MACHINE_ID} =~ "gcp" || ${MACHINE_ID} =~ "azure" ]] && MACHINE_ID=noaacloud
 
 # Overwrite auto-detect with RT_MACHINE if set
 MACHINE_ID=${RT_MACHINE:-${MACHINE_ID}}
-
-# Append compiler
-if [ $MACHINE_ID = orion ] || [ $MACHINE_ID = hera ] || [ $MACHINE_ID = cheyenne ] || [ $MACHINE_ID = jet ] || \
-   [ $MACHINE_ID = gaea ] || [ $MACHINE_ID = stampede ] || [ $MACHINE_ID = s4 ] || [ $MACHINE_ID = expanse ] ; then
-    MACHINE_ID=${MACHINE_ID}.${RT_COMPILER}
-fi
-
-echo "Machine: " $MACHINE_ID "    Account: " $ACCNR
