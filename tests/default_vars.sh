@@ -717,6 +717,8 @@ export eps_imesh=1.0e-1
 export ATMTILESIZE=`expr $NPX - 1`
 export MULTIGRID=false
 
+export TESTMAP=mapconsf
+
 # FV3 defaults
 export FRAC_GRID=.true.
 export CCPP_SUITE=FV3_GFS_v17_coupled_p8
