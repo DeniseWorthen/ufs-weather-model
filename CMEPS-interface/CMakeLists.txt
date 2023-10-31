@@ -46,7 +46,9 @@ list(APPEND _ufs_util_files
   ${PROJECT_SOURCE_DIR}/CDEPS-interface/ufs/cdeps_share/shr_infnan_mod.F90
   ${PROJECT_SOURCE_DIR}/FV3/ccpp/physics/physics/machine.F
   ${PROJECT_SOURCE_DIR}/FV3/ccpp/physics/physics/physcons.F90
-  ${PROJECT_SOURCE_DIR}/FV3/ccpp/physics/physics/funcphys.f90)
+  ${PROJECT_SOURCE_DIR}/FV3/ccpp/physics/physics/funcphys.f90
+${PROJECT_SOURCE_DIR}/FV3/ccpp/physics/physics/module_nst_parameters.f90
+  ${PROJECT_SOURCE_DIR}/FV3/ccpp/physics/physics/module_nst_water_prop.f90)
 
 list(APPEND _mediator_files
   CMEPS/mediator/med_phases_restart_mod.F90
