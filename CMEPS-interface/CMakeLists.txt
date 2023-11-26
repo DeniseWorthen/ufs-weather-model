@@ -43,7 +43,13 @@ list(APPEND _ufs_util_files
   ${PROJECT_SOURCE_DIR}/CDEPS-interface/CDEPS/share/shr_sys_mod.F90
   ${PROJECT_SOURCE_DIR}/CDEPS-interface/CDEPS/share/shr_kind_mod.F90
   ${PROJECT_SOURCE_DIR}/CDEPS-interface/ufs/cdeps_share/shr_assert_mod.F90
-  ${PROJECT_SOURCE_DIR}/CDEPS-interface/ufs/cdeps_share/shr_infnan_mod.F90)
+  ${PROJECT_SOURCE_DIR}/CDEPS-interface/ufs/cdeps_share/shr_infnan_mod.F90
+  ${PROJECT_SOURCE_DIR}/FV3/ccpp/physics/physics/machine.F
+  ${PROJECT_SOURCE_DIR}/FV3/ccpp/physics/physics/physcons.F90
+  ${PROJECT_SOURCE_DIR}/FV3/ccpp/physics/physics/funcphys.f90
+  ${PROJECT_SOURCE_DIR}/FV3/ccpp/physics/physics/module_nst_model.f90
+  ${PROJECT_SOURCE_DIR}/FV3/ccpp/physics/physics/module_nst_parameters.f90
+  ${PROJECT_SOURCE_DIR}/FV3/ccpp/physics/physics/module_nst_water_prop.f90)
 
 list(APPEND _mediator_files
   CMEPS/mediator/med_phases_restart_mod.F90
@@ -72,6 +78,7 @@ list(APPEND _mediator_files
   CMEPS/mediator/med_utils_mod.F90
   CMEPS/mediator/med_fraction_mod.F90
   CMEPS/mediator/med_phases_aofluxes_mod.F90
+  CMEPS/mediator/med_phases_ocnnst_mod.F90
   CMEPS/mediator/med_io_mod.F90
   CMEPS/mediator/med_diag_mod.F90
   CMEPS/mediator/med_phases_post_atm_mod.F90
