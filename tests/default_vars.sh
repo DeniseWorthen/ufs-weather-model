@@ -701,8 +701,8 @@ export CICE_TFREEZE_OPTION=mushy
 # SlenderX2
 export CICE_NPROC=$ICE_tasks
 export np2=`expr $CICE_NPROC / 2`
-export CICE_CICE_BLCKX=`expr $NX_GLB / $np2`
-export CICE_CICE_BLCKY=`expr $NY_GLB / 2`
+export CICE_BLCKX=`expr $NX_GLB / $np2`
+export CICE_BLCKY=`expr $NY_GLB / 2`
 export CICE_DECOMP=slenderX2
 }
 
