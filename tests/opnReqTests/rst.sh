@@ -25,9 +25,9 @@ elif [[ $application == 'regional' ]]; then
 elif [[ $application == 'cpld' ]]; then
   FHROT=$(( FHMAX/2 ))
 
-  CICERUNTYPE='continue'
+  CICE_RUNTYPE='continue'
   RUNTYPE='continue'
-  USE_RESTART_TIME='.true.'
+  CICE_USE_RESTART_TIME='.true.'
   MOM6_RESTART_SETTING="r"
   RESTART_N=$(( FHMAX - FHROT ))
   RESTART_FILE_PREFIX="${SYEAR}${SMONTH}${SDAY}.$(printf "%02d" $(( SHOUR + FHROT  )))0000"
@@ -38,7 +38,7 @@ elif [[ $application == 'atmw' ]]; then
   WW3RSTDTHR=6
   DT_2_RST="$(printf "%02d" $(( ${WW3RSTDTHR}*3600 )))"
   RUNTYPE='continue'
-  USE_RESTART_TIME='.true.'
+  CICE_USE_RESTART_TIME='.true.'
   RESTART_N=$(( FHMAX - FHROT ))
   RESTART_FILE_PREFIX="${SYEAR}${SMONTH}${SDAY}.$(printf "%02d" $(( SHOUR + FHROT  )))0000"
   RESTART_FILE_SUFFIX_SECS="${SYEAR}-${SMONTH}-${SDAY}-$(printf "%05d" $(( (SHOUR + FHROT)* 3600 )))"
@@ -72,9 +72,9 @@ export FHROT=${FHROT}
 export DT_2_RST=${DT_2_RST:-}
 export RESTART_FILE_PREFIX=${RESTART_FILE_PREFIX}
 export NSTF_NAME=${NSTF_NAME}
-export CICERUNTYPE=${CICERUNTYPE:-}
+export CICE_RUNTYPE=${CICE_RUNTYPE:-}
 export RUNTYPE=${RUNTYPE:-}
-export USE_RESTART_TIME=${USE_RESTART_TIME:-}
+export CICE_USE_RESTART_TIME=${CICE_USE_RESTART_TIME:-}
 export MOM6_RESTART_SETTING=${MOM6_RESTART_SETTING:-}
 export RESTART_N=${RESTART_N:-}
 export RESTART_FILE_SUFFIX_SECS=${RESTART_FILE_SUFFIX_SECS:-}

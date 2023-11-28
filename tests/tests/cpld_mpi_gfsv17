@@ -89,10 +89,10 @@ OCN_tasks=$OCN_tasks_cpl_unstr_mpi
 ICE_tasks=$ICE_tasks_cpl_unstr_mpi
 WAV_tasks=$WAV_tasks_cpl_unstr_mpi
 
-export NPROC_ICE=$ICE_tasks
-export np2=`expr $NPROC_ICE / 2`
-export BLCKX=`expr $NX_GLB / $np2`
-export BLCKY=`expr $NY_GLB / 2`
+export CICE_NPROC=$ICE_tasks
+export np2=`expr $CICE_NPROC / 2`
+export CICE_BLCKX=`expr $NX_GLB / $np2`
+export CICE_BLCKY=`expr $NY_GLB / 2`
 
 
 
@@ -115,7 +115,7 @@ export LDIAG_UGWP=.false.
 export KNOB_UGWP_DOKDIS=2
 export KNOB_UGWP_NDX4LH=4
 
-export TOPOEDITS=ufs.topo_edits_011818.nc
+export MOM6_TOPOEDITS=ufs.topo_edits_011818.nc
 export MOM6_ALLOW_LANDMASK_CHANGES=True
 export eps_imesh=2.5e-1
 

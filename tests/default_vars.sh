@@ -675,34 +675,34 @@ export_cice6() {
 export SECS=`expr $SHOUR \* 3600`
 export DT_CICE=${DT_ATMOS}
 export CICE_NPT=999
-export CICERUNTYPE=initial
-export RUNID=unknown
-export USE_RESTART_TIME=.false.
+export CICE_RUNTYPE=initial
+export CICE_RUNID=unknown
+export CICE_USE_RESTART_TIME=.false.
 export CICE_RESTART_DIR=./RESTART/
 export CICE_RESTART_FILE=iced
-export DUMPFREQ=d
-export DUMPFREQ_N=1000
+export CICE_DUMPFREQ=d
+export CICE_DUMPFREQ_N=1000
 export CICE_DIAGFREQ=`expr $FHMAX \* 3600 / $DT_CICE`
 export CICE_HISTFREQ_N="0, 0, 6, 1, 1"
 export CICE_HIST_AVG=.true.
 export CICE_HISTORY_DIR=./history/
 export CICE_INCOND_DIR=./history/
-export CICEGRID=grid_cice_NEMS_mx${OCNRES}.nc
-export CICEMASK=kmtu_cice_NEMS_mx${OCNRES}.nc
-export GRIDATM=A
-export GRIDOCN=A
-export GRIDICE=B
+export CICE_GRID=grid_cice_NEMS_mx${OCNRES}.nc
+export CICE_MASK=kmtu_cice_NEMS_mx${OCNRES}.nc
+export CICE_GRIDATM=A
+export CICE_GRIDOCN=A
+export CICE_GRIDICE=B
 export CICE_TR_POND_LVL=.true.
 export CICE_RESTART_POND_LVL=.false.
 # setting to true will allow Frazil FW and Salt to be included in fluxes sent to ocean
-export FRAZIL_FWSALT=.true.
-export KTHERM=2
-export TFREEZE_OPTION=mushy
+export CICE_FRAZIL_FWSALT=.true.
+export CICE_KTHERM=2
+export CICE_TFREEZE_OPTION=mushy
 # SlenderX2
-export NPROC_ICE=$ICE_tasks
-export np2=`expr $NPROC_ICE / 2`
-export BLCKX=`expr $NX_GLB / $np2`
-export BLCKY=`expr $NY_GLB / 2`
+export CICE_NPROC=$ICE_tasks
+export np2=`expr $CICE_NPROC / 2`
+export CICE_CICE_BLCKX=`expr $NX_GLB / $np2`
+export CICE_CICE_BLCKY=`expr $NY_GLB / 2`
 export CICE_DECOMP=slenderX2
 }
 
@@ -710,15 +710,15 @@ export CICE_DECOMP=slenderX2
 export_mom6() {
 export DT_DYNAM_MOM6=1800
 export DT_THERM_MOM6=3600
-export MOM_INPUT=MOM_input_100.IN
+export MOM6_INPUT=MOM_input_100.IN
 export MOM6_OUTPUT_DIR=./MOM6_OUTPUT
 export MOM6_RESTART_DIR=./RESTART/
 export MOM6_RESTART_SETTING=n
 export MOM6_RIVER_RUNOFF=False
-export FRUNOFF=''
-export CHLCLIM=seawifs_1998-2006_smoothed_2X.nc
+export MOM6_FRUNOFF=''
+export MOM6_CHLCLIM=seawifs_1998-2006_smoothed_2X.nc
 export MOM6_USE_LI2016=True
-export TOPOEDITS=''
+export MOM6_TOPOEDITS=''
 # since CPL_SLOW is set to DT_THERM, this should be always be false
 export MOM6_THERMO_SPAN=False
 export MOM6_USE_WAVES=True
@@ -1028,8 +1028,8 @@ export ICE_tasks=$ICE_tasks_cdeps_100
 # Set CICE6 component defaults
 export_cice6
 # default non-mushy thermo for CICE
-export KTHERM=1
-export TFREEZE_OPTION=linear_salt
+export CICE_KTHERM=1
+export CICE_TFREEZE_OPTION=linear_salt
 
 # Set MOM6 component defaults
 export_mom6
