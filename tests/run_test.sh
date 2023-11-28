@@ -240,7 +240,7 @@ cp ${PATHRT}/parm/fd_ufs.yaml fd_ufs.yaml
 source ./fv3_run
 
 if [[ $CPLWAV == .true. ]]; then
-  if [[ $MULTIGRID = 'true' ]]; then
+  if [[ $WW3_MULTIGRID = 'true' ]]; then
     atparse < ${PATHRT}/parm/ww3_multi.inp.IN > ww3_multi.inp
   else
     atparse < ${PATHRT}/parm/ww3_shel.nml.IN > ww3_shel.nml

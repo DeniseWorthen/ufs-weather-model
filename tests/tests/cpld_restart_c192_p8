@@ -99,9 +99,9 @@ export CICE_NPROC=$ICE_tasks
 export np2=`expr $CICE_NPROC / 2`
 export CICE_BLCKX=`expr $NX_GLB / $np2`
 export CICE_BLCKY=`expr $NY_GLB / 2`
-export WAVDOMAIN=mx${OCNRES}
-export MESH_WAV=mesh.${WAVDOMAIN}.nc
-export MODDEF_WAV=mod_def.mx${OCNRES}
+export WW3_DOMAIN=mx${OCNRES}
+export MESH_WAV=mesh.${WW3_DOMAIN}.nc
+export WW3_MODDEF=mod_def.mx${OCNRES}
 
 # set component and coupling timesteps
 export DT_ATMOS=600

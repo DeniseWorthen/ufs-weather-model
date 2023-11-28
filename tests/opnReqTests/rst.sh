@@ -35,8 +35,8 @@ elif [[ $application == 'cpld' ]]; then
   RUN_BEG="${SYEAR}${SMONTH}${SDAY} $(printf "%02d" $(( ${FHROT}+${SHOUR} )))0000"
 elif [[ $application == 'atmw' ]]; then
   FHROT=$(( FHMAX/2 ))
-  WW3RSTDTHR=6
-  DT_2_RST="$(printf "%02d" $(( ${WW3RSTDTHR}*3600 )))"
+  WW3_RSTDTHR=6
+  WW3_DT_2_RST="$(printf "%02d" $(( ${WW3_RSTDTHR}*3600 )))"
   RUNTYPE='continue'
   CICE_USE_RESTART_TIME='.true.'
   RESTART_N=$(( FHMAX - FHROT ))
@@ -69,7 +69,7 @@ source $PATHRT/opnReqTests/wrt_env.sh
 
 cat <<EOF >>${RUNDIR_ROOT}/opnreq_test${RT_SUFFIX}.env
 export FHROT=${FHROT}
-export DT_2_RST=${DT_2_RST:-}
+export WW3_DT_2_RST=${WW3_DT_2_RST:-}
 export RESTART_FILE_PREFIX=${RESTART_FILE_PREFIX}
 export NSTF_NAME=${NSTF_NAME}
 export CICE_RUNTYPE=${CICE_RUNTYPE:-}
