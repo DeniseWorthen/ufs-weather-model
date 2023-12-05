@@ -229,6 +229,19 @@ elif [[ $MACHINE_ID = gaea ]]; then
   INPES_cpl_atmw_gdas=6; JNPES_cpl_atmw_gdas=8; WPG_cpl_atmw_gdas=24
   WAV_tasks_atmw_gdas=264
 
+elif [[ $MACHINE_ID = gaea-c5 ]]; then
+
+  TPN=128
+
+  INPES_dflt=3 ; JNPES_dflt=8
+  INPES_thrd=3 ; JNPES_thrd=4
+  INPES_c384=6 ; JNPES_c384=8  ; THRD_c384=1
+  INPES_c768=8 ; JNPES_c768=16 ; THRD_c768=2
+
+  THRD_cpl_atmw_gdas=3
+  INPES_cpl_atmw_gdas=6; JNPES_cpl_atmw_gdas=8; WPG_cpl_atmw_gdas=24
+  WAV_tasks_atmw_gdas=264
+
 elif [[ $MACHINE_ID = cheyenne ]]; then
 
   TPN=36
@@ -372,7 +385,7 @@ export OUTPUT_GRID="'cubed_sphere_grid'"
 export OUTPUT_FILE="'netcdf'"
 export ZSTANDARD_LEVEL=0
 export IDEFLATE=0
-export NBITS=0
+export QUANTIZE_NSD=0
 export ICHUNK2D=0
 export JCHUNK2D=0
 export ICHUNK3D=0
@@ -1172,7 +1185,7 @@ export FILENAME_BASE="'atm' 'sfc'"
 export OUTPUT_GRID="'regional_latlon'"
 export OUTPUT_FILE="'netcdf'"
 export IDEFLATE=0
-export NBITS=0
+export QUANTIZE_NSD=0
 export NFHOUT=3
 export NFHMAX_HF=-1
 export NFHOUT_HF=3
