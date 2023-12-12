@@ -6,6 +6,61 @@
    entries:
      #
      #-----------------------------------
+     # section: mediator calculation ocnnst
+     #-----------------------------------
+     #
+     - standard_name: Snst_tref
+       canonical_units: K
+     #
+     - standard_name: Snst_dconv
+       canonical_units: m
+     #
+     - standard_name: Snst_dtcool
+       canonical_units: K
+     #
+     - standard_name: Snst_qrain
+       canonical_units: 1
+     #
+     - standard_name: Snst_xtts
+       canonical_units: 1
+     #
+     - standard_name: Snst_xzts
+       canonical_units: 1
+     #
+     - standard_name: Snst_c0
+       canonical_units: 1
+     #
+     - standard_name: Snst_cd
+       canonical_units: 1
+     #
+     - standard_name: Snst_w0
+       canonical_units: 1
+     #
+     - standard_name: Snst_wd
+       canonical_units: 1
+     #
+     - standard_name: Snst_xd
+       canonical_units: 1
+     #
+     - standard_name: Snst_xs
+       canonical_units: 1
+     #
+     - standard_name: Snst_xt
+       canonical_units: 1
+     #
+     - standard_name: Snst_xu
+       canonical_units: 1
+     #
+     - standard_name: Snst_xv
+       canonical_units: 1
+     #
+     - standard_name: Snst_xz
+       canonical_units: 1
+     #
+     - standard_name: Snst_zc
+       canonical_units: 1
+     #
+     #-----------------------------------
      # section: mediator calculation for atm/ocn flux calculation
      #-----------------------------------
      #
