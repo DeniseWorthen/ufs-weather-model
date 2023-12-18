@@ -60,6 +60,10 @@
      - standard_name: Snst_zc
        canonical_units: 1
      #
+     - standard_name: Snst_t
+       alias: near_surface_sea_temperature
+       canonical_units: K
+     #
      #-----------------------------------
      # section: mediator calculation for atm/ocn flux calculation
      #-----------------------------------
