@@ -71,7 +71,7 @@ set(PARALLEL_NETCDF OFF CACHE BOOL "Enable parallel NetCDF")
 set(JEDI_DRIVER     OFF CACHE BOOL "Enable JEDI as top level driver")
 set(CMEPS_AOFLUX    OFF CACHE BOOL "Enable atmosphere-ocean flux calculation in mediator")
 set(PDLIB           OFF CACHE BOOL "Enable Domain Decomposition in WW3 via PDLIB")
-set(WAVEICE         OFF CACHE BOOL "Enable WAV-ICE coupling in WW3 via IC4")
+set(WAVICE          OFF CACHE BOOL "Enable WAV-ICE coupling in WW3 via IC4")
 
 set(CMAKE_Platform $ENV{CMAKE_Platform})
 if(CMAKE_Platform)
