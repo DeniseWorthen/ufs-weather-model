@@ -2,6 +2,8 @@
 if(CMAKE_Fortran_COMPILER_ID MATCHES "GNU")
   set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -g -fbacktrace")
   set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -fconvert=big-endian -ffree-line-length-none ")
+  #Set CPP defintions for the ufs/cdeps_share source component of the cmeps target library
+  list(APPEND CDEPS_SHARE_DEFS "CPRGNU" "DISABLE_FoX")
   if(${CMAKE_Fortran_COMPILER_VERSION} VERSION_GREATER_EQUAL 10)
     set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -fallow-argument-mismatch -fallow-invalid-boz")
   endif()
@@ -14,6 +16,8 @@ elseif(CMAKE_Fortran_COMPILER_ID MATCHES "Intel")
   set(CMAKE_Fortran_FLAGS_RELEASE "-O2 -fp-model precise")
   set(CMAKE_Fortran_FLAGS_DEBUG "-O0 -check uninit -check bounds -check pointers -fpe0 -check noarg_temp_created -init=snan,arrays")
   set(CMAKE_Fortran_LINK_FLAGS "")
+  #Set CPP defintions for the ufs/cdeps_share source component of the cmeps target library
+  list(APPEND CDEPS_SHARE_DEFS "CPRINTEL" "DISABLE_FoX")
 else()
   message(WARNING "Fortran compiler with ID ${CMAKE_Fortran_COMPILER_ID} will be used with CMake default options")
 endif()
@@ -51,10 +55,11 @@ list(APPEND lib_src_files
   ${cice_shared_files_c}
   ${icepack_files}
   ${cice_mpi_comm_files}
-  ${cice_nuopc_cmeps_driver_files})
+  ${cice_nuopc_cmeps_driver_files}
+  ${cice_ufs_util_files})
 
 list(APPEND _cice_defs FORTRANUNDERSCORE
-                       coupled)
+		       coupled)
 
 # Select IO source files based on CICE_IO
 if(CICE_IO MATCHES "NetCDF")
@@ -68,11 +73,12 @@ elseif(CICE_IO MATCHES "Binary")
 endif()
 
 ### Create target library and set PUBLIC interfaces on the library
-add_library(cice STATIC ${lib_src_files})
+add_library(cice STATIC ${lib_src_files} ${cice_ufs_util_files})
 set_target_properties(cice PROPERTIES Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/mod)
 target_compile_definitions(cice PUBLIC "${_cice_defs}")
+target_compile_definitions(cice PRIVATE ${CDEPS_SHARE_DEFS})
 target_include_directories(cice PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/mod>
-                                       $<INSTALL_INTERFACE:mod>)
+				       $<INSTALL_INTERFACE:mod>)
 target_link_libraries(cice PUBLIC esmf)
 if(CICE_IO MATCHES "^(NetCDF|PIO)$")
   target_link_libraries(cice PUBLIC NetCDF::NetCDF_Fortran)
@@ -98,4 +104,4 @@ install(
 install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/mod DESTINATION ${CMAKE_INSTALL_PREFIX}/CICE)
 
 install(EXPORT      cice-config
-        DESTINATION lib/cmake)
+	DESTINATION lib/cmake)
