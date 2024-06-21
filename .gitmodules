@@ -1,7 +1,9 @@
 [submodule "FV3"]
   path = FV3
-  url = https://github.com/NOAA-EMC/fv3atm
-  branch = develop
+  #url = https://github.com/NOAA-EMC/fv3atm
+  #branch = develop
+  url = https://github.com/DeniseWorthen/fv3atm
+  branch = feature/budgets
 [submodule "WW3"]
   path = WW3
   url = https://github.com/NOAA-EMC/WW3
@@ -16,20 +18,26 @@
   branch = develop
 [submodule "CMEPS"]
   path = CMEPS-interface/CMEPS
-  url = https://github.com/NOAA-EMC/CMEPS
-  branch = emc/develop
+  #url = https://github.com/NOAA-EMC/CMEPS
+  #branch = emc/develop
+  url = https://github.com/DeniseWorthen/CMEPS
+  branch = feature/budgets
 [submodule "HYCOM"]
   path = HYCOM-interface/HYCOM
   url = https://github.com/NOAA-EMC/HYCOM-src
   branch = emc/develop
 [submodule "MOM6"]
   path = MOM6-interface/MOM6
-  url = https://github.com/NOAA-EMC/MOM6
-  branch = dev/emc
+  #url = https://github.com/NOAA-EMC/MOM6
+  #branch = dev/emc
+  url = https://github.com/DeniseWorthen/MOM6
+  branch = feature/budgets
 [submodule "CICE"]
   path = CICE-interface/CICE
-  url = https://github.com/NOAA-EMC/CICE
-  branch = emc/develop
+  #url = https://github.com/NOAA-EMC/CICE
+  #branch = emc/develop
+  url = https://github.com/DeniseWorthen/CICE
+  branch = feature/budgets
 [submodule "CDEPS"]
   path = CDEPS-interface/CDEPS
   url = https://github.com/NOAA-EMC/CDEPS
