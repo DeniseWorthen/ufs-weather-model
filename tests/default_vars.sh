@@ -10,7 +10,7 @@
   THRD=1
 
   export INPES_atmaero=4
-  export JNPES_atmaero=8 
+  export JNPES_atmaero=8
   export WPG_atmaero=6
 
   export THRD_cpl_atmw=1
@@ -121,12 +121,12 @@ if [[ ${MACHINE_ID} = wcoss2 || ${MACHINE_ID} = acorn ]]; then
 
   export TPN=128
 
-  export INPES_dflt=3 
+  export INPES_dflt=3
   export JNPES_dflt=8
   export INPES_thrd=3
   export JNPES_thrd=4
   export INPES_c384=8
-  export JNPES_c384=6 
+  export JNPES_c384=6
   export THRD_c384=2
   export INPES_c768=8
   export JNPES_c768=16
@@ -144,7 +144,7 @@ elif [[ ${MACHINE_ID} = orion ]]; then
 
   export INPES_dflt=3
   export JNPES_dflt=8
-  export INPES_thrd=3 
+  export INPES_thrd=3
   export JNPES_thrd=4
   export INPES_c384=8
   export JNPES_c384=6
@@ -168,7 +168,7 @@ elif [[ ${MACHINE_ID} = hercules ]]; then
   export INPES_thrd=3
   export JNPES_thrd=4
   export INPES_c384=8
-  export JNPES_c384=6 
+  export JNPES_c384=6
   export THRD_c384=2
   export INPES_c768=8
   export JNPES_c768=16
@@ -187,10 +187,10 @@ elif [[ ${MACHINE_ID} = hera ]]; then
 
   export INPES_dflt=3
   export JNPES_dflt=8
-  export INPES_thrd=3 
+  export INPES_thrd=3
   export JNPES_thrd=4
   export INPES_c384=6
-  export JNPES_c384=8 
+  export JNPES_c384=8
   export THRD_c384=2
   export INPES_c768=8
   export JNPES_c768=16
@@ -274,7 +274,7 @@ elif [[ ${MACHINE_ID} = s4 ]]; then
 
   export TPN=32
 
-  export INPES_dflt=3 
+  export INPES_dflt=3
   export JNPES_dflt=8
   export INPES_thrd=3
   export JNPES_thrd=4
@@ -325,10 +325,10 @@ elif [[ ${MACHINE_ID} = derecho ]]; then
   export TPN=128
   export INPES_dflt=3
   export JNPES_dflt=8
-  export INPES_thrd=3 
+  export INPES_thrd=3
   export JNPES_thrd=4
   export INPES_c384=8
-  export JNPES_c384=6 
+  export JNPES_c384=6
   export THRD_c384=2
   export INPES_c768=8
   export JNPES_c768=16
@@ -1038,7 +1038,9 @@ export_cmeps() {
   export MESH_ICE=mesh.mx${OCNRES}.nc
   export MESH_WAV=mesh.${WW3_DOMAIN}.nc
   export CPLMODE=ufs.frac
-  export pio_rearranger=box
+  export CMEPS_pio_typename=pnetcdf
+  export CMEPS_pio_rearranger=subset
+  export CMEPS_pio_stride=4
   export RUNTYPE=startup
   export RESTART_N=${FHMAX}
   export CMEPS_RESTART_DIR=./RESTART/
@@ -1356,7 +1358,9 @@ export_hafs_docn_cdeps ()
 
   export ocn_model=docn
   export ocn_datamode=sstdata
-  export pio_rearranger=box
+  export CMEPS_pio_typename=pnetcdf
+  export CMEPS_pio_rearranger=subset
+  export CMEPS_pio_stride=4
   export DOCN_IN_CONFIGURE=docn_in.IN
   export DOCN_STREAM_CONFIGURE=hafs_docn.streams.IN
 }

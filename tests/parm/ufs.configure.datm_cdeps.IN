@@ -104,7 +104,9 @@ MED_attributes::
       history_option = nhours
       history_ymd = -999
       coupling_mode = ufs.nfrac.aoflux
-      pio_rearranger = @[pio_rearranger]
+      pio_typename = @[CMEPS_pio_typename]
+      pio_rearranger = @[CMEPS_pio_rearranger]
+      pio_stride = @[CMEPS_pio_stride]
 ::
 
 ALLCOMP_attributes::

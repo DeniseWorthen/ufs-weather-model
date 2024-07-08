@@ -106,7 +106,9 @@ MED_attributes::
       ccpp_ini_file_prefix = 'INPUT/sfc_data.tile'
       ccpp_ini_layout = @[INPES],@[JNPES]
       ccpp_ini_read = false
-      pio_rearranger = @[pio_rearranger]
+      pio_typename = @[CMEPS_pio_typename]
+      pio_rearranger = @[CMEPS_pio_rearranger]
+      pio_stride = @[CMEPS_pio_stride]
       ocean_albedo_limit = @[ocean_albedo_limit]
 ::
 
