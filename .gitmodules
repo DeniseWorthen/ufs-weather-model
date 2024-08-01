@@ -4,8 +4,10 @@
   branch = develop
 [submodule "WW3"]
   path = WW3
-  url = https://github.com/oceanmodeling/WW3
-  branch = dev/ufs-coastal
+  #url = https://github.com/oceanmodeling/WW3
+  #branch = dev/ufs-coastal
+  url = https://github.com/DeniseWorthen/WW3
+  branch = feature/addflds4schism
 [submodule "stochastic_physics"]
   path = stochastic_physics
   url = https://github.com/NOAA-PSL/stochastic_physics
@@ -16,8 +18,10 @@
   branch = feature/coastal_app
 [submodule "CMEPS"]
   path = CMEPS-interface/CMEPS
-  url = https://github.com/oceanmodeling/CMEPS
-  branch = feature/coastalapp
+  #url = https://github.com/oceanmodeling/CMEPS
+  #branch = feature/coastalapp
+  url = https://github.com/DeniseWorthen/CMEPS
+  branch = feature/addflds4schism
 [submodule "HYCOM"]
   path = HYCOM-interface/HYCOM
   url = https://github.com/NOAA-EMC/HYCOM-src
