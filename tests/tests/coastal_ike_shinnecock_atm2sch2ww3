@@ -84,7 +84,7 @@ export STREAM_OFFSET=0
 # datm/ocean
 export HURR="Ike"
 export CPL_CONF="atm2sch2wav"
-
+export WAV_OUTPARS="WND HS FP DP WLV CUR DPT PHS PTP PDIR SXX SXY SYY BHD TWO TBB UBR USS"
 # pes
 export ATM_compute_tasks=8
 export OCN_tasks=8
