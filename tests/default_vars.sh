@@ -10,7 +10,7 @@
   THRD=1
 
   export INPES_atmaero=4
-  export JNPES_atmaero=8 
+  export JNPES_atmaero=8
   export WPG_atmaero=6
 
   export THRD_cpl_atmw=1
@@ -121,12 +121,12 @@ if [[ ${MACHINE_ID} = wcoss2 || ${MACHINE_ID} = acorn ]]; then
 
   export TPN=128
 
-  export INPES_dflt=3 
+  export INPES_dflt=3
   export JNPES_dflt=8
   export INPES_thrd=3
   export JNPES_thrd=4
   export INPES_c384=8
-  export JNPES_c384=6 
+  export JNPES_c384=6
   export THRD_c384=2
   export INPES_c768=8
   export JNPES_c768=16
@@ -144,7 +144,7 @@ elif [[ ${MACHINE_ID} = orion ]]; then
 
   export INPES_dflt=3
   export JNPES_dflt=8
-  export INPES_thrd=3 
+  export INPES_thrd=3
   export JNPES_thrd=4
   export INPES_c384=8
   export JNPES_c384=6
@@ -168,7 +168,7 @@ elif [[ ${MACHINE_ID} = hercules ]]; then
   export INPES_thrd=3
   export JNPES_thrd=4
   export INPES_c384=8
-  export JNPES_c384=6 
+  export JNPES_c384=6
   export THRD_c384=2
   export INPES_c768=8
   export JNPES_c768=16
@@ -187,10 +187,10 @@ elif [[ ${MACHINE_ID} = hera ]]; then
 
   export INPES_dflt=3
   export JNPES_dflt=8
-  export INPES_thrd=3 
+  export INPES_thrd=3
   export JNPES_thrd=4
   export INPES_c384=6
-  export JNPES_c384=8 
+  export JNPES_c384=8
   export THRD_c384=2
   export INPES_c768=8
   export JNPES_c768=16
@@ -274,7 +274,7 @@ elif [[ ${MACHINE_ID} = s4 ]]; then
 
   export TPN=32
 
-  export INPES_dflt=3 
+  export INPES_dflt=3
   export JNPES_dflt=8
   export INPES_thrd=3
   export JNPES_thrd=4
@@ -325,10 +325,10 @@ elif [[ ${MACHINE_ID} = derecho ]]; then
   export TPN=128
   export INPES_dflt=3
   export JNPES_dflt=8
-  export INPES_thrd=3 
+  export INPES_thrd=3
   export JNPES_thrd=4
   export INPES_c384=8
-  export JNPES_c384=6 
+  export JNPES_c384=6
   export THRD_c384=2
   export INPES_c768=8
   export JNPES_c768=16
@@ -844,6 +844,7 @@ export RST_BEG=${RUN_BEG}
 export RST_2_BEG=${RUN_BEG}
 export RST_END=${RUN_END}
 export RST_2_END=${RUN_END}
+export WW3_WLEV='F'
 export WW3_CUR='F'
 export WW3_ICE='F'
 export WW3_IC1='F'
@@ -1019,6 +1020,7 @@ export_ww3() {
   WW3_DTPNT="$(printf "%02d" $(( WW3_OUTDTHR*3600 )) )"
   export WW3_DTFLD
   export WW3_DTPNT
+  export WW3_WLEV='F'
   export WW3_CUR='C'
   export WW3_ICE='C'
   export WW3_IC1='F'
@@ -1430,6 +1432,7 @@ export_hafs_regional ()
   # default hafs with no ice
   export WW3_DOMAIN=natl_6m
   export WW3_MODDEF=mod_def.${WW3_DOMAIN}
+  export WW3_WLEV='F'
   export WW3_ICE='F'
   export WW3_OUTPARS="WND HS T01 T02 DIR FP DP PHS PTP PDIR UST CHA USP"
 
@@ -1452,7 +1455,7 @@ export_coastal ()
   export DOCN_CDEPS=false
   export DICE_CDEPS=false
   export CICE_PRESCRIBED=false
-  
+
   export CPL=.false.
   export CPLCHM=.false.
   export CPLFLX=.false.
@@ -1464,7 +1467,7 @@ export_coastal ()
   export HISTORY_FILE_ON_NATIVE_GRID=.false.
   export QUANTIZE_NSD=0
   export WAV_STANDALONE=.false.
-  
+
   export casename='ufs.cpld'
   export meshloc=element
   export coupling_config=none

@@ -1,9 +1,10 @@
 &input_nml
-  input%forcing%winds      = 'C'
-  input%forcing%currents   = '@[WW3_CUR]'
-  input%forcing%ice_conc   = '@[WW3_ICE]'
-  input%forcing%ice_param1 = '@[WW3_IC1]'
-  input%forcing%ice_param5 = '@[WW3_IC5]'
+  input%forcing%water_levels	= '@[WW3_WLEV]'
+  input%forcing%winds		= 'C'
+  input%forcing%currents	= '@[WW3_CUR]'
+  input%forcing%ice_conc	= '@[WW3_ICE]'
+  input%forcing%ice_param1	= '@[WW3_IC1]'
+  input%forcing%ice_param5	= '@[WW3_IC5]'
 /
 
 &output_type_nml

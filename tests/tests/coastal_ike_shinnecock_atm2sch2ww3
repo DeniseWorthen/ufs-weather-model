@@ -84,7 +84,9 @@ export STREAM_OFFSET=0
 # datm/ocean
 export HURR="Ike"
 export CPL_CONF="atm2sch2wav"
-export WAV_OUTPARS="WND HS FP DP WLV CUR DPT PHS PTP PDIR SXX SXY SYY BHD TWO TBB UBR USS"
+export WAV_OUTPARS="WND HS FP DP WLV CUR DPT PHS PTP PDIR SXY BHD TWO TBB UBR USS T0M1 DIR WNM"
+# set this to C to activate So_h fields from SCHISM->WW3
+export WW3_WLEV='F'
 # pes
 export ATM_compute_tasks=8
 export OCN_tasks=8
