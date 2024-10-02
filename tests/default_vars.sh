@@ -89,6 +89,8 @@
   export OCN_tasks_cdeps_025=120
   export ICE_tasks_cdeps_025=48
 
+  export WAV_tasks_cdeps=120
+
   export INPES_aqm=33
   export JNPES_aqm=8
 
@@ -1025,13 +1027,13 @@ export_ugwpv1() {
       exit 1
       ;;
   esac
-  
+
   if [[ ${DO_GSL_DRAG_SS} = .true. ]]; then export CDMBGWD=${CDMBGWD_GSL}; fi
   if [[ ${SEDI_SEMI} = .true. ]]; then export DT_ATMOS=$((DT_ATMOS/2)); fi
   export DT_INNER=${DT_ATMOS}
 
 }
-  
+
 
 # Defaults for the CICE6 model namelist, mx100
 export_cice6() {

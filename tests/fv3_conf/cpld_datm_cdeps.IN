@@ -21,6 +21,14 @@ cp    @[INPUTDATA_ROOT]/CICE_FIX/@[OCNRES]/grid_cice_NEMS_mx@[OCNRES].nc .
 cp    @[INPUTDATA_ROOT]/CICE_FIX/@[OCNRES]/kmtu_cice_NEMS_mx@[OCNRES].nc .
 cp    @[INPUTDATA_ROOT]/CICE_FIX/@[OCNRES]/mesh.mx@[OCNRES].nc .
 
+# WW3 fix/input
+if [[ $CPLWAV == .true. ]]; then
+  cp @[INPUTDATA_ROOT_WW3]/@[WW3_MODDEF] mod_def.ww3
+  if [[ ${WW3_DOMAIN:0:2} != mx ]]; then
+     cp  @[INPUTDATA_ROOT_WW3]/@[MESH_WAV] .
+  fi
+fi
+
 if [ $WARM_START = .false. ]; then
 # cold start
  if [[ $OCNRES == '025' ]]; then

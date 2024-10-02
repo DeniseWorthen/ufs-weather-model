@@ -1,0 +1,3 @@
+### CDEPS Data Atmosphere tests with OCN+ICE+WAV ###
+COMPILE | datm_s2sw | intel | -DAPP=DATM-S2SW | - wcoss2         | fv3 |
+RUN | datm_s2sw_gfsv17                           | - wcoss2                             | baseline |
