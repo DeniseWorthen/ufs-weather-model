@@ -1480,6 +1480,7 @@ export_datm_cdeps ()
   export MOM6_USE_LI2016=False
   export MOM6_USE_WAVES=False
   export WW3_DOMAIN=''
+  export WW3_MODDEF=''
 
   # Set CMEPS component defaults
   export_cmeps
