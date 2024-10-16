@@ -9,21 +9,14 @@
   prepend_date = .false.
 /
 
-&fms_io_nml
-  checksum_required = .false.
-  max_files_r = 100
-  max_files_w = 100
-/
-
-&mpp_io_nml
-shuffle=1
-deflate_level=1
-/
-
 &fms_nml
   clock_grain = 'ROUTINE'
   domains_stack_size = 3000000
   print_memory_usage = .false.
+/
+
+&fms2_io_nml
+  netcdf_default_format = "netcdf4"
 /
 
 &fv_core_nml
@@ -76,11 +69,11 @@ deflate_level=1
   mountain = @[MOUNTAIN]
   ncep_ic = .false.
   d_con = 1.
-  hord_mt = 6
-  hord_vt = 6
-  hord_tm = 6
-  hord_dp = 6
-  hord_tr = 13
+  hord_mt = 5
+  hord_vt = 5
+  hord_tm = 5
+  hord_dp = -5
+  hord_tr = 8
   adjust_dry_mass = .false.
   consv_te = 1.
   do_sat_adj = .false.
@@ -94,6 +87,7 @@ deflate_level=1
   z_tracer = .true.
   agrid_vel_rst = .true.
   read_increment = .false.
+  increment_file_on_native_grid = @[INCREMENT_FILE_ON_NATIVE_GRID]
   res_latlon_dynamics = ""
 /
 

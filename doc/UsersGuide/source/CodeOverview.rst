@@ -19,16 +19,16 @@ Four levels of support have been defined for :term:`UFS` applications, and the U
 
 Level 1 Systems
 ==================
-Preconfigured (Level 1) systems for the UFS WM already have the required external libraries available in a central location via :term:`HPC-Stack` or :term:`spack-stack`. The WM is expected to build and run out-of-the-box on these systems, and users can download the WM code without first installing prerequisite software. Additionally, regression test data is already available on these systems. In general, users must have access to these Level 1 systems in order to use them.
+Preconfigured (Level 1) systems for the UFS WM already have the required external libraries available in a central location via :term:`spack-stack`. The WM is expected to build and run out-of-the-box on these systems, and users can download the WM code without first installing prerequisite software. Additionally, regression test data is already available on these systems. In general, users must have access to these Level 1 systems in order to use them.
 
 Currently, Level 1 (or Tier-1) platforms for regression testing are: 
 
    * WCOSS2 (Intel)
-   * Cheyenne (Intel/GNU compilers)
    * Gaea (Intel)
    * Hera (Intel/GNU compilers)
    * Jet (Intel)
    * Orion (Intel)
+   * Hercules (Intel/GNU compilers)
    * AWS Docker container (Intel)
 
 More information is available in the `UFS WM wiki <https://github.com/ufs-community/ufs-weather-model/wiki/Regression-Test-Policy-for-Weather-Model-Platforms-and-Compilers>`__. 
@@ -67,7 +67,7 @@ The UFS :term:`WM` repository supports the :term:`UFS` short- and medium-range w
   * - :term:`FV3` dynamical core
     - https://github.com/NOAA-GFDL/GFDL_atmos_cubed_sphere
   * - Stochastic physics pattern generator
-    - https://github.com/noaa-psd/stochastic_physics
+    - https://github.com/NOAA-PSL/stochastic_physics
   * - Modular Ocean Model (:term:`MOM6`)
     - https://github.com/NOAA-EMC/MOM6
   * - HYbrid Coordinate Ocean Model (:term:`HYCOM`)
@@ -86,6 +86,8 @@ The UFS :term:`WM` repository supports the :term:`UFS` short- and medium-range w
     - https://github.com/NOAA-EMC/AQM
   * - Noah-MP Land Surface Model (Noah-MP)
     - https://github.com/NOAA-EMC/noahmp
+  * - NOAA-GFDL Land Model (:term:`LM4`)
+    -  
 
 In the table, the left-hand column contains a description of each repository, and the 
 right-hand column shows the GitHub location of the authoritative component repositories. 
@@ -108,7 +110,8 @@ The umbrella repository for the UFS WM is named ``ufs-weather-model``. Under thi
     ├── CDEPS-interface
     │     └── CDEPS
     │         ├── (datm)                         -------- CDEPS DATM
-    │         └── (docn)                         -------- CDEPS DOCN
+    │         ├── (docn)                         -------- CDEPS DOCN
+    │         └── (dice)                         -------- CDEPS DICE
     ├── CICE-interface
     │    └── CICE                                -------- CICE6 sea ice model
     │        ├── (icepack)                       -------- Sea ice column physics
@@ -142,6 +145,9 @@ The umbrella repository for the UFS WM is named ``ufs-weather-model``. Under thi
     │    └── HYCOM                               -------- HYCOM ocean model
     │        └── (NUOPC)                         -------- NUOPC HYCOM cap
     ├── LICENSE.md
+    ├── LM4-driver 
+    │   ├── (LM4)                                -------- NUOPC NOAA-GFDL Land Model version 4
+    │   └── (nuopc_cap)                          -------- NUOPC LM4 cap
     ├── modulefiles                              -------- system module files for supported HPC systems
     ├── MOM6-interface
     │    └── MOM6

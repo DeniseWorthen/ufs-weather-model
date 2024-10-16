@@ -1,27 +1,33 @@
 help([[
   This module loads libraries required for building and running UFS Weather Model 
-  on the NOAA RDHPC machine Gaea using Intel-2022.0.2
+  on the NOAA RDHPC machine Gaea C5 using Intel-2023.1.0.
 ]])
 
 whatis([===[Loads libraries needed for building the UFS Weather Model on Gaea ]===])
 
-load_any(pathJoin("cmake", os.getenv("cmake_ver") or "3.20.1"),"cmake")
+prepend_path("MODULEPATH", "/ncrc/proj/epic/spack-stack/spack-stack-1.6.0/envs/fms-2024.01/install/modulefiles/Core")
 
-prepend_path("MODULEPATH","/lustre/f2/dev/role.epic/contrib/hpc-stack/intel-classic-2022.0.2_ncdf492/modulefiles/stack")
-load(pathJoin("hpc", os.getenv("hpc_ver") or "1.2.0"))
+stack_intel_ver=os.getenv("stack_intel_ver") or "2023.1.0"
+load(pathJoin("stack-intel", stack_intel_ver))
 
-load(pathJoin("intel-classic", os.getenv("intel_classic_ver") or "2022.0.2"))
-load(pathJoin("cray-mpich", os.getenv("cray_mpich_ver") or "7.7.20"))
-load(pathJoin("hpc-intel-classic", os.getenv("hpc_intel_classic_ver") or "2022.0.2"))
-load(pathJoin("hpc-cray-mpich", os.getenv("hpc_cray_mpich_ver") or "7.7.20"))
-load(pathJoin("libpng", os.getenv("libpng_ver") or "1.6.37"))
+stack_cray_mpich_ver=os.getenv("stack_cray_mpich_ver") or "8.1.25"
+load(pathJoin("stack-cray-mpich", stack_cray_mpich_ver))
 
--- Needed at runtime:
-load("alps")
+stack_python_ver=os.getenv("stack_python_ver") or "3.10.13"
+load(pathJoin("stack-python", stack_python_ver))
+
+cmake_ver=os.getenv("cmake_ver") or "3.23.1"
+load(pathJoin("cmake", cmake_ver))
 
 load("ufs_common")
 
+nccmp_ver=os.getenv("nccmp_ver") or "1.9.0.1"
+load(pathJoin("nccmp", nccmp_ver))
+
+unload("darshan-runtime")
+unload("cray-libsci")
+
 setenv("CC","cc")
-setenv("FC","ftn")
 setenv("CXX","CC")
+setenv("FC","ftn")
 setenv("CMAKE_Platform","gaea.intel")

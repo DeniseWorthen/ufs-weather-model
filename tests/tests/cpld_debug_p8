@@ -4,7 +4,7 @@
 
 export TEST_DESCR="Fully coupled FV3-CCPP-GOCART-MOM6-CICE-CMEPS-WW3 system - C96MX100 P8 debug"
 
-export CNTL_DIR="cpld_debug_p8"
+export CNTL_DIR=cpld_debug_p8
 
 export LIST_FILES="sfcf003.tile1.nc \
                    sfcf003.tile2.nc \
@@ -59,6 +59,8 @@ export LIST_FILES="sfcf003.tile1.nc \
 
 export_fv3
 export_cpl
+export_ugwpv1
+export CCPP_SUITE=FV3_GFS_v17_coupled_p8_ugwpv1
 
 export FHMAX=3
 export DAYS=0.125
@@ -66,17 +68,26 @@ export RESTART_N=${FHMAX}
 export OUTPUT_FH="3 -1"
 export AOD_FRQ=030000
 
-export TOPOEDITS=ufs.topo_edits_011818.nc
+export MOM6_TOPOEDITS=ufs.topo_edits_011818.nc
 export MOM6_ALLOW_LANDMASK_CHANGES=True
 export eps_imesh=2.5e-1
-export DIAG_FREQ=`expr $((FHMAX-$FHROT)) \* 3600 / $DT_CICE`
+export CICE_DIAGFREQ=`expr $((FHMAX-$FHROT)) \* 3600 / $DT_CICE`
 
 export FV3_RUN=cpld_control_run.IN
-
-if [[ $MACHINE_ID = cheyenne ]]; then
-  TPN=18
-fi
 
 if [[ $MACHINE_ID = hera ]] && [[ $RT_COMPILER = gnu ]]; then
   WLCLK=40
 fi
+
+export DT_INNER=720
+export DT_ATMOS=720
+export K_SPLIT=4
+export N_SPLIT=5
+
+# HR4 GFSv17 GWD update
+export DO_UGWP_V0=.false.
+export DO_UGWP_V1=.true.
+export DO_GSL_DRAG_LS_BL=.true.
+export DO_GWD_OPT_PSL=.true.
+export DO_GSL_DRAG_SS=.false.
+export DO_GSL_DRAG_TOFD=.true.

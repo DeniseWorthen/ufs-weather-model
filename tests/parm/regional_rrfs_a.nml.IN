@@ -37,12 +37,6 @@
     netcdf_default_format = 'netcdf4'
 /
 
-&fms_io_nml
-    checksum_required = .false.
-    max_files_r = 100
-    max_files_w = 100
-/
-
 &fms_nml
     clock_grain = 'ROUTINE'
     domains_stack_size = 3000000
@@ -51,6 +45,10 @@
 
 &fv3gfs_io
     use_io_netcdf = .true.
+/
+
+&fms2_io_nml
+  netcdf_default_format = "netcdf4"
 /
 
 &fv_core_nml
@@ -122,6 +120,7 @@
     regional = .true.
     regional_bcs_from_gsi = .false.
     res_latlon_dynamics = 'fv3_increment.nc'
+    increment_file_on_native_grid = @[INCREMENT_FILE_ON_NATIVE_GRID]
     reset_eta = .false.
     rf_cutoff = 2000.0
     sg_cutoff = 10000.0

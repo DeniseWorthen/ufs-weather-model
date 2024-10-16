@@ -29,7 +29,7 @@ Glossary
       The pool of CCPP-compliant physics schemes; also refers to a software repository of the same name
 
    CDEPS
-      The `Community Data Models for Earth Predictive Systems <https://github.com/NOAA-EMC/CDEPS/>`__ repository (CDEPS) contains a set of :term:`NUOPC`-compliant data components and :term:`ESMF`-based "stream" code that selectively removes feedback in coupled model systems. In essence, CDEPS handles the static Data Atmosphere (:term:`DATM`) integration with dynamic coupled model components (e.g., :term:`MOM6`). The CDEPS data models perform the basic function of reading external data files, modifying those data, and then sending the data back to the :term:`CMEPS` mediator. The fields sent to the :term:`mediator` are the same as those that would be sent by an active component. This takes advantage of the fact that the mediator and other CMEPS-compliant model components have no fundamental knowledge of whether another component is fully active or just a data component. More information about DATM is available in the `CDEPS Documentation <https://escomp.github.io/CDEPS/html/index.html>`__.
+      The `Community Data Models for Earth Predictive Systems <https://github.com/NOAA-EMC/CDEPS/>`__ repository (CDEPS) contains a set of :term:`NUOPC`-compliant data components and :term:`ESMF`-based "stream" code that selectively removes feedback in coupled model systems. In essence, CDEPS handles the static Data Atmosphere (:term:`DATM`) integration with dynamic coupled model components (e.g., :term:`MOM6`). The CDEPS data models perform the basic function of reading external data files, modifying those data, and then sending the data back to the :term:`CMEPS` mediator. The fields sent to the :term:`mediator` are the same as those that would be sent by an active component. This takes advantage of the fact that the mediator and other CMEPS-compliant model components have no fundamental knowledge of whether another component is fully active or just a data component. More information about DATM is available in the `CDEPS Documentation <https://escomp.github.io/CDEPS/versions/master/html/index.html>`__.
 
    CESM
       The `Community Earth System Model <https://www.cesm.ucar.edu/>`__ (CESM) is a fully-coupled global climate model developed at the National Center for Atmospheric Research (:term:`NCAR`) in collaboration with colleagues in the research community. 
@@ -54,6 +54,9 @@ Glossary
    cron table
       Cron is a job scheduler accessed through the command-line on UNIX-like operating systems. It is useful for automating tasks such as regression testing. Cron periodically checks a cron table (aka crontab) to see if any tasks are are ready to execute. If so, it runs them. 
 
+   data assimilation
+      Data assimilation is the process of combining observations, model data, and error statistics to achieve the best estimate of the state of a system. One of the major sources of error in weather and climate forecasts is uncertainty related to the initial conditions that are used to generate future predictions. Even the most precise instruments have a small range of unavoidable measurement error, which means that tiny measurement errors (e.g., related to atmospheric conditions and instrument location) can compound over time. These small differences result in very similar forecasts in the short term (i.e., minutes, hours), but they cause widely divergent forecasts in the long term. Errors in weather and climate forecasts can also arise because models are imperfect representations of reality. Data assimilation systems seek to mitigate these problems by combining the most timely observational data with a "first guess" of the atmospheric state (usually a previous forecast) and other sources of data to provide a "best guess" analysis of the atmospheric state to start a weather or climate simulation. When combined with an "ensemble" of model runs (many forecasts with slightly different conditions), data assimilation helps predict a range of possible atmospheric states, giving an overall measure of uncertainty in a given forecast.
+
    DATM
       DATM is the *Data Atmosphere* component of :term:`CDEPS`. It uses static atmospheric forcing files (derived from observations or previous atmospheric model runs) instead of output from an active atmospheric model. This reduces the complexity and computational cost associated with coupling to an active atmospheric model. The *Data Atmosphere* component is particularly useful when employing computationally intensive Data Assimilation (DA) techniques to update ocean and/or sea ice fields in a coupled model. In general, use of DATM in place of :term:`ATM` can be appropriate when users are running a coupled model and only want certain components of the model to be active. More information about DATM is available in the `CDEPS Documentation <https://escomp.github.io/CDEPS/versions/master/html/datm.html>`__.
 
@@ -65,7 +68,8 @@ Glossary
       Global atmospheric model based on fluid dynamics principles, including Euler's equations of motion.
 
    EMC
-      The `Environmental Modeling Center <https://www.emc.ncep.noaa.gov/emc_new.php>`__ is one of :term:`NCEP`'s nine centers and leads the :term:`National Weather Service <NWS>`'s modeling efforts.
+      The `Environmental Modeling Center <https://www.emc.ncep.noaa.gov/emc.php>`__ is one of :term:`NCEP`'s nine centers and leads the :term:`National Weather Service <NWS>`'s modeling efforts.
+
 
    ESMF
       `Earth System Modeling Framework <https://earthsystemmodeling.org/docs/release/latest/ESMF_usrdoc/>`__. The ESMF defines itself as "a suite of software tools for developing high-performance, multi-component Earth science modeling applications." It is a community-developed software infrastructure for building and coupling models. 
@@ -93,6 +97,9 @@ Glossary
    HYCOM
       The HYbrid Coordinate Ocean Model (`HYCOM <https://www.hycom.org/>`__) was developed to address known shortcomings in the vertical coordinate scheme of the Miami Isopycnic-Coordinate Ocean Model (MICOM). HYCOM is a primitive equation, general circulation model with vertical coordinates that remain isopycnic in the open, stratified ocean. However, the isopycnal vertical coordinates smoothly transition to z-coordinates in the weakly stratified upper-ocean mixed layer, to terrain-following sigma coordinates in shallow water regions, and back to z-level coordinates in very shallow water. The latter transition prevents layers from becoming too thin where the water is very shallow. See the `HYCOM User's Guide <https://www.hycom.org/attachments/063_hycom_users_guide.pdf>`__ for more information on using the model. The `HYCOM model code <https://github.com/NOAA-EMC/HYCOM-src>`__ is publicly available on GitHub. 
    
+   LM4
+      NUOPC NOAA-GFDL Land Model version 4
+
    LND
    land component
       The Noah Multi-Physics (Noah-MP) land surface model (LSM) is an open-source, community-developed LSM that has been incorporated into the UFS Weather Model (WM). It is the UFS WM's land component. 
@@ -117,11 +124,11 @@ Glossary
 
    NCEPLIBS
       The software libraries created and maintained by :term:`NCEP` that are required for running 
-      :term:`chgres_cube`, the UFS Weather Model, and the :term:`UPP`. They are included in the `HPC-Stack <https://github.com/NOAA-EMC/hpc-stack>`__ and in `spack-stack <https://github.com/NOAA-EMC/spack-stack>`__. 
+      :term:`chgres_cube`, the UFS Weather Model, and the :term:`UPP`. They are included in `spack-stack <https://github.com/JCSDA/spack-stack>`__ and `HPC-Stack <https://github.com/NOAA-EMC/hpc-stack>`__. 
 
    NCEPLIBS-external
       A collection of third-party libraries required to build :term:`NCEPLIBS`, :term:`chgres_cube`, 
-      the UFS Weather Model, and the :term:`UPP`. They are included in the :term:`HPC-Stack` and in :term:`spack-stack`.  
+      the UFS Weather Model, and the :term:`UPP`. They are included in :term:`spack-stack` and :term:`HPC-Stack`.  
 
    NEMS
       The NOAA Environmental Modeling System is a common modeling framework whose purpose is 
@@ -164,7 +171,7 @@ Glossary
       The `Short-Range Weather Application <https://github.com/ufs-community/ufs-srweather-app>`__ is a UFS Application that targets predictions of atmospheric behavior on a limited spatial domain and on time scales from minutes out to about two days. It packages a prognostic atmospheric model (the UFS Weather Model), pre- and post-processing tools, and a community workflow.
 
    spack-stack
-      The `spack-stack <https://github.com/NOAA-EMC/spack-stack>`__ is a collaborative effort between the NOAA Environmental Modeling Center (EMC), the UCAR Joint Center for Satellite Data Assimilation (JCSDA), and the Earth Prediction Innovation Center (EPIC). *spack-stack* is a repository that provides a Spack-based method for building the software stack required for numerical weather prediction (NWP) tools such as the `Unified Forecast System (UFS) <https://ufscommunity.org/>`__ and the `Joint Effort for Data assimilation Integration (JEDI) <https://jointcenterforsatellitedataassimilation-jedi-docs.readthedocs-hosted.com/en/latest/>`__ framework. *spack-stack* uses the Spack package manager along with custom Spack configuration files and Python scripts to simplify installation of the libraries required to run various applications. The *spack-stack* can be installed on a range of platforms and comes pre-configured for many systems. Users can install the necessary packages for a particular application and later add the missing packages for another application without having to rebuild the entire stack.
+      The `spack-stack <https://github.com/JCSDA/spack-stack>`__ is a collaborative effort between the NOAA Environmental Modeling Center (EMC), the UCAR Joint Center for Satellite Data Assimilation (JCSDA), and the Earth Prediction Innovation Center (EPIC). *spack-stack* is a repository that provides a Spack-based method for building the software stack required for numerical weather prediction (NWP) tools such as the `Unified Forecast System (UFS) <https://ufscommunity.org/>`__ and the `Joint Effort for Data assimilation Integration (JEDI) <https://jointcenterforsatellitedataassimilation-jedi-docs.readthedocs-hosted.com/en/latest/>`__ framework. *spack-stack* uses the Spack package manager along with custom Spack configuration files and Python scripts to simplify installation of the libraries required to run various applications. The *spack-stack* can be installed on a range of platforms and comes pre-configured for many systems. Users can install the necessary packages for a particular application and later add the missing packages for another application without having to rebuild the entire stack.
 
    Suite Definition File (SDF)
      An external file containing information about the 

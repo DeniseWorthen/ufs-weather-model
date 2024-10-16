@@ -2,23 +2,24 @@ help([[
 loads UFS Model prerequisites for NOAA Parallelworks/Intel
 ]])
 
+prepend_path("MODULEPATH", "/contrib/spack-stack-rocky8/spack-stack-1.6.0/envs/fms-2024.01/install/modulefiles/Core")
+prepend_path("MODULEPATH", "/apps/modules/modulefiles")
+prepend_path("PATH", "/contrib/EPIC/bin")
+load("gnu")
+load("stack-intel")
+load("stack-intel-oneapi-mpi")
 
-prepend_path("MODULEPATH", "/contrib/EPIC/spack-stack/spack-stack-1.3.0/envs/unified-dev/install/modulefiles/Core")
-
-stack_intel_ver=os.getenv("stack_intel_ver") or "2021.3.0"
+stack_intel_ver=os.getenv("stack_intel_ver") or "2021.10.0"
 load(pathJoin("stack-intel", stack_intel_ver))
 
-stack_impi_ver=os.getenv("stack_impi_ver") or "2021.3.0"
+stack_impi_ver=os.getenv("stack_impi_ver") or "2021.10.0"
 load(pathJoin("stack-intel-oneapi-mpi", stack_impi_ver))
+unload("gnu")
 
 cmake_ver=os.getenv("cmake_ver") or "3.23.1"
 load(pathJoin("cmake", cmake_ver))
 
-prepend_path("MODULEPATH", "/contrib/spack-stack/modulefiles/core")
-stack_python_ver=os.getenv("stack_python_ver") or "3.9.12"
-load(pathJoin("stack-python", stack_python_ver))
-
-load("ufs_common_spack")
+load("ufs_common")
 
 setenv("CC", "mpiicc")
 setenv("CXX", "mpiicpc")

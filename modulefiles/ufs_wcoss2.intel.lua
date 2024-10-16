@@ -18,10 +18,34 @@ load(pathJoin("cray-mpich", cray_mpich_ver))
 cmake_ver=os.getenv("cmake_ver") or "3.20.2"
 load(pathJoin("cmake", cmake_ver))
 
-prepend_path("MODULEPATH", "/apps/test/hpc-stack/i-19.1.3.304__m-8.1.12__h-1.14.0__n-4.9.2__p-2.5.10__e-8.4.2/modulefiles/compiler/intel/19.1.3.304")
-prepend_path("MODULEPATH", "/apps/test/hpc-stack/i-19.1.3.304__m-8.1.12__h-1.14.0__n-4.9.2__p-2.5.10__e-8.4.2/modulefiles/mpi/intel/19.1.3.304/cray-mpich/8.1.12")
+local ufs_modules = {
+  {["jasper"]      = "2.0.25"},
+  {["zlib"]        = "1.2.11"},
+  {["libpng"]      = "1.6.37"},
+  {["hdf5-C"]      = "1.14.0"},
+  {["netcdf-C"]    = "4.9.2"},
+  {["pio-C"]       = "2.5.10"},
+  {["esmf-C"]      = "8.6.0"},
+  {["fms"]         = "2024.01"},
+  {["bacio"]       = "2.4.1"},
+  {["crtm"]        = "2.4.0"},
+  {["g2"]          = "3.5.1"},
+  {["g2tmpl"]      = "1.13.0"},
+  {["ip"]          = "4.0.0"},
+  {["sp"]          = "2.3.3"},
+  {["w3emc"]       = "2.12.0"},
+  {["gftl-shared"] = "1.6.1"},
+  {["mapl-C"]      = "2.40.3"},
+  {["pnetcdf-C"]   = "1.12.2"},
+  {["scotch"]      = "7.0.4"},
+}
 
-load("ufs_common")
+for i = 1, #ufs_modules do
+  for name, default_version in pairs(ufs_modules[i]) do
+    local env_version_name = string.gsub(name, "-", "_") .. "_ver"
+    load(pathJoin(name, os.getenv(env_version_name) or default_version))
+  end
+end
 
 setenv("CC", "cc")
 setenv("CXX", "CC")
