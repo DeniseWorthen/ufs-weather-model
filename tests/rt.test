@@ -1,2 +1,3 @@
-COMPILE | s2s | intel | -DAPP=S2SW -DCCPP_SUITES=FV3_GFS_v17_coupled_p8 | | fv3 |
-RUN | cpld_control_nowave_noaero_p8                     |                            | baseline |
+COMPILE | s2s | intel | -DAPP=S2SW -DFV3_GFS_v17_coupled_p8_ugwpv1 |         | fv3 |
+RUN | cpld_control_bilin                        |                            | baseline |
+RUN | cpld_control_mapconsf                     |                            | baseline |
