@@ -124,16 +124,8 @@ MED_attributes::
       OCN_model = @[ocn_model]
       WAV_model = @[wav_model]
       coupling_mode = @[CPLMODE]
-      test_interp = @[TESTMAP]
-      dststatus_print = true
       pio_rearranger = @[pio_rearranger]
       ocean_albedo_limit = @[ocean_albedo_limit]
-      history_n_atm_inst = 1
-      history_option_atm_inst = nsteps
-      history_n_ice_inst = 1
-      history_option_ice_inst = nsteps
-      history_n_ocn_inst = 1
-      history_option_ocn_inst = nsteps
 ::
 
 ALLCOMP_attributes::
