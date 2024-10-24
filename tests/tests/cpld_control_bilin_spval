@@ -90,7 +90,7 @@ ICE_tasks=$ICE_tasks_cpl_dflt
 export WAV_tasks=0
 
 export TESTMAP=mapbilnr
-export TESTSPVAL=false
+export TESTSPVAL=true
 
 export CICE_NPROC=$ICE_tasks
 export np2=`expr $CICE_NPROC / 2`

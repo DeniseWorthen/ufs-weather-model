@@ -73,6 +73,8 @@ export_cpl
 export_ugwpv1
 export CCPP_SUITE=FV3_GFS_v17_coupled_p8_ugwpv1
 
+export FHMAX=2
+
 export RESTART_N=12
 export RESTART_INTERVAL="${RESTART_N} -1"
 export OUTPUT_FH='0 21 24'
@@ -88,6 +90,7 @@ ICE_tasks=$ICE_tasks_cpl_dflt
 export WAV_tasks=0
 
 export TESTMAP=mapconsf
+export TESTSPVAL=false
 
 export CICE_NPROC=$ICE_tasks
 export np2=`expr $CICE_NPROC / 2`

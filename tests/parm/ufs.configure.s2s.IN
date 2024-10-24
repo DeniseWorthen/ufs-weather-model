@@ -94,6 +94,7 @@ MED_attributes::
       pio_rearranger = @[pio_rearranger]
       ocean_albedo_limit = @[ocean_albedo_limit]
       test_interp = @[TESTMAP]
+      test_spval = @[TESTSPVAL]
       dststatus_print = true
       history_n_atm_inst = 1
       history_option_atm_inst = nsteps
