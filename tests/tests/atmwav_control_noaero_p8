@@ -207,3 +207,7 @@ export DOGP_CLDOPTICS_LUT=.true.
 export DOGP_LWSCAT=.true.
 export DOGP_SGS_CNV=.true.
 export SATMEDMF=.true.
+
+if [[ $MACHINE_ID = gaea ]]; then
+ WAV_tasks="$(($WAV_tasks_cpl_atmw + 30))"
+fi

@@ -114,6 +114,10 @@ fi
 if [[ $MACHINE_ID = hercules && $RT_COMPILER = gnu ]]; then
  export WW3_PIO_REARR='box'
 fi
+if [[ $MACHINE_ID = gaea ]]; then
+ WAV_tasks="$(($WAV_tasks_cpl_unstr + 120))"
+ export WW3_PIO_REARR='box'
+fi
 
 export K_SPLIT=2
 export N_SPLIT=5
