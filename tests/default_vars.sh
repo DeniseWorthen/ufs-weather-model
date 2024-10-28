@@ -1190,7 +1190,7 @@ export_ww3() {
   export WW3_PIO_FORMAT='pnetcdf'
   export WW3_PIO_STRIDE=4
   export WW3_PIO_IOTASKS=-99
-  export WW3_PIO_REARR='box'
+  export WW3_PIO_REARR='subset'
   export WW3_PIO_ROOT=-99
 }
 
@@ -1637,7 +1637,7 @@ export_hafs_regional ()
   export WW3_PIO_FORMAT='pnetcdf'
   export WW3_PIO_STRIDE=4
   export WW3_PIO_IOTASKS=-99
-  export WW3_PIO_REARR='box'
+  export WW3_PIO_REARR='subset'
   export WW3_PIO_ROOT=-99
 
   # Set CMEPS component defaults

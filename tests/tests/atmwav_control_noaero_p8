@@ -89,7 +89,7 @@ export WW3_restart_from_binary='false'
 export WW3_PIO_FORMAT='pnetcdf'
 export WW3_PIO_STRIDE=4
 export WW3_PIO_IOTASKS=-99
-export WW3_PIO_REARR='box'
+export WW3_PIO_REARR='subset'
 export WW3_PIO_ROOT=-99
 
 # ufs.configure
@@ -207,3 +207,7 @@ export DOGP_CLDOPTICS_LUT=.true.
 export DOGP_LWSCAT=.true.
 export DOGP_SGS_CNV=.true.
 export SATMEDMF=.true.
+
+if [[ $MACHINE_ID = gaea ]]; then
+ WAV_tasks="$(($WAV_tasks_cpl_atmw + 30))"
+fi
