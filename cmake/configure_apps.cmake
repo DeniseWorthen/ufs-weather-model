@@ -127,6 +127,7 @@ if(APP MATCHES "^(DATM-WAV)$")
   set(WW3        ON  CACHE BOOL "Enable WAVEWATCH III"       FORCE)
   message("Configuring UFS app in DATM-WAV mode")
 endif()
+
 if(APP MATCHES "^(DATM-S2SW)$")
   set(CMEPS      ON  CACHE BOOL "Enable CMEPS"               FORCE)
   set(STOCH_PHYS ON  CACHE BOOL "Enable Stochastic Physics"  FORCE)
