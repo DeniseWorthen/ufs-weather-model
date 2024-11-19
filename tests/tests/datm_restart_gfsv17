@@ -92,4 +92,4 @@ export WW3_PIO_REARR='subset'
 # used only in cpld_datm_cdeps.IN
 export CPLWAV=.true.
 export FV3_RUN=cpld_datm_cdeps.IN
-export UFS_CONFIGURE=ufs.configure.datm_s2sw_cdeps.IN
+export UFS_CONFIGURE=ufs.configure.datm_s2sw.IN
