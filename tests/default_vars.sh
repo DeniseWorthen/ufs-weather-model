@@ -89,7 +89,8 @@
   export OCN_tasks_cdeps_025=120
   export ICE_tasks_cdeps_025=48
 
-  export WAV_tasks_cdeps=120
+  #datm-s2sw tests
+  export WAV_tasks_gfsv17=400
 
   export INPES_aqm=33
   export JNPES_aqm=8

@@ -23,6 +23,7 @@ export RESTART_N=3
 export DT_DYNAM_MOM6=900
 export DT_THERM_MOM6=1800
 
+# atm configure
 export IATM=1536
 export JATM=768
 export ATM_NX_GLB=$IATM
@@ -37,7 +38,7 @@ export STREAM_OFFSET=-21600
 ATM_compute_tasks=${ATM_compute_tasks_cdeps_025}
 OCN_tasks=${OCN_tasks_cdeps_025}
 ICE_tasks=${ICE_tasks_cdeps_025}
-WAV_tasks=${WAV_tasks_cdeps}
+WAV_tasks=${WAV_tasks_cdeps_gfsv17}
 
 # ocn/ice resolution
 export OCNRES=025
