@@ -2,9 +2,9 @@
 #  DATM_CDEPS_MOM6_CICE_CMEPS_GEFS test
 #
 
-export TEST_DESCR="DATM_CDEPS-MOM6-CICE-WW3-CMEPS_GEFS - 1 deg ocean+ice + rectilinear WW3 "
+export TEST_DESCR="DATM_CDEPS-MOM6-CICE-WW3-CMEPS_GEFS - 1 deg ocean+ice + unstructured 270K WW3 "
 
-export CNTL_DIR=datm_control_s2sw
+export CNTL_DIR=datm_control_pdlib_s2sw
 
 export LIST_FILES=""
 #export LIST_FILES="RESTART/20111002.000000.MOM.res.nc \
@@ -29,20 +29,22 @@ export STREAM_OFFSET=-21600
 
 export RESTART_N=12
 export eps_imesh=2.5e-1
+
 export MOM6_TOPOEDITS=ufs.topo_edits_011818.nc
 
 # mom6+waves
 export MOM6_USE_LI2016=True
 export MOM6_USE_WAVES=True
 export MOM6_ALLOW_LANDMASK_CHANGES=True
-export WAV_TASKS=${WAV_tasks_cpl_dflt}
+export WAV_tasks=${WAV_tasks_cpl_unstr}
+
 # waves
 export WW3_OUTDTHR=1
 WW3_DTFLD="$(printf "%02d" $(( WW3_OUTDTHR*3600 )))"
 export WW3_DTFLD
 WW3_DTPNT="$(printf "%02d" $(( WW3_OUTDTHR*3600 )))"
 export WW3_DTPNT
-export WW3_DOMAIN=glo_1deg
+export WW3_DOMAIN=global_270k
 export MESH_WAV=mesh.${WW3_DOMAIN}.nc
 export WW3_MODDEF=mod_def.exp.${WW3_DOMAIN}
 export WW3_CUR='C'
