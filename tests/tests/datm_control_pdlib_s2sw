@@ -36,9 +36,9 @@ export MOM6_TOPOEDITS=ufs.topo_edits_011818.nc
 export MOM6_USE_LI2016=True
 export MOM6_USE_WAVES=True
 export MOM6_ALLOW_LANDMASK_CHANGES=True
-export WAV_tasks=${WAV_tasks_cpl_unstr}
 
 # waves
+export WAV_tasks=${WAV_tasks_cpl_unstr}
 export WW3_OUTDTHR=1
 WW3_DTFLD="$(printf "%02d" $(( WW3_OUTDTHR*3600 )))"
 export WW3_DTFLD
