@@ -181,6 +181,8 @@ find_package(w3emc 2.9.2 REQUIRED)
 find_package(Python 3.6 REQUIRED COMPONENTS Interpreter)
 message("Found Python: ${Python_EXECUTABLE}")
 
+add_subdirectory(utils)
+
 ###############################################################################
 ### stochastic_physics
 ###############################################################################
@@ -286,6 +288,7 @@ endif()
 ### UFS Library
 ###############################################################################
 add_library(ufs driver/UFSDriver.F90)
+add_dependencies(ufs ufs_utils)
 set_target_properties(ufs PROPERTIES Fortran_MODULE_DIRECTORY
                                      ${CMAKE_CURRENT_BINARY_DIR}/mod)
 target_include_directories(ufs INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/mod>
