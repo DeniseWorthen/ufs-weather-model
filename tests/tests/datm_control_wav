@@ -28,6 +28,7 @@ export stream_files="INPUT/${FILEBASE_DATM}.201110.nc"
 export STREAM_OFFSET=-21600
 
 export RESTART_N=12
+export coupling_interval_sec=${DT_ATMOS}
 
 # waves
 export WAV_tasks=${WAV_tasks_cpl_dflt}
