@@ -626,8 +626,11 @@ atm_dyn64_phy32_debug_gnu:
 s2swa_gnu:
   build: 
     compiler: 'gnu'
-    option: '-DAPP=S2SWA -DCCPP_SUITES=FV3_GFS_v17_coupled_p8'
+    option: '-DAPP=S2SWA -DCCPP_SUITES=FV3_GFS_v17_coupled_p8_ugwpv1'
     turnon: ['hera','hercules']
+  tests:
+    - cpld_control_p8: {'project':['regression'],'baseline': 'True','turnon':['hera','hercules']}
+    - cpld_debug_p8: {'project':['regression'],'baseline': 'True','turnon':['hera','hercules']}
 s2s_gnu:
   build: 
     compiler: 'gnu'
@@ -638,7 +641,7 @@ s2s_gnu:
 s2swa_debug_gnu:
   build: 
     compiler: 'gnu'
-    option: '-DAPP=S2SWA -DDEBUG=ON -DCCPP_SUITES=FV3_GFS_v17_coupled_p8'
+    option: '-DAPP=S2SWA -DDEBUG=ON -DCCPP_SUITES=FV3_GFS_v17_coupled_p8_ugwpv1'
     turnon: ['hera','hercules']
 s2sw_pdlib_gnu:
   build: 
