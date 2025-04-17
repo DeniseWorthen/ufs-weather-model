@@ -63,6 +63,12 @@ export WW3_PIO_IOTASKS=-99
 export WW3_PIO_REARR='box'
 export WW3_PIO_ROOT=-99
 
+export CMEPS_PIO_FORMAT='pnetcdf'
+export CMEPS_PIO_STRIDE=4
+export CMEPS_PIO_IOTASKS=-99
+export CMEPS_PIO_REARR='box'
+export CMEPS_PIO_ROOT=-99
+
 # used only in cpld_datm_cdeps.IN
 export CPLWAV=.true.
 export FV3_RUN=cpld_datm_cdeps.IN
