@@ -580,7 +580,7 @@ wam_debug_gnu:
     option: '-DAPP=ATM -DCCPP_SUITES=FV3_GFS_v17_p8 -D32BIT=ON -DMULTI_GASES=ON -DDEBUG=ON'
     turnon: ['hera','hercules']
   tests: 
-    - control_wam_debug: {'project':['regression'],'baseline': 'True','turnon':['hercules']}
+    - control_wam_debug: {'project':['regression'],'baseline': 'True','turnon':['hera','hercules']}
 rrfs_dyn32_phy32_gnu:
   build: 
     compiler: 'gnu'
@@ -656,7 +656,7 @@ s2sw_pdlib_debug_gnu:
     option: '-DAPP=S2SW -DCCPP_SUITES=FV3_GFS_v17_coupled_p8_ugwpv1 -DPDLIB=ON -DDEBUG=ON'
     turnon: ['hera','hercules']
   tests: 
-    - cpld_debug_pdlib_p8: {'project':['regression'],'baseline': 'True','turnon':['hercules']}
+    - cpld_debug_pdlib_p8: {'project':['regression'],'baseline': 'True','turnon':['hera','hercules']}
 datm_cdeps_gnu:
   build: 
     compiler: 'gnu'
