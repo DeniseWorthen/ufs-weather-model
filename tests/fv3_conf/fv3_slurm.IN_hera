@@ -45,7 +45,6 @@ if [ "${JOB_SHOULD_FAIL:-NO}" = WHEN_RUNNING ] ; then
     false
 fi
 
-export OMPI_MCA_btl_openib_allow_ib=true
 # shellcheck disable=SC2102
 srun --label -n @[TASKS] ./fv3.exe
 
