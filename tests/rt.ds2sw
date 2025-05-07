@@ -1,6 +1,0 @@
-### CDEPS Data Atmosphere tests with OCN+ICE+WAV ###
-COMPILE | datm_s2sw_pdlib | intel | -DAPP=DATM-S2SW -DPDLIB=ON -DDEBUG=ON| - wcoss2         | fv3 |
-RUN | datm_control_pdlib_s2sw                       | - wcoss2                             | baseline |
-
-COMPILE | datm_s2sw       | intel | -DAPP=DATM-S2SW -DDEBUG=ON           | - wcoss2         | fv3 |
-RUN | datm_control_s2sw                             | - wcoss2                             | baseline |
