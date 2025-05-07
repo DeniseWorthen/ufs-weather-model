@@ -5,5 +5,5 @@
 #COMPILE | datm_s2sw       | intel | -DAPP=DATM-S2SW -DDEBUG=ON           | - wcoss2         | fv3 |
 #RUN | datm_control_s2sw                             | - wcoss2                             | baseline |
 
-COMPILE | datmw       | intel | -DAPP=ATM-WAV -DDEBUG=ON           | - wcoss2         | fv3 |
-RUN | datm_control_wav                             | - wcoss2                             | baseline |
+COMPILE | datmw       | intel | -DAPP=DATM-WAV -DPDLIB=ON -DDEBUG=ON | - wcoss2         | fv3 |
+RUN | datmwav_270k                                                  | - wcoss2 | baseline |

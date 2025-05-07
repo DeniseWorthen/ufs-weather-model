@@ -1,0 +1,61 @@
+#
+#  DATM_CDEPS_WAV test
+#
+
+export TEST_DESCR="DATM_CDEPS-WW3-CMEPS - GEFS DATM + unstr WW3 "
+
+export CNTL_DIR=datmwav_270k
+
+export LIST_FILES=""
+
+export_datm_cdeps
+export_ww3
+export atm_datamode=GEFS
+
+# atm configure
+export IATM=1536
+export JATM=768
+export ATM_NX_GLB=$IATM
+export ATM_NY_GLB=$JATM
+export ATMRES=${IATM}x${JATM}
+export DATM_SRC=GEFS_NEW
+export FILEBASE_DATM=gefs
+export MESH_ATM=${FILEBASE_DATM}_mesh.nc
+export stream_files="INPUT/${FILEBASE_DATM}.201110.nc"
+export STREAM_OFFSET=-21600
+
+export RESTART_N=12
+export coupling_interval_sec=${DT_ATMOS}
+
+# waves
+ATM_compute_tasks=40
+export WAV_tasks=${WAV_tasks_cpl_unstr}
+export WW3_OUTDTHR=1
+WW3_DTFLD="$(printf "%02d" $(( WW3_OUTDTHR*3600 )))"
+export WW3_DTFLD
+WW3_DTPNT="$(printf "%02d" $(( WW3_OUTDTHR*3600 )))"
+export WW3_DTPNT
+export WW3_DOMAIN=global_270k
+export MESH_WAV=mesh.${WW3_DOMAIN}.nc
+export WW3_MODDEF=mod_def.exp.${WW3_DOMAIN}
+export WW3_CUR='F'
+export WW3_ICE='F'
+export WW3_IC1='F'
+export WW3_IC5='F'
+export WW3_OUTPARS="WND HS T01 T02 DIR FP DP PHS PTP PDIR CHA"
+
+# For either history_nc or restart_nc true
+export WW3_PIO_FORMAT='pnetcdf'
+export WW3_PIO_STRIDE=4
+export WW3_PIO_IOTASKS=-99
+export WW3_PIO_REARR='box'
+export WW3_PIO_ROOT=-99
+
+export WW3_GRD_OUTDIR='./'
+export WW3_PNT_OUTDIR='./'
+export WW3_RST_OUTDIR='./'
+
+# used only in cpld_datm_cdeps.IN
+export CPLWAV=.true.
+export FV3_RUN=cpld_datm_cdeps.IN
+export UFS_CONFIGURE=ufs.configure.datm_wav.IN
