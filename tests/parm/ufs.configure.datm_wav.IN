@@ -92,7 +92,7 @@ ALLCOMP_attributes::
       ScalarFieldCount = 3
       ScalarFieldIdxGridNX = 1
       ScalarFieldIdxGridNY = 2
-      ScalarFieldIdxGridNTile = 3
+      ScalarFieldIdxNextSwCday = 3
       ScalarFieldName = cpl_scalars
       start_type = @[RUNTYPE]
       restart_dir = @[CMEPS_RESTART_DIR]

@@ -50,6 +50,7 @@ list(APPEND cdeps_datm_files
   CDEPS/datm/datm_datamode_gefs_mod.F90
   CDEPS/datm/datm_datamode_jra_mod.F90
   CDEPS/datm/datm_datamode_simple_mod.F90
+  CDEPS/datm/datm_datamode_atmw_mod.F90
 )
 
 list(APPEND cdeps_dice_files
