@@ -29,8 +29,11 @@ export DT_CICE=720
 export RESTART_N=12
 export coupling_interval_sec=${DT_ATMOS}
 
-# waves
-ATM_compute_tasks=40
+export ATM_compute_tasks=40
+export OCN_tasks=0
+export ICE_tasks=0
+
+#waves
 export WAV_tasks=${WAV_tasks_cpl_unstr}
 export WW3_OUTDTHR=1
 WW3_DTFLD="$(printf "%02d" $(( WW3_OUTDTHR*3600 )))"
