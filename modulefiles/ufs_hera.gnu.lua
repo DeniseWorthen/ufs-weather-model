@@ -22,7 +22,6 @@ load(pathJoin("nccmp", nccmp_ver))
 
 prepend_path("CPPFLAGS", " -I/apps/slurm_hera/23.11.3/include/slurm"," ")
 prepend_path("LD_LIBRARY_PATH", "/apps/slurm_hera/23.11.3/lib")
-setenv("OMPI_MCA_pmi","ucx")
 setenv("OMPI_MCA_btl_openib_allow_ib","true")
 
 setenv("CC", "mpicc")
