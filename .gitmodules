@@ -1,6 +1,6 @@
 [submodule "UFSATM"]
   path = UFSATM
-  #url = https://github.com/NOAA-EMC/fv3atm
+  #url = https://github.com/NOAA-EMC/ufsatm
   #branch = develop
   url = https://github.com/DeniseWorthen/ufsatm.git
   branch = ufs_tracing
