@@ -192,6 +192,7 @@ endif()
 find_package(Python 3.6 REQUIRED COMPONENTS Interpreter)
 message("Found Python: ${Python_EXECUTABLE}")
 
+add_subdirectory(utils)
 ###############################################################################
 ### stochastic_physics
 ###############################################################################
