@@ -79,6 +79,7 @@ set(PDLIB           OFF CACHE BOOL "Enable Domain Decomposition in WW3 via PDLIB
 set(PDLIB_BT4       OFF CACHE BOOL "Enable Domain Decomposition in WW3 via PDLIB with BT4")
 set(CDEPS_INLINE    OFF CACHE BOOL "Enable CDEPS inline capability")
 set(HYDRO           OFF CACHE BOOL "Enable hydrostatic set")
+set(UFS_TRACING     OFF CACHE BOOL "Enable UFS Tracing")
 
 set(CMAKE_Platform $ENV{CMAKE_Platform})
 if(CMAKE_Platform)
@@ -128,7 +129,8 @@ message("PARALLEL_NETCDF .. ${PARALLEL_NETCDF}")
 message("JEDI_DRIVER ...... ${JEDI_DRIVER}")
 message("CMEPS_AOFLUX ..... ${CMEPS_AOFLUX}")
 message("CDEPS_INLINE ..... ${CDEPS_INLINE}")
-message("HYDRO  ........... ${HYDRO}")
+message("HYDRO ............ ${HYDRO}")
+message("UFS_TRACING ...... ${UFS_TRACING}")
 
 message("")
 
@@ -186,6 +188,9 @@ find_package(Python 3.6 REQUIRED COMPONENTS Interpreter)
 message("Found Python: ${Python_EXECUTABLE}")
 
 add_subdirectory(utils)
+if(UFS_TRACING)
+  add_compile_definitions(UFS_TRACING)
+endif()
 
 ###############################################################################
 ### stochastic_physics
