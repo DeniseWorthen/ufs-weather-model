@@ -194,8 +194,8 @@ endif()
 find_package(Python 3.6 REQUIRED COMPONENTS Interpreter)
 message("Found Python: ${Python_EXECUTABLE}")
 
-add_subdirectory(utils)
 if(UFS_TRACING)
+  add_subdirectory(ufs_tracing)
   add_compile_definitions(UFS_TRACING)
 endif()
 
@@ -309,7 +309,9 @@ endif()
 ### UFS Library
 ###############################################################################
 add_library(ufs driver/UFSDriver.F90)
-add_dependencies(ufs ufs_utils)
+if(UFS_TRACING)
+  add_dependencies(ufs ufs_tracing)
+endif()
 set_target_properties(ufs PROPERTIES Fortran_MODULE_DIRECTORY
                                      ${CMAKE_CURRENT_BINARY_DIR}/mod)
 target_include_directories(ufs INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/mod>
