@@ -121,6 +121,7 @@ export fbh_omp_num_threads=1
 
 export histaux_enabled=.false.
 export BMIC=.false.
+export GFSv17opn=.false.
 
 if [[ ${MACHINE_ID} = wcoss2 || ${MACHINE_ID} = acorn ]]; then
 
@@ -548,7 +549,7 @@ export_mpas ()
     export MPAS_RESOLUTION=120
 
     export ATM_compute_tasks=4
-    
+
     #DJS2025 START: We don't need this for MPAS, but to setup the tests we do. CLEAN THIS UP!!!
     #Set defaults if ATMRES and DT_ATMOS are not set
     export ATMRES=${ATMRES:-"C96"}
@@ -664,7 +665,7 @@ export_gfs_physics ()
     export RRTMGP_NGPTSLW=128
     export RRTMGP_NBANDSLW=16
     export RRTMGP_NBANDSSW=14
-    
+
     # Microphysics
     export IMP_PHYSICS=8
     export NWAT=6
@@ -731,7 +732,7 @@ export_gfs_physics ()
     export KNOB_UGWP_TAUAMP=3.0e-3
     export KNOB_UGWP_LHMET=200.0e3
     export KNOB_UGWP_OROSOLV="'pss-1986'"
-    
+
     export KNOB_UGWP_TAUAMP=3.0e-3
     export DO_UGWP_V0_NST_ONLY=.false.
 

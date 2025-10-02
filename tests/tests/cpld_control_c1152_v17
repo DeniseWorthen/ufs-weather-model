@@ -1,0 +1,237 @@
+###############################################################################
+#
+#  global control test: Coupled test at c1152 using GFSv17 configuration
+#
+###############################################################################
+
+export TEST_DESCR="Fully coupled FV3-CCPP-MOM6-CICE-CMEPS-WW3 system - C96MX100 - unst WW3"
+
+export CNTL_DIR=cpld_control_c1152
+
+export ATMRES=C1152
+export DT_ATMOS=150
+
+export_fv3
+export_ugwpv1
+export_cpl
+
+#IC
+export SYEAR=2025
+export SMONTH=01
+export SDAY=01
+export SHOUR=06
+export CHOUR=00
+export SECS=`expr $SHOUR \* 3600`
+export FHROT=3
+
+export GFSv17opn=.true.
+export WARM_START=.true.
+
+export CICE_RESTART_DIR=CICE_RESTART
+export MOM6_RESTART_DIR=MOM6_RESTART
+export WW3_RESTART_DIR=WW3_RESTART
+export CMEPS_RESTART_DIR=CMEPS_RESTART
+export CICE_OUTPUT_DIR=CICE_OUTPUT
+export MOM6_OUTPUT_DIR=MOM6_OUTPUT
+export WW3_OUTPUT_DIR=WW3_OUTPUT
+export FV3ATM_OUTPUT_DIR=FV3ATM_OUTPUT
+
+#Simulation length and output
+export DAYS=0.25
+export FHMAX=6
+export RESTART_N=3
+export RESTART_INTERVAL="${RESTART_N} -1"
+export FHZERO=3
+
+# tasks
+export atm_omp_num_threads=4
+export med_omp_num_threads=$atm_omp_num_threads
+export wav_omp_num_threads=1
+
+export INPES=16
+export JNPES=24
+export WRTTASK_PER_GROUP=120
+export WRITE_GROUP=1
+OCN_tasks=120
+ICE_tasks=80
+WAV_tasks=1200
+#? how to set...med_petlist_bounds='0 1199'?
+MED_compute_tasks=1200
+
+# atm/ocn/ice resolution
+export NPX=1153
+export NPY=1153
+export use_saved_routehandles=.true.
+export QUILTING=.true.
+export QUILTING_RESTART=.true.
+#export WRITE_GROUP=4
+#export WRITE_DOPOST=.true.
+export OUTPUT_GRID="gaussian_grid"
+export OUTPUT_FILE="'netcdf_parallel' 'netcdf_parallel'"
+export IDEFLATE=1
+export QUANTIZE_NSD=14
+export ICHUNK2D=
+export JCHUNK2D=
+export ICHUNK3D=
+export JCHUNK3D=
+export KCHUNK3D=
+export IMO=3072
+export JMO=1536
+export OUTPUT_FH="0 3 6"
+export IAU_OFFSET=6
+
+export OCNRES=025
+export ICERES=0.25
+export NX_GLB=1440
+export NY_GLB=1080
+export CICE_NPROC=${ICE_tasks}
+np2=$((CICE_NPROC/2))
+CICE_BLCKX=$((NX_GLB/np2))
+CICE_BLCKY=$((NY_GLB/2))
+export np2
+export CICE_BLCKX
+export CICE_BLCKY
+export CICE_DECOMP=slenderX2
+export WW3_DOMAIN=uglo_15km
+export MESH_WAV=mesh.${WW3_DOMAIN}.nc
+export WW3_MODDEF=mod_def.exp.${WW3_DOMAIN}
+
+# set component and coupling timesteps
+export DT_INNER=${DT_ATMOS}
+export DT_CICE=${DT_ATMOS}
+export DT_DYNAM_MOM6=900
+export DT_THERM_MOM6=1800
+export CICE_DIAGFREQ=`expr $((FHMAX-$FHROT)) \* 3600 / $DT_CICE`
+export coupling_interval_slow_sec=${DT_THERM_MOM6}
+export coupling_interval_fast_sec=${DT_ATMOS}
+
+# resolution dependent "fix" files
+# atm
+export FNGLAC="global_glacier.2x2.grb"
+export FNMXIC="global_maxice.2x2.grb"
+export FNTSFC="RTGSST.1982.2012.monthly.clim.grb"
+export FNSNOC="global_snoclim.1.875.grb"
+
+export FNALBC="C1152.mx025.snowfree_albedo.tileX.nc"
+export FNALBC2="C1152.mx025.facsf.tileX.nc"
+export FNAISC="IMS-NIC.blended.ice.monthly.clim.grb"
+export FNTG3C="C1152.mx025.substrate_temperature.tileX.nc"
+export FNVEGC="C1152.mx025.vegetation_greenness.tileX.nc"
+export FNVETC="C1152.mx025.vegetation_type.tileX.nc"
+export FNSOTC="C1152.mx025.soil_type.tileX.nc"
+export FNSOCC="C1152.mx025.soil_color.tileX.nc"
+export FNSMCC="global_soilmgldas.statsgo.t1534.3072.1536.grb"
+export FNMSKH="global_slmask.t1534.3072.1536.grb"
+
+export FNVMNC="C1152.mx025.vegetation_greenness.tileX.nc"
+export FNVMXC="C1152.mx025.vegetation_greenness.tileX.nc"
+export FNSLPC="C1152.mx025.slope_type.tileX.nc"
+export FNABSC="C1152.mx025.maximum_snow_albedo.tileX.nc"
+
+#marine
+export MOM6_INPUT=MOM_input_${OCNRES}.IN
+export MESH_ICE=mesh.mx${OCNRES}.nc
+export MESH_OCN=mesh.mx${OCNRES}.nc
+export CICE_GRID=grid_cice_NEMS_mx${OCNRES}.nc
+export CICE_MASK=kmtu_cice_NEMS_mx${OCNRES}.nc
+export MOM6_CHLCLIM=seawifs-clim-1997-2010.${NX_GLB}x${NY_GLB}.v20180328.nc
+export MOM6_FRUNOFF=runoff.daitren.clim.${NX_GLB}x${NY_GLB}.v20180328.nc
+export MOM6_RIVER_RUNOFF=True
+export MOM6_DIAG_COORD_DEF_Z_FILE=interpolate_zgrid_26L.nc
+export MOM6_TOPOEDITS=""
+export MOM6_ALLOW_LANDMASK_CHANGES=False
+export eps_imesh=1.0e-1
+
+#component settings
+#CICE forecast day output stream
+hist_n_24h=$(( 24*3600/${DT_CICE} ))
+export CICE_HISTFREQ_N="0, 0, 6, ${hist_n_24h}, 1"
+
+export WW3_OUTPARS='WND CUR ICE HS T01 T02 DIR FP DP PHS PTP PDIR CHA'
+export WW3_DTFLD=3600
+export WW3_DTPNT=3600
+
+export CPLCHM=.false.
+export DNATS=0
+
+export DOMAINS_STACK_SIZE=16000000
+export MAX_OUTPUT_FIELDS=300
+
+export NUDGE_QV=.false.
+export RF_CUTOFF=100.0
+export LRADAR=.true.
+export PSL_GWD_DX_FACTOR=2.0
+export CDMBGWD=1.67,8.8,1.0,1.0
+export DOGP_CLDOPTICS_LUT=.false.
+export DOGP_LWSCAT=.false.
+export ISEED_CA=561750924
+export HIDE_AIAU="!"
+export HIDE_LIAU="!"
+
+export SKEB=0
+export SKEB_TAU=-999.
+export SKEB_LSCALE=-999.
+export SKEBNORM=1
+export SKEB_NPASS=30
+export SKEB_VDOF=5
+
+export ISEED_SHUM=0
+export SHUM_TAU=-999.
+export SHUM_LSCALE=-999.
+export ISEED_SPPT=0
+export SPPT_TAU=-999.
+export SPPT_LSCALE=-999.
+export SPPT_LOGIT=.true.
+export SPPT_SFCLIMIT=.true.
+export ISEED_OCNSPPT=0
+export EPBL=0.8,0.4,0.2,0.08,0.04
+export ISEED_EPBL=0
+export LNDP_TAU=21600
+export LNDP_LSCALE=500000
+export ISEED_LNDP=0
+export RES_LATLON_DYNAMICS='""'
+
+# ATM warm start
+export WARM_START=.true.
+export MAKE_NH=.false.
+export NA_INIT=0
+export EXTERNAL_IC=.false.
+export NGGPS_IC=.false.
+export MOUNTAIN=.true.
+
+# ICE warm start
+export CICE_RUNTYPE=continue
+export RUNTYPE=continue
+export CICE_USE_RESTART_TIME=.true.
+
+# MOM6 warm start
+export MOM6_RESTART_SETTING=r
+
+# WW3 warmstart
+export WW3_restart_from_binary=.false.
+
+export FV3_RUN=cpld_control_run.IN
+export CCPP_SUITE=FV3_GFS_v17_coupled_p8_ugwpv1
+export FIELD_TABLE=field_table_thompson_noaero_tke_progsigma
+export DIAG_TABLE=diag_table_cpld.IN
+export INPUT_NML=global_control.nml.IN
+export UFS_CONFIGURE=ufs.configure.s2sw.IN
+# slow loop
+export WW3_RSTFLDS="ice"
+
+#GFSv17 settings
+export PROGSIGMA=.true.
+export IOPT_DIAG=2
+
+export K_SPLIT=2
+export N_SPLIT=6
+
+# HR4 GFSv17 GWD update
+export DO_GWD_OPT_PSL=.true.
+export DO_GSL_DRAG_SS=.false.
+
+# for nccmp of cice history files
+export nccmp_exclude_attr="--globalex=date_created"
+
+# fix files will be copied directly from GFSv17 input-data root
+#export TILEDFIX=.false.
