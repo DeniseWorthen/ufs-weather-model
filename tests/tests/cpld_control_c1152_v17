@@ -11,6 +11,9 @@ export CNTL_DIR=cpld_control_c1152
 export ATMRES=C1152
 export DT_ATMOS=150
 
+#export HIDE_AIAU='!'
+export HIDE_LIAU='!'
+
 export_fv3
 export_ugwpv1
 export_cpl
@@ -27,21 +30,40 @@ export FHROT=3
 export GFSv17opn=.true.
 export WARM_START=.true.
 
-export CICE_RESTART_DIR=CICE_RESTART
-export MOM6_RESTART_DIR=MOM6_RESTART
-export WW3_RESTART_DIR=WW3_RESTART
-export CMEPS_RESTART_DIR=CMEPS_RESTART
-export CICE_OUTPUT_DIR=CICE_OUTPUT
-export MOM6_OUTPUT_DIR=MOM6_OUTPUT
-export WW3_OUTPUT_DIR=WW3_OUTPUT
-export FV3ATM_OUTPUT_DIR=FV3ATM_OUTPUT
+export CICE_RESTART_DIR='./CICE_RESTART/'
+export CICE_HISTORY_DIR='./CICE_OUTPUT/'
+export CICE_INCOND_DIR='./CICE_OUTPUT/'
+export MOM6_RESTART_DIR='./MOM6_RESTART/'
+export MOM6_OUTPUT_DIR='./MOM6_OUTPUT/'
+export CMEPS_RESTART_DIR='./CMEPS_RESTART/'
+#export WW3_RST_OUTDIR='./WW3_RESTART/'
+#export WW3_GRD_OUTDIR='./WW3_OUTPUT/'
+#export WW3_PNT_OUTDIR='./WW3_OUTPUT/'
+
+export FV3ATM_OUTPUT_DIR='./FV3ATM_OUTPUT'
 
 #Simulation length and output
 export DAYS=0.25
 export FHMAX=6
 export RESTART_N=3
 export RESTART_INTERVAL="${RESTART_N} -1"
-export FHZERO=3
+export FHZERO=6
+
+# testing
+# export INPES=$INPES_cpl_bmrk
+# export JNPES=$JNPES_cpl_bmrk
+# export WRTTASK_PER_GROUP=$(( WPG_cpl_bmrk * THRD_cpl_bmrk ))
+
+# export OCN_tasks=${OCN_tasks_cpl_bmrk}
+# export ICE_tasks=${ICE_tasks_cpl_bmrk}
+# export WAV_tasks=${WAV_tasks_cpl_bmrk}
+
+# export atm_omp_num_threads=$THRD_cpl_bmrk
+# export chm_omp_num_threads=$atm_omp_num_threads
+# export med_omp_num_threads=$atm_omp_num_threads
+# export ocn_omp_num_threads=$OCN_thrds_cpl_bmrk
+# export ice_omp_num_threads=$ICE_thrds_cpl_bmrk
+# export wav_omp_num_threads=$WAV_thrds_cpl_bmrk
 
 # tasks
 export atm_omp_num_threads=4
@@ -55,8 +77,8 @@ export WRITE_GROUP=1
 OCN_tasks=120
 ICE_tasks=80
 WAV_tasks=1200
-#? how to set...med_petlist_bounds='0 1199'?
-MED_compute_tasks=1200
+# #? how to set...med_petlist_bounds='0 1199'?
+# MED_compute_tasks=1200
 
 # atm/ocn/ice resolution
 export NPX=1153
@@ -70,11 +92,11 @@ export OUTPUT_GRID="gaussian_grid"
 export OUTPUT_FILE="'netcdf_parallel' 'netcdf_parallel'"
 export IDEFLATE=1
 export QUANTIZE_NSD=14
-export ICHUNK2D=
-export JCHUNK2D=
-export ICHUNK3D=
-export JCHUNK3D=
-export KCHUNK3D=
+export ICHUNK2D=3072
+export JCHUNK2D=1536
+export ICHUNK3D=3072
+export JCHUNK3D=1536
+export KCHUNK3D=1
 export IMO=3072
 export JMO=1536
 export OUTPUT_FH="0 3 6"
@@ -94,7 +116,7 @@ export CICE_BLCKY
 export CICE_DECOMP=slenderX2
 export WW3_DOMAIN=uglo_15km
 export MESH_WAV=mesh.${WW3_DOMAIN}.nc
-export WW3_MODDEF=mod_def.exp.${WW3_DOMAIN}
+export WW3_MODDEF=mod_def.${WW3_DOMAIN}
 
 # set component and coupling timesteps
 export DT_INNER=${DT_ATMOS}
@@ -127,6 +149,7 @@ export FNVMNC="C1152.mx025.vegetation_greenness.tileX.nc"
 export FNVMXC="C1152.mx025.vegetation_greenness.tileX.nc"
 export FNSLPC="C1152.mx025.slope_type.tileX.nc"
 export FNABSC="C1152.mx025.maximum_snow_albedo.tileX.nc"
+export FSICL=99999
 
 #marine
 export MOM6_INPUT=MOM_input_${OCNRES}.IN
@@ -137,10 +160,20 @@ export CICE_MASK=kmtu_cice_NEMS_mx${OCNRES}.nc
 export MOM6_CHLCLIM=seawifs-clim-1997-2010.${NX_GLB}x${NY_GLB}.v20180328.nc
 export MOM6_FRUNOFF=runoff.daitren.clim.${NX_GLB}x${NY_GLB}.v20180328.nc
 export MOM6_RIVER_RUNOFF=True
-export MOM6_DIAG_COORD_DEF_Z_FILE=interpolate_zgrid_26L.nc
+export MOM6_DIAG_COORD_DEF_Z_FILE=interpolate_zgrid_40L.nc
 export MOM6_TOPOEDITS=""
 export MOM6_ALLOW_LANDMASK_CHANGES=False
 export eps_imesh=1.0e-1
+
+# MOM6 IAU
+export ODA_INCUPD=True
+export ODA_INCUPD_NHOURS=6
+export ODA_TEMPINC_VAR=Temp
+export ODA_SALTINC_VAR=Salt
+export ODA_THK_VAR=h
+export ODA_INCUPD_UV=True
+export ODA_UINC_VAR=u
+export ODA_VINC_VAR=v
 
 #component settings
 #CICE forecast day output stream
@@ -158,15 +191,12 @@ export DOMAINS_STACK_SIZE=16000000
 export MAX_OUTPUT_FIELDS=300
 
 export NUDGE_QV=.false.
-export RF_CUTOFF=100.0
 export LRADAR=.true.
 export PSL_GWD_DX_FACTOR=2.0
-export CDMBGWD=1.67,8.8,1.0,1.0
+#export CDMBGWD=1.67,8.8,1.0,1.0
 export DOGP_CLDOPTICS_LUT=.false.
 export DOGP_LWSCAT=.false.
-export ISEED_CA=561750924
-export HIDE_AIAU="!"
-export HIDE_LIAU="!"
+export ISEED_CA=1477812455
 
 export SKEB=0
 export SKEB_TAU=-999.
@@ -183,13 +213,26 @@ export SPPT_TAU=-999.
 export SPPT_LSCALE=-999.
 export SPPT_LOGIT=.true.
 export SPPT_SFCLIMIT=.true.
+export PBL_TAPER=0,0,0,0.1,0.2,0.4,0.6
 export ISEED_OCNSPPT=0
+export OCNSPPT=0.8,0.4,0.2,0.08,0.04
+export OCNSPPT_LSCALE=500.E3,1000.E3,2000.E3,2000.E3,2000.E3
+export OCNSPPT_TAU=2.16E4,2.592E5,2.592E6,7.776E6,3.1536E7
 export EPBL=0.8,0.4,0.2,0.08,0.04
+export EPBL_LSCALE=500.E3,1000.E3,2000.E3,2000.E3,2000.E3
+export EPBL_TAU=2.16E4,2.592E5,2.592E6,7.776E6,3.1536E7
 export ISEED_EPBL=0
 export LNDP_TAU=21600
 export LNDP_LSCALE=500000
 export ISEED_LNDP=0
 export RES_LATLON_DYNAMICS='""'
+
+#ATM IAU
+export CHOUR=12
+export IAU_OFFSET=6
+export IAU_DELTHRS=6
+export IAUFHRS='3,6,9'
+export IAU_INC_FILES="'atmi003.nc','atminc.nc','atmi009.nc'"
 
 # ATM warm start
 export WARM_START=.true.
@@ -215,6 +258,7 @@ export CCPP_SUITE=FV3_GFS_v17_coupled_p8_ugwpv1
 export FIELD_TABLE=field_table_thompson_noaero_tke_progsigma
 export DIAG_TABLE=diag_table_cpld.IN
 export INPUT_NML=global_control.nml.IN
+export esmf_logkind="ESMF_LOGKIND_MULTI_ON_ERROR"
 export UFS_CONFIGURE=ufs.configure.s2sw.IN
 # slow loop
 export WW3_RSTFLDS="ice"
