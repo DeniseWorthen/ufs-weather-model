@@ -30,7 +30,6 @@ export OUTPUT_FH="0 1"
 
 export IALB=2
 export IEMS=2
-export LSM=2
 export IOPT_DVEG=4
 export IOPT_CRS=2
 export IOPT_RAD=3
@@ -99,7 +98,5 @@ export SATMEDMF=.true.
 
 export K_SPLIT=2
 export N_SPLIT=4
+export ZSTANDARD_LEVEL=5
 
-if [[ " hera orion hercules jet " =~ " ${MACHINE_ID} " ]] ; then
-  ZSTANDARD_LEVEL=5
-fi
