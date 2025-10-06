@@ -54,7 +54,15 @@ if [[ $GFSv17opn == .true. ]]; then
     cp @[INPUTDATA_GFSv17opn]/MOM6_FIX/* ./INPUT
     cp @[INPUTDATA_GFSv17opn]/CICE_FIX/* .
     cp @[INPUTDATA_GFSv17opn]/WW3_FIX/@[WW3_MODDEF] mod_def.ww3
+    # TODO: when uglo_15km is present in standard input-data location
+    # replace the above line with the following location for the mod_def.ww3
+    # the existing mod_def in the GFSv17opn/WW3_FIX directory should be removed
+    # cp @[INPUTDATA_ROOT_WW3]/@[WW3_MODDEF] mod_def.ww3
+
     cp @[INPUTDATA_GFSv17opn]/WW3_FIX/@[MESH_WAV] .
+    cp @[INPUTDATA_GFSv17opn]/WW3_FIX/wave_gfs.buoys.full ww3_points.list
+    cp @[INPUTDATA_GFSv17opn]/WW3_FIX/pnt_wght.uglo_15km.nc pnt_wght.ww3.nc
+    cp @[INPUTDATA_GFSv17opn]/WW3_FIX/ww3_shel.nml .
 else
     cp @[INPUTDATA_ROOT]/${FV3_DIR}/@[FNSMCC] .
     cp @[INPUTDATA_ROOT]/${FV3_DIR}/@[FNMSKH] .
