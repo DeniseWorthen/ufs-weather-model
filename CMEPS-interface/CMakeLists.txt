@@ -80,7 +80,8 @@ list(APPEND _mediator_files
   CMEPS/mediator/med_phases_post_lnd_mod.F90
   CMEPS/mediator/med_phases_post_glc_mod.F90
   CMEPS/mediator/med_phases_post_rof_mod.F90
-  CMEPS/mediator/med_phases_post_wav_mod.F90)
+  CMEPS/mediator/med_phases_post_wav_mod.F90
+  CMEPS/mediator/med_ufs_trace_wrapper.F90)
 
 if(CDEPS_INLINE)
   list(APPEND _mediator_files CMEPS/mediator/med_phases_cdeps_mod.F90)
