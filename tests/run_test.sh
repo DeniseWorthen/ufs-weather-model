@@ -296,8 +296,10 @@ cp "${PATHRT}/parm/fd_ufs.yaml" fd_ufs.yaml
 source ./fv3_run
 
 if [[ ${CPLWAV} == .true. ]]; then
-    atparse < "${PATHRT}/parm/ww3_shel.nml.IN" > ww3_shel.nml
-    cp "${PATHRT}/parm/ww3_points.list" .
+    if [[ ${GFSv17opn} == .false. ]]; then
+        atparse < "${PATHRT}/parm/ww3_shel.nml.IN" > ww3_shel.nml
+        cp "${PATHRT}/parm/ww3_points.list" .
+    fi
 fi
 
 if [[ ${CPLCHM} == .true. ]]; then
