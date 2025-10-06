@@ -218,11 +218,11 @@ else
     elif [[ $GFSv17opn == .true. ]]; then
         cp ${FV3_IC}/* ./INPUT
         cp ${MOM_IC}/* ./INPUT
-        cp ${ICE_IC}/ice.restart_file .
-        cp ${ICE_IC}/iced.* ./INPUT
+        cp  ${ICE_IC}/iced.* ./cice_model.res.nc
+        ls -1 cice_model.res.nc>ice.restart_file
         cp ${WAV_IC}/* .
-        cp ${CMEPS_IC}/rpointer.cpl .
-        cp ${CMEPS_IC}/ufs.cpld.cpl.r* .
+        cp ${CMEPS_IC}/ufs.cpld.cpl.r* ufs.cpld.cpl.r.nc
+        ls -1 ufs.cpld.cpl.r.nc>rpointer.cpl
     fi
 fi
 

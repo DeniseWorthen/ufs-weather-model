@@ -36,9 +36,6 @@ export CICE_INCOND_DIR='./CICE_OUTPUT/'
 export MOM6_RESTART_DIR='./MOM6_RESTART/'
 export MOM6_OUTPUT_DIR='./MOM6_OUTPUT/'
 export CMEPS_RESTART_DIR='./CMEPS_RESTART/'
-#export WW3_RST_OUTDIR='./WW3_RESTART/'
-#export WW3_GRD_OUTDIR='./WW3_OUTPUT/'
-#export WW3_PNT_OUTDIR='./WW3_OUTPUT/'
 
 export FV3ATM_OUTPUT_DIR='./FV3ATM_OUTPUT'
 
@@ -77,8 +74,6 @@ export WRITE_GROUP=1
 OCN_tasks=120
 ICE_tasks=80
 WAV_tasks=1200
-# #? how to set...med_petlist_bounds='0 1199'?
-# MED_compute_tasks=1200
 
 # atm/ocn/ice resolution
 export NPX=1153
