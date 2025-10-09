@@ -11,7 +11,7 @@ export CNTL_DIR=cpld_control_c1152
 export ATMRES=C1152
 export DT_ATMOS=150
 
-#export HIDE_AIAU='!'
+export HIDE_AIAU='!'
 export HIDE_LIAU='!'
 
 export_fv3
@@ -62,7 +62,7 @@ export FHZERO=6
 # export ice_omp_num_threads=$ICE_thrds_cpl_bmrk
 # export wav_omp_num_threads=$WAV_thrds_cpl_bmrk
 
-# tasks
+#tasks
 export atm_omp_num_threads=4
 export med_omp_num_threads=$atm_omp_num_threads
 export wav_omp_num_threads=1
