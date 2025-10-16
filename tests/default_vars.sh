@@ -603,7 +603,6 @@ export_mpas ()
     export LNDP_TYPE=0
     export N_VAR_LNDP=0
 
-
     export INPES=${INPES_dflt}
     export JNPES=${JNPES_dflt}
 
@@ -886,6 +885,7 @@ export NTILES=6
 export INPES=${INPES_dflt}
 export JNPES=${JNPES_dflt}
 export RESTART_INTERVAL=0
+export SAVE_ATM_RHS=.false.
 export QUILTING=.true.
 export QUILTING_RESTART=.true.
 export WRITE_GROUP=1
