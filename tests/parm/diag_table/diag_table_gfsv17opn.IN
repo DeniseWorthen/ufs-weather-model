@@ -3,7 +3,6 @@ UFS_Weather_Model_Forecast
 
 "fv3_history",    0,  "hours",  1,  "hours",  "time"
 "fv3_history2d",  0,  "hours",  1,  "hours",  "time"
-#     "./MOM6_OUTPUT/ocn%4yr%2mo%2dy%2hr", 6,  "hours",  1,  "hours",  "time",  6,  "hours",  "2025 01 01 12 0 0"
 "@[MOM6_OUTPUT_DIR]/ocn%4yr%2mo%2dy%2hr", @[MOM6_OUTPUT_FH],  "hours", 1, "hours", "time", @[MOM6_OUTPUT_FH], "hours", "@[SYEAR] @[SMONTH] @[SDAY] @[CHOUR] 0 0"
 
 ##############
