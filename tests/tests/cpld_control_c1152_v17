@@ -11,9 +11,6 @@ export CNTL_DIR=cpld_control_c1152
 export ATMRES=C1152
 export DT_ATMOS=150
 
-export HIDE_AIAU=' '
-export HIDE_LIAU='!'
-
 export_fv3
 export_ugwpv1
 export_cpl
