@@ -23,7 +23,6 @@ export SYEAR=2025
 export SMONTH=01
 export SDAY=01
 export SHOUR=06
-export CHOUR=00
 export SECS=`expr $SHOUR \* 3600`
 export FHROT=3
 
@@ -268,7 +267,7 @@ export WW3_restart_from_binary=false
 export FV3_RUN=cpld_control_run.IN
 export CCPP_SUITE=FV3_GFS_v17_coupled_p8_ugwpv1
 export FIELD_TABLE=field_table_thompson_noaero_tke_progsigma
-export DIAG_TABLE=diag_table_cpld.IN
+export DIAG_TABLE=diag_table_gfsv17opn.IN
 export INPUT_NML=global_control.nml.IN
 export esmf_logkind="ESMF_LOGKIND_MULTI_ON_ERROR"
 export UFS_CONFIGURE=ufs.configure.s2sw.IN
@@ -288,6 +287,3 @@ export DO_GSL_DRAG_SS=.false.
 
 # for nccmp of cice history files
 export nccmp_exclude_attr="--globalex=date_created"
-
-# fix files will be copied directly from GFSv17 input-data root
-#export TILEDFIX=.false.
