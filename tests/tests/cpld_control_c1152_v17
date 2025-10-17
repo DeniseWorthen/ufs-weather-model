@@ -89,7 +89,7 @@ fi
 # atm/ocn/ice resolution
 export NPX=1153
 export NPY=1153
-export SAVE_ATM_RHS=.true.
+export USE_FV3_ROUTEHANDLES=.true.
 export QUILTING=.true.
 export QUILTING_RESTART=.true.
 export OUTPUT_GRID="gaussian_grid"
