@@ -163,8 +163,13 @@ else
 fi
 
 # Set IAU Global workflow related tags to ' '
-#export HIDE_AIAU=' '
-#export HIDE_LIAU=' '
+if [[ ${GFSv17opn} == .true. ]] ; then
+    export HIDE_AIAU=' '
+    export HIDE_LIAU='!'
+else
+    export HIDE_AIAU=' '
+    export HIDE_LIAU=' '
+fi
 
 if [[ ${DATM_CDEPS} = 'true' ]] || [[ ${FV3} = 'true' ]] || [[ ${S2S} = 'true' ]] || [[ ${MPAS} = 'true' ]]; then
   if [[ ${HAFS} = 'false' ]] || [[ ${FV3} = 'true' && ${HAFS} = 'true' ]]; then

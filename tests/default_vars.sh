@@ -470,6 +470,7 @@ export FV3_RUN=control_run.IN
 export INPUT_NML=control.nml.IN
 export CCPP_SUITE=FV3_GFS_v16
 
+export DOGP_CLDOPTICS_LUT=.false.
 export DOGP_LWSCAT=.false.
 export IAER=111
 export ICLIQ_SW=1
@@ -602,7 +603,6 @@ export_mpas ()
     export LNDP_TYPE=0
     export N_VAR_LNDP=0
 
-
     export INPES=${INPES_dflt}
     export JNPES=${JNPES_dflt}
 
@@ -647,6 +647,7 @@ export_gfs_physics ()
     export HYBEDMF=.false.
     # RRTMGP
     export DO_RRTMGP=.false.
+    export DOGP_CLDOPTICS_LUT=.true.
     export DOGP_LWSCAT=.true.
     export DOGP_SGS_CNV=.true.
     export USE_LW_JACOBIAN=.false.
@@ -884,6 +885,7 @@ export NTILES=6
 export INPES=${INPES_dflt}
 export JNPES=${JNPES_dflt}
 export RESTART_INTERVAL=0
+export USE_FV3_ROUTEHANDLES=.false.
 export QUILTING=.true.
 export QUILTING_RESTART=.true.
 export WRITE_GROUP=1
@@ -985,8 +987,9 @@ export TTENDLIM=-999
 
 # Radiation
 export DO_RRTMGP=.false.
+export DOGP_CLDOPTICS_LUT=.true.
 export DOGP_LWSCAT=.true.
-export DOGP_SGS_CNV=.false.
+export DOGP_SGS_CNV=.true.
 export USE_LW_JACOBIAN=.false.
 export DAMP_LW_FLUXADJ=.false.
 export RRTMGP_LW_PHYS_BLKSZ=2
@@ -1873,8 +1876,9 @@ export LSEASPRAY=.true.
 
 # RRTMGP
 export DO_RRTMGP=.false.
+export DOGP_CLDOPTICS_LUT=.true.
 export DOGP_LWSCAT=.true.
-export DOGP_SGS_CNV=.false.
+export DOGP_SGS_CNV=.true.
 
 # CA
 export DO_CA=.true.

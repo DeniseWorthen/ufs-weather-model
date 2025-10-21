@@ -49,7 +49,8 @@ fi
 
 # FV3 fixed input
 if [[ $GFSv17opn == .true. ]]; then
-    cp @[INPUTDATA_GFSv17opn]/FV3_fix/* ./INPUT
+    cp @[INPUTDATA_GFSv17opn]/FV3_fix/*.nc ./INPUT
+    cp @[INPUTDATA_GFSv17opn]/FV3_fix/*.grb .
     cp @[INPUTDATA_GFSv17opn]/FV3_fix_tiled/* .
     cp @[INPUTDATA_GFSv17opn]/MOM6_FIX/* ./INPUT
     cp @[INPUTDATA_GFSv17opn]/CICE_FIX/* .
