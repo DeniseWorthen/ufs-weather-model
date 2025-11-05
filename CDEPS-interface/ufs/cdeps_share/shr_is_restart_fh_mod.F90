@@ -122,16 +122,17 @@ contains
   !!
   !> @details Write a log file for a named component when a restart file is written
   !!
-  !! @param[in]   nextTime      the ESMF time at the end of a ModelAdvance
-  !! @param[in]   startTime     the ESMF time at the Model Start
-  !! @param[in]   complog       the named component
-  !! @param[in]   prefixtime    optional, if true log filename has time prefix
-  !! @param[in]   time          optional, if present, write the time of the last restart
+  !! @param[in]   nextTime       the ESMF time at the end of a ModelAdvance
+  !! @param[in]   startTime      the ESMF time at the Model Start
+  !! @param[in]   complog        the named component
+  !! @param[in]   prefixtime     optional, if true log filename has time prefix
+  !! @param[in]   lastrestart    optional, if present, write the time of the last restart
+  !! @param[in]   lastwritten    optional, if present, write the filename written at this FH
   !! @param[out]  rc return code
   !!
   !> @authorDenise.Worthen@noaa.gov
   !> @date 04-14-2025
-  subroutine log_restart_fh(myTime, startTime, complog, prefixtime, appendtime, rc)
+  subroutine log_restart_fh(myTime, startTime, complog, prefixtime, lastrestart, lastwritten, rc)
 
     use ESMF,              only : ESMF_SUCCESS, ESMF_MAXSTR, ESMF_Time, ESMF_TimeInterval
     use ESMF,              only : ESMF_TimeGet, ESMF_TimeIntervalGet
@@ -140,7 +141,8 @@ contains
     type(ESMF_Time),  intent(in)           :: myTime, startTime
     character(len=*), intent(in)           :: complog
     logical,          intent(in), optional :: prefixtime
-    type(ESMF_Time),  intent(in), optional :: appendtime
+    type(ESMF_Time),  intent(in), optional :: lastrestart
+    character(len=*), intent(in), optional :: lastwritten
     integer,         intent(out)           :: rc
 
     ! local variables
@@ -152,6 +154,7 @@ contains
     integer                     :: fh_logunit
     integer                     :: yr,mon,day,hour,minute,sec ! time units
     logical                     :: lprefix
+    character(ESMF_MAXSTR)      :: lwritten
     character(len=*), parameter :: subname='(log_restart_fh)'
     !-----------------------------------------------------------------------
 
@@ -162,22 +165,24 @@ contains
     if (present(prefixtime)) then
        lprefix = prefixtime
     end if
+    lwritten = ''
+    if (present(lastwritten)) then
+       lwritten = trim(lastwritten)
+    end if
 
     elapsedTime = myTime - startTime
     call ESMF_TimeIntervalGet(elapsedTime, h_r8=fhour,rc=rc)
     if (ESMF_LogFoundError(rcToCheck=rc, msg=ESMF_LOGERR_PASSTHRU, line=__LINE__, file=__FILE__)) return
-
     call ESMF_TimeGet(myTime, yy=yr, mm=mon, dd=day, h=hour, m=minute, s=sec, rc=rc)
     if (ESMF_LogFoundError(rcToCheck=rc, msg=ESMF_LOGERR_PASSTHRU, line=__LINE__, file=__FILE__)) return
     write(nexttimestring,'(6i8)')yr,mon,day,hour,minute,sec
-
     if (lprefix) then
        write(filename,'(i4.4,2(i2.2),A,3(i2.2),A)') yr, mon, day,'.', hour, minute, sec,'.'//trim(complog)
     else
        write(filename,'(a,i4.4)')'log.'//trim(complog)//'.f',int(fhour)
     end if
-    if (present(appendtime)) then
-       call ESMF_TimeGet(appendtime, yy=yr, mm=mon, dd=day, h=hour, m=minute, s=sec, rc=rc)
+    if (present(lastrestart)) then
+       call ESMF_TimeGet(lastrestart, yy=yr, mm=mon, dd=day, h=hour, m=minute, s=sec, rc=rc)
        if (ESMF_LogFoundError(rcToCheck=rc, msg=ESMF_LOGERR_PASSTHRU, line=__LINE__, file=__FILE__)) return
        write(timestring,'(6i8)')yr,mon,day,hour,minute,sec
     end if
@@ -186,8 +191,11 @@ contains
     write(fh_logunit,'(a)')'completed: '//trim(complog)
     write(fh_logunit,'(a,f10.3)')'forecast hour:',fhour
     write(fh_logunit,'(a)')'valid time: '//trim(nexttimestring)
-    if (present(appendtime)) then
-       write(fh_logunit,'(a)')'last restart time: '//trim(timestring)
+    if (len_trim(lwritten) > 0) then
+       write(fh_logunit,'(a)')'last output : '//trim(lastwritten)
+    end if
+    if (present(lastrestart)) then
+       write(fh_logunit,'(a)')'last restart : '//trim(timestring)
     end if
     close(fh_logunit)
 
