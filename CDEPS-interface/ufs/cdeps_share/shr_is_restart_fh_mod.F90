@@ -127,12 +127,12 @@ contains
   !! @param[in]   complog        the named component
   !! @param[in]   prefixtime     optional, if true log filename has time prefix
   !! @param[in]   lastrestart    optional, if present, write the time of the last restart
-  !! @param[in]   lastwritten    optional, if present, write the filename written at this FH
+  !! @param[in]   lastoutput     optional, if present, write the filename written at this FH
   !! @param[out]  rc return code
   !!
   !> @authorDenise.Worthen@noaa.gov
   !> @date 04-14-2025
-  subroutine log_restart_fh(myTime, startTime, complog, prefixtime, lastrestart, lastwritten, rc)
+  subroutine log_restart_fh(myTime, startTime, complog, prefixtime, lastrestart, lastoutput, rc)
 
     use ESMF,              only : ESMF_SUCCESS, ESMF_MAXSTR, ESMF_Time, ESMF_TimeInterval
     use ESMF,              only : ESMF_TimeGet, ESMF_TimeIntervalGet
@@ -142,7 +142,7 @@ contains
     character(len=*), intent(in)           :: complog
     logical,          intent(in), optional :: prefixtime
     type(ESMF_Time),  intent(in), optional :: lastrestart
-    character(len=*), intent(in), optional :: lastwritten
+    character(len=*), intent(in), optional :: lastoutput
     integer,         intent(out)           :: rc
 
     ! local variables
@@ -154,7 +154,7 @@ contains
     integer                     :: fh_logunit
     integer                     :: yr,mon,day,hour,minute,sec ! time units
     logical                     :: lprefix
-    character(ESMF_MAXSTR)      :: lwritten
+    character(ESMF_MAXSTR)      :: lastout
     character(len=*), parameter :: subname='(log_restart_fh)'
     !-----------------------------------------------------------------------
 
@@ -165,9 +165,9 @@ contains
     if (present(prefixtime)) then
        lprefix = prefixtime
     end if
-    lwritten = ''
-    if (present(lastwritten)) then
-       lwritten = trim(lastwritten)
+    lastout = ''
+    if (present(lastoutput)) then
+       lastout = trim(lastoutput)
     end if
 
     elapsedTime = myTime - startTime
@@ -191,11 +191,11 @@ contains
     write(fh_logunit,'(a)')'completed: '//trim(complog)
     write(fh_logunit,'(a,f10.3)')'forecast hour:',fhour
     write(fh_logunit,'(a)')'valid time: '//trim(nexttimestring)
-    if (len_trim(lwritten) > 0) then
-       write(fh_logunit,'(a)')'last output : '//trim(lastwritten)
+    if (len_trim(lastout) > 0) then
+       write(fh_logunit,'(a)')'last output: '//trim(lastout)
     end if
     if (present(lastrestart)) then
-       write(fh_logunit,'(a)')'last restart : '//trim(timestring)
+       write(fh_logunit,'(a)')'last restart: '//trim(timestring)
     end if
     close(fh_logunit)
 
