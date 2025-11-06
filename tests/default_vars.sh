@@ -470,7 +470,6 @@ export FV3_RUN=control_run.IN
 export INPUT_NML=control.nml.IN
 export CCPP_SUITE=FV3_GFS_v16
 
-export DOGP_CLDOPTICS_LUT=.false.
 export DOGP_LWSCAT=.false.
 export IAER=111
 export ICLIQ_SW=1
@@ -647,7 +646,6 @@ export_gfs_physics ()
     export HYBEDMF=.false.
     # RRTMGP
     export DO_RRTMGP=.false.
-    export DOGP_CLDOPTICS_LUT=.true.
     export DOGP_LWSCAT=.true.
     export DOGP_SGS_CNV=.true.
     export USE_LW_JACOBIAN=.false.
@@ -987,9 +985,8 @@ export TTENDLIM=-999
 
 # Radiation
 export DO_RRTMGP=.false.
-export DOGP_CLDOPTICS_LUT=.true.
 export DOGP_LWSCAT=.true.
-export DOGP_SGS_CNV=.true.
+export DOGP_SGS_CNV=.false.
 export USE_LW_JACOBIAN=.false.
 export DAMP_LW_FLUXADJ=.false.
 export RRTMGP_LW_PHYS_BLKSZ=2
@@ -1410,8 +1407,9 @@ export LSOIL_INCR=3
 export LAND_IAU_FILTER_INC=.false.
 export LAND_IAU_UPD_STC=.true.
 export LAND_IAU_UPD_SLC=.true.
-export LAND_IAU_DP_STCSMC_ADJ=.true.
+export LAND_IAU_DO_STCSMC_ADJ=.true.
 export LAND_IAU_MIN_T_INC=0.0001
+export LAND_IAU_MIN_SLC_INC=0.000001
 }
 
 # Add section for tiled grid namelist
@@ -1635,6 +1633,7 @@ export_mom6() {
   export MOM6_CHLCLIM=seawifs_1998-2006_smoothed_2X.nc
   export MOM6_USE_LI2016=True
   export MOM6_TOPOEDITS=''
+  export MOM6_HFREEZE=20.0
   # since CPL_SLOW is set to DT_THERM, this should be always be false
   export MOM6_THERMO_SPAN=False
   export MOM6_USE_WAVES=True
@@ -1876,9 +1875,8 @@ export LSEASPRAY=.true.
 
 # RRTMGP
 export DO_RRTMGP=.false.
-export DOGP_CLDOPTICS_LUT=.true.
 export DOGP_LWSCAT=.true.
-export DOGP_SGS_CNV=.true.
+export DOGP_SGS_CNV=.false.
 
 # CA
 export DO_CA=.true.
