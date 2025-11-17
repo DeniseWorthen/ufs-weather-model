@@ -74,15 +74,15 @@ if [[ ${MACHINE_ID} = wcoss2 ]]; then
     RESTART_FH="42 75 111 147 183 219 255 291 327 363"
 else
     INPES=24
-    JNPES=24
+    JNPES=12
     BLOCKSIZE=36
     OCN_tasks=120
     ICE_tasks=80
     WAV_tasks=1200
-    atm_omp_num_threads=1
+    atm_omp_num_threads=4
     med_omp_num_threads=$atm_omp_num_threads
-    WRITE_GROUP=1
-    WRTTASK_PER_GROUP=180
+    WRITE_GROUP=3
+    WRTTASK_PER_GROUP=120
     WRITE_DOPOST=.false.
 fi
 
