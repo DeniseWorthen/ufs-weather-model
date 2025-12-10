@@ -36,12 +36,12 @@ export CMEPS_RESTART_DIR='./CMEPS_RESTART/'
 export FV3ATM_OUTPUT_DIR='./'
 
 #Simulation length and output
-export DAYS=0.25
-export FHMAX=6
-export RESTART_N=3
+export DAYS=1.25
+export FHMAX=30
+export RESTART_N=6
 export RESTART_INTERVAL="${RESTART_N} -1"
 export FHZERO=6
-export OUTPUT_FH="0 3 6"
+export OUTPUT_FH="6 -1"
 
 export ocn_omp_num_threads=1
 export ice_omp_num_threads=1
@@ -78,12 +78,12 @@ else
     BLOCKSIZE=36
     OCN_tasks=120
     ICE_tasks=80
-    WAV_tasks=2008
+    WAV_tasks=1200
     atm_omp_num_threads=4
     med_omp_num_threads=$atm_omp_num_threads
     WRITE_GROUP=3
     WRTTASK_PER_GROUP=120
-    WRITE_DOPOST=.false.
+    WRITE_DOPOST=.true.
 fi
 
 # atm/ocn/ice resolution
