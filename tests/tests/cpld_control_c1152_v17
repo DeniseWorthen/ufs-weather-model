@@ -78,7 +78,7 @@ else
     BLOCKSIZE=36
     OCN_tasks=120
     ICE_tasks=80
-    WAV_tasks=1200
+    WAV_tasks=2008
     atm_omp_num_threads=4
     med_omp_num_threads=$atm_omp_num_threads
     WRITE_GROUP=3
