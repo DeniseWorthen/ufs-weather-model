@@ -131,10 +131,13 @@ export BMIC=.false.
 export GFSv17opn=.false.
 export SFS=.false.
 
+export EXCLUSIVE_NODES=.false.
+
 if [[ ${MACHINE_ID} = wcoss2 || ${MACHINE_ID} = acorn ]]; then
 
   export TPN=128
-
+  export EXCLUSIVE_NODES=.true.
+  
   export INPES_dflt=3
   export JNPES_dflt=8
   export INPES_thrd=3
@@ -155,6 +158,7 @@ if [[ ${MACHINE_ID} = wcoss2 || ${MACHINE_ID} = acorn ]]; then
 elif [[ ${MACHINE_ID} = orion ]]; then
 
   export TPN=40
+  export EXCLUSIVE_NODES=.true.
 
   export INPES_dflt=3
   export JNPES_dflt=8
@@ -176,7 +180,7 @@ elif [[ ${MACHINE_ID} = orion ]]; then
 elif [[ ${MACHINE_ID} = hercules ]]; then
 
   export TPN=80
-
+  export EXCLUSIVE_NODES=.true.
   export INPES_dflt=3
   export JNPES_dflt=8
   export INPES_thrd=3
@@ -406,6 +410,7 @@ elif [[ ${MACHINE_ID} = noaacloud ]] ; then
       export TPN=30
     fi
 
+    export EXCLUSIVE_NODES=.true.
     export INPES_dflt=3
     export JNPES_dflt=8
     export INPES_thrd=3
@@ -437,6 +442,7 @@ elif [[ ${MACHINE_ID} = noaacloud ]] ; then
 elif [[ ${MACHINE_ID} = frontera ]]; then
 
   TPN=56
+  export EXCLUSIVE_NODES=.true.
 
 else
 
