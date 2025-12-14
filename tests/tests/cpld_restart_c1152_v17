@@ -7,8 +7,12 @@
 source ${PATHRT}/tests/cpld_control_c1152_v17
 export TEST_DESCR+=" restart"
 
+export LIST_FILES=""
+
+export EXCLUSIVE_NODES=.false.
+
 export FHROT=18 #restart after any IAU
-export RESTART_N=6
+export RESTART_N=3
 export RESTART_INTERVAL="${RESTART_N} -1"
 RESTHOUR=$(( ${FHROT} + ${SHOUR} ))
 RESTSDAY=$SDAY
@@ -34,4 +38,3 @@ export CICE_DIAGFREQ=`expr $((FHMAX-FHROT)) \* 3600 / $DT_CICE`
 export ODA_INCUPD="False"
 export ODA_INCUPD_UV="False"
 export nccmp_exclude="--exclude=oda_incupd_ncount"
-

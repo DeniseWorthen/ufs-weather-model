@@ -7,6 +7,7 @@
 export TEST_DESCR="Fully coupled FV3-CCPP-MOM6-CICE-CMEPS-WW3 system - C1152MX025 - unst WW3"
 
 export CNTL_DIR=cpld_control_c1152
+export LIST_FILES=""
 
 export ATMRES=C1152
 export DT_ATMOS=150
@@ -38,11 +39,12 @@ export FV3ATM_OUTPUT_DIR='./'
 #Simulation length and output
 export DAYS=1.25
 export FHMAX=30
-export RESTART_N=6
+export RESTART_N=3
 export RESTART_INTERVAL="${RESTART_N} -1"
 export FHZERO=6
 export OUTPUT_FH="6 -1"
 export WLCLK=60
+export EXCLUSIVE_NODES=.false.
 
 export ocn_omp_num_threads=1
 export ice_omp_num_threads=1
