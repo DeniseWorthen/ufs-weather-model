@@ -84,8 +84,8 @@ else
     WAV_tasks=2008
     atm_omp_num_threads=4
     med_omp_num_threads=$atm_omp_num_threads
-    WRITE_GROUP=3
-    WRTTASK_PER_GROUP=120
+    WRITE_GROUP=4
+    WRTTASK_PER_GROUP=192
     WRITE_DOPOST=.true.
 fi
 
