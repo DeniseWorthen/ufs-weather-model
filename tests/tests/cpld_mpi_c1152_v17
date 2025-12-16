@@ -17,4 +17,9 @@ if [[ ${MACHINE_ID} != wcoss2 ]]; then
     OCN_tasks=160
     ICE_tasks=90
     WAV_tasks=1800
+
+    export CICE_NPROC=$ICE_tasks
+    export np2=`expr $CICE_NPROC / 2`
+    export CICE_BLCKX=`expr $NX_GLB / $np2`
+    export CICE_BLCKY=`expr $NY_GLB / 2`
 fi
