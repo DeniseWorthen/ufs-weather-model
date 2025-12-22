@@ -93,6 +93,13 @@ export ICE_tasks_cdeps_025=48
 export INPES_aqm=33
 export JNPES_aqm=8
 
+export INPES_sfs=4
+export JNPES_sfs=6
+export THRD_sfs=1
+export WPG_sfs=24
+export OCN_tasks_sfs=168
+export ICE_tasks_sfs=48
+
 export THRD_cpl_unstr=1
 export INPES_cpl_unstr=3
 export JNPES_cpl_unstr=8
@@ -121,12 +128,17 @@ export fbh_omp_num_threads=1
 
 export histaux_enabled=.false.
 export BMIC=.false.
+
 export GFSv17opn=.false.
+export SFS=.false.
+
+export EXCLUSIVE_NODES=.false.
 
 if [[ ${MACHINE_ID} = wcoss2 || ${MACHINE_ID} = acorn ]]; then
 
   export TPN=128
-
+  export EXCLUSIVE_NODES=.true.
+  
   export INPES_dflt=3
   export JNPES_dflt=8
   export INPES_thrd=3
@@ -147,6 +159,7 @@ if [[ ${MACHINE_ID} = wcoss2 || ${MACHINE_ID} = acorn ]]; then
 elif [[ ${MACHINE_ID} = orion ]]; then
 
   export TPN=40
+  export EXCLUSIVE_NODES=.true.
 
   export INPES_dflt=3
   export JNPES_dflt=8
@@ -168,7 +181,7 @@ elif [[ ${MACHINE_ID} = orion ]]; then
 elif [[ ${MACHINE_ID} = hercules ]]; then
 
   export TPN=80
-
+  export EXCLUSIVE_NODES=.true.
   export INPES_dflt=3
   export JNPES_dflt=8
   export INPES_thrd=3
@@ -398,6 +411,7 @@ elif [[ ${MACHINE_ID} = noaacloud ]] ; then
       export TPN=30
     fi
 
+    export EXCLUSIVE_NODES=.true.
     export INPES_dflt=3
     export JNPES_dflt=8
     export INPES_thrd=3
@@ -429,6 +443,7 @@ elif [[ ${MACHINE_ID} = noaacloud ]] ; then
 elif [[ ${MACHINE_ID} = frontera ]]; then
 
   TPN=56
+  export EXCLUSIVE_NODES=.true.
 
 else
 
@@ -464,7 +479,7 @@ export_fv3
 export USE_MERRA2=.false.
 export WRITE_NSFLIP=.false.
 
-export DIAG_TABLE=diag_table_gfsv16
+export DIAG_TABLE=diag_table_gfsv16.IN
 export FIELD_TABLE=field_table_gfsv16
 export FV3_RUN=control_run.IN
 export INPUT_NML=control.nml.IN
@@ -1049,6 +1064,7 @@ export RRFS_RESTART=NO
 export SEAS_OPT=2
 
 # GWD
+export DO_NGW_EC=.false.
 export LDIAG_UGWP=.false.
 export DO_UGWP=.false.
 export DO_TOFD=.false.
@@ -1116,7 +1132,8 @@ export DO_MYNNEDMF=.false.
 export HURR_PBL=.false.
 export MONINQ_FAC=1.0
 export SFCLAY_COMPUTE_FLUX=.false.
-
+export TTE_EDMF=.false.
+export CSCALE=1.0
 # Shallow/deep convection
 export DO_DEEP=.true.
 export SHAL_CNV=.true.
@@ -1253,6 +1270,7 @@ export PERT_MP=.false.
 export PERT_RADTEND=.false.
 export PERT_CLDS=.false.
 
+export NEW_LSCALE=.false.
 export STOCHINI=.false.
 export DO_SPPT=.false.
 export DO_SHUM=.false.
@@ -1384,6 +1402,7 @@ export CHOUR=06
 export MOM6_OUTPUT_DIR=./MOM6_OUTPUT
 export MOM6_RESTART_DIR=./RESTART/
 export MOM6_RESTART_SETTING=n
+export MOM6_OUTPUT_FH=6
 
 # Following not used for standalone
 export USE_CICE_ALB=.false.
@@ -1620,6 +1639,9 @@ export_cice6() {
   export stream_files_dice=none
   export CICE_PRESCRIBED=false
   export DICE_CDEPS=false
+
+  #To modify aice on restart, "adjust_aice"
+  export CICE_RESTART_MOD='none'
 }
 
 # Defaults for the MOM6 model namelist, mx100
@@ -1958,6 +1980,7 @@ export_datm_cdeps ()
   export SMONTH=10
   export SDAY=01
   export SHOUR=00
+  export CHOUR=00
   export FHMAX=24
   export DT_ATMOS=900
   export FHROT=0
@@ -2007,7 +2030,7 @@ export_datm_cdeps ()
 
   # datm defaults
   export INPUT_NML=input.mom6.nml.IN
-  export DIAG_TABLE=diag_table_template
+  export DIAG_TABLE=diag_table_cpld.IN
   export DATM_SRC=CFSR
   export FILEBASE_DATM=cfsr
   export MESH_ATM=mesh.datm.1760x880.nc
