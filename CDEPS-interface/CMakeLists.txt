@@ -33,6 +33,7 @@ target_include_directories(share PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/ufs/cdeps_s
 target_include_directories(share PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/mod>)
 target_compile_definitions(share PRIVATE ${CDEPS_SHARE_DEFS})
 target_link_libraries(share PRIVATE ESMF::ESMF)
+target_link_libraries(share PUBLIC ufs_tracing)
 
 # CDEPS/streams
 add_library(streams OBJECT ${cdeps_streams_files})
