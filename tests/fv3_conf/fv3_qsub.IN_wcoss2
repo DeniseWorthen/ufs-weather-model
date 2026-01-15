@@ -7,6 +7,7 @@
 #PBS -q @[QUEUE]
 #PBS -l select=@[NODES]:ncpus=@[NCPUS]:mpiprocs=@[TPN]:ompthreads=@[THRD]
 #PBS -l place=vscatter:exclhost
+@[EXCLUSIVE_NODES_OPT]
 #PBS -l walltime=00:@[WLCLK]:00
 
 set -eux
