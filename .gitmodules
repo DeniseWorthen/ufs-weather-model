@@ -19,7 +19,8 @@
   #url = https://github.com/NOAA-EMC/CMEPS
   #branch = emc/develop
   url = https://github.com/DeniseWorthen/CMEPS
-  branch =  feature/CgridFrOcn
+  #branch =  feature/CgridFrOcn
+  branch = bs_cgrid
 [submodule "HYCOM"]
   path = HYCOM-interface/HYCOM
   url = https://github.com/NOAA-EMC/HYCOM-src
@@ -29,13 +30,15 @@
   #url = https://github.com/NOAA-EMC/MOM6
   #branch = dev/emc
   url = https://github.com/DeniseWorthen/MOM6
-  branch =  feature/CgridFrOcn
+  #branch =  feature/CgridFrOcn
+  branch = bs_cgrid
 [submodule "CICE"]
   path = CICE-interface/CICE
   #url = https://github.com/NOAA-EMC/CICE
   #branch = develop
   url = https://github.com/DeniseWorthen/CICE
-  branch =  feature/CgridFrOcn
+  #branch =  feature/CgridFrOcn
+  branch = bs_cgrid
 [submodule "CDEPS"]
   path = CDEPS-interface/CDEPS
   url = https://github.com/NOAA-EMC/CDEPS
