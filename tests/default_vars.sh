@@ -1681,6 +1681,8 @@ export_mom6() {
   export MOM6_INIT_FROM_Z=True
   export MOM6_INIT_UV="zero"
   export MOM6_WARMSTART_FILE="none"
+  # MOM6 ocean_public stagger variables
+  export MOM6_SURFACE_STAGGER="A"
 }
 
 # Defaults for the WW3 global model

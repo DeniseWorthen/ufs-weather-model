@@ -948,7 +948,7 @@ ODA_INCUPD_NHOURS = @[ODA_INCUPD_NHOURS]            ! default=3.0
                                         ! Number of hours for full update (0=direct insertion).
 
 ! === module MOM_surface_forcing ===
-OCEAN_SURFACE_STAGGER = "A"     ! default = "C"
+OCEAN_SURFACE_STAGGER = @[MOM6_SURFACE_STAGGER]     ! default = "C"
                                 ! A case-insensitive character string to indicate the
                                 ! staggering of the surface velocity field that is
                                 ! returned to the coupler.  Valid values include
