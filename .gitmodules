@@ -16,10 +16,10 @@
   branch = develop
 [submodule "CMEPS"]
   path = CMEPS-interface/CMEPS
-  url = https://github.com/NOAA-EMC/CMEPS
-  branch = emc/develop
-  #url = https://github.com/DeniseWorthen/CMEPS
-  #branch =  feature/CgridFrOcn
+  #url = https://github.com/NOAA-EMC/CMEPS
+  #branch = emc/develop
+  url = https://github.com/DeniseWorthen/CMEPS
+  branch =  feature/CgridFrOcn
   #branch = bs2_cgrid
 [submodule "HYCOM"]
   path = HYCOM-interface/HYCOM
@@ -34,10 +34,10 @@
   #branch = bs2_cgrid
 [submodule "CICE"]
   path = CICE-interface/CICE
-  url = https://github.com/NOAA-EMC/CICE
-  branch = develop
-  #url = https://github.com/DeniseWorthen/CICE
-  #branch =  feature/CgridFrOcn
+  #url = https://github.com/NOAA-EMC/CICE
+  #branch = develop
+  url = https://github.com/DeniseWorthen/CICE
+  branch =  feature/CgridFrOcn
   #branch = bs2_cgrid
 [submodule "CDEPS"]
   path = CDEPS-interface/CDEPS
