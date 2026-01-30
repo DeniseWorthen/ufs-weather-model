@@ -113,6 +113,7 @@ MED_attributes::
       pio_stride = @[CMEPS_PIO_STRIDE]
       pio_rearranger = @[CMEPS_PIO_REARR]
       pio_root = @[CMEPS_PIO_ROOT]
+      grid_ice=@[CICE_GRIDICE]
 ::
 
 ALLCOMP_attributes::
