@@ -119,7 +119,7 @@ MED_attributes::
       histaux_ocn2med_file1_history_n = @[MED_history_n]
       histaux_ocn2med_file1_history_option = nhours
       histaux_ocn2med_file1_ntperfile = 9999
-      grid_ice=@[CICE_GRIDICE]
+      grid_ocn = @[CICE_GRIDOCN]
 ::
 
 ALLCOMP_attributes::

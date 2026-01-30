@@ -117,7 +117,7 @@ MED_attributes::
       pio_root = @[CMEPS_PIO_ROOT]
       ocean_albedo_limit = @[ocean_albedo_limit]
       mapuv_with_cart3d = @[MAPUV3D]
-      grid_ice=@[CICE_GRIDICE]
+      grid_ocn = @[CICE_GRIDOCN]
 ::
 
 ALLCOMP_attributes::
