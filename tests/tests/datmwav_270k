@@ -20,7 +20,7 @@ export ATM_NY_GLB=$JATM
 export ATMRES=${IATM}x${JATM}
 export DATM_SRC=GEFS_NEW
 export FILEBASE_DATM=gefs
-export MESH_ATM=${FILEBASE_DATM}_mesh.nc
+export MESH_ATM=mesh.datm.1536x768.nc
 export stream_files="INPUT/${FILEBASE_DATM}.201110.nc"
 export STREAM_OFFSET=-21600
 export DT_ATMOS=720
@@ -34,8 +34,11 @@ export OCN_tasks=0
 export ICE_tasks=0
 
 #waves
-export WAV_tasks=${WAV_tasks_cpl_unstr}
+export WAV_tasks=152
 export WW3_OUTDTHR=1
+export WW3_GRD_OUTDIR='./'
+export WW3_PNT_OUTDIR='./'
+export WW3_RST_OUTDIR='./'
 WW3_DTFLD="$(printf "%02d" $(( WW3_OUTDTHR*3600 )))"
 export WW3_DTFLD
 WW3_DTPNT="$(printf "%02d" $(( WW3_OUTDTHR*3600 )))"
@@ -48,6 +51,8 @@ export WW3_ICE='F'
 export WW3_IC1='F'
 export WW3_IC5='F'
 export WW3_OUTPARS="WND HS T01 T02 DIR FP DP PHS PTP PDIR CHA"
+# For default ufs_configure (fast loop), no added fields reqd
+export WW3_RSTFLDS=" "
 
 # For either history_nc or restart_nc true
 export WW3_PIO_FORMAT='pnetcdf'
@@ -56,9 +61,11 @@ export WW3_PIO_IOTASKS=-99
 export WW3_PIO_REARR='box'
 export WW3_PIO_ROOT=-99
 
-export WW3_GRD_OUTDIR='./'
-export WW3_PNT_OUTDIR='./'
-export WW3_RST_OUTDIR='./'
+export CMEPS_PIO_FORMAT='pnetcdf'
+export CMEPS_PIO_STRIDE=4
+export CMEPS_PIO_IOTASKS=-99
+export CMEPS_PIO_REARR='box'
+export CMEPS_PIO_ROOT=-99
 
 # used only in cpld_datm_cdeps.IN
 export CPLWAV=.true.
