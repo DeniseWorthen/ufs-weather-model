@@ -13,7 +13,7 @@ export LIST_FILES=""
 
 export_datm_cdeps
 export_ww3
-export atm_datamode=GEFS
+export atm_datamode=ATMW
 
 # atm configure
 export IATM=1536
