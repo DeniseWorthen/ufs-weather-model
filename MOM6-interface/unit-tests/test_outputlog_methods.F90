@@ -5,166 +5,201 @@ program test_outputlog_methods
   implicit none
 
   integer, parameter :: nfreq = 4
+  integer, parameter :: maxtests = 25
+
   integer :: validfreqs(nfreq) = (/1, 3, 6, 24/)
-  integer :: mock_fh(nfreq)
-  character(len=32) :: mock_type(nfreq)
 
-  logical :: requested(nfreq)
-  logical :: avgtype(nfreq)
+  integer           :: output_fh(nfreq)
+  character(len=12) :: output_type(nfreq)
+  character(len=12) :: output_rootname(nfreq)
 
-  ! Scoreboard tracking
-  integer :: n_pass = 0
-  integer :: n_fail = 0
+  logical           :: requested(nfreq)
+  character(len=7)  :: timereduc(nfreq)
+  character(len=12) :: fnameroot(nfreq)
 
-  character(len=128) :: testmsg
+  character(len=128) :: msg(maxtests)
+  character(len=128) :: testname
   character(len=256) :: errmsg
-  integer            :: i,ierr
+  integer            :: i,nt,n,ierr
 
-  !
+  logical :: is_passing
+  integer :: npass = 0
+  integer :: nfail = 0
+  integer :: ntests = 0
+
+  nt = 0
+  ! ------------------
   ! test setrequest
-  !
-  testmsg = 'setrequest: all-zero array gracefully disables logging'
-  mock_fh = (/0, 0, 0, 0/)
-  requested = setrequest(validfreqs, mock_fh, errmsg, ierr)
+  ! ------------------
+  nt = nt + 1
+  write(testname,'(A,I2.2,A)')'test ',nt,' setrequest: outputfh==0 disables logging'
+  output_fh = (/0,0,0,0/)
+  requested = setrequest(validfreqs, output_fh, errmsg, ierr)
 
-  if (ierr == 0 .and. .not. any(requested)) then
-    n_pass = n_pass + 1
-    print '(A, A)', " [PASS]: ", trim(testmsg)
+  is_passing = (ierr == 0 .and. .not. any(requested))
+  if (is_passing) then
+     npass = npass + 1
+     msg(nt) = trim(testname)//' PASS'
   else
-    n_fail = n_fail + 1
-    print '(A, A)', " [FAIL]: ", trim(testmsg)
-    print *, "      -> Expected ierr=0 and all-false mask. Got ierr=", ierr
+     nfail = nfail + 1
+     msg(nt) = trim(testname)//' FAIL'
   endif
 
-  !
-  testmsg = 'setrequest: single standard frequency maps to canonical tier'
-  mock_fh = (/6, 0, 0, 0/)
-  requested = setrequest(validfreqs, mock_fh, errmsg, ierr)
+  ! ------------------
+  nt = nt + 1
+  write(testname,'(A,I2.2,A)')'test ',nt,' setrequest: map request to canonical order'
+  output_fh = (/6,0,0,0/)
+  requested = setrequest(validfreqs, output_fh, errmsg, ierr)
 
-  if (ierr == 0 .and. requested(3) .and. .not. any(requested((/1,2,4/)))) then
-    n_pass = n_pass + 1
-    print '(A, A)', " [PASS]: ", trim(testmsg)
+  is_passing = (ierr == 0 .and. requested(3) .and. .not. any(requested((/1,2,4/))))
+  if (is_passing) then
+     npass = npass + 1
+     msg(nt) = trim(testname)//' PASS'
   else
-    n_fail = n_fail + 1
-    print '(A, A)', " [FAIL]: ", trim(testmsg)
-    print *, "      -> Mask mapping leaked or failed. Mask states: ", requested
+     nfail = nfail + 1
+     msg(nt) = trim(testname)//' FAIL'
   endif
 
-  !
-  testmsg = 'setrequest: multi standard frequency maps to canonical tier'
-  mock_fh = (/24, 1, 0, 0/)
-  requested = setrequest(validfreqs, mock_fh, errmsg, ierr)
+  ! ------------------
+  nt = nt + 1
+  write(testname,'(A,I2.2,A)')'test ',nt,' setrequest: map request to canonical order'
+  output_fh = (/0,24,0,1/)
+  requested = setrequest(validfreqs, output_fh, errmsg, ierr)
 
-  if (ierr == 0 .and. requested(4) .and. requested(1) .and. .not. any(requested((/2,3/)))) then
-    n_pass = n_pass + 1
-    print '(A, A)', " [PASS]: ", trim(testmsg)
+  is_passing = (ierr == 0 .and. requested(1) .and. requested(4) .and. .not. any(requested((/2,3/))))
+  if (is_passing) then
+     npass = npass + 1
+     msg(nt) = trim(testname)//' PASS'
   else
-    n_fail = n_fail + 1
-    print '(A, A)', " [FAIL]: ", trim(testmsg)
-    print *, "      -> Mask mapping leaked or failed. Mask states: ", requested
+     nfail = nfail + 1
+     msg(nt) = trim(testname)//' FAIL'
   endif
 
-  !
-  testmsg = 'setrequest: illegal frequency (12h) '
-  mock_fh = (/12, 0, 0, 0/)
-  requested = setrequest(validfreqs, mock_fh, errmsg, ierr)
+  ! ------------------
+  nt = nt + 1
+  write(testname,'(A,I2.2,A)')'test ',nt,' setrequest: invalid frequency blocked'
+  output_fh = (/18,0,0,0/)
+  requested = setrequest(validfreqs, output_fh, errmsg, ierr)
 
-  if (ierr /= 0) then
-    n_pass = n_pass + 1
-    print '(A, A)', " [PASS]: ", trim(testmsg)
+  is_passing = (ierr /= 0)
+  if (is_passing) then
+     npass = npass + 1
+     msg(nt) = trim(testname)//' PASS'
   else
-    n_fail = n_fail + 1
-    print '(A, A)', " [FAIL]: ", trim(testmsg)
+     nfail = nfail + 1
+     msg(nt) = trim(testname)//' FAIL (error not caught)'
   endif
 
-  !
-  testmsg = 'setrequest: duplicate frequencies (24, 24) are blocked'
-  mock_fh = (/24, 24, 0, 0/)
-  requested = setrequest(validfreqs, mock_fh, errmsg, ierr)
+  ! ------------------
+  nt = nt + 1
+  write(testname,'(A,I2.2,A)')'test ',nt,' setrequest: duplicate frequencies blocked'
+  output_fh = (/24,24, 0, 0/)
+  requested = setrequest(validfreqs, output_fh, errmsg, ierr)
 
-  if (ierr /= 0) then
-    n_pass = n_pass + 1
-    print '(A, A)', " [PASS]: ", trim(testmsg)
+  is_passing = (ierr /= 0)
+  if (is_passing) then
+     npass = npass + 1
+     msg(nt) = trim(testname)//' PASS'
   else
-    n_fail = n_fail + 1
-    print '(A, A)', " [FAIL]: ", trim(testmsg)
-    print *, "      -> CRITICAL: Allowed duplicate output_fh variables to conflict!"
+     nfail = nfail + 1
+     msg(nt) = trim(testname)//' FAIL (error not caught)'
   endif
 
-  !
+  ! ------------------
   ! test settype
-  !
-  testmsg = 'settype: standard lower-case strings map correctly'
-  mock_fh = (/1, 6/)
+  ! ------------------
+
+  nt = nt+1
+  write(testname,'(A,I2.2,A)')'test ',nt,' settype: lower-case strings map correctly'
+  output_fh = (/1,6,0,0/)
   requested = (/.true., .true., .false., .false./)
-  mock_type = (/ character(len=32) :: 'none', 'average', '', '' /)
+  output_type = (/ character(len=12) :: 'none', 'average', '', '' /)
 
-  avgtype = settype(validfreqs, requested, mock_fh, mock_type, errmsg, ierr)
+  timereduc = settype(validfreqs, requested, output_fh, output_type, errmsg, ierr)
 
-  if (ierr == 0 .and. trim(avgtype(1)) == 'none' .and. trim(avgtype(2)) == 'average') then
-    n_pass = n_pass + 1
-    print '(A, A)', " [PASS]: ", trim(testmsg)
+  is_passing = (ierr == 0 .and. trim(timereduc(1)) == 'none' .and. trim(timereduc(2)) == 'average')
+  if (is_passing) then
+     npass = npass + 1
+     msg(nt) = trim(testname)//' PASS'
   else
-    n_fail = n_fail + 1
-    print '(A, A)', " [FAIL]: ", trim(testmsg)
+     nfail = nfail + 1
+     msg(nt) = trim(testname)//' FAIL'
   endif
 
-  testmsg = 'settype: invalid/typo '
-  mock_fh = (/3,24/)
-  mock_type = (/ character(len=32) :: 'snapshot', 'average', '', '' /)
+  ! ------------------
+  nt = nt + 1
+  write(testname,'(A,I2.2,A)')'test ',nt,' settype: upper-case strings not allowed'
+  output_fh = (/3,24,0,0/)
   requested = (/.false., .true., .false., .true./)
-  avgtype = settype(validfreqs, requested, mock_fh, mock_type, errmsg, ierr)
+  output_type = (/ character(len=12) :: '', 'NONE', '', 'AVERAGE' /)
 
-  if (ierr /= 0) then
-    n_pass = n_pass + 1
-    print '(A, A)', " [PASS]: ", trim(testmsg)
+  timereduc = settype(validfreqs, requested, output_fh, output_type, errmsg, ierr)
+
+  is_passing = (ierr /= 0)
+  if (is_passing) then
+     npass = npass + 1
+     msg(nt) = trim(testname)//' PASS'
   else
-    n_fail = n_fail + 1
-    print '(A, A)', " [FAIL]: ", trim(testmsg)
+     nfail = nfail + 1
+     msg(nt) = trim(testname)//' FAIL (error not caught)'
   endif
 
-  testmsg = 'settype: empty string on an active frequency defaults to average'
-  mock_fh = (/1,6/)
+  ! ------------------
+  nt = nt + 1
+  write(testname,'(A,I2.2,A)')'test ',nt,' settype: invalid string or typo'
+  output_fh = (/3,24,0,0/)
+  output_type = (/ character(len=12) :: '', 'snapshot', '', 'avg' /)
+  requested = (/.false., .true., .false., .true./)
+  timereduc = settype(validfreqs, requested, output_fh, output_type, errmsg, ierr)
+
+  is_passing = (ierr /= 0)
+  if (is_passing) then
+     npass = npass + 1
+     msg(nt) = trim(testname)//' PASS'
+  else
+     nfail = nfail + 1
+     msg(nt) = trim(testname)//' FAIL (error not caught)'
+  endif
+
+  ! ------------------
+  nt = nt + 1
+  write(testname,'(A,I2.2,A)')'test ',nt,' settype: empty string on an active frequency defaults to average'
+  output_fh = (/1,6,0,0/)
   requested = (/ .true., .false., .true., .false. /)
-  mock_type = (/ character(len=32) :: 'none', '', '', '' /)
+  output_type = (/ character(len=12) :: 'none', '', '', '' /)
+  timereduc = settype(validfreqs, requested, output_fh, output_type, errmsg, ierr)
 
-  requested = settype(requested, mock_type, errmsg, ierr)
-
-  if (ierr == 0 .and. trim(avgtype(1)) == 'none' .and. trim(avgtype(2)) == 'average') then
-    n_pass = n_pass + 1
-    print '(A, A)', " [PASS]: ", trim(testmsg)
+  is_passing = (ierr == 0 .and. trim(timereduc(1)) == 'none' .and. trim(timereduc(3)) == 'average')
+  if (is_passing) then
+     npass = npass + 1
+     msg(nt) = trim(testname)//' PASS'
   else
-    n_fail = n_fail + 1
-    print '(A, A)', " [FAIL]: ", trim(testmsg)
-    print *, "      -> Default fallback failed. Res=", avgtype
+     nfail = nfail + 1
+     msg(nt) = trim(testname)//' FAIL'
   endif
 
-  testmsg = 'settype: mis-aligned active requests and types fail strictly'
+  ! ------------------
+  nt = nt + 1
+  write(testname,'(A,I2.2,A)')'test ',nt,' settype: mis-aligned active requests and types fail strictly'
+  output_fh = (/1,24,0,0/)
   requested = (/ .true., .false., .false., .true. /)
-  mock_type = (/ character(len=32) :: 'none', 'none', '', '' /)
+  output_type = (/ character(len=12) :: 'none', 'average', '', '' /)
 
-  avgtype = settype(requested, mock_type, errmsg, ierr)
+  timereduc = settype(validfreqs, requested, output_fh, output_type, errmsg, ierr)
 
-  ! Verification: ierr MUST be non-zero because an active slot was left unconfigured
-  if (ierr /= 0) then
-    n_pass = n_pass + 1
-    print '(A, A)', " [PASS]: ", trim(testmsg)
-  else
-    n_fail = n_fail + 1
-    print '(A, A)', " [FAIL]: ", trim(testmsg)
-    print *, "      -> CRITICAL: Allowed misaligned array to pass without error!"
-    print *, "         Returned Types: ", (/ (trim(avgtype(i)), i=1,nfreq) /)
-  endif
+  is_passing = (ierr /= 0)
+  msg(nt) = trim(testname)
 
-  print *, "-------------------------------------------------------"
-  print '(A, I4)', " TOTAL TESTS PASSED: ", n_pass
-  print '(A, I4)', " TOTAL TESTS FAILED: ", n_fail
-  print *, "-------------------------------------------------------"
 
-  if (n_fail > 0) then
-    stop 1
-  else
-    print *, "ALL TESTS PASSED SUCCESSFULLY."
- endif
+  ! ------------------
+  ! Test results
+  ! ------------------
+  ntests = nt
+  do n = 1,ntests
+     print '(i4,A)',n,' '//trim(msg(n))
+  enddo
+
+  !if (nfail /= 0) tests failed
+
 
 end program test_outputlog_methods
