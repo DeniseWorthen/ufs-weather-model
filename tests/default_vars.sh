@@ -667,6 +667,7 @@ export_gfs_physics ()
     export DO_GSL_DRAG_LS_BL=.false.
     export DO_GSL_DRAG_SS=.true.
     export DO_GWD_OPT_PSL=.false.
+    export ALHPA_FD=12.0
     export PSL_GWD_DX_FACTOR=6.0
     export DO_GSL_DRAG_TOFD=.false.
     export DO_UGWP_V1=.false.
@@ -1021,6 +1022,7 @@ export DO_UGWP_V0_OROG_ONLY=.false.
 export DO_GSL_DRAG_LS_BL=.false.
 export DO_GSL_DRAG_SS=.true.
 export DO_GWD_OPT_PSL=.false.
+export ALHPA_FD=12.0
 export PSL_GWD_DX_FACTOR=6.0
 export DO_GSL_DRAG_TOFD=.false.
 export DO_UGWP_V1=.false.
@@ -1958,6 +1960,25 @@ export_datm_cdeps ()
   # default non-mushy thermo for CICE
   export CICE_KTHERM=1
   export CICE_TFREEZE_OPTION=linear_salt
+  export CICE_TR_POND_TOPO=.false.
+  export CICE_TR_SNOW=.false.
+  export CICE_CONDUCT='MU71'
+  export CICE_AHMAX=0.3
+  export CICE_R_ICE=0.
+  export CICE_R_PND=0.
+  export CICE_R_SNOW=1.5
+  export CICE_DT_MLT=1.5
+  export CICE_RSNW_MLT=1500.
+  export CICE_HS0=0.
+  export CICE_HS1=0.03
+  export CICE_DPSCALE=1.e-3
+  export CICE_RFRACTMIN=0.15
+  export CICE_RFRACMAX=1.
+  export CICE_PNDASPECT=0.8
+  export CICE_SNWREDIST='none'
+  export CICE_SNWGRAIN=.false.
+  export CICE_EMISSIVITY=0.95
+  export CICE_FBOT_XFER_TYPE='constant'
 
   # Set MOM6 component defaults
   export_mom6
@@ -1966,6 +1987,7 @@ export_datm_cdeps ()
   export MOM6_USE_WAVES=False
   export WW3_DOMAIN=''
 
+  
   # Set CMEPS component defaults
   export_cmeps
   # vector remapping
