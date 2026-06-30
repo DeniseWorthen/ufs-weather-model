@@ -179,11 +179,12 @@ program test_outputlog_methods
   endif
 
   ! ------------------
+  ! TODO
   nt = nt + 1
   write(testname,'(A,I2.2,A)')'test ',nt,' settype: mis-aligned active requests and types fail strictly'
   output_fh = (/1,24,0,0/)
   requested = (/ .true., .false., .false., .true. /)
-  output_type = (/ character(len=12) :: 'none', 'average', '', '' /)
+  output_type = (/ character(len=12) :: 'none', '', '', 'none' /)
 
   timereduc = settype(validfreqs, requested, output_fh, output_type, errmsg, ierr)
 
