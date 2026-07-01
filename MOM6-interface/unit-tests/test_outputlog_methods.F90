@@ -13,7 +13,7 @@ program test_outputlog_methods
   character(len=12) :: nml_type(nfreq)
   character(len=12) :: nml_fnameprefix(nfreq)
   character(len=24) :: overlength_fnameprefix(nfreq)
-  character(len=34) :: longrootname
+  character(len=35) :: longfileprefix
 
   logical           :: requested(nfreq)
   character(len=7)  :: timereduce(nfreq)
@@ -33,7 +33,7 @@ program test_outputlog_methods
   ! ===========================================================================
   ! test setrequest
   ! ===========================================================================
-#ifdef test
+
   nt = nt + 1
   write(testname,'(A,I2.2,A)')'test ',nt,' setrequest: outputfh==0 disables logging :'
   nml_fh = (/0,0,0,0/)
@@ -113,6 +113,24 @@ program test_outputlog_methods
   ! ===========================================================================
 
   nt = nt+1
+  write(testname,'(A,I2.2,A)')'test ',nt,' settype: out-of-order inputs map correctly to canonical slots :'
+  nml_fh = (/24, 3, 0, 0/)
+  requested = (/.false., .true., .false., .true./)
+  nml_type = (/ character(len=12) :: 'average', 'none', '', '' /)
+
+  timereduce = settype(validfreqs, requested, nml_fh, nml_type, errmsg, ierr)
+
+  is_passing = (ierr == 0 .and. trim(timereduce(2)) == 'none' .and. trim(timereduce(4)) == 'average')
+  if (is_passing) then
+     npass = npass + 1
+     msg(nt) = trim(testname)//' PASS'
+  else
+     nfail = nfail + 1
+     msg(nt) = trim(testname)//' FAIL'
+  endif
+
+  ! ------------------
+  nt = nt+1
   write(testname,'(A,I2.2,A)')'test ',nt,' settype: lower-case strings map correctly :'
   nml_fh = (/1,6,0,0/)
   requested = (/.true., .false., .true., .false./)
@@ -120,7 +138,7 @@ program test_outputlog_methods
 
   timereduce = settype(validfreqs, requested, nml_fh, nml_type, errmsg, ierr)
 
-  is_passing = (ierr == 0 .and. trim(timereduce(1)) == 'none' .and. trim(timereduce(2)) == 'average')
+  is_passing = (ierr == 0 .and. trim(timereduce(1)) == 'none' .and. trim(timereduce(3)) == 'average')
   if (is_passing) then
      npass = npass + 1
      msg(nt) = trim(testname)//' PASS'
@@ -189,7 +207,7 @@ program test_outputlog_methods
   write(testname,'(A,I2.2,A)')'test ',nt,' settype: mis-aligned type for active frequency :'
   nml_fh = (/1,6,0,0/)
   requested = (/ .true., .false., .true., .false. /)
-  nml_type = (/ character(len=12) :: 'none', 'average', '', '' /)
+  nml_type = (/ character(len=12) :: 'none', '', 'average', '' /)
 
   timereduce = settype(validfreqs, requested, nml_fh, nml_type, errmsg, ierr)
 
@@ -207,7 +225,7 @@ program test_outputlog_methods
   ! ===========================================================================
 
   nt = nt + 1
-  write(testname,'(A,I2.2,A)')'test ',nt,' setprefix: single request, blank rootname defaults to ocn :'
+  write(testname,'(A,I2.2,A)')'test ',nt,' setprefix: single request, blank file prefix defaults to ocn :'
   nml_fh = (/1,0,0,0/)
   requested = (/ .true., .false., .false., .false. /)
   nml_fnameprefix = (/ character(len=12) :: '', '', '', '' /) ! Active slot 1 is empty
@@ -225,7 +243,7 @@ program test_outputlog_methods
 
   ! ------------------
   nt = nt + 1
-  write(testname,'(A,I2.2,A)')'test ',nt,' setprefix: multi-request, each must set rootname :'
+  write(testname,'(A,I2.2,A)')'test ',nt,' setprefix: multi-request, each must set file prefix :'
   nml_fh = (/1,3,0,0/)
   requested = (/ .true., .true., .false., .false. /)
   nml_fnameprefix = (/ character(len=12) :: 'ocn_01h', 'ocn_03h', '', '' /)
@@ -243,7 +261,7 @@ program test_outputlog_methods
 
   ! ------------------
   nt = nt + 1
-  write(testname,'(A,I2.2,A)')'test ',nt,' setprefix: multi-request, only one rootname :'
+  write(testname,'(A,I2.2,A)')'test ',nt,' setprefix: multi-request, only one file prefix :'
   nml_fh = (/1,3,0,0/)
   requested = (/ .true., .true., .false., .false. /)
   nml_fnameprefix = (/ character(len=12) :: 'ocn_01h', '', '', '' /)
@@ -261,10 +279,28 @@ program test_outputlog_methods
 
   ! ------------------
   nt = nt + 1
-  write(testname,'(A,I2.2,A)')'test ',nt,' setprefix: misaligned rootname on active slot fails :'
+  write(testname,'(A,I2.2,A)')'test ',nt,' setprefix: multi-request, duplicate file prefix :'
+  nml_fh = (/1,3,0,0/)
+  requested = (/ .true., .true., .false., .false. /)
+  nml_fnameprefix = (/ character(len=12) :: 'ocn', 'ocn', '', '' /)
+
+  fnameroot = setprefix(validfreqs, requested, nml_fh, nml_fnameprefix, errmsg, ierr)
+
+  is_passing = (ierr /= 0)
+  if (is_passing) then
+     npass = npass + 1
+     msg(nt) = trim(testname)//' PASS'
+  else
+     nfail = nfail + 1
+     msg(nt) = trim(testname)//' FAIL (error not caught)'
+   endif
+
+  ! ------------------
+  nt = nt + 1
+  write(testname,'(A,I2.2,A)')'test ',nt,' setprefix: misaligned file prefix on active slot fails :'
   nml_fh = (/1,24,0,0/)
   requested = (/ .true., .false., .false., .true. /)
-  nml_fnameprefix = (/ character(len=12) :: 'ocn_1h', 'ocn_daily', '', '' /)
+  nml_fnameprefix = (/ character(len=12) :: 'ocn_1h', '', 'ocn_daily', '' /)
 
   fnameroot = setprefix(validfreqs, requested, nml_fh, nml_fnameprefix, errmsg, ierr)
 
@@ -276,16 +312,15 @@ program test_outputlog_methods
      nfail = nfail + 1
      msg(nt) = trim(testname)//' FAIL (error not caught)'
   endif
-#endif
+
   ! ------------------
   nt = nt + 1
-  write(testname,'(A,I2.2,A)')'test ',nt,' setprefix: specified rootname too long :'
+  write(testname,'(A,I2.2,A)')'test ',nt,' setprefix: specified file prefix too long :'
   nml_fh = (/6,0,0,0/)
   requested = (/ .false., .false., .true., .false. /)
-  longrootname = 'rootname_too_long_and_is_truncated'
+  longfileprefix = 'prefix_is_too_long_and_is_truncated'
   overlength_fnameprefix(:) = ''
-  overlength_fnameprefix(3) = longrootname
-  print *,overlength_fnameprefix
+  overlength_fnameprefix(1) = longfileprefix
 
   fnameroot = setprefix(validfreqs, requested, nml_fh, overlength_fnameprefix, errmsg, ierr)
 
@@ -303,6 +338,11 @@ program test_outputlog_methods
   ! ------------------
 
   ntests = nt
+
+  do nt = 1,ntests
+    print '(A)',msg(nt)
+  enddo
+
   if (ntests > maxtests) then
      print '(A)', 'FAIL: ntests > maxtests '
      stop 1
