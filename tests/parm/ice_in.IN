@@ -100,7 +100,7 @@
 &thermo_nml
     kitd              = 1
     ktherm            = @[CICE_KTHERM]
-    conduct           = @[CICE_CONDUCT]
+    conduct           = '@[CICE_CONDUCT]'
     a_rapid_mode      =  0.5e-3
     Rac_rapid_mode    =    10.0
     aspect_rapid_mode =     1.0
@@ -162,7 +162,7 @@
 /
 
 &snow_nml
-    snwredist       = @[CICE_SNWREDIST]
+    snwredist       = '@[CICE_SNWREDIST]'
     rhosnew         = 100.
     rhosmin         = 100.
     rhosmax         = 450.
@@ -181,7 +181,7 @@
     natmiter        = 5
     ustar_min       = 0.0005
     emissivity      = @[CICE_EMISSIVITY]
-    fbot_xfer_type  = @[CICE_FBOT_XFER_TYPE]
+    fbot_xfer_type  = '@[CICE_FBOT_XFER_TYPE]'
     update_ocn_f    = @[CICE_FRAZIL_FWSALT]
     l_mpond_fresh   = .false.
     tfrz_option     = '@[CICE_TFREEZE_OPTION]'
