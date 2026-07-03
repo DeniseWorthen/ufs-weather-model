@@ -232,7 +232,7 @@ program test_outputlog_methods
 
   fnameroot = setprefix(validfreqs, requested, nml_fh, nml_fnameprefix, errmsg, ierr)
 
-  is_passing = (ierr == 0 .and. trim(fnameroot(1)) == 'ocn')
+  is_passing = (ierr == 0 .and. trim(fnameroot(1)) == 'ocn_')
   if (is_passing) then
      npass = npass + 1
      msg(nt) = trim(testname)//' PASS'
