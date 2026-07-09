@@ -8,11 +8,11 @@ export TEST_DESCR="Fully coupled FV3-CCPP-GOCART-MOM6-CICE-CMEPS-WW3 system - C3
 
 #tasks with no threads
 export THRD_cpl_bmrk=1
-#export INPES=$(( INPES * 2 ))
-export JNPES=$(( JNPES * 2 ))
-export WRTTASK_PER_GROUP=$(( WPG_cpl_bmrk * THRD_cpl_bmrk ))
+#export INPES=$(( 10#$INPES * 2 ))
+export JNPES=$(( 10#$JNPES * 2 ))
+export WRTTASK_PER_GROUP=$(( 10#$WPG_cpl_bmrk * 10#$THRD_cpl_bmrk ))
 
-export WAV_tasks=$(( WAV_tasks * 2 ))
+export WAV_tasks=$(( 10#$WAV_tasks * 2 ))
 
 export atm_omp_num_threads=$THRD_cpl_bmrk
 export chm_omp_num_threads=$atm_omp_num_threads

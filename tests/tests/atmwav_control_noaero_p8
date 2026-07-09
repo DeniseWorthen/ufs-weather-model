@@ -67,7 +67,7 @@ export RESTART_INTERVAL="12 -1"
 
 export INPES=$INPES_cpl_atmw
 export JNPES=$JNPES_cpl_atmw
-export WRTTASK_PER_GROUP=$(( WPG_cpl_atmw * THRD_cpl_atmw ))
+export WRTTASK_PER_GROUP=$(( 10#$WPG_cpl_atmw * 10#$THRD_cpl_atmw ))
 export WAV_tasks=$WAV_tasks_cpl_atmw
 
 export atm_omp_num_threads=$THRD_cpl_atmw

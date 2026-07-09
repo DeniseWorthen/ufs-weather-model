@@ -1672,8 +1672,10 @@ export_fire_behavior() {
   export FIRE_NML=namelist.fire.IN
   export CPLFIRE=false
   export DT_FIRE=${DT_ATMOS}
-  OUTPUT_FS="$(printf "%02d" $((10#$OUTPUT_FH*3600)))"
-  export OUTPUT_FS
+  # output configuration
+  export OUTPUT_FH='1 -1'
+  export OUTPUT_FS=3600
+
   export fire_atm_feedback=1.0
   export fire_lsm_zcoupling=false
   export fire_lsm_zcoupling_ref=60.0

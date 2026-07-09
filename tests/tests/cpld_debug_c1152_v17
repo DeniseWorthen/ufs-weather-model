@@ -50,7 +50,7 @@ export LIST_FILES="sfcf000.nc \
 
 export DAYS=0.375
 export FHMAX=9
-export CICE_DIAGFREQ=`expr $((FHMAX-$FHROT)) \* 3600 / $DT_CICE`
+export CICE_DIAGFREQ=$(( $((10#$FHMAX-10#$FHROT)) * 3600 / 10#$DT_CICE ))
 export MOM6_OUTPUT_FH=6
 
 export WLCLK=120

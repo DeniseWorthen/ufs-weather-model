@@ -337,5 +337,5 @@ export DIAG_TABLE_ADDITIONAL=diag_additional_ldiag3d_ugwp
 
 # Override atmosphere compute task count to include the nest (tile 7).
 # Note that NTILES=6, which is the size of the global mosaic.
-export GRID_PES="$(( INPES * JNPES * 6 )),$(( INPES_NEST02 * JNPES_NEST02 ))"
-ATM_compute_tasks=$(( INPES*JNPES*NTILES + INPES_NEST02*JNPES_NEST02 ))
+export GRID_PES="$(( 10#$INPES * 10#$JNPES * 6 )),$(( 10#$INPES_NEST02 * 10#$JNPES_NEST02 ))"
+ATM_compute_tasks=$(( 10#$INPES*10#$JNPES*10#$NTILES + 10#$INPES_NEST02*10#$JNPES_NEST02 ))
