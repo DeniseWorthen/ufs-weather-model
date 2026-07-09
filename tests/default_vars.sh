@@ -492,8 +492,8 @@ export_mpas ()
     export SMONTH=10
     export SDAY=03
     export SHOUR=00
-    export SECS=$(( SHOUR*3600 ))
-    export FHMAX=$(( DAYS*24 ))
+    export SECS=$((10#$SHOUR*3600))
+    export FHMAX=$((10#$DAYS*24))
     export FHCYC=0
     export FHROT=0
     export LDIAG3D=.false.
@@ -1200,8 +1200,8 @@ export SYEAR=2016
 export SMONTH=10
 export SDAY=03
 export SHOUR=00
-export SECS=$(( SHOUR*3600 ))
-export FHMAX=$(( DAYS*24 ))
+export SECS=$((10#$SHOUR*3600))
+export FHMAX=$((10#$DAYS*24))
 export FHCYC=24
 export FHROT=0
 export LDIAG3D=.false.
@@ -1285,12 +1285,12 @@ export ISEED_CA=12345
 
 #waves
 export WW3_RSTDTHR=12
-WW3_DT_2_RST="$(printf "%02d" $(( WW3_RSTDTHR*3600 )))"
+WW3_DT_2_RST="$(printf "%02d" $((10#$WW3_RSTDTHR*3600)))"
 export WW3_DT_2_RST
 export WW3_OUTDTHR=1
-WW3_DTFLD="$(printf "%02d" $(( WW3_OUTDTHR*3600 )))"
+WW3_DTFLD="$(printf "%02d" $((10#$WW3_OUTDTHR*3600)))"
 export WW3_DTFLD
-WW3_DTPNT="$(printf "%02d" $(( WW3_OUTDTHR*3600 )))"
+WW3_DTPNT="$(printf "%02d" $((10#$WW3_OUTDTHR*3600)))"
 export WW3_GRD_OUTDIR='./'
 export WW3_PNT_OUTDIR='./'
 export WW3_RST_OUTDIR='./'
@@ -1314,9 +1314,9 @@ export FGRDPROC=T
 export UNIPOINTS='points'
 export FLAGMASKCOMP=' F'
 export FLAGMASKOUT=' F'
-RUN_BEG="${SYEAR}${SMONTH}${SDAY} $(printf "%02d" $(( SHOUR  )))0000"
+RUN_BEG="${SYEAR}${SMONTH}${SDAY} $(printf "%02d" $((10#$SHOUR)))0000"
 export RUN_BEG
-RUN_END="2100${SMONTH}${SDAY} $(printf "%02d" $(( SHOUR  )))0000"
+RUN_END="2100${SMONTH}${SDAY} $(printf "%02d" $((10#$SHOUR)))0000"
 export RUN_END
 export OUT_BEG=${RUN_BEG}
 export OUT_END=${RUN_END}
@@ -1510,7 +1510,7 @@ export_ugwpv1() {
 
   if [[ ${DO_GSL_DRAG_SS} = .true. ]]; then export CDMBGWD=${CDMBGWD_GSL}; fi
   if [[ ${SEDI_SEMI} = .false. ]]; then
-    export DT_INNER=$((DT_ATMOS/2))
+    export DT_INNER=$((10#$DT_ATMOS/2))
   else
     export DT_INNER=${DT_ATMOS}
   fi
@@ -1520,7 +1520,7 @@ export_ugwpv1() {
 
 # Defaults for the CICE6 model namelist, mx100
 export_cice6() {
-  SECS=$((SHOUR*3600))
+  SECS=$((10#$SHOUR*3600))
   export SECS
   export DT_CICE=${DT_ATMOS}
   export CICE_NPT=999
@@ -1552,7 +1552,7 @@ export_cice6() {
 
   export CICE_DUMPFREQ=d
   export CICE_DUMPFREQ_N=1000
-  CICE_DIAGFREQ=$(( (FHMAX*3600)/DT_CICE ))
+  CICE_DIAGFREQ=$(((10#$FHMAX*3600)/10#$DT_CICE))
   export CICE_DIAGFREQ
   export CICE_HISTFREQ_N="0, 0, 6, 0, 0"
   export CICE_hist_suffix="'x','x','x','x','x'"
@@ -1572,9 +1572,9 @@ export_cice6() {
   export CICE_TFREEZE_OPTION=mushy
   # SlenderX2
   export CICE_NPROC=${ICE_tasks}
-  np2=$((CICE_NPROC/2))
-  CICE_BLCKX=$((NX_GLB/np2))
-  CICE_BLCKY=$((NY_GLB/2))
+  np2=$((10#$CICE_NPROC/2))
+  CICE_BLCKX=$((10#$NX_GLB/10#$np2))
+  CICE_BLCKY=$((10#$NY_GLB/2))
   export np2
   export CICE_BLCKX
   export CICE_BLCKY
@@ -1640,11 +1640,11 @@ export_ww3() {
   export WW3_DOMAIN=mx${OCNRES}
   export WW3_MODDEF=mod_def.mx${OCNRES}
   export WW3_RSTDTHR=3
-  WW3_DT_2_RST="$(printf "%02d" $(( WW3_RSTDTHR*3600 )) )"
+  WW3_DT_2_RST="$(printf "%02d" $((10#$WW3_RSTDTHR*3600)) )"
   export WW3_DT_2_RST
   export WW3_OUTDTHR=3
-  WW3_DTFLD="$(printf "%02d" $(( WW3_OUTDTHR*3600 )) )"
-  WW3_DTPNT="$(printf "%02d" $(( WW3_OUTDTHR*3600 )) )"
+  WW3_DTFLD="$(printf "%02d" $((10#$WW3_OUTDTHR*3600)) )"
+  WW3_DTPNT="$(printf "%02d" $((10#$WW3_OUTDTHR*3600)) )"
   export WW3_DTFLD
   export WW3_DTPNT
   export WW3_WLEV='F'
@@ -1672,7 +1672,7 @@ export_fire_behavior() {
   export FIRE_NML=namelist.fire.IN
   export CPLFIRE=false
   export DT_FIRE=${DT_ATMOS}
-  OUTPUT_FS="$(printf "%02d" $(( OUTPUT_FH*3600 )))"
+  OUTPUT_FS="$(printf "%02d" $((10#$OUTPUT_FH*3600)))"
   export OUTPUT_FS
   export fire_atm_feedback=1.0
   export fire_lsm_zcoupling=false
@@ -2054,7 +2054,7 @@ export_hafs_regional ()
   export SMONTH=08
   export SDAY=29
   export SHOUR=00
-  export SECS=$((SHOUR*3600))
+  export SECS=$((10#$SHOUR*3600))
   export FHMAX=6
   export ENS_NUM=1
   export DT_ATMOS=900
