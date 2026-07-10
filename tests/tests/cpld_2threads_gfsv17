@@ -75,7 +75,7 @@ export wav_omp_num_threads=$WAV_thrds_cpl_thrd
 
 export CICE_NPROC=${ICE_tasks}
 export np2=$(( 10#$CICE_NPROC / 2 ))
-export CICE_BLCKX=$(( 10#$NX_GLB / 10#$np2 ))
+export CICE_BLCKX=$(( 10#$NX_GLB / np2 ))
 export CICE_BLCKY=$(( 10#$NY_GLB / 2 ))
 
 export ESMF_THREADING=false

@@ -1573,7 +1573,7 @@ export_cice6() {
   # SlenderX2
   export CICE_NPROC=${ICE_tasks}
   np2=$((10#$CICE_NPROC/2))
-  CICE_BLCKX=$((10#$NX_GLB/10#$np2))
+  CICE_BLCKX=$((10#$NX_GLB/np2))
   CICE_BLCKY=$((10#$NY_GLB/2))
   export np2
   export CICE_BLCKX

@@ -15,7 +15,7 @@ export WAV_tasks=$((10#$WAV_tasks+10))
 
 export CICE_NPROC=$ICE_tasks
 export np2=$(( 10#$CICE_NPROC / 2 ))
-export CICE_BLCKX=$(( 10#$NX_GLB / 10#$np2 ))
+export CICE_BLCKX=$(( 10#$NX_GLB / np2 ))
 export CICE_BLCKY=$(( 10#$NY_GLB / 2 ))
 
 if [[ ${MACHINE_ID} = ursa ]]; then
