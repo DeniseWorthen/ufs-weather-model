@@ -2,7 +2,7 @@ name: UFS Custom Checks
 
 on:
   push:
-    branches: ['feature/no_octaltraps']
+    branches: ['**']
   pull_request:
     branches: [develop]
 
