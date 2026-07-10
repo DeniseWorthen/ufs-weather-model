@@ -12,7 +12,7 @@ export RESTART_N=$((10#$FHMAX-10#$FHROT))
 export RESTART_INTERVAL="${RESTART_N} -1"
 export RESTART_FILE_SUFFIX_SECS="${SYEAR}-${SMONTH}-${SDAY}-$(printf "%05d" $(( (10#${FHROT}+ 10#${SHOUR})*3600 )))"
 export RESTART_FILE_PREFIX="${SYEAR}${SMONTH}${SDAY}.$(printf "%02d" $(( 10#${SHOUR} + 10#${FHROT} )))0000"
-export CICE_DIAGFREQ=$(( $((10#$FHMAX-10#$FHROT)) * 3600 / 10#$DT_CICE ))
+export CICE_DIAGFREQ=$(( (10#$FHMAX - 10#$FHROT) * 3600 / 10#$DT_CICE ))
 
 #Warm start settings already from "control" GEFS test
 export WW3_restart_from_binary='false'

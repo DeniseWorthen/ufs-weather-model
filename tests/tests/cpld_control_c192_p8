@@ -109,7 +109,7 @@ export DT_INNER=${DT_ATMOS}
 export DT_CICE=${DT_ATMOS}
 export DT_DYNAM_MOM6=1800
 export DT_THERM_MOM6=3600
-export CICE_DIAGFREQ=$(( $((10#$FHMAX-10#$FHROT)) * 3600 / 10#$DT_CICE ))
+export CICE_DIAGFREQ=$(( (10#$FHMAX - 10#$FHROT) * 3600 / 10#$DT_CICE ))
 
 # ufs.configure
 export coupling_interval_slow_sec=${DT_THERM_MOM6}

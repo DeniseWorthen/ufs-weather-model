@@ -1552,7 +1552,7 @@ export_cice6() {
 
   export CICE_DUMPFREQ=d
   export CICE_DUMPFREQ_N=1000
-  CICE_DIAGFREQ=$(((10#$FHMAX*3600)/10#$DT_CICE))
+  CICE_DIAGFREQ=$((10#$FHMAX*3600/10#$DT_CICE))
   export CICE_DIAGFREQ
   export CICE_HISTFREQ_N="0, 0, 6, 0, 0"
   export CICE_hist_suffix="'x','x','x','x','x'"

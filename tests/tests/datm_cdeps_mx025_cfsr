@@ -34,7 +34,7 @@ export CICE_NPROC=48
 export np2=$(( 10#$CICE_NPROC / 2 ))
 export CICE_BLCKX=$(( 10#$NX_GLB / 10#$np2 ))
 export CICE_BLCKY=$(( 10#$NY_GLB / 2 ))
-export CICE_DIAGFREQ=$(( $((10#$FHMAX-10#$FHROT)) * 3600 / 10#$DT_CICE ))
+export CICE_DIAGFREQ=$(( (10#$FHMAX - 10#$FHROT) * 3600 / 10#$DT_CICE ))
 
 # resolution dependent files
 export MOM6_INPUT=MOM_input_${OCNRES}.IN

@@ -16,4 +16,4 @@ export RUNTYPE=continue
 export CICE_USE_RESTART_TIME=.true.
 export MOM6_RESTART_SETTING=r
 export eps_imesh=2.5e-1
-export CICE_DIAGFREQ=$(( $((10#$FHMAX-10#$FHROT)) * 3600 / 10#$DT_CICE ))
+export CICE_DIAGFREQ=$(( (10#$FHMAX - 10#$FHROT) * 3600 / 10#$DT_CICE ))
