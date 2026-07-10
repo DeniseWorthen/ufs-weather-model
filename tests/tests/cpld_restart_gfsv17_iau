@@ -24,7 +24,7 @@ export RESTART_FILE_PREFIX="${SYEAR}${SMONTH}${RESTSDAY}.$(printf "%02d" ${RESTH
 export RESTART_FILE_SUFFIX_SECS="${SYEAR}-${SMONTH}-${RESTSDAY}-$(printf "%05d" ${RESTSEC})"
 echo "RESTART_FILE_PREFIX=$RESTART_FILE_PREFIX"
 echo "RESTART_FILE_SUFFIX_SECS=$RESTART_FILE_SUFFIX_SECS"
-export CICE_DIAGFREQ=`expr $((FHMAX-FHROT)) \* 3600 / $DT_CICE`
+export CICE_DIAGFREQ=$(( $((FHMAX-FHROT)) * 3600 / $DT_CICE ))
 
 #Warm start settings already from base test
 
