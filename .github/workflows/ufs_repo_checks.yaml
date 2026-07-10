@@ -27,9 +27,15 @@ jobs:
           echo "Scanning for unprotected variables in arithmetic expansions..."
           echo "Scanning tests/default_vars.sh and tests/tests/*"
           UNPROTECTED=$(perl -ne '
+            our %safe_arith_vars;
             my $line = $_;
             next if $line =~ /^\s*#/;
             my $flagged = 0;
+
+            if ($line =~ /^\s*(?:export\s+)?([A-Za-z_][A-Za-z0-9_]*)=\$\(\((.*?)\)\)/) {
+              $safe_arith_vars{$1} = 1;
+            }
+
             while ($line =~ /\$\(\((.*?)\)\)/g) {
               my $expr = $1;
 
@@ -57,6 +63,9 @@ jobs:
 
                   # Skip identifiers that are part of base literals like 16#FF.
                   next if $before =~ /\d+#\s*$/;
+
+                  # Skip variables that were already derived from arithmetic in this file.
+                  next if $safe_arith_vars{$1};
 
                   $flagged = 1;
                   last;
