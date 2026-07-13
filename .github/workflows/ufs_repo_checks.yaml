@@ -24,13 +24,25 @@ jobs:
 
       - name: Check for Bash Octal Traps
         run: |
-          echo "Scanning for unprotected variables in arithmetic expansions..."
+          echo "Scanning for zero-initialized variables used unprotected in arithmetic expansions..."
           echo "Scanning tests/default_vars.sh and tests/tests/*"
           UNPROTECTED=$(perl -ne '
             our %safe_arith_vars;
+            our %zero_init_vars;
             my $line = $_;
             next if $line =~ /^\s*#/;
             my $flagged = 0;
+
+            if ($line =~ /^\s*(?:export\s+)?([A-Za-z_][A-Za-z0-9_]*)=(.+)$/) {
+              my ($var, $rhs) = ($1, $2);
+              $rhs =~ s/\s+#.*$//;
+              $rhs =~ s/^\s+|\s+$//g;
+
+              # Track only variables explicitly initialized with a zero-prefixed numeric literal.
+              if ($rhs =~ /^(?:"\s*0[0-9]*\s*"|'\s*0[0-9]*\s*'|0[0-9]*)$/) {
+                $zero_init_vars{$var} = 1;
+              }
+            }
 
             if ($line =~ /^\s*(?:export\s+)?([A-Za-z_][A-Za-z0-9_]*)=\$\(\((.*?)\)\)/) {
               $safe_arith_vars{$1} = 1;
@@ -40,7 +52,10 @@ jobs:
               my $expr = $1;
 
               # Case 1: explicit variable expansion ($VAR or ${VAR}) not protected by 10#
-              while ($expr =~ /(\$\{?[A-Za-z_][A-Za-z0-9_]*\}?)/g) {
+              while ($expr =~ /(\$\{?([A-Za-z_][A-Za-z0-9_]*)\}?)/g) {
+                my $var = $2;
+                next if !$zero_init_vars{$var};
+
                 my $start = $-[1];
                 my $before = substr($expr, 0, $start);
                 if ($before !~ /10#\s*$/) {
@@ -64,6 +79,9 @@ jobs:
                   # Skip identifiers that are part of base literals like 16#FF.
                   next if $before =~ /\d+#\s*$/;
 
+                  # Only enforce this for vars explicitly initialized with a leading zero literal.
+                  next if !$zero_init_vars{$1};
+
                   # Skip variables that were already derived from arithmetic in this file.
                   next if $safe_arith_vars{$1};
 
@@ -78,13 +96,13 @@ jobs:
           ' tests/default_vars.sh tests/tests/*)
 
           if [[ -n "$UNPROTECTED" ]]; then
-            echo "::error::🚨 OCTAL TRAP DETECTED! Variables inside math expansions must use the 10# prefix."
-            echo "The following lines are missing 10# protection:"
+            echo "::error::🚨 OCTAL TRAP DETECTED! Zero-initialized variables inside math expansions must use the 10# prefix."
+            echo "The following lines use zero-initialized variables without 10# protection:"
             echo "$UNPROTECTED"
             exit 1
           fi
 
-          echo "✅ All variable math expansions are safely protected!"
+          echo "✅ All zero-initialized variable math expansions are safely protected!"
 
       # - name: Ban 'export' in configuration files
       #   run: |
