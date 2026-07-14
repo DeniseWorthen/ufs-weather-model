@@ -47,4 +47,4 @@ export STOCHINI=.true.
 export FV3_RUN=control_run.IN
 export CCPP_SUITE=FV3_GFS_v16
 export INPUT_NML=control.nml.IN
-export RESTART_FILE_PREFIX="${SYEAR}${SMONTH}${SDAY}.$(printf "%02d" $(( ${SHOUR} + ${FHROT}  )))0000"
+RESTART_FILE_PREFIX=$(set_restart_file_prefix)

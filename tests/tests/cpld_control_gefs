@@ -62,7 +62,7 @@ export SDAY=25
 export SHOUR=06
 export SECS=$(( $SHOUR * 3600 ))
 export FHROT=0
-export RESTART_FILE_SUFFIX_SECS="${SYEAR}-${SMONTH}-${SDAY}-$(printf "%05d" $(( (${FHROT}+ ${SHOUR})*3600 )))"
+RESTART_FILE_SUFFIX_SECS=$(set_restart_file_suffix_secs)
 
 export BMIC=.true.
 
