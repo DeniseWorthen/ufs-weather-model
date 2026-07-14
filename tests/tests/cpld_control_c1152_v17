@@ -65,7 +65,7 @@ export SYEAR=2025
 export SMONTH=01
 export SDAY=01
 export SHOUR=06
-export SECS=$(( 10#$SHOUR * 3600 ))
+export SECS=$(( 10#${SHOUR} * 3600 ))
 export FHROT=3
 export MOM6_OUTPUT_FH=6
 
@@ -159,9 +159,9 @@ export ICERES=0.25
 export NX_GLB=1440
 export NY_GLB=1080
 export CICE_NPROC=${ICE_tasks}
-np2=$((10#$CICE_NPROC/2))
-CICE_BLCKX=$((10#$NX_GLB/np2))
-CICE_BLCKY=$((10#$NY_GLB/2))
+np2=$((CICE_NPROC/2))
+CICE_BLCKX=$((NX_GLB/np2))
+CICE_BLCKY=$((NY_GLB/2))
 export np2
 export CICE_BLCKX
 export CICE_BLCKY
@@ -175,7 +175,7 @@ export DT_INNER=${DT_ATMOS}
 export DT_CICE=${DT_ATMOS}
 export DT_DYNAM_MOM6=900
 export DT_THERM_MOM6=1800
-export CICE_DIAGFREQ=$(( (10#$FHMAX - 10#$FHROT) * 3600 / 10#$DT_CICE ))
+export CICE_DIAGFREQ=$(( $((FHMAX-$FHROT)) * 3600 / $DT_CICE ))
 export coupling_interval_slow_sec=${DT_THERM_MOM6}
 export coupling_interval_fast_sec=${DT_ATMOS}
 
@@ -233,7 +233,7 @@ export CICE_HISTFREQ_N="0, 0, 6, 0, 1"
 export CICE_HIST_AVG=".true., .true., .true., .true., .true."
 export CICE_DUMPFREQ=y
 export CICE_DUMPFREQ_N=10000
-CICE_DIAGFREQ=$(( (24*3600)/10#$DT_CICE ))
+CICE_DIAGFREQ=$(( (24*3600)/DT_CICE ))
 export CICE_DIAGFREQ
 
 export WW3_OUTPARS='WND CUR ICE HS T01 T02 DIR FP DP PHS PTP PDIR CHA'

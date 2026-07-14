@@ -6,17 +6,17 @@ source ${PATHRT}/tests/cpld_control_gefs
 
 export TEST_DESCR="Fully coupled FV3-CCPP-GOCART-MOM6-CICE-CMEPS-WW3 system - C384L127 MX025 - dcp test"
 
-export INPES=$((10#$INPES/2))
-export JNPES=$((10#$JNPES*2))
+export INPES=$((INPES/2))
+export JNPES=$((JNPES*2))
 
-export OCN_tasks=$((10#$OCN_tasks+10))
-export ICE_tasks=$((10#$ICE_tasks+12))
-export WAV_tasks=$((10#$WAV_tasks+10))
+export OCN_tasks=$((OCN_tasks+10))
+export ICE_tasks=$((ICE_tasks+12))
+export WAV_tasks=$((WAV_tasks+10))
 
 export CICE_NPROC=$ICE_tasks
-export np2=$(( 10#$CICE_NPROC / 2 ))
-export CICE_BLCKX=$(( 10#$NX_GLB / np2 ))
-export CICE_BLCKY=$(( 10#$NY_GLB / 2 ))
+export np2=$(( $CICE_NPROC / 2 ))
+export CICE_BLCKX=$(( $NX_GLB / $np2 ))
+export CICE_BLCKY=$(( $NY_GLB / 2 ))
 
 if [[ ${MACHINE_ID} = ursa ]]; then
    WLCLK=60

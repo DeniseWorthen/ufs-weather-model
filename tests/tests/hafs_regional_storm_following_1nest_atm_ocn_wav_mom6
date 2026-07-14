@@ -62,7 +62,7 @@ export JNPES=10
 export NPX=241
 export NPY=241
 export NPZ=64
-export NPZP=$((10#$NPZ + 1))
+export NPZP=$(($NPZ + 1))
 export K_SPLIT=4
 export N_SPLIT=5
 export NWAT=6
@@ -124,7 +124,7 @@ export atm_model=fv3
 export ocn_model=mom6
 export wav_model=ww3
 
-ATM_compute_tasks=$(( 10#$INPES*10#$JNPES + 10#$INPES_NEST02*10#$JNPES_NEST02 ))
+ATM_compute_tasks=$(( INPES*JNPES + INPES_NEST02*JNPES_NEST02 ))
 OCN_tasks=60
 WAV_tasks=60
 

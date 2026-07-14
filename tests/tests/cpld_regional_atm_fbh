@@ -116,8 +116,12 @@ export fire_upwinding=9
 export fire_viscosity=0.4
 export fire_wind_height=5.0
 
+# output configuration
+export OUTPUT_FH='1  -1'
+export OUTPUT_FS=3600
+
 # tasks
-export ATM_compute_tasks=$(( 10#$INPES*10#$JNPES*10#$NTILES ))
+export ATM_compute_tasks=$(( INPES*JNPES*NTILES ))
 export FBH_tasks=1
 
 # configuration files
@@ -128,3 +132,4 @@ export FV3_RUN="regional_fire_run.IN"
 export DIAG_TABLE=diag_table_fire
 export FIELD_TABLE=field_table_fire
 export FIRE_NML=namelist.fire.IN
+

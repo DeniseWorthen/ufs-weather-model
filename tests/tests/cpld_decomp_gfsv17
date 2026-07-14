@@ -61,13 +61,13 @@ export FHMAX=12
 export INPES=$INPES_cpl_dcmp
 export JNPES=$JNPES_cpl_dcmp
 export atm_omp_num_threads=$THRD_cpl_dcmp
-export WRTTASK_PER_GROUP=$(( 10#$WPG_cpl_dcmp * 10#$THRD_cpl_dcmp ))
+export WRTTASK_PER_GROUP=$(( WPG_cpl_dcmp * THRD_cpl_dcmp ))
 
 export OCN_tasks=$OCN_tasks_cpl_dcmp
 export ICE_tasks=$ICE_tasks_cpl_dcmp
 export WAV_tasks=$WAV_tasks_cpl_dcmp
 
 export CICE_NPROC=$ICE_tasks
-export np2=$(( 10#$CICE_NPROC / 2 ))
-export CICE_BLCKX=$(( 10#$NX_GLB / np2 ))
-export CICE_BLCKY=$(( 10#$NY_GLB / 2 ))
+export np2=$(( $CICE_NPROC / 2 ))
+export CICE_BLCKX=$(( $NX_GLB / $np2 ))
+export CICE_BLCKY=$(( $NY_GLB / 2 ))
