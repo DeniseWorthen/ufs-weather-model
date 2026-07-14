@@ -508,7 +508,7 @@ export_mpas ()
     export SMONTH=10
     export SDAY=03
     export SHOUR=00
-    export SECS=$(( SHOUR*3600 ))
+    export SECS=$(( 10#${SHOUR} * 3600 ))
     export FHMAX=$(( DAYS*24 ))
     export FHCYC=0
     export FHROT=0
@@ -1216,7 +1216,7 @@ export SYEAR=2016
 export SMONTH=10
 export SDAY=03
 export SHOUR=00
-export SECS=$(( SHOUR*3600 ))
+export SECS=$(( 10#${SHOUR} * 3600 ))
 export FHMAX=$(( DAYS*24 ))
 export FHCYC=24
 export FHROT=0
@@ -1536,7 +1536,7 @@ export_ugwpv1() {
 
 # Defaults for the CICE6 model namelist, mx100
 export_cice6() {
-  SECS=$((SHOUR*3600))
+  SECS=$(( 10#${SHOUR} * 3600 ))
   export SECS
   export DT_CICE=${DT_ATMOS}
   export CICE_NPT=999
@@ -2070,7 +2070,7 @@ export_hafs_regional ()
   export SMONTH=08
   export SDAY=29
   export SHOUR=00
-  export SECS=$((SHOUR*3600))
+  export SECS=$(( 10#${SHOUR} * 3600 ))
   export FHMAX=6
   export ENS_NUM=1
   export DT_ATMOS=900

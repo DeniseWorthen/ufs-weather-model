@@ -65,7 +65,7 @@ export SYEAR=2025
 export SMONTH=01
 export SDAY=01
 export SHOUR=06
-export SECS=$(( $SHOUR * 3600 ))
+export SECS=$(( 10#${SHOUR} * 3600 ))
 export FHROT=3
 export MOM6_OUTPUT_FH=6
 

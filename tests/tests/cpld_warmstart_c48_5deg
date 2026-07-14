@@ -68,7 +68,7 @@ export SYEAR=2021
 export SMONTH=03
 export SDAY=23
 export SHOUR=06
-export SECS=$(( $SHOUR * 3600 ))
+export SECS=$(( 10#${SHOUR} * 3600 ))
 
 export DAYS=0.25
 export FHMAX=6
