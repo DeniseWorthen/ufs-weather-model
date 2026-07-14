@@ -24,67 +24,83 @@ jobs:
 
       - name: Check for Bash Octal Traps
         run: |
-          echo "Scanning for unprotected variables in arithmetic expansions..."
-          echo "Scanning tests/default_vars.sh and tests/tests/*"
-          UNPROTECTED=$(perl -ne '
-            our %safe_arith_vars;
-            my $line = $_;
-            next if $line =~ /^\s*#/;
-            my $flagged = 0;
+          echo "Scanning for potential octal traps in tests/default_vars.sh and tests/tests/*"
 
-            if ($line =~ /^\s*(?:export\s+)?([A-Za-z_][A-Za-z0-9_]*)=\$\(\((.*?)\)\)/) {
-              $safe_arith_vars{$1} = 1;
+          mapfile -d '' CHECK_FILES < <(find tests/default_vars.sh tests/tests -type f -print0)
+          if [[ ${#CHECK_FILES[@]} -eq 0 ]]; then
+            echo "::error::No files found to scan for octal traps."
+            exit 1
+          fi
+
+          # Build the set of zero-padded variables from assignments.
+          # SHOUR is intentionally zero-padded because tests/fv3_conf and tests/parm
+          # templates consume it as a two-character hour token (e.g., 06). Arithmetic
+          # uses of SHOUR are handled explicitly in code (10#... or printf), so SHOUR
+          # is excluded from this generic trap check.
+          PADDED_VARS=$(perl -ne '
+            next if /^\s*#/;
+            if (/^\s*(?:export\s+)?([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(?:"|\047)?0[0-9]+(?:"|\047)?\s*(?:#.*)?$/) {
+              print "$1\n";
             }
+          ' "${CHECK_FILES[@]}" | sort -u | grep -v '^SHOUR$' || true)
+
+          if [[ -z "${PADDED_VARS}" ]]; then
+            echo "✅ No zero-padded arithmetic candidate variables found (other than SHOUR)."
+            exit 0
+          fi
+
+          PADDED_RE=$(printf '%s\n' "${PADDED_VARS}" | paste -sd'|' -)
+
+          # Flag uses of zero-padded vars in arithmetic contexts unless explicitly protected by 10#.
+          UNPROTECTED=$(PADDED_RE="${PADDED_RE}" perl -ne '
+            our $re;
+            BEGIN { $re = $ENV{PADDED_RE} // q||; }
+            next if $re eq q||;
+            next if /^\s*#/;
+
+            my $line = $_;
+            my $flagged = 0;
 
             while ($line =~ /\$\(\((.*?)\)\)/g) {
               my $expr = $1;
 
-              # Case 1: explicit variable expansion ($VAR or ${VAR}) not protected by 10#
-              while ($expr =~ /(\$\{?[A-Za-z_][A-Za-z0-9_]*\}?)/g) {
+              while ($expr =~ /(\$\{?([A-Za-z_][A-Za-z0-9_]*)\}?|\b([A-Za-z_][A-Za-z0-9_]*)\b)/g) {
+                my $tok = $1;
+                my $var = defined($2) ? $2 : $3;
+                next unless defined($var) && $var =~ /^(?:$re)$/;
+
                 my $start = $-[1];
                 my $before = substr($expr, 0, $start);
-                if ($before !~ /10#\s*$/) {
-                  $flagged = 1;
-                  last;
-                }
-              }
 
-              # Case 2: bare variable names in arithmetic context (e.g., SHOUR*3600)
-              # These are also vulnerable to octal interpretation and should be flagged.
-              if (!$flagged) {
-                while ($expr =~ /\b([A-Za-z_][A-Za-z0-9_]*)\b/g) {
-                  my $start = $-[1];
-                  my $before = substr($expr, 0, $start);
+                # If explicitly prefixed with 10#, this use is safe.
+                next if $before =~ /10#\s*$/;
 
-                  # Skip identifiers that are part of $VAR or ${VAR}.
-                  my $prev1 = $start > 0 ? substr($expr, $start - 1, 1) : "";
-                  my $prev2 = $start > 1 ? substr($expr, $start - 2, 2) : "";
+                # Ignore bare-token submatches that are actually part of $VAR or ${VAR}.
+                if (defined $3) {
+                  my $prev1 = $start > 0 ? substr($expr, $start - 1, 1) : q||;
+                  my $prev2 = $start > 1 ? substr($expr, $start - 2, 2) : q||;
                   next if $prev1 eq q|$| || $prev2 eq q|${|;
-
-                  # Skip identifiers that are part of base literals like 16#FF.
-                  next if $before =~ /\d+#\s*$/;
-
-                  # Skip variables that were already derived from arithmetic in this file.
-                  next if $safe_arith_vars{$1};
-
-                  $flagged = 1;
-                  last;
                 }
+
+                $flagged = 1;
+                last;
               }
 
               last if $flagged;
             }
-            print "$ARGV:$.:$_" if $flagged;
-          ' tests/default_vars.sh tests/tests/*)
 
-          if [[ -n "$UNPROTECTED" ]]; then
-            echo "::error::🚨 OCTAL TRAP DETECTED! Variables inside math expansions must use the 10# prefix."
+            print "$ARGV:$.:$_" if $flagged;
+          ' "${CHECK_FILES[@]}")
+
+          if [[ -n "${UNPROTECTED}" ]]; then
+            echo "::error::🚨 OCTAL TRAP DETECTED! Zero-padded vars used in arithmetic must be prefixed with 10#."
+            echo "Zero-padded vars under check: ${PADDED_VARS//$'\n'/, }"
             echo "The following lines are missing 10# protection:"
-            echo "$UNPROTECTED"
+            echo "${UNPROTECTED}"
             exit 1
           fi
 
-          echo "✅ All variable math expansions are safely protected!"
+          echo "✅ No unprotected arithmetic uses found for zero-padded vars: ${PADDED_VARS//$'\n'/, }"
 
       # - name: Ban 'export' in configuration files
       #   run: |
