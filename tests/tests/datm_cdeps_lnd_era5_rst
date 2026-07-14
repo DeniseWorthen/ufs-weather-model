@@ -19,7 +19,7 @@ export SYEAR=2011
 export SMONTH=01
 export SDAY=01
 export SHOUR=06
-export FHMAX=06
+export FHMAX=6
 export FHROT=0
 
 export DATM_IN_CONFIGURE=datm_in.IN

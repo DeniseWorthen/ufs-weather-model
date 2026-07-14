@@ -98,7 +98,6 @@ export IMO=1536
 export JMO=768
 export OUTPUT_GRID="'gaussian_grid'"
 export OUTPUT_FILE="'netcdf_parallel' 'netcdf_parallel'"
-export ATMTILESIZE=$(( $NPX - 1 ))
 export IDEFLATE=1
 export QUANTIZE_NSD=0
 export ICHUNK3D=${IMO}
