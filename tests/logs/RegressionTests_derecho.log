@@ -14,8 +14,8 @@ Submodule hashes used in testing:
  9ff3df9545dd582f415f682d3297e8c6c841e5cb GOCART (sdr_v2.1.2.6-291-g9ff3df9)
  513b67312510a15ae178ea5c3eddb0854e41486b LM4-driver (baseline_change_240904-8-g513b673)
  c61e4e280dbde13af0023b1e86d98296ff65d6a7 LM4-driver/LM4 (land_lad2_2021.02-3-gc61e4e28)
- 4778b91ffebac913de85bd24abed3839c3545312 MOM6-interface/MOM6 (dev/master/repository_split_2014.10.10-10796-g4778b91ff)
- c38ddb7ebdd2d58c517b63a99bbdc8e348732db2 MOM6-interface/MOM6/pkg/CVMix-src (c38ddb7)
+ 59d7832d0d8b4ac99e75e0c942cc25f15bf150c1 MOM6-interface/MOM6 (dev/master/repository_split_2014.10.10-10867-g59d7832d0)
+ fce422195a0c58f15a55946b5ed517ba4365e232 MOM6-interface/MOM6/pkg/CVMix-src (heads/master)
  29e64d652786e1d076a05128c920f394202bfe10 MOM6-interface/MOM6/pkg/GSW-Fortran (29e64d6)
  2c7b3bc2a8096f6232020c47507593058795102e NOAHMP-interface/noahmp (v3.7.1-471-g2c7b3bc)
  ac2e65ff87b8ac721581aab62d428c32ccf8fcd8 UFSATM (heads/develop)
@@ -32,7 +32,7 @@ Submodule hashes used in testing:
 -3d35332fe66e3e63a285cc8d96facdf255a33481 UFSATM/upp/sorc/ncep_post.fd/post_gtg.fd
  dcc9da76c2d32c6ca7a5318a56db033295d9f43c WW3 (6.07.1-531-gdcc9da76)
  f20d0bd7356bd972c5fd665df8f984cb6e514869 fire_behavior (v0.2.0-180-gf20d0bd)
- ae192f119b8614b4476a1b04ba55f6fb93e2953d stochastic_physics (ufs-v2.0.0-298-gae192f1)
+ 7c8b09a639532985853d456ae7449af4268b4fc1 stochastic_physics (sp_251120-72-g7c8b09a)
 
 
 NOTES:
@@ -46,6 +46,7 @@ COMPARISON DIRECTORY: /glade/derecho/scratch/gpetro/FV3_RT/rt_105962
 
 RT.SH OPTIONS USED:
 * (-a) - HPC PROJECT ACCOUNT: NRAL0032
+* (-l) - USE CONFIG FILE: rta.conf
 * (-e) - USE ECFLOW
 
 PASS -- COMPILE 's2swa_32bit_intel' [31:14, 25:53] ( 1 warnings 1051 remarks )
