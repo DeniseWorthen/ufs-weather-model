@@ -102,6 +102,27 @@ jobs:
 
           echo "✅ No unprotected arithmetic uses found for zero-padded vars: ${PADDED_VARS//$'\n'/, }"
 
+      - name: Ban expr in test configuration files
+        run: |
+          echo "Scanning for illegal 'expr' usage in tests/default_vars.sh and tests/tests/*..."
+
+          mapfile -d '' CHECK_FILES < <(find tests/default_vars.sh tests/tests -type f -print0)
+          if [[ ${#CHECK_FILES[@]} -eq 0 ]]; then
+            echo "::error::No files found to scan for expr usage."
+            exit 1
+          fi
+
+          ILLEGAL_EXPR=$(perl -ne 'next if /^\s*#/; print "$ARGV:$.:$_" if /\bexpr\b/' "${CHECK_FILES[@]}")
+
+          if [[ -n "${ILLEGAL_EXPR}" ]]; then
+            echo "::error::🚨 EXPR DETECTED! Do not use 'expr' in tests/default_vars.sh or tests/tests/*."
+            echo "The following lines contain illegal expr usage:"
+            echo "${ILLEGAL_EXPR}"
+            exit 1
+          fi
+
+          echo "✅ No illegal expr usage found!"
+
       # - name: Ban 'export' in configuration files
       #   run: |
       #     echo "Scanning for illegal 'export' declarations in tests/default_vars.sh and tests/tests/*..."
