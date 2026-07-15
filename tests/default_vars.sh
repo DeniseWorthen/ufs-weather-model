@@ -401,7 +401,8 @@ function set_restart_file_suffix_secs() {
  local restart_file_suffix_secs
  restart_valid_time=$(date -u +"%Y-%m-%d %H:%M:%S" -d "${SYEAR}${SMONTH}${SDAY} ${SHOUR} ${FHROT} hours")
  restart_secs=$(( $(date -u -d "${restart_valid_time}" +%-H) * 3600 ))
- restart_file_suffix_secs="$(date -u -d "${restart_valid_time}" +"%Y-%m-%d")-$(printf "%05d" "${restart_secs}")"
+ restart_file_suffix_date="$(date -u -d "${restart_valid_time}" +"%Y-%m-%d")"
+ restart_file_suffix_secs="${restart_file_suffix_date}-$(printf "%05d" "${restart_secs}")"
  echo "${restart_file_suffix_secs}"
 }
 
