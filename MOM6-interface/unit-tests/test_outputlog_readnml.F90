@@ -1,4 +1,4 @@
-program test_outputlog_methods
+program test_outputlog_readnml
 
   use mom_outputlog_methods, only : setrequest, settype, setprefix
 
@@ -355,4 +355,4 @@ program test_outputlog_methods
      endif
   endif
 
-end program test_outputlog_methods
+end program test_outputlog_readnml
