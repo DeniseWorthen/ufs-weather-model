@@ -1,0 +1,62 @@
+name: MOM6 Interface Unit Tests
+
+on:
+  pull_request:
+    paths:
+      - "MOM6-interface/**"
+      - "CMakeLists.txt"
+      - "cmake/**"
+      - ".github/workflows/mom6-unit-tests.yml"
+  push:
+    paths:
+      - "MOM6-interface/**"
+      - "CMakeLists.txt"
+      - "cmake/**"
+      - ".github/workflows/mom6-unit-tests.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  mom6-unit-tests:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    container: ghcr.io/noaa-emc/ci-common-build-cache/ufs-weather-model-ubuntu-24.04-gcc-13-mpich-x@sha256:cc9bdafb43d31498fe833c1914d90e32570f8fa9f001e11ca16c4a88417128f8
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Configure
+        shell: bash
+        run: |
+          set -euxo pipefail
+          . /entrypoint.sh
+          export CC=mpicc
+          export CXX=mpic++
+          export FC=mpif90
+          esmfcmakemoddir=$(spack location --install-dir esmf)/cmake
+          cmake -S "$GITHUB_WORKSPACE" -B build \
+            -DAPP=NG-GODAS \
+            -DENABLE_UNIT_TESTS=ON \
+            -DUSE_ESMF_STATIC_LIBS=OFF \
+            -DCMAKE_MODULE_PATH="$esmfcmakemoddir"
+
+      - name: Build MOM6 Unit Test Target
+        shell: bash
+        run: |
+          set -euxo pipefail
+          . /entrypoint.sh
+          cmake --build build --target test_readnml --parallel 4
+
+      - name: Run MOM6 Unit Tests
+        shell: bash
+        run: |
+          set -euxo pipefail
+          . /entrypoint.sh
+          ctest --test-dir build --output-on-failure -R MOM6_Outputlog_Readnml
