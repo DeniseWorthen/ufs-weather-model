@@ -1731,7 +1731,7 @@ There are four SDFs currently supported for the UFS Short Range Weather App conf
    * ``suite_FV3_HRRR.xml``
    * ``suite_FV3_WoFS_v0.xml``
 
-Detailed descriptions of the supported suites can be found with the `CCPP v7.0.0 Scientific Documentation <https://ncar.github.io/ccpp-physics/V7/>`__.
+Detailed descriptions of the supported suites can be found in the `CCPP v7.0.0 Scientific Documentation <https://ncar.github.io/ccpp-physics/V7/>`__.
 
 .. _datm.streams-file:
 
