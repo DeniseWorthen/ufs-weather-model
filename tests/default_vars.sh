@@ -492,7 +492,7 @@ export_mpas ()
     export SMONTH=10
     export SDAY=03
     export SHOUR=00
-    export SECS=$(( SHOUR*3600 ))
+    export SECS=$(( 10#${SHOUR} * 3600 ))
     export FHMAX=$(( DAYS*24 ))
     export FHCYC=0
     export FHROT=0
@@ -1200,7 +1200,7 @@ export SYEAR=2016
 export SMONTH=10
 export SDAY=03
 export SHOUR=00
-export SECS=$(( SHOUR*3600 ))
+export SECS=$(( 10#${SHOUR} * 3600 ))
 export FHMAX=$(( DAYS*24 ))
 export FHCYC=24
 export FHROT=0
@@ -1285,12 +1285,12 @@ export ISEED_CA=12345
 
 #waves
 export WW3_RSTDTHR=12
-WW3_DT_2_RST="$(printf "%02d" $(( WW3_RSTDTHR*3600 )))"
+WW3_DT_2_RST="$(printf "%02d" $(( 10#${WW3_RSTDTHR} * 3600 )))"
 export WW3_DT_2_RST
 export WW3_OUTDTHR=1
-WW3_DTFLD="$(printf "%02d" $(( WW3_OUTDTHR*3600 )))"
+WW3_DTFLD="$(printf "%02d" $(( 10#${WW3_OUTDTHR} * 3600 )))"
 export WW3_DTFLD
-WW3_DTPNT="$(printf "%02d" $(( WW3_OUTDTHR*3600 )))"
+WW3_DTPNT="$(printf "%02d" $(( 10#${WW3_OUTDTHR} * 3600 )))"
 export WW3_GRD_OUTDIR='./'
 export WW3_PNT_OUTDIR='./'
 export WW3_RST_OUTDIR='./'
@@ -1314,9 +1314,9 @@ export FGRDPROC=T
 export UNIPOINTS='points'
 export FLAGMASKCOMP=' F'
 export FLAGMASKOUT=' F'
-RUN_BEG="${SYEAR}${SMONTH}${SDAY} $(printf "%02d" $(( SHOUR  )))0000"
+RUN_BEG="${SYEAR}${SMONTH}${SDAY} $(printf "%02d" $(( 10#${SHOUR} )))0000"
 export RUN_BEG
-RUN_END="2100${SMONTH}${SDAY} $(printf "%02d" $(( SHOUR  )))0000"
+RUN_END="2100${SMONTH}${SDAY} $(printf "%02d" $(( 10#${SHOUR} )))0000"
 export RUN_END
 export OUT_BEG=${RUN_BEG}
 export OUT_END=${RUN_END}
@@ -1520,7 +1520,7 @@ export_ugwpv1() {
 
 # Defaults for the CICE6 model namelist, mx100
 export_cice6() {
-  SECS=$((SHOUR*3600))
+  SECS=$((10#${SHOUR} * 3600))
   export SECS
   export DT_CICE=${DT_ATMOS}
   export CICE_NPT=999
@@ -1640,11 +1640,11 @@ export_ww3() {
   export WW3_DOMAIN=mx${OCNRES}
   export WW3_MODDEF=mod_def.mx${OCNRES}
   export WW3_RSTDTHR=3
-  WW3_DT_2_RST="$(printf "%02d" $(( WW3_RSTDTHR*3600 )) )"
+  WW3_DT_2_RST="$(printf "%02d" $(( 10#${WW3_RSTDTHR} * 3600 )) )"
   export WW3_DT_2_RST
   export WW3_OUTDTHR=3
-  WW3_DTFLD="$(printf "%02d" $(( WW3_OUTDTHR*3600 )) )"
-  WW3_DTPNT="$(printf "%02d" $(( WW3_OUTDTHR*3600 )) )"
+  WW3_DTFLD="$(printf "%02d" $(( 10#${WW3_OUTDTHR} * 3600 )) )"
+  WW3_DTPNT="$(printf "%02d" $(( 10#${WW3_OUTDTHR} * 3600 )) )"
   export WW3_DTFLD
   export WW3_DTPNT
   export WW3_WLEV='F'
@@ -2054,7 +2054,7 @@ export_hafs_regional ()
   export SMONTH=08
   export SDAY=29
   export SHOUR=00
-  export SECS=$((SHOUR*3600))
+  export SECS=$((10#${SHOUR} * 3600))
   export FHMAX=6
   export ENS_NUM=1
   export DT_ATMOS=900
