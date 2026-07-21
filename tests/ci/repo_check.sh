@@ -23,6 +23,7 @@ get_shas () {
 }
 
 flag_sync=true
+err=0
 
 declare -A urls branches paths
 # UPP, ccpp-framework, and gocart are intentionally excluded because they update at a different cadence 
@@ -112,11 +113,16 @@ for submodule in $submodules; do
 
     if [[ "$flag_sync" == "false" ]]; then
        echo "** ${GITHUB_WORKSPACE} **NOT** up to date"
-       exit 1
+       err=1
+       flag_sync=true
     fi
 done
 
+if [[ err == 1 ]]; then
+  echo "** ${GITHUB_WORKSPACE} NOT up to date **"
+  exit 1
+else
+  echo "** ${GITHUB_WORKSPACE} up to date **"
+  exit 0
+fi
 
-echo "** ${GITHUB_WORKSPACE} up to date **"
-
-exit 0
