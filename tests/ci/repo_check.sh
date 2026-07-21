@@ -120,7 +120,7 @@ for submodule in $submodules; do
     fi
 done
 
-if [[ err == 1 ]]; then
+if [[ $err == 1 ]]; then
   echo "** ${GITHUB_WORKSPACE} NOT up to date **"
   exit 1
 else
