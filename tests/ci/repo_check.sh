@@ -1,6 +1,9 @@
 #!/bin/bash
 set -eu
 
+flag_sync=true
+err=0
+
 get_shas () {
     cwd=$(pwd)
     # Get sha-1's of the top of develop and feature branches
@@ -22,8 +25,7 @@ get_shas () {
     cd $cwd
 }
 
-flag_sync=true
-err=0
+
 
 declare -A urls branches paths
 # UPP, ccpp-framework, and gocart are intentionally excluded because they update at a different cadence 
@@ -112,7 +114,7 @@ for submodule in $submodules; do
     get_shas $url $gitapi $branch $workspace
 
     if [[ "$flag_sync" == "false" ]]; then
-       echo "** ${GITHUB_WORKSPACE} **NOT** up to date"
+#       echo "** ${GITHUB_WORKSPACE} **NOT** up to date"
        err=1
        flag_sync=true
     fi
