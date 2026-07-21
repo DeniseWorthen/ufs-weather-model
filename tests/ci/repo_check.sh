@@ -125,4 +125,3 @@ else
   echo "** ${GITHUB_WORKSPACE} up to date **"
   exit 0
 fi
-
