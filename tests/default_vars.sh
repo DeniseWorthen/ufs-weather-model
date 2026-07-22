@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC2034
 ###############################################################################
 #
 # Export variables to the default values
