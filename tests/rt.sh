@@ -690,6 +690,17 @@ done
 #B&N not run together
 [[ ${NEW_BASELINES_FILE} != '' && ${RUN_SINGLE_TEST} == true ]] && die "-b and -n options cannot be used at the same time"
 
+if [[ ${DRY_RUN} == true ]]; then
+   [[ ${NEW_BASELINES_FILE} == '' ]] || die "-x should not be used with -b"
+   [[ ${CREATE_BASELINE} == false ]] || die "-x should not be used with -c"
+   [[ ${delete_rundir} == false ]] || die "-x should not be used with -d"
+   [[ ${ECFLOW} == false ]] || die "-x should not be used with -e"
+   [[ ${RTPWD_NEW_BASELINE} == false ]] || die "-x should not be used with -m"
+   [[ ${COMPILE_ONLY} == false ]] || die "-x should not be used with -o"
+   [[ ${ROCOTO} == false ]] || die "-x should not be used with -r"
+   [[ ${skip_check_results} == false ]] || die "-x should not be used with -w"
+fi
+
 if [[ ${RTVERBOSE} == true ]]; then
   set -x
 fi
@@ -1232,7 +1243,7 @@ while read -r line || [[ -n "${line}" ]]; do
 EOF
     fi
 
-    ( 
+    (
       # shellcheck source=/github/workspace/tests/tests/control_c48
       source "${PATHRT}/tests/${TEST_NAME}"
 
