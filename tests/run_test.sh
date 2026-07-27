@@ -298,7 +298,7 @@ if [[ ${DRY_RUN:-false} == false ]]; then
    source ./fv3_run
 else
    # we need this because MOM_input is located in INPUT (see below)
-   # which is cretaed in ./fv3_run, which we just skiped
+   # which is created in ./fv3_run, which we just skipped
    mkdir -p INPUT
 fi
 
