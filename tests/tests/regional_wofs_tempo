@@ -1,12 +1,12 @@
 ###############################################################################
 #
-#  FV3 regional threading test
+#  FV3_WoFS_v0 test atmosphere only with hi-res 3km
 #
 ###############################################################################
 
-TEST_DESCR="Compare FV3 regional threading results with previous trunk version"
+TEST_DESCR="Compare FV3_WoFS_v0 hi-res 3km results with previous trunk version"
 
-CNTL_DIR=regional_control
+CNTL_DIR=fv3_regional_wofs_tempo
 
 LIST_FILES="dynf000.nc \
             dynf006.nc \
@@ -24,30 +24,47 @@ FV3_RUN=regional_run.IN
 OZ_PHYS_OLD=.false.
 OZ_PHYS_NEW=.true.
 H2O_PHYS=.true.
-HYBEDMF=.false.
+RESTART_INTERVAL="0"
 WRITE_DOPOST=.true.
 POSTAPP='lam'
 
-CCPP_SUITE=FV3_GFS_v15_thompson_mynn_lam3km
-INPUT_NML=regional.nml.IN
+CCPP_SUITE=FV3_WoFS_v0_tempo
+FIELD_TABLE=field_table_thompson_aero_hail_tke
+IMP_PHYSICS=88
+LTAEROSOL=.true.
+LTHAILAWARE=.true.
+DO_SAT_ADJ=.false.
+DIAG_TABLE=diag_table_aerosol.IN
+DIAG_TABLE_ADDITIONAL=diag_additional_hail
+
+INPUT_NML=regional_wofs.nml.IN
 MODEL_CONFIGURE=model_configure_regional.IN
-DIAG_TABLE=diag_table_lam
-FIELD_TABLE=field_table_regional
 
 WLCLK=15
 FHMAX=6
 INPES=10
 JNPES=11
-atm_omp_num_threads=2
 OUTPUT_FH="3 -1"
 WRITE_GROUP=1
 WRTTASK_PER_GROUP=10
 NTILES=1
 
-ESMF_THREADING=false
-THRD=$atm_omp_num_threads
+IMP_PHYSICS=88
+DNATS=0
+DO_SAT_ADJ=.false.
+IALB=1
+IEMS=1
+HYBEDMF=.false.
+DO_MYNNEDMF=.true.
+DO_MYNNSFCLAY=.true.
+DO_DEEP=.false.
+SHAL_CNV=.false.
+IMFSHALCNV=-1
+IMFDEEPCNV=-1
+LSOIL_LSM=4
+NSTF_NAME="2, 1, 0, 0, 0"
 
 if [[ ${MACHINE_ID} = ursa ]]; then
   EXCLUSIVE_NODES=.true.
-  WLCLK=30
+  MEM_PER_NODE_OPT="#SBATCH --mem=300G"
 fi
