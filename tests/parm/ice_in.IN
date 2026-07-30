@@ -85,7 +85,7 @@
     tr_lvl       = .true.
     restart_lvl  = .false.
     tr_pond_topo = @[CICE_TR_POND_TOPO]
-    restart_pond_topo = .false.
+    restart_pond_topo = @[CICE_RESTART_POND_TOPO]
     tr_pond_lvl  = @[CICE_TR_POND_LVL]
     restart_pond_lvl  = @[CICE_RESTART_POND_LVL]
     tr_pond_sealvl = .false.
