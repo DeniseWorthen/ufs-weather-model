@@ -493,43 +493,6 @@ export_mpas() {
   # MPAS dynamical core defaults for RRFS
   MPAS_RESOLUTION=120
 
-    # GWD
-    export LDIAG_UGWP=.false.
-    export DO_UGWP=.false.
-    export DO_TOFD=.false.
-    export GWD_OPT=2
-    export DO_UGWP_V0=.true.
-    export DO_UGWP_V1_W_GSLDRAG=.false.
-    export DO_UGWP_V0_OROG_ONLY=.false.
-    export DO_GSL_DRAG_LS_BL=.false.
-    export DO_GSL_DRAG_SS=.true.
-    export DO_GWD_OPT_PSL=.false.
-    export ALPHA_FD=12.0
-    export PSL_GWD_DX_FACTOR=6.0
-    export DO_GSL_DRAG_TOFD=.false.
-    export DO_UGWP_V1=.false.
-    export DO_UGWP_V1_OROG_ONLY=.false.
-    export KNOB_UGWP_SOLVER=2
-    export KNOB_UGWP_SOURCE=1,1,0,0
-    export KNOB_UGWP_WVSPEC=1,25,25,25
-    export KNOB_UGWP_AZDIR=2,4,4,4
-    export KNOB_UGWP_STOCH=0,0,0,0
-    export KNOB_UGWP_EFFAC=1,1,1,1
-    export KNOB_UGWP_DOAXYZ=1
-    export KNOB_UGWP_DOHEAT=1
-    export LAUNCH_LEVEL=54
-    export KNOB_UGWP_DOKDIS=1
-    export KNOB_UGWP_NDX4LH=1
-    export KNOB_UGWP_VERSION=0
-    export KNOB_UGWP_PALAUNCH=275.0e2
-    export KNOB_UGWP_NSLOPE=1
-    export KNOB_UGWP_LZMAX=15.750e3
-    export KNOB_UGWP_LZMIN=0.75e3
-    export KNOB_UGWP_LZSTAR=2.0e3
-    export KNOB_UGWP_TAUMIN=0.25e-3
-    export KNOB_UGWP_TAUAMP=3.0e-3
-    export KNOB_UGWP_LHMET=200.0e3
-    export KNOB_UGWP_OROSOLV="'pss-1986'"
   ATM_compute_tasks=4
 
   #DJS2025 START: We don't need this for MPAS, but to setup the tests we do. CLEAN THIS UP!!!
@@ -833,44 +796,6 @@ export_gfs_physics() {
   OZ_PHYS_NEW=.false.
   H2O_PHYS=.false.
 
-# GWD
-export DO_NGW_EC=.false.
-export LDIAG_UGWP=.false.
-export DO_UGWP=.false.
-export DO_TOFD=.false.
-export GWD_OPT=2
-export DO_UGWP_V0=.true.
-export DO_UGWP_V1_W_GSLDRAG=.false.
-export DO_UGWP_V0_OROG_ONLY=.false.
-export DO_GSL_DRAG_LS_BL=.false.
-export DO_GSL_DRAG_SS=.true.
-export DO_GWD_OPT_PSL=.false.
-export ALPHA_FD=12.0
-export PSL_GWD_DX_FACTOR=6.0
-export DO_GSL_DRAG_TOFD=.false.
-export DO_UGWP_V1=.false.
-export DO_UGWP_V1_OROG_ONLY=.false.
-export KNOB_UGWP_SOLVER=2
-export KNOB_UGWP_SOURCE=1,1,0,0
-export KNOB_UGWP_WVSPEC=1,25,25,25
-export KNOB_UGWP_AZDIR=2,4,4,4
-export KNOB_UGWP_STOCH=0,0,0,0
-export KNOB_UGWP_EFFAC=1,1,1,1
-export KNOB_UGWP_DOAXYZ=1
-export KNOB_UGWP_DOHEAT=1
-export LAUNCH_LEVEL=54
-export KNOB_UGWP_DOKDIS=1
-export KNOB_UGWP_NDX4LH=1
-export KNOB_UGWP_VERSION=0
-export KNOB_UGWP_PALAUNCH=275.0e2
-export KNOB_UGWP_NSLOPE=1
-export KNOB_UGWP_LZMAX=15.750e3
-export KNOB_UGWP_LZMIN=0.75e3
-export KNOB_UGWP_LZSTAR=2.0e3
-export KNOB_UGWP_TAUMIN=0.25e-3
-export KNOB_UGWP_TAUAMP=3.0e-3
-export KNOB_UGWP_LHMET=200.0e3
-export KNOB_UGWP_OROSOLV="'pss-1986'"
   # Lake models
   LKM=0                   # 0=no lake, 1=run lake model, 2=run both lake and nsst on lake points
   IOPT_LAKE=2             # 1=flake, 2=clm lake
@@ -1644,29 +1569,29 @@ export_cice6() {
   CICE_TR_POND_LVL=.true.
   CICE_RESTART_POND_LVL=.false.
   # setting to true will allow Frazil FW and Salt to be included in fluxes sent to ocean
-  export CICE_FRAZIL_FWSALT=.true.
-  export CICE_KTHERM=2
-  export CICE_TFREEZE_OPTION=mushy
-  export CICE_TR_POND_TOPO=.false.
-  export CICE_RESTART_POND_TOPO=.false.
-  export CICE_TR_SNOW=.false.
-  export CICE_CONDUCT='MU71'
-  export CICE_AHMAX=0.3
-  export CICE_R_ICE=0.
-  export CICE_R_PND=0.
-  export CICE_R_SNW=1.5
-  export CICE_DT_MLT=1.5
-  export CICE_RSNW_MLT=1500.
-  export CICE_HS0=0.
-  export CICE_HS1=0.03
-  export CICE_DPSCALE=1.e-3
-  export CICE_RFRACMIN=0.15
-  export CICE_RFRACMAX=1.
-  export CICE_PNDASPECT=0.8
-  export CICE_SNWREDIST='none'
-  export CICE_SNWGRAIN=.false.
-  export CICE_EMISSIVITY=0.95
-  export CICE_FBOT_XFER_TYPE='constant'
+  CICE_FRAZIL_FWSALT=.true.
+  CICE_KTHERM=2
+  CICE_TFREEZE_OPTION=mushy
+  CICE_TR_POND_TOPO=.false.
+  CICE_RESTART_POND_TOPO=.false.
+  CICE_TR_SNOW=.false.
+  CICE_CONDUCT='MU71'
+  CICE_AHMAX=0.3
+  CICE_R_ICE=0.
+  CICE_R_PND=0.
+  CICE_R_SNW=1.5
+  CICE_DT_MLT=1.5
+  CICE_RSNW_MLT=1500.
+  CICE_HS0=0.
+  CICE_HS1=0.03
+  CICE_DPSCALE=1.e-3
+  CICE_RFRACMIN=0.15
+  CICE_RFRACMAX=1.
+  CICE_PNDASPECT=0.8
+  CICE_SNWREDIST='none'
+  CICE_SNWGRAIN=.false.
+  CICE_EMISSIVITY=0.95
+  CICE_FBOT_XFER_TYPE='constant'
   # SlenderX2
   CICE_NPROC=${ICE_tasks}
   np2=$((CICE_NPROC / 2))
