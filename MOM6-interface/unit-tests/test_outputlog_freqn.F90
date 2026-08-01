@@ -4,13 +4,16 @@ program test_outputlog_freqn
   use mpi_f08,               only : MPI_Init, MPI_Finalize, MPI_Comm, MPI_Comm_rank, MPI_COMM_WORLD, MPI_Barrier
   use mom_outputlog_methods, only : outputlog_config_type, outputlog_state_type, get_timestr
   use MOM_cap_outputlog,     only : outputlog_freqn
+  use MOM_cap_time,          only : AlarmInit
   use nc_fixture_mod,        only : create_schema, write_record, write_bulk_data, write_padding
 
   implicit none
 
   ! ============================================================================
-  ! Option A: drives the real outputlog_freqn through a real ESMF_Clock/
-  ! ESMF_AlarmCreate cycle, keeping a real fixture file on disk in sync with
+  ! Option A: drives the real outputlog_freqn through a real ESMF_Clock, with
+  ! the alarm built via the real production AlarmInit (not a hand-rolled
+  ! ESMF_AlarmCreate -- validated separately in test_alarminit.F90 first),
+  ! keeping a real fixture file on disk in sync with
   ! wherever the clock currently is, and counting how many completions
   ! outputlog_freqn itself reports (via the filecomplete_out/filecomplete_lstop_out
   ! observability arguments added to outputlog_freqn for this purpose).
@@ -192,10 +195,11 @@ contains
     logical, optional, intent(in)    :: misconfigured_diag_table
 
     type(ESMF_Clock)         :: clock
-    type(ESMF_Time)          :: startTime, stopTime, currTime, nextTime, lastrestart
-    type(ESMF_TimeInterval)  :: timeStep, ringInterval, ringOffset, tincrement
+    type(ESMF_Time)          :: startTime, stopTime, currTime, nextTime, refTime, lastrestart
+    type(ESMF_TimeInterval)  :: timeStep, ringOffset, tincrement, alarmoffset
     type(outputlog_config_type) :: cf_n
     type(outputlog_state_type)  :: state_n
+    integer                  :: toffset
 
     integer :: ierr, rc
     integer :: ring_index, absolute_tick, this_ticks
@@ -242,27 +246,46 @@ contains
       stop 99
     end if
 
-    ! --- Build the real ESMF_Clock and a plain ESMF_AlarmCreate (per earlier
-    ! agreement: no need to replicate AlarmInit's toffset alignment) ---
+    ! --- Build the real ESMF_Clock, then a real production AlarmInit call
+    ! (not a hand-rolled ESMF_AlarmCreate) -- validated separately in
+    ! test_alarminit.F90 first, per plan, before being incorporated here.
+    ! tincrement must be built before alarmoffset, since alarmoffset is
+    ! expressed in units of tincrement (1 minute). ---
     call ESMF_TimeSet(startTime, yy=base_yy, mm=base_mm, dd=base_dd, h=start_hour, rc=ierr)
     call esmf_err(ierr, "ESMF_TimeSet(startTime)")
     call ESMF_TimeIntervalSet(timeStep, s=dt, rc=ierr)
     call esmf_err(ierr, "ESMF_TimeIntervalSet(timeStep)")
-    call ESMF_TimeIntervalSet(ringInterval, h=freq, rc=ierr)
-    call esmf_err(ierr, "ESMF_TimeIntervalSet(ringInterval)")
     call ESMF_TimeIntervalSet(ringOffset, h=run_hours, rc=ierr)
     call esmf_err(ierr, "ESMF_TimeIntervalSet(ringOffset)")
     stopTime = startTime + ringOffset
 
     clock = ESMF_ClockCreate(timeStep=timeStep, startTime=startTime, stopTime=stopTime, rc=ierr)
     call esmf_err(ierr, "ESMF_ClockCreate")
-    cf_n%alarm = ESMF_AlarmCreate(clock=clock, name="test_alarm", ringTime=startTime+ringInterval, &
-         ringInterval=ringInterval, sticky=.false., rc=ierr)
-    call esmf_err(ierr, "ESMF_AlarmCreate")
 
-    ! --- Build cf_n exactly as outputlog_init would, using the real tincrement/offset formula ---
     call ESMF_TimeIntervalSet(tincrement, m=1, rc=ierr)
     call esmf_err(ierr, "ESMF_TimeIntervalSet(tincrement)")
+
+    ! Same toffset/alarmoffset computation as outputlog_init and
+    ! test_alarminit.F90 -- validated there for the realistic (multiple-of-3
+    ! start_hour) domain.
+    if (mod(start_hour,6) /= 0) then
+      toffset = start_hour - 6
+    else
+      toffset = 0
+    end if
+
+    if (freq >= 6) then
+      alarmoffset = toffset*60*tincrement
+    else
+      alarmoffset = 0*tincrement
+    end if
+    refTime = startTime + alarmoffset
+
+    call AlarmInit(clock, alarm=cf_n%alarm, option='nhours', opt_n=freq, opt_ymd=-999, &
+         RefTime=refTime, alarmname='test_alarm', rc=ierr)
+    call esmf_err(ierr, "AlarmInit")
+
+    ! --- Build the rest of cf_n exactly as outputlog_init would ---
     call ESMF_TimeIntervalSet(end_of_window_offset, h=freq, rc=ierr)
     call esmf_err(ierr, "ESMF_TimeIntervalSet(end_of_window_offset)")
     cf_n%alarm_name  = "test_alarm"
