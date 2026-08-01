@@ -1,3 +1,10 @@
+!> Test code for outputlog_methods readnml
+!!
+!! Probes readnml's logic guards for permitted namelist uses for
+!! configuring the outputlog functionality in the MOM6 NUOPC cap
+!!
+!> @authorDenise.Worthen@noaa.gov
+!> @date 07-01-2026
 program test_outputlog_readnml
 
   use mom_outputlog_methods, only : setrequest, settype, setprefix
