@@ -144,38 +144,6 @@ contains
     end if
   end subroutine assert_double_1d
 
-
-  ! ! --- Assertion helpers ---
-  ! subroutine assert_true(condition, msg)
-  !   logical,          intent(in) :: condition
-  !   character(len=*), intent(in) :: msg
-
-  !   if (.not. condition .and. isroot) then
-  !      print *, "  -> ASSERTION FAILED: ", trim(msg)
-  !      total_errors = total_errors + 1
-  !   end if
-  ! end subroutine assert_true
-
-  ! subroutine assert_false(condition, msg)
-  !   logical,          intent(in) :: condition
-  !   character(len=*), intent(in) :: msg
-
-  !   if (condition .and. isroot) then
-  !      print *, "  -> ASSERTION FAILED: ", trim(msg)
-  !      total_errors = total_errors + 1
-  !   end if
-  ! end subroutine assert_false
-
-  ! subroutine assert_equal(expected, actual, msg)
-  !   integer,          intent(in) :: expected, actual
-  !   character(len=*), intent(in) :: msg
-
-  !   if (expected /= actual .and. isroot) then
-  !      print *, "  -> ASSERTION FAILED: ", trim(msg), " (expected ", expected, ", got ", actual, ")"
-  !      total_errors = total_errors + 1
-  !   end if
-  ! end subroutine assert_equal
-
   function itoa(i) result(s)
     integer, intent(in) :: i
     character(len=4) :: s
@@ -193,10 +161,5 @@ contains
        stop 99
     end if
   end subroutine esmf_err
-
-  ! function finalize_esmf() result(rc)
-  !   integer :: rc
-  !   call ESMF_Finalize(rc=rc)
-  ! end function finalize_esmf
 
 end module test_utils
