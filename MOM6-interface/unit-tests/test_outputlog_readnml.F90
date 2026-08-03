@@ -29,12 +29,14 @@ program test_outputlog_readnml
 
   character(len=128) :: testname
   character(len=256) :: errmsg
-  character(len=512) :: assertmsg
+  character(len=256) :: assertmsg
 
   type(testsummary)  :: nmltests
 
   logical :: is_passing, assertrc
   integer :: nt,n,ierr
+  ! debug printing
+  logical :: verbose = .true.
 
   ! initialize test tracker
   call nmltests%init(maxtests)
@@ -49,12 +51,10 @@ program test_outputlog_readnml
   nml_fh = (/0,0,0,0/)
 
   requested = setrequest(validfreqs, nml_fh, errmsg, ierr)
-
   is_passing = (ierr == 0 .and. .not. any(requested))
-  testname = trim(testname)//trim(errmsg)
 
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
-  call addresult(nmltests, assertrc, trim(assertmsg))
+  call addresult(nmltests, assertrc, trim(assertmsg), trim(errmsg))
 
   ! ------------------
   nt = nt + 1
@@ -62,12 +62,10 @@ program test_outputlog_readnml
   nml_fh = (/6,0,0,0/)
 
   requested = setrequest(validfreqs, nml_fh, errmsg, ierr)
-
   is_passing = (ierr == 0 .and. requested(3) .and. .not. any(requested((/1,2,4/))))
-  testname = trim(testname)//trim(errmsg)
 
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
-  call addresult(nmltests, assertrc, trim(assertmsg))
+  call addresult(nmltests, assertrc, trim(assertmsg), trim(errmsg))
 
   ! ------------------
   nt = nt + 1
@@ -75,12 +73,10 @@ program test_outputlog_readnml
   nml_fh = (/0,24,0,1/)
 
   requested = setrequest(validfreqs, nml_fh, errmsg, ierr)
-
   is_passing = (ierr == 0 .and. requested(1) .and. requested(4) .and. .not. any(requested((/2,3/))))
-  testname = trim(testname)//trim(errmsg)
 
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
-  call addresult(nmltests, assertrc, trim(assertmsg))
+  call addresult(nmltests, assertrc, trim(assertmsg), trim(errmsg))
 
   ! ------------------
   nt = nt + 1
@@ -88,12 +84,10 @@ program test_outputlog_readnml
   nml_fh = (/18,0,0,0/)
 
   requested = setrequest(validfreqs, nml_fh, errmsg, ierr)
-
   is_passing = (ierr /= 0)
-  testname = trim(testname)//' ('//trim(errmsg)//')'
 
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
-  call addresult(nmltests, assertrc, trim(assertmsg))
+  call addresult(nmltests, assertrc, trim(assertmsg), trim(errmsg))
 
   ! ------------------
   nt = nt + 1
@@ -101,12 +95,10 @@ program test_outputlog_readnml
   nml_fh = (/24,24, 0, 0/)
 
   requested = setrequest(validfreqs, nml_fh, errmsg, ierr)
-
-  testname = trim(testname)//' ('//trim(errmsg)//')'
   is_passing = (ierr /= 0)
 
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
-  call addresult(nmltests, assertrc, trim(assertmsg))
+  call addresult(nmltests, assertrc, trim(assertmsg), trim(errmsg))
 
   ! ===========================================================================
   ! test settype
@@ -119,12 +111,10 @@ program test_outputlog_readnml
   nml_type = (/ character(len=12) :: 'average', 'none', '', '' /)
 
   timereduce = settype(validfreqs, requested, nml_fh, nml_type, errmsg, ierr)
-
   is_passing = (ierr == 0 .and. trim(timereduce(2)) == 'none' .and. trim(timereduce(4)) == 'average')
-  testname = trim(testname)//trim(errmsg)
 
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
-  call addresult(nmltests, assertrc, trim(assertmsg))
+  call addresult(nmltests, assertrc, trim(assertmsg), trim(errmsg))
 
   ! ------------------
   nt = nt+1
@@ -134,12 +124,10 @@ program test_outputlog_readnml
   nml_type = (/ character(len=12) :: 'none', 'average', '', '' /)
 
   timereduce = settype(validfreqs, requested, nml_fh, nml_type, errmsg, ierr)
-
   is_passing = (ierr == 0 .and. trim(timereduce(1)) == 'none' .and. trim(timereduce(3)) == 'average')
-  testname = trim(testname)//trim(errmsg)
 
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
-  call addresult(nmltests, assertrc, trim(assertmsg))
+  call addresult(nmltests, assertrc, trim(assertmsg), trim(errmsg))
 
   ! ------------------
   nt = nt + 1
@@ -149,12 +137,10 @@ program test_outputlog_readnml
   nml_type = (/ character(len=12) :: '', 'NONE', '', 'AVERAGE' /)
 
   timereduce = settype(validfreqs, requested, nml_fh, nml_type, errmsg, ierr)
-
   is_passing = (ierr /= 0)
-  testname = trim(testname)//' ('//trim(errmsg)//')'
 
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
-  call addresult(nmltests, assertrc, trim(assertmsg))
+  call addresult(nmltests, assertrc, trim(assertmsg), trim(errmsg))
 
   ! ------------------
   nt = nt + 1
@@ -164,12 +150,10 @@ program test_outputlog_readnml
   requested = (/.false., .true., .false., .true./)
 
   timereduce = settype(validfreqs, requested, nml_fh, nml_type, errmsg, ierr)
-
   is_passing = (ierr /= 0)
-  testname = trim(testname)//' ('//trim(errmsg)//')'
 
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
-  call addresult(nmltests, assertrc, trim(assertmsg))
+  call addresult(nmltests, assertrc, trim(assertmsg), trim(errmsg))
 
   ! ------------------
   nt = nt + 1
@@ -179,12 +163,10 @@ program test_outputlog_readnml
   nml_type = (/ character(len=12) :: 'none', '', '', '' /)
 
   timereduce = settype(validfreqs, requested, nml_fh, nml_type, errmsg, ierr)
-
   is_passing = (ierr == 0 .and. trim(timereduce(1)) == 'none' .and. trim(timereduce(3)) == 'average')
-  testname = trim(testname)//trim(errmsg)
 
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
-  call addresult(nmltests, assertrc, trim(assertmsg))
+  call addresult(nmltests, assertrc, trim(assertmsg), trim(errmsg))
 
   ! ------------------
   nt = nt + 1
@@ -194,12 +176,10 @@ program test_outputlog_readnml
   nml_type = (/ character(len=12) :: 'none', '', 'average', '' /)
 
   timereduce = settype(validfreqs, requested, nml_fh, nml_type, errmsg, ierr)
-
   is_passing = (ierr /= 0)
-  testname = trim(testname)//' ('//trim(errmsg)//')'
 
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
-  call addresult(nmltests, assertrc, trim(assertmsg))
+  call addresult(nmltests, assertrc, trim(assertmsg), trim(errmsg))
 
   ! ===========================================================================
   ! test setprefix
@@ -212,12 +192,10 @@ program test_outputlog_readnml
   nml_fnameprefix = (/ character(len=12) :: '', '', '', '' /) ! Active slot 1 is empty
 
   fnameroot = setprefix(validfreqs, requested, nml_fh, nml_fnameprefix, errmsg, ierr)
-
   is_passing = (ierr == 0 .and. trim(fnameroot(1)) == 'ocn_')
-  testname = trim(testname)//trim(errmsg)
 
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
-  call addresult(nmltests, assertrc, trim(assertmsg))
+  call addresult(nmltests, assertrc, trim(assertmsg), trim(errmsg))
 
   ! ------------------
   nt = nt + 1
@@ -227,12 +205,10 @@ program test_outputlog_readnml
   nml_fnameprefix = (/ character(len=12) :: 'ocn_01h', 'ocn_03h', '', '' /)
 
   fnameroot = setprefix(validfreqs, requested, nml_fh, nml_fnameprefix, errmsg, ierr)
-
   is_passing = (ierr == 0 .and. trim(fnameroot(1)) == 'ocn_01h' .and. trim(fnameroot(2)) == 'ocn_03h')
-  testname = trim(testname)//trim(errmsg)
 
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
-  call addresult(nmltests, assertrc, trim(assertmsg))
+  call addresult(nmltests, assertrc, trim(assertmsg), trim(errmsg))
 
   ! ------------------
   nt = nt + 1
@@ -242,12 +218,10 @@ program test_outputlog_readnml
   nml_fnameprefix = (/ character(len=12) :: 'ocn_01h', '', '', '' /)
 
   fnameroot = setprefix(validfreqs, requested, nml_fh, nml_fnameprefix, errmsg, ierr)
-
   is_passing = (ierr /= 0)
-  testname = trim(testname)//' ('//trim(errmsg)//')'
 
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
-  call addresult(nmltests, assertrc, trim(assertmsg))
+  call addresult(nmltests, assertrc, trim(assertmsg), trim(errmsg))
 
   ! ------------------
   nt = nt + 1
@@ -257,12 +231,10 @@ program test_outputlog_readnml
   nml_fnameprefix = (/ character(len=12) :: 'ocn', 'ocn', '', '' /)
 
   fnameroot = setprefix(validfreqs, requested, nml_fh, nml_fnameprefix, errmsg, ierr)
-
   is_passing = (ierr /= 0)
-  testname = trim(testname)//' ('//trim(errmsg)//')'
 
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
-  call addresult(nmltests, assertrc, trim(assertmsg))
+  call addresult(nmltests, assertrc, trim(assertmsg), trim(errmsg))
 
   ! ------------------
   nt = nt + 1
@@ -272,12 +244,10 @@ program test_outputlog_readnml
   nml_fnameprefix = (/ character(len=12) :: 'ocn_1h', '', 'ocn_daily', '' /)
 
   fnameroot = setprefix(validfreqs, requested, nml_fh, nml_fnameprefix, errmsg, ierr)
-
   is_passing = (ierr /= 0)
-  testname = trim(testname)//' ('//trim(errmsg)//')'
 
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
-  call addresult(nmltests, assertrc, trim(assertmsg))
+  call addresult(nmltests, assertrc, trim(assertmsg), trim(errmsg))
 
   ! ------------------
   nt = nt + 1
@@ -289,12 +259,10 @@ program test_outputlog_readnml
   overlength_fnameprefix(1) = longfileprefix
 
   fnameroot = setprefix(validfreqs, requested, nml_fh, overlength_fnameprefix, errmsg, ierr)
-
   is_passing = (ierr /= 0)
-  testname = trim(testname)//' ('//trim(errmsg)//')'
 
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
-  call addresult(nmltests, assertrc, trim(assertmsg))
+  call addresult(nmltests, assertrc, trim(assertmsg), trim(errmsg))
 
   ! ------------------
   ! Test results
@@ -306,7 +274,11 @@ program test_outputlog_readnml
      stop 1
   else
      do n = 1,nmltests%count
-        print '(A)', trim(nmltests%testmessage(n))
+        if (verbose .and. len_trim(nmltests%errmessage(n)%str) > 0) then
+           print '(A)', trim(nmltests%testmessage(n)%str)//'  ['//trim(nmltests%errmessage(n)%str)//']'
+        else
+           print '(A)', trim(nmltests%testmessage(n)%str)
+        endif
      enddo
   endif
 

@@ -13,12 +13,17 @@ module test_utils
   public :: testsummary, addresult
   public :: assert_equal
 
+  type :: msg_type
+     character(len=:), allocatable :: str
+  end type msg_type
+
   type testsummary
      integer :: count = 0
      integer :: npass = 0
      integer :: nfail = 0
-     logical,          allocatable :: teststatus(:)
-     character(len=:), allocatable :: testmessage(:)
+     logical,        allocatable :: teststatus(:)
+     type(msg_type), allocatable :: testmessage(:)
+     type(msg_type), allocatable :: errmessage(:)
    contains
      procedure :: init => init_summary
   end type testsummary
@@ -34,13 +39,6 @@ module test_utils
   interface addresult
      module procedure add_test_result
   end interface addresult
-  ! if (is_passing) then
-  !    npass = npass + 1
-  !    msg(nt) = trim(testname)//' PASS'
-  ! else
-  !    nfail = nfail + 1
-  !    msg(nt) = trim(testname)//' FAIL'
-  ! endif
 
 contains
 
@@ -50,15 +48,17 @@ contains
     integer,            intent(in)    :: maxtests
 
     allocate(this%teststatus(maxtests))
-    allocate(character(len=256) :: this%testmessage(maxtests))
+    allocate(this%testmessage(maxtests))
+    allocate(this%errmessage(maxtests))
 
   end subroutine init_summary
 
-  subroutine add_test_result(summary, passed, message)
+  subroutine add_test_result(summary, passed, message, errormsg)
 
     type(testsummary), intent(inout) :: summary
     logical,           intent(in)    :: passed
     character(len=*),  intent(in)    :: message
+    character(len=*),  intent(in)    :: errormsg
 
     summary%count = summary%count + 1
     if (passed) then
@@ -68,7 +68,8 @@ contains
     end if
 
     summary%teststatus(summary%count) = passed
-    summary%testmessage(summary%count) = message
+    summary%testmessage(summary%count)%str = message
+    summary%errmessage(summary%count)%str = errormsg
   end subroutine add_test_result
 
   subroutine assert_logical(actual, expected, msg, rc, returnmsg)
