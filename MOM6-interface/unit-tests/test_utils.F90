@@ -1,6 +1,7 @@
 module test_utils
 
   use ESMF, only : ESMF_SUCCESS
+
   implicit none
 
   private
@@ -10,7 +11,7 @@ module test_utils
   integer, parameter ::  int_kind = selected_int_kind ( 6) !< 4 byte integer
   integer, parameter :: int8_kind = selected_int_kind (13) !< 8 byte integer
 
-  public :: testsummary, addresult
+  public :: testsummary, addresult, esmf_err, itoa
   public :: assert_equal
 
   type :: msg_type
@@ -182,15 +183,20 @@ contains
     write(s,'(I0)') i
   end function itoa
 
-  subroutine esmf_err(rc, context)
+  subroutine esmf_err(rc, subname, context)
     integer,          intent(in) :: rc
+    character(len=*), intent(in) :: subname
     character(len=*), intent(in) :: context
 
     if (rc /= ESMF_SUCCESS) then
-       write(0,'(A,I0)') "FATAL (test_alarminit): "//trim(context)//": rc=", rc
+       write(0,'(A,I0)') "FATAL ("//trim(subname)//") : "//trim(context)//": rc=", rc
        stop 99
     end if
   end subroutine esmf_err
 
+  ! function finalize_esmf() result(rc)
+  !   integer :: rc
+  !   call ESMF_Finalize(rc=rc)
+  ! end function finalize_esmf
 
 end module test_utils

@@ -271,6 +271,10 @@ program test_outputlog_readnml
   print '(3(A,I0))','Total tests = ',nmltests%count,' Passing = ',nmltests%npass,' Failing = ',nmltests%nfail
   if (nmltests%nfail > 0) then
      print '(A)', 'FAIL: At least one test failed '
+     do n = 1,nmltests%count
+        if (.not. nmltests%teststatus(n)) print '(A)', trim(nmltests%testmessage(n)%str)//'  [' &
+             //trim(nmltests%errmessage(n)%str)//']'
+     enddo
      stop 1
   else
      do n = 1,nmltests%count

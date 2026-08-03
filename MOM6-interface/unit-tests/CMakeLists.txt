@@ -10,7 +10,7 @@ endif()
 
 add_executable(test_readnml test_utils.F90 test_outputlog_readnml.F90)
 add_executable(test_freqn test_outputlog_freqn.F90 nc_fixture_mod.F90)
-add_executable(test_alarm test_alarminit.F90)
+add_executable(test_alarm test_alarminit.F90 test_utils.F90)
 
 # ---------------------------------------------------------
 # LINK LIBRARIES (One line per target!)
