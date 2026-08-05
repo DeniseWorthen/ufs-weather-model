@@ -1032,6 +1032,7 @@ export_fv3() {
   DO_GSL_DRAG_LS_BL=.false.
   DO_GSL_DRAG_SS=.true.
   DO_GWD_OPT_PSL=.false.
+  ALPHA_FD=12.0
   PSL_GWD_DX_FACTOR=6.0
   DO_GSL_DRAG_TOFD=.false.
   DO_UGWP_V1=.false.
