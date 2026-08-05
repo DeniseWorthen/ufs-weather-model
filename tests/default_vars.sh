@@ -679,6 +679,7 @@ export_gfs_physics() {
   DO_GSL_DRAG_SS=.true.
   DO_GWD_OPT_PSL=.false.
   PSL_GWD_DX_FACTOR=6.0
+  ALPHA_FD=12.0
   DO_GSL_DRAG_TOFD=.false.
   DO_UGWP_V1=.false.
   DO_UGWP_V1_OROG_ONLY=.false.
