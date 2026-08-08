@@ -54,7 +54,7 @@ add_mom6_unit_test(test_alarm
 
 add_mom6_unit_test(test_freqn
   CTEST_NAME MOM6_Outputlog_Freqn
-  SOURCES test_outputlog_freqn.F90 nc_fixture_mod.F90
+  SOURCES test_outputlog_freqn.F90 test_utils.F90 nc_fixture_mod.F90
   EXTRA_LIBS NetCDF::NetCDF_Fortran MPI::MPI_Fortran
   USE_MPI)
 
