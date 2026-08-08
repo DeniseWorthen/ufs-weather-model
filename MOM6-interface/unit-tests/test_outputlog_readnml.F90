@@ -100,6 +100,14 @@ program test_outputlog_readnml
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
   call addresult(nmltests, assertrc, trim(assertmsg), trim(errmsg))
 
+  ! ------------------
+  nt = nt + 1
+  write(testname,'(A,I2.2,A)')'test ',nt,' setrequest: all four frequencies active simultaneously'
+  nml_fh = (/1,3,6,24/)
+  requested = setrequest(validfreqs, nml_fh, errmsg, ierr)
+  is_passing = (ierr == 0 .and. all(requested))
+  call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
+  call addresult(nmltests, assertrc, trim(assertmsg), trim(errmsg))
   ! ===========================================================================
   ! test settype
   ! ===========================================================================

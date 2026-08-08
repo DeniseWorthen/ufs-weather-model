@@ -62,6 +62,7 @@ contains
     character(len=*),  intent(in)    :: errormsg
 
     summary%count = summary%count + 1
+    call grow_if_needed(summary)
     if (passed) then
        summary%npass = summary%npass + 1
     else
@@ -72,6 +73,31 @@ contains
     summary%testmessage(summary%count)%str = message
     summary%errmessage(summary%count)%str = errormsg
   end subroutine add_test_result
+  !> Grows teststatus/testmessage/errmessage to fit summary%count, doubling
+  !> capacity (or matching count exactly if that's larger) rather than a
+  !> fixed maxtests -- add_test_result can never write out of bounds, and
+  !> init(maxtests) becomes just an optional initial-capacity hint rather
+  !> than a hard, easy-to-forget-to-update limit. Safe to call whether or
+  !> not init() was ever called (an unallocated array is treated as size 0).
+  subroutine grow_if_needed(summary)
+    type(testsummary), intent(inout) :: summary
+    logical,        allocatable :: new_status(:)
+    type(msg_type), allocatable :: new_testmsg(:), new_errmsg(:)
+    integer :: old_size, new_size
+    old_size = 0
+    if (allocated(summary%teststatus)) old_size = size(summary%teststatus)
+    if (summary%count <= old_size) return
+    new_size = max(old_size*2, summary%count)
+    allocate(new_status(new_size))
+    if (old_size > 0) new_status(1:old_size) = summary%teststatus(1:old_size)
+    call move_alloc(new_status, summary%teststatus)
+    allocate(new_testmsg(new_size))
+    if (old_size > 0) new_testmsg(1:old_size) = summary%testmessage(1:old_size)
+    call move_alloc(new_testmsg, summary%testmessage)
+    allocate(new_errmsg(new_size))
+    if (old_size > 0) new_errmsg(1:old_size) = summary%errmessage(1:old_size)
+    call move_alloc(new_errmsg, summary%errmessage)
+  end subroutine grow_if_needed
 
   subroutine assert_logical(actual, expected, msg, rc, returnmsg)
 
