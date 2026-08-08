@@ -118,7 +118,7 @@ program test_outputlog_readnml
 
   ! ------------------
   nt = nt+1
-  write(testname,'(A,I2.2,A)')'test ',nt,' settype: lower-case strings map correctly'
+  write(testname,'(A,I2.2,A)')'test ',nt,' settype: both valid keywords (none, average) route correctly'
   nml_fh = (/1,6,0,0/)
   requested = (/.true., .false., .true., .false./)
   nml_type = (/ character(len=12) :: 'none', 'average', '', '' /)
@@ -170,7 +170,7 @@ program test_outputlog_readnml
 
   ! ------------------
   nt = nt + 1
-  write(testname,'(A,I2.2,A)')'test ',nt,' settype: mis-aligned type for active frequency'
+  write(testname,'(A,I2.2,A)')'test ',nt,' settype: type keyword provided on an inactive frequency slot'
   nml_fh = (/1,6,0,0/)
   requested = (/ .true., .false., .true., .false. /)
   nml_type = (/ character(len=12) :: 'none', '', 'average', '' /)
@@ -238,7 +238,7 @@ program test_outputlog_readnml
 
   ! ------------------
   nt = nt + 1
-  write(testname,'(A,I2.2,A)')'test ',nt,' setprefix: misaligned file prefix on active slot fails'
+  write(testname,'(A,I2.2,A)')'test ',nt,' setprefix: file prefix provided on an inactive slot fails'
   nml_fh = (/1,24,0,0/)
   requested = (/ .true., .false., .false., .true. /)
   nml_fnameprefix = (/ character(len=12) :: 'ocn_1h', '', 'ocn_daily', '' /)
@@ -260,6 +260,75 @@ program test_outputlog_readnml
 
   fnameroot = setprefix(validfreqs, requested, nml_fh, overlength_fnameprefix, errmsg, ierr)
   is_passing = (ierr /= 0)
+
+  call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
+  call addresult(nmltests, assertrc, trim(assertmsg), trim(errmsg))
+
+  ! ------------------
+  nt = nt + 1
+  write(testname,'(A,I2.2,A)')'test ',nt,' setprefix: file prefix with invalid characters is rejected'
+  nml_fh = (/6,0,0,0/)
+  requested = (/ .false., .false., .true., .false. /)
+  nml_fnameprefix = (/ character(len=12) :: '', '', 'ocn daily', '' /)   ! space is not allowed
+
+  fnameroot = setprefix(validfreqs, requested, nml_fh, nml_fnameprefix, errmsg, ierr)
+  is_passing = (ierr /= 0)
+
+  call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
+  call addresult(nmltests, assertrc, trim(assertmsg), trim(errmsg))
+
+  ! ------------------
+  nt = nt + 1
+  write(testname,'(A,I2.2,A)')'test ',nt,' setprefix: single request, non-default prefix is honored'
+  nml_fh = (/6,0,0,0/)
+  requested = (/ .false., .false., .true., .false. /)
+  nml_fnameprefix = (/ character(len=12) :: '', '', 'myprefix', '' /)
+
+  fnameroot = setprefix(validfreqs, requested, nml_fh, nml_fnameprefix, errmsg, ierr)
+  is_passing = (ierr == 0 .and. trim(fnameroot(3)) == 'myprefix_')
+
+  call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
+  call addresult(nmltests, assertrc, trim(assertmsg), trim(errmsg))
+
+  ! ------------------
+  nt = nt + 1
+  write(testname,'(A,I2.2,A)')'test ',nt,' setprefix: file prefix of exactly 12 characters is allowed'
+  nml_fh = (/6,0,0,0/)
+  requested = (/ .false., .false., .true., .false. /)
+  nml_fnameprefix = (/ character(len=12) :: '', '', 'twelve_chars', '' /)  ! exactly 12 chars
+
+  fnameroot = setprefix(validfreqs, requested, nml_fh, nml_fnameprefix, errmsg, ierr)
+  is_passing = (ierr == 0 .and. trim(fnameroot(3)) == 'twelve_chars_')
+
+  call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
+  call addresult(nmltests, assertrc, trim(assertmsg), trim(errmsg))
+
+  ! ===========================================================================
+  ! end-to-end: setrequest -> settype -> setprefix chained with ONE shared,
+  ! realistic namelist configuration (each function above is otherwise only
+  ! tested in isolation, with requested/nml_fh hand-crafted independently for
+  ! each call -- this confirms they compose correctly using setrequest's own
+  ! real output, matching how production actually invokes them in sequence)
+  ! ===========================================================================
+
+  nt = nt + 1
+  write(testname,'(A,I2.2,A)')'test ',nt,' end-to-end: setrequest -> settype -> setprefix compose correctly'
+  nml_fh = (/0,0,6,24/)
+  nml_type = (/ character(len=12) :: '', '', 'average', 'none' /)
+  nml_fnameprefix = (/ character(len=12) :: '', '', 'ocn_06h', 'ocn_24h' /)
+
+  requested = setrequest(validfreqs, nml_fh, errmsg, ierr)
+  is_passing = (ierr == 0 .and. requested(3) .and. requested(4) .and. .not. any(requested((/1,2/))))
+
+  if (is_passing) then
+     timereduce = settype(validfreqs, requested, nml_fh, nml_type, errmsg, ierr)
+     is_passing = (ierr == 0 .and. trim(timereduce(3)) == 'average' .and. trim(timereduce(4)) == 'none')
+  end if
+
+  if (is_passing) then
+     fnameroot = setprefix(validfreqs, requested, nml_fh, nml_fnameprefix, errmsg, ierr)
+     is_passing = (ierr == 0 .and. trim(fnameroot(3)) == 'ocn_06h_' .and. trim(fnameroot(4)) == 'ocn_24h_')
+  end if
 
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
   call addresult(nmltests, assertrc, trim(assertmsg), trim(errmsg))
