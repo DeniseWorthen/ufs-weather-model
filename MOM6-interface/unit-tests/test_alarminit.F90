@@ -340,7 +340,6 @@ program test_alarminit
   ! Test results
   ! ------------------
 
-  print '(3(A,I0))','Total tests = ',alarmtests%count,' Passing = ',alarmtests%npass,' Failing = ',alarmtests%nfail
   if (alarmtests%nfail > 0) then
      print '(A)', 'FAIL: At least one test failed '
      do n = 1,alarmtests%count
@@ -357,6 +356,7 @@ program test_alarminit
         endif
      enddo
   endif
+  print '(3(A,I0))','Total tests = ',alarmtests%count,' Passing = ',alarmtests%npass,' Failing = ',alarmtests%nfail
 
   call ESMF_Finalize(rc=rc)
   call esmf_err(rc, subname, "ESMF_Finalize")
@@ -471,8 +471,8 @@ contains
     character(len=*),  intent(out) :: errmsg
     integer, optional, intent(in)  :: dt
 
-    type(ESMF_Time)         :: startTime, ringTime, regressionTime
-    type(ESMF_TimeInterval) :: regressionInterval
+    type(ESMF_Time)         :: startTime, ringTime, regressionTime, expectedTime
+    type(ESMF_TimeInterval) :: regressionInterval, freqInterval
 
     integer :: rc
     integer :: toffset, ring_day, ring_hour
@@ -485,16 +485,30 @@ contains
     call esmf_err(rc, subname,  "ESMF_TimeGet(ringTime)")
 
     ! --- PRIMARY: independent structural check (the code's own stated intent).
-    ! Any freq must land on a multiple of that freq, regardless of start
-    ! time -- a single uniform property across all frequencies, not branched
-    ! by freq size. Deliberately coarse: for freq=1 this is vacuously true
-    ! (nothing to misalign), and it can't distinguish "off by one interval"
-    ! from "off by several" -- pinning down the exact instant is secondary's
-    ! job. Primary only guarantees the alarm cycles at the right cadence.
-    primary_ok = (mod(ring_hour, freq) == 0)
-    if (.not. primary_ok) then
-       errmsg = trim(errmsg)//'PRIMARY FAIL: ring hour '//itoa(ring_hour)//' is not a multiple of freq='// &
-            itoa(freq)//'. '
+    ! For freq=3/6, "ring hour is a multiple of freq" is meaningful -- there
+    ! are multiple valid nonzero remainders within a day (e.g. 6,12,18 for
+    ! freq=6). For freq=1 it's vacuously true (every hour is a valid 1h
+    ! boundary). For freq=24 it is NOT meaningful: ring_hour is bounded to
+    ! 0-23, and 24 can never appear as a nonzero remainder in that range --
+    ! mod(ring_hour,24)==0 can only ever be satisfied by ring_hour=0 exactly,
+    ! regardless of whether the ring landed on the correct day. freq=24's
+    ! real invariant (confirmed via real production runs -- see set_toffset's
+    ! docstring) is that it has no external grid at all: the ring must land
+    ! EXACTLY 24h after start, checked as a full ESMF_Time instant instead.
+    if (freq == 24) then
+       call ESMF_TimeIntervalSet(freqInterval, h=freq, rc=rc)
+       call esmf_err(rc, subname, "ESMF_TimeIntervalSet(freqInterval)")
+       expectedTime = startTime + freqInterval
+       primary_ok = (ringTime == expectedTime)
+       if (.not. primary_ok) then
+          errmsg = trim(errmsg)//'PRIMARY FAIL: ring did not occur at exactly start+24h. '
+       endif
+    else
+       primary_ok = (mod(ring_hour, freq) == 0)
+       if (.not. primary_ok) then
+          errmsg = trim(errmsg)//'PRIMARY FAIL: ring hour '//itoa(ring_hour)//' is not a multiple of freq='// &
+               itoa(freq)//'. '
+       endif
     endif
 
     ! --- SECONDARY: regression check only -- re-derives AlarmInit's own

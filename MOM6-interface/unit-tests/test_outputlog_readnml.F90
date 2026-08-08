@@ -111,6 +111,17 @@ program test_outputlog_readnml
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
   call addresult(nmltests, assertrc, trim(assertmsg), trim(errmsg))
 
+  ! ------------------
+  nt = nt + 1
+  write(testname,'(A,I2.2,A)')'test ',nt,' setrequest: all four frequencies active simultaneously'
+  nml_fh = (/1,3,6,24/)
+
+  requested = setrequest(validfreqs, nml_fh, errmsg, ierr)
+  is_passing = (ierr == 0 .and. all(requested))
+
+  call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
+  call addresult(nmltests, assertrc, trim(assertmsg), trim(errmsg))
+
   ! ===========================================================================
   ! test settype
   ! ===========================================================================
@@ -306,10 +317,10 @@ program test_outputlog_readnml
   write(testname,'(A,I2.2,A)')'test ',nt,' setprefix: file prefix of exactly 12 characters is allowed'
   nml_fh = (/0,0,6,0/)
   requested = (/ .false., .false., .true., .false. /)
-  nml_fnameprefix = (/ character(len=12) :: '', '', 'twelvechars', '' /)  ! exactly 12 chars
+  nml_fnameprefix = (/ character(len=12) :: '', '', 'twelve_chars', '' /)  ! exactly 12 chars
 
   fnameroot = setprefix(validfreqs, requested, nml_fh, nml_fnameprefix, errmsg, ierr)
-  is_passing = (ierr == 0 .and. trim(fnameroot(3)) == 'twelvechars_')
+  is_passing = (ierr == 0 .and. trim(fnameroot(3)) == 'twelve_chars_')
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
   call addresult(nmltests, assertrc, trim(assertmsg), trim(errmsg))
 
