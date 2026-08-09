@@ -8,6 +8,26 @@ if(NOT PROJECT_NAME)
   find_package(ESMF REQUIRED)
 endif()
 
+# test_utils is shared by test_readnml and test_alarm -- same reasoning as
+# nc_fixture_mod above: build once, link, don't compile it twice.
+add_library(test_utils STATIC test_utils.F90)
+target_link_libraries(test_utils PRIVATE mom6 ESMF::ESMF)
+if(MOM6_INC_DIR)
+  target_include_directories(test_utils PRIVATE ${MOM6_INC_DIR})
+endif()
+
+# nc_fixture_mod is shared by test_freqn and test_outputlog_completion.
+# Build it once, here, rather than listing it as a source of both -- under
+# parallel builds, two targets independently compiling the same source both
+# write to the same .mod file at the same time and race on it (this is what
+# caused the "cannot rename module file" failure once CI started building
+# every target together instead of one at a time).
+add_library(nc_fixture_mod STATIC nc_fixture_mod.F90)
+target_link_libraries(nc_fixture_mod PRIVATE mom6 ESMF::ESMF NetCDF::NetCDF_Fortran MPI::MPI_Fortran)
+if(MOM6_INC_DIR)
+  target_include_directories(nc_fixture_mod PRIVATE ${MOM6_INC_DIR})
+endif()
+
 # -----------------------------------------------------------------------------
 # add_mom6_unit_test(<exe_name>
 #     SOURCES <src1> [<src2> ...]
@@ -55,21 +75,23 @@ endfunction()
 
 add_mom6_unit_test(test_readnml
   CTEST_NAME MOM6_Outputlog_Readnml
-  SOURCES test_utils.F90 test_outputlog_readnml.F90)
+  SOURCES test_outputlog_readnml.F90
+  EXTRA_LIBS test_utils)
 
 add_mom6_unit_test(test_alarm
   CTEST_NAME MOM6_Outputlog_Alarm
-  SOURCES test_alarminit.F90 test_utils.F90)
+  SOURCES test_alarminit.F90
+  EXTRA_LIBS test_utils)
 
 add_mom6_unit_test(test_freqn
   CTEST_NAME MOM6_Outputlog_Freqn
-  SOURCES test_outputlog_freqn.F90 test_utils.F90 nc_fixture_mod.F90
-  EXTRA_LIBS NetCDF::NetCDF_Fortran MPI::MPI_Fortran
+  SOURCES test_outputlog_freqn.F90
+  EXTRA_LIBS test_utils nc_fixture_mod NetCDF::NetCDF_Fortran MPI::MPI_Fortran
   USE_MPI)
 
 # Option B: file_is_complete / get_file_state contract test
 add_mom6_unit_test(test_outputlog_completion
   CTEST_NAME MOM6_Outputlog_Completion
-  SOURCES test_outputlog_completion.F90 nc_fixture_mod.F90
-  EXTRA_LIBS NetCDF::NetCDF_Fortran MPI::MPI_Fortran
+  SOURCES test_outputlog_completion.F90
+  EXTRA_LIBS nc_fixture_mod NetCDF::NetCDF_Fortran MPI::MPI_Fortran
   USE_MPI)
