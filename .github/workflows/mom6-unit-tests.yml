@@ -55,7 +55,7 @@ jobs:
         run: |
           set -euxo pipefail
           . /entrypoint.sh
-          cmake --build build --target test_readnml --parallel 4
+          cmake --build build --target mom6_unit_tests --parallel 4
 
       - name: Run MOM6 Unit Tests
         shell: bash
