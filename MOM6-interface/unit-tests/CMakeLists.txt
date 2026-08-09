@@ -42,6 +42,15 @@ function(add_mom6_unit_test exe_name)
   else()
     add_test(NAME ${ARG_CTEST_NAME} COMMAND ${exe_name})
   endif()
+
+  # Umbrella target: every test executable registered through this function
+  # becomes a dependency automatically. CI builds just `mom6_unit_tests` and
+  # never needs to grow a --target list as tests are added -- only this file
+  # does, via the call below each new add_mom6_unit_test() adds itself to.
+  if(NOT TARGET mom6_unit_tests)
+    add_custom_target(mom6_unit_tests)
+  endif()
+  add_dependencies(mom6_unit_tests ${exe_name})
 endfunction()
 
 add_mom6_unit_test(test_readnml
