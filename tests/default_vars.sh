@@ -683,6 +683,7 @@ export_gfs_physics() {
   DO_GSL_DRAG_SS=.true.
   DO_GWD_OPT_PSL=.false.
   PSL_GWD_DX_FACTOR=6.0
+  ALPHA_FD=12.0
   DO_GSL_DRAG_TOFD=.false.
   DO_UGWP_V1=.false.
   DO_UGWP_V1_OROG_ONLY=.false.
@@ -1035,6 +1036,7 @@ export_fv3() {
   DO_GSL_DRAG_LS_BL=.false.
   DO_GSL_DRAG_SS=.true.
   DO_GWD_OPT_PSL=.false.
+  ALPHA_FD=12.0
   PSL_GWD_DX_FACTOR=6.0
   DO_GSL_DRAG_TOFD=.false.
   DO_UGWP_V1=.false.
@@ -1576,6 +1578,26 @@ export_cice6() {
   CICE_FRAZIL_FWSALT=.true.
   CICE_KTHERM=2
   CICE_TFREEZE_OPTION=mushy
+  CICE_TR_POND_TOPO=.false.
+  CICE_RESTART_POND_TOPO=.false.
+  CICE_TR_SNOW=.false.
+  CICE_CONDUCT='MU71'
+  CICE_AHMAX=0.3
+  CICE_R_ICE=0.
+  CICE_R_PND=0.
+  CICE_R_SNW=1.5
+  CICE_DT_MLT=1.5
+  CICE_RSNW_MLT=1500.
+  CICE_HS0=0.
+  CICE_HS1=0.03
+  CICE_DPSCALE=1.e-3
+  CICE_RFRACMIN=0.15
+  CICE_RFRACMAX=1.
+  CICE_PNDASPECT=0.8
+  CICE_SNWREDIST='none'
+  CICE_SNWGRAIN=.false.
+  CICE_EMISSIVITY=0.95
+  CICE_FBOT_XFER_TYPE='constant'
   # SlenderX2
   CICE_NPROC=${ICE_tasks}
   np2=$((CICE_NPROC / 2))
@@ -1961,6 +1983,7 @@ export_datm_cdeps() {
   MOM6_USE_WAVES=False
   WW3_DOMAIN=''
 
+  
   # Set CMEPS component defaults
   export_cmeps
   # vector remapping
