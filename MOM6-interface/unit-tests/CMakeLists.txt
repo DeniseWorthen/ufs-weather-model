@@ -8,7 +8,7 @@ if(NOT PROJECT_NAME)
   find_package(ESMF REQUIRED)
 endif()
 
-# test_utils is shared by test_readnml and test_alarm -- same reasoning as
+# mom6_test_utils is shared by test_readnml and test_alarm -- same reasoning as
 # nc_fixture_mod above: build once, link, don't compile it twice.
 add_library(mom6_test_utils STATIC test_utils.F90)
 target_link_libraries(mom6_test_utils PRIVATE mom6 ESMF::ESMF)
@@ -96,9 +96,9 @@ add_mom6_unit_test(test_outputlog_completion
   EXTRA_LIBS nc_fixture_mod NetCDF::NetCDF_Fortran MPI::MPI_Fortran
   USE_MPI)
 
-# lstop / finalize double-close behavior
-add_mom6_unit_test(test_lstop
-  CTEST_NAME MOM6_Outputlog_Lstop
-  SOURCES test_outputlog_lstop.F90
+# finalize behavior: both halves of the two-call finalize sequence
+add_mom6_unit_test(test_finalize
+  CTEST_NAME MOM6_Outputlog_Finalize
+  SOURCES test_outputlog_finalize.F90
   EXTRA_LIBS mom6_test_utils nc_fixture_mod NetCDF::NetCDF_Fortran MPI::MPI_Fortran
   USE_MPI)

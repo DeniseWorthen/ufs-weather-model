@@ -1,4 +1,9 @@
-!> Dedicated test for outputlog_freqn's lstop / finalize behavior
+!> Dedicated test for outputlog_freqn's finalize behavior -- both halves of
+!! mom_cap.F90's two-call finalize sequence (the ordinary per-ring
+!! mechanism's last chance, and the lstop-only currently-open interval),
+!! since production always uses them as a pair. Scoped separately from
+!! test_outputlog_freqn.F90, which covers the same regular mechanism during
+!! an ONGOING run and never touches atStopTime at all.
 !!
 !! At finalize, mom_cap.F90 calls outputlog_run TWICE at the same clock
 !! state (see the actual call site, ocean_model_finalize):
@@ -33,13 +38,12 @@
 !! via prevRingTime-0.5*freq).
 !!
 !> @date 08-10-2026
-program test_outputlog_lstop
+program test_outputlog_finalize
 
   use ESMF
   use mpi_f08,               only : MPI_Init, MPI_Finalize, MPI_Comm, MPI_Comm_rank, MPI_COMM_WORLD, MPI_Barrier
   use test_utils
   use mom_outputlog_methods, only : outputlog_config_type, outputlog_state_type, get_timestr, set_toffset
-  use mom_outputlog_methods, only : get_importexport
   use MOM_cap_outputlog,     only : outputlog_freqn
   use MOM_cap_time,          only : AlarmInit
   use nc_fixture_mod,        only : create_schema, write_record, write_padding
@@ -54,9 +58,9 @@ program test_outputlog_lstop
 
   character(len=128) :: testname
   character(len=256) :: assertmsg
-  character(len=20)  :: subname = 'test_outputlog_lstop'
+  character(len=24)  :: subname = 'test_outputlog_finalize'
 
-  type(testsummary) :: lstoptests
+  type(testsummary) :: finalizetests
 
   logical :: is_passing, assertrc
   integer :: n
@@ -65,7 +69,7 @@ program test_outputlog_lstop
   comm = MPI_COMM_WORLD
   rootpe = 0
 
-  call lstoptests%init(maxtests)
+  call finalizetests%init(maxtests)
 
   call MPI_Init(ierr)
   call MPI_Comm_rank(comm, rank, ierr)
@@ -81,27 +85,27 @@ program test_outputlog_lstop
   testname = 'test 01 double-close at finalize: plain catches 15, lstop catches 21'
   call run_lstop_case(freq=6, start_hour=6, run_hours=18, is_passing=is_passing)
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
-  call addresult(lstoptests, assertrc, trim(assertmsg), '')
+  call addresult(finalizetests, assertrc, trim(assertmsg), '')
 
   ! ------------------
   ! Test results
   ! ------------------
-  if (lstoptests%nfail > 0) then
+  if (finalizetests%nfail > 0) then
      print '(A)', 'FAIL: At least one test failed '
-     do n = 1,lstoptests%count
-        if (.not. lstoptests%teststatus(n)) print '(A)', trim(lstoptests%testmessage(n)%str)
+     do n = 1,finalizetests%count
+        if (.not. finalizetests%teststatus(n)) print '(A)', trim(finalizetests%testmessage(n)%str)
      enddo
   else
-     do n = 1,lstoptests%count
-        print '(A)', trim(lstoptests%testmessage(n)%str)
+     do n = 1,finalizetests%count
+        print '(A)', trim(finalizetests%testmessage(n)%str)
      enddo
   endif
-  print '(3(A,I0))','Total tests = ',lstoptests%count,' Passing = ',lstoptests%npass,' Failing = ',lstoptests%nfail
+  print '(3(A,I0))','Total tests = ',finalizetests%count,' Passing = ',finalizetests%npass,' Failing = ',finalizetests%nfail
 
   call ESMF_Finalize(rc=ierr)
   call esmf_err(ierr, subname, "ESMF_Finalize")
 
-  if (lstoptests%nfail > 0) stop 1
+  if (finalizetests%nfail > 0) stop 1
 
 contains
 
@@ -128,9 +132,6 @@ contains
     integer :: logunit, ios
     integer :: yr, mon, day, hour, minute, sec
     real(kind=ESMF_KIND_R8) :: fhour
-    ! debug
-    type(ESMF_Time)     :: currTime
-    character(len=40)   :: importexport
 
     outputdir = "./"
 
@@ -155,38 +156,9 @@ contains
     call ESMF_TimeIntervalSet(tincrement, m=1, rc=ierr)
     call esmf_err(ierr, subname, "ESMF_TimeIntervalSet(tincrement)")
 
-    ! debug
-    call ESMF_ClockGet(clock, stopTime=stopTime, rc=rc)
-    call esmf_err(ierr, subname, "ESMF_ClockGet(stopTime)")
-    timestr = get_timestr(stopTime, ierr)
-    print *,timestr//'  stopTime'
-
-    ! debug
-    ! call ESMF_ClockGet(clock, currTime=currTime, rc=rc)
-    ! call esmf_err(ierr, subname, "ESMF_ClockGet(currTime)")
-    ! call ESMF_ClockGetNextTime(clock, nextTime, rc=rc)
-    ! call esmf_err(ierr, subname, "ESMF_ClockGet(nexTTime)")
-    ! importexport = get_importexport(currTime, nextTime, rc=rc)
-    ! call esmf_err(ierr, subname, "get_importexport")
-    ! print *,importexport//'  at creation'
-
     toffset = set_toffset(start_hour, freq)
     alarmoffset = toffset*60*tincrement
     refTime = startTime + alarmoffset
-
-    ! debug
-    !timestr = get_timestr(refTime, ierr)
-    !call esmf_err(ierr, subname, "get_timestr")
-    !print *,timestr//'  reftime sent to alarminit'
-
-    ! debug
-    !call ESMF_ClockGet(clock, currTime=currTime, rc=rc)
-    !call esmf_err(ierr, subname, "ESMF_ClockGet(currTime)")
-    !call ESMF_ClockGetNextTime(clock, nextTime, rc=rc)
-    !call esmf_err(ierr, subname, "ESMF_ClockGet(nexTTime)")
-    !importexport = get_importexport(currTime, nextTime, rc=rc)
-    !call esmf_err(ierr, subname, "get_importexport")
-    !print *,'before AlarmInit '//importexport
 
     call AlarmInit(clock, alarm=cf_n%alarm, option='nhours', opt_n=freq, opt_ymd=-999, &
          RefTime=refTime, alarmname='test_alarm', rc=ierr)
@@ -223,9 +195,8 @@ contains
     do while (.not. ESMF_ClockIsStopTime(clock, rc=ierr))
        call esmf_err(ierr, subname, "ESMF_ClockIsStopTime")
 
-       ! debug; note must obtain nextTime prior to advance!
-       call ESMF_ClockGetNextTime(clock, nextTime, rc=rc)
-       call esmf_err(ierr, subname, "ESMF_ClockGet(nextTime pre-advance)")
+       call ESMF_ClockGetNextTime(clock, nextTime, rc=ierr)
+       call esmf_err(ierr, subname, "ESMF_ClockGetNextTime (pre-advance)")
 
        call ESMF_ClockAdvance(clock, rc=ierr)
        call esmf_err(ierr, subname, "ESMF_ClockAdvance")
@@ -233,19 +204,12 @@ contains
        ringing = ESMF_AlarmIsRinging(cf_n%alarm, rc=ierr)
        call esmf_err(ierr, subname, "ESMF_AlarmIsRinging")
 
-       ! debug
-       call ESMF_ClockGet(clock, currTime=currTime, rc=rc)
-       call esmf_err(ierr, subname, "ESMF_ClockGet(currTime)")
-       importexport = get_importexport(currTime, nextTime, rc=rc)
-       !print *,importexport//'  ',ringing
-
        if (ringing) then
           timestr = get_timestr(nextTime - cf_n%filename_fhoffset, rc=ierr)
           call esmf_err(ierr, subname, "get_timestr")
           ring_filename = trim(outputdir)//trim(cf_n%fnameprefix)//trim(timestr)//'.nc' &
                //trim(cf_n%fnamesuffix)
 
-          print *,importexport//'  ',ringing,'  '//trim(ring_filename)
           if (isroot) then
              call create_schema(trim(ring_filename))
              call write_padding(trim(ring_filename))
@@ -258,14 +222,6 @@ contains
        call esmf_err(rc, subname, "outputlog_freqn (main loop)")
     end do
 
-    ! call ESMF_ClockGet(clock, currTime=currTime, rc=rc)
-    ! call esmf_err(ierr, subname, "ESMF_ClockGet(currTime)")
-    ! call ESMF_ClockGetNextTime(clock, nextTime, rc=rc)
-    ! call esmf_err(ierr, subname, "ESMF_ClockGet(nexTTime)")
-    ! importexport = get_importexport(currTime, nextTime, rc=rc)
-    ! call esmf_err(ierr, subname, "get_importexport")
-    ! print *,'after while loop '//importexport
-
     ! --- Loop has ended at stopTime. state_n%filename now holds "15" --
     ! the file whose regular tracking began on the model's own last tick
     ! (the ring at stopTime itself). Capture it directly from state_n
@@ -273,29 +229,16 @@ contains
     ! production itself is tracking -- no risk of an independent-formula
     ! mismatch here.
     pending_filename = state_n%filename
-    print *,'pending filename from state_n%filename '//trim(pending_filename)
-
-    pending_filename = ring_filename
-    print *,'pending filename from ring_filename '//trim(pending_filename)
 
     ! --- Compute "21"'s filename the same way the real lstop block does
     ! (prevRingTime, not currTime/nextTime), since nothing has created it
     ! yet -- its own ring never happens.
     call ESMF_AlarmGet(cf_n%alarm, prevRingTime=prevring, rc=ierr)
     call esmf_err(ierr, subname, "ESMF_AlarmGet(prevRingTime)")
-
-    ! debug
-    timestr = get_timestr(prevring, ierr)
-    call esmf_err(ierr, subname, "get_timestr")
-    print *,'prevRing time = '//timestr
-
-    !timestr = get_timestr(prevring - 30*freq*tincrement, rc=ierr)
+    timestr = get_timestr(prevring - 30*freq*tincrement, rc=ierr)
     call esmf_err(ierr, subname, "get_timestr(lstop)")
-    !lstop_filename = trim(outputdir)//trim(cf_n%fnameprefix)//trim(timestr)//'.nc' &
-    !     //trim(cf_n%fnamesuffix)
-
-    lstop_filename = trim(pending_filename)
-    print *,'lstop_filename = ',lstop_filename
+    lstop_filename = trim(outputdir)//trim(cf_n%fnameprefix)//trim(timestr)//'.nc' &
+         //trim(cf_n%fnamesuffix)
 
     ! --- Both fixtures reach genuine completion now, matching FMS actually
     ! finishing the writes by the time finalize runs.
@@ -375,7 +318,7 @@ contains
     read(logunit,'(a)',iostat=ios) line
     is_passing = is_passing .and. (ios == 0) .and. (trim(line) == trim(expline))
 
-    ! confirm EACTLY 5 lines -- no more (would mean an unexpected extra
+    ! confirm EXACTLY 5 lines -- no more (would mean an unexpected extra
     ! optional field got included)
     read(logunit,'(a)',iostat=ios) line
     is_passing = is_passing .and. (ios /= 0)
@@ -383,4 +326,4 @@ contains
     close(logunit)
   end subroutine run_lstop_case
 
-end program test_outputlog_lstop
+end program test_outputlog_finalize

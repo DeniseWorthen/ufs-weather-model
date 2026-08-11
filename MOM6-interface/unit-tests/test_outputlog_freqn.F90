@@ -70,10 +70,17 @@ program test_outputlog_freqn
   call esmf_err(ierr, subname, "ESMF_Initialize")
 
   ! ------------------
-  ! Case 1: single ring, fixture completes on the confirmed next tick
+  ! Case 1: single ring closing a REAL (non-phantom) window, resolved
+  ! through ordinary mid-run polling -- NOT relying on the finalize
+  ! sequence. run_hours=13 is deliberate: with start=6,freq=6, the ring at
+  ! 12:00 only closes the phantom [0,6] window (predates model start); the
+  ! ring at 18:00 closes the real [6,12] window, but 18:00 is itself only
+  ! stopTime if run_hours=12 -- that would resolve via the finalize call,
+  ! not mid-run polling. run_hours=13 leaves one real tick (18:30) after
+  ! the ring for the default ticks_to_complete=1 to resolve normally.
   ! ------------------
-  testname = 'test 01 single ring completes correctly'
-  call run_case(freq=6, start_hour=6, run_hours=9, ring_ticks=[1], &
+  testname = 'single ring, real window, resolved by normal polling (no finalize)'
+  call run_case(freq=6, start_hour=6, run_hours=13, ring_ticks=[-1,1], &
        expected_completions=1, is_passing=is_passing)
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
   call addresult(freqntests, assertrc, trim(assertmsg), '')
