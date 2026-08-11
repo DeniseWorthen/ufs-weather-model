@@ -35,6 +35,7 @@ program test_outputlog_freqn
   use mpi_f08,               only : MPI_Init, MPI_Finalize, MPI_Comm, MPI_Comm_rank, MPI_COMM_WORLD, MPI_Barrier
   use test_utils
   use mom_outputlog_methods, only : outputlog_config_type, outputlog_state_type, get_timestr, set_toffset
+  use mom_outputlog_methods, only : get_ring_state
   use MOM_cap_outputlog,     only : outputlog_freqn
   use MOM_cap_time,          only : AlarmInit
   use nc_fixture_mod,        only : create_schema, write_record, write_padding, write_bulk_data
@@ -254,23 +255,24 @@ contains
 
     do while (.not. ESMF_ClockIsStopTime(clock, rc=ierr))
        call esmf_err(ierr, subname, "ESMF_ClockIsStopTime")
-       call ESMF_ClockAdvance(clock, rc=ierr)
-       call esmf_err(ierr, subname, "ESMF_ClockAdvance")
-       absolute_tick = absolute_tick + 1
 
-       ringing = ESMF_AlarmIsRinging(cf_n%alarm, rc=ierr)   ! non-destructive query
-       call esmf_err(ierr, subname, "ESMF_AlarmIsRinging")
+       ! Check ring state BEFORE this tick's advance, using the same
+       ! shared get_ring_state production itself calls -- confirmed
+       ! against real PET-log output that mclock's currTime/nextTime stay
+       ! FIXED for the whole duration of one ModelAdvance call (nothing
+       ! inside the cap ever advances the clock itself; only the external
+       ! NUOPC driver does, between calls). Advancing first and checking
+       ! after (the original structure here) does not match that -- it
+       ! silently computes a nextTime one full timestep later than
+       ! production would, which only surfaced once test_outputlog_lstop.F90
+       ! needed exact filename correctness rather than just self-consistent
+       ! completion counts.
+       call get_ring_state(clock, cf_n%alarm, ringing, nextTime, rc=ierr)
+       call esmf_err(ierr, subname, "get_ring_state")
 
        if (ringing) then
           ring_index = ring_index + 1
 
-          ! Filename plumbing only -- see module header comment.
-          ! IMPORTANT: production computes this from ESMF_ClockGetNextTime
-          ! (currTime + timeStep), called INSIDE outputlog_freqn, NOT from
-          ! currTime directly -- must match exactly or the fixture lands at
-          ! the wrong path and outputlog_freqn never finds it.
-          call ESMF_ClockGetNextTime(clock, nextTime, rc=ierr)
-          call esmf_err(ierr, subname, "ESMF_ClockGetNextTime")
           timestr = get_timestr(nextTime - cf_n%filename_fhoffset, rc=ierr)
           call esmf_err(ierr, subname, "get_timestr")
           ring_filename = trim(outputdir)//trim(cf_n%fnameprefix)//trim(timestr)//'.nc' &
@@ -324,6 +326,11 @@ contains
             filecomplete_out=filecomplete, filecomplete_lstop_out=filecomplete_lstop)
        call esmf_err(rc, subname, "outputlog_freqn (main loop)")
        if (filecomplete) num_completions = num_completions + 1
+
+       ! Advance LAST, preparing the clock for the next iteration.
+       call ESMF_ClockAdvance(clock, rc=ierr)
+       call esmf_err(ierr, subname, "ESMF_ClockAdvance")
+       absolute_tick = absolute_tick + 1
     end do
 
     is_passing = (num_completions == expected_completions)
