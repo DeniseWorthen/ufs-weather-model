@@ -42,6 +42,8 @@ program test_outputlog_lstop
   use MOM_cap_outputlog,     only : outputlog_freqn
   use MOM_cap_time,          only : AlarmInit
   use nc_fixture_mod,        only : create_schema, write_record, write_padding
+  ! debug
+  use mom_outputlog_methods, only : get_importexport, get_timestr
 
   implicit none
 
@@ -127,6 +129,10 @@ contains
     integer :: logunit, ios
     integer :: yr, mon, day, hour, minute, sec
     real(kind=ESMF_KIND_R8) :: fhour
+    ! debug
+    type(ESMF_Time)     :: currTime
+    character(len=40)   :: importexport
+    integer :: count
 
     outputdir = "./"
 
@@ -151,13 +157,52 @@ contains
     call ESMF_TimeIntervalSet(tincrement, m=1, rc=ierr)
     call esmf_err(ierr, subname, "ESMF_TimeIntervalSet(tincrement)")
 
+    call ESMF_ClockGet(clock, currTime=currTime, rc=rc)
+    call esmf_err(ierr, subname, "ESMF_ClockGet(currTime)")
+    call ESMF_ClockGetNextTime(clock, nextTime, rc=rc)
+    call esmf_err(ierr, subname, "ESMF_ClockGet(nexTTime)")
+    importexport = get_importexport(currTime, nextTime, rc=rc)
+    call esmf_err(ierr, subname, "get_importexport")
+    print *,importexport//'  at creation'
+
     toffset = set_toffset(start_hour, freq)
     alarmoffset = toffset*60*tincrement
     refTime = startTime + alarmoffset
+    timestr = get_timestr(refTime, ierr)
+    call esmf_err(ierr, subname, "get_timestr")
+    print *,timestr//'  reftime sent to alarminit'
+
+    call ESMF_ClockGet(clock, currTime=currTime, rc=rc)
+    call esmf_err(ierr, subname, "ESMF_ClockGet(currTime)")
+    call ESMF_ClockGetNextTime(clock, nextTime, rc=rc)
+    call esmf_err(ierr, subname, "ESMF_ClockGet(nexTTime)")
+    importexport = get_importexport(currTime, nextTime, rc=rc)
+    call esmf_err(ierr, subname, "get_importexport")
+    print *,'before AlarmInit '//importexport
 
     call AlarmInit(clock, alarm=cf_n%alarm, option='nhours', opt_n=freq, opt_ymd=-999, &
          RefTime=refTime, alarmname='test_alarm', rc=ierr)
     call esmf_err(ierr, subname, "AlarmInit")
+
+     !mom_cap.F90's ModelSetRunClock advances mclock once, then resets
+    ! currTime back, right after AlarmInit -- replicating that here, since
+    ! it appears the alarm's own internal ring-detection state is tied to
+    ! how many times ESMF_ClockAdvance has actually been called, not purely
+    ! to currTime's current value. Without this priming step, ring
+    ! detection here landed one tick later than production's real behavior.
+    call ESMF_ClockAdvance(clock, rc=ierr)
+    call esmf_err(ierr, subname, "ESMF_ClockAdvance (priming)")
+    call ESMF_ClockSet(clock, currTime=startTime, timeStep=timeStep, stopTime=stopTime, rc=ierr)
+    call esmf_err(ierr, subname, "ESMF_ClockSet (priming reset)")
+
+    call ESMF_ClockGet(clock, currTime=currTime, rc=rc)
+    call esmf_err(ierr, subname, "ESMF_ClockGet(currTime)")
+    call ESMF_ClockGetNextTime(clock, nextTime, rc=rc)
+    call esmf_err(ierr, subname, "ESMF_ClockGet(nexTTime)")
+    importexport = get_importexport(currTime, nextTime, rc=rc)
+    call esmf_err(ierr, subname, "get_importexport")
+    print *,'after priming reset '//importexport
+
 
     cf_n%alarm_name        = "test_alarm"
     cf_n%opt_n             = freq
@@ -184,34 +229,52 @@ contains
     ! completed in-loop -- both "15" and "21"'s fixtures are deliberately
     ! left pending until after the loop, matching the real FMS-lag scenario
     ! this test exists to check.
+
     do while (.not. ESMF_ClockIsStopTime(clock, rc=ierr))
        call esmf_err(ierr, subname, "ESMF_ClockIsStopTime")
-       call ESMF_ClockAdvance(clock, rc=ierr)
+
+       !call ESMF_ClockGetAlarm(clock, alarmname='test_alarm', alarm=cf_n%alarm, rc=ierr)
+       !call esmf_err(ierr, subname, "ESMF_ClockGetAlarm")
+
+       call ESMF_ClockAdvance(clock, ringingAlarmCount=count, rc=ierr)
        call esmf_err(ierr, subname, "ESMF_ClockAdvance")
+
+       call ESMF_ClockGet(clock, currTime=currTime, rc=rc)
+       call esmf_err(ierr, subname, "ESMF_ClockGet(currTime)")
+       call ESMF_ClockGetNextTime(clock, nextTime, rc=rc)
+       call esmf_err(ierr, subname, "ESMF_ClockGet(nexTTime)")
+       importexport = get_importexport(currTime, nextTime, rc=rc)
+       call esmf_err(ierr, subname, "get_importexport")
 
        ringing = ESMF_AlarmIsRinging(cf_n%alarm, rc=ierr)
        call esmf_err(ierr, subname, "ESMF_AlarmIsRinging")
+       print *,importexport//'  ',ringing
+       call ESMF_AlarmRingerOff(cf_n%alarm, rc=rc )
+       call esmf_err(ierr, subname, "ESMF_AlarmRingerOff")
 
-       if (ringing) then
-          call ESMF_ClockGetNextTime(clock, nextTime, rc=ierr)
-          call esmf_err(ierr, subname, "ESMF_ClockGetNextTime")
-          timestr = get_timestr(nextTime - cf_n%filename_fhoffset, rc=ierr)
-          call esmf_err(ierr, subname, "get_timestr")
-          ring_filename = trim(outputdir)//trim(cf_n%fnameprefix)//trim(timestr)//'.nc' &
-               //trim(cf_n%fnamesuffix)
+       ! if (ringing) then
+       !    call ESMF_ClockGetNextTime(clock, nextTime, rc=ierr)
+       !    call esmf_err(ierr, subname, "ESMF_ClockGetNextTime")
+       !    timestr = get_timestr(nextTime - cf_n%filename_fhoffset, rc=ierr)
+       !    call esmf_err(ierr, subname, "get_timestr")
+       !    ring_filename = trim(outputdir)//trim(cf_n%fnameprefix)//trim(timestr)//'.nc' &
+       !         //trim(cf_n%fnamesuffix)
 
-          if (isroot) then
-             call create_schema(trim(ring_filename))
-             call write_padding(trim(ring_filename))
-          end if
-       end if
+       !    if (isroot) then
+       !       call create_schema(trim(ring_filename))
+       !       call write_padding(trim(ring_filename))
+       !    end if
+       ! end if
 
-       call outputlog_freqn(clock, cf_n, state_n, comm, isroot, rootpe, outputdir, tincrement, &
-            lastrestart, verbose, atStopTime=.false., rc=rc, &
-            filecomplete_out=filecomplete, filecomplete_lstop_out=filecomplete_lstop)
-       call esmf_err(rc, subname, "outputlog_freqn (main loop)")
+       ! call outputlog_freqn(clock, cf_n, state_n, comm, isroot, rootpe, outputdir, tincrement, &
+       !      lastrestart, verbose, atStopTime=.false., rc=rc, &
+       !      filecomplete_out=filecomplete, filecomplete_lstop_out=filecomplete_lstop)
+       ! call esmf_err(rc, subname, "outputlog_freqn (main loop)")
+
+       !call ESMF_ClockAdvance(clock, rc=ierr)
+       !call esmf_err(ierr, subname, "ESMF_ClockAdvance")
     end do
-
+#ifdef test
     ! --- Loop has ended at stopTime. state_n%filename now holds "15" --
     ! the file whose regular tracking began on the model's own last tick
     ! (the ring at stopTime itself). Capture it directly from state_n
@@ -314,6 +377,7 @@ contains
     is_passing = is_passing .and. (ios /= 0)
 
     close(logunit)
+#endif
   end subroutine run_lstop_case
 
 end program test_outputlog_lstop

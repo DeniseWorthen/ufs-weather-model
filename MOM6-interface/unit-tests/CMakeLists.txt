@@ -8,9 +8,9 @@ if(NOT PROJECT_NAME)
   find_package(ESMF REQUIRED)
 endif()
 
-# mom6_test_utils is shared by test_readnml and test_alarm -- same reasoning as
+# test_utils is shared by test_readnml and test_alarm -- same reasoning as
 # nc_fixture_mod above: build once, link, don't compile it twice.
-add_library(mom6_test_utils STATIC mom6_test_utils.F90)
+add_library(mom6_test_utils STATIC test_utils.F90)
 target_link_libraries(mom6_test_utils PRIVATE mom6 ESMF::ESMF)
 if(MOM6_INC_DIR)
   target_include_directories(mom6_test_utils PRIVATE ${MOM6_INC_DIR})
