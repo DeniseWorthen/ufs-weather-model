@@ -156,6 +156,12 @@ contains
     call esmf_err(ierr, subname, "ESMF_TimeIntervalSet(tincrement)")
 
     ! debug
+    call ESMF_ClockGet(clock, stopTime=stopTime, rc=rc)
+    call esmf_err(ierr, subname, "ESMF_ClockGet(stopTime)")
+    timestr = get_timestr(stopTime, ierr)
+    print *,timestr//'  stopTime'
+
+    ! debug
     ! call ESMF_ClockGet(clock, currTime=currTime, rc=rc)
     ! call esmf_err(ierr, subname, "ESMF_ClockGet(currTime)")
     ! call ESMF_ClockGetNextTime(clock, nextTime, rc=rc)
@@ -217,14 +223,7 @@ contains
     do while (.not. ESMF_ClockIsStopTime(clock, rc=ierr))
        call esmf_err(ierr, subname, "ESMF_ClockIsStopTime")
 
-       ! debug
-       !call ESMF_ClockGet(clock, currTime=currTime, rc=rc)
-       !call esmf_err(ierr, subname, "ESMF_ClockGet(currTime)")
-       !call ESMF_ClockGetNextTime(clock, nextTime, rc=rc)
-       !call esmf_err(ierr, subname, "ESMF_ClockGet(nexTTime)")
-       !importexport = get_importexport(currTime, nextTime, rc=rc)
-       !call esmf_err(ierr, subname, "get_importexport")
-
+       ! debug; note must obtain nextTime prior to advance!
        call ESMF_ClockGetNextTime(clock, nextTime, rc=rc)
        call esmf_err(ierr, subname, "ESMF_ClockGet(nextTime pre-advance)")
 
@@ -233,6 +232,11 @@ contains
 
        ringing = ESMF_AlarmIsRinging(cf_n%alarm, rc=ierr)
        call esmf_err(ierr, subname, "ESMF_AlarmIsRinging")
+
+       ! debug
+       call ESMF_ClockGet(clock, currTime=currTime, rc=rc)
+       call esmf_err(ierr, subname, "ESMF_ClockGet(currTime)")
+       importexport = get_importexport(currTime, nextTime, rc=rc)
        !print *,importexport//'  ',ringing
 
        if (ringing) then
@@ -241,6 +245,7 @@ contains
           ring_filename = trim(outputdir)//trim(cf_n%fnameprefix)//trim(timestr)//'.nc' &
                //trim(cf_n%fnamesuffix)
 
+          print *,importexport//'  ',ringing,'  '//trim(ring_filename)
           if (isroot) then
              call create_schema(trim(ring_filename))
              call write_padding(trim(ring_filename))
@@ -253,6 +258,14 @@ contains
        call esmf_err(rc, subname, "outputlog_freqn (main loop)")
     end do
 
+    ! call ESMF_ClockGet(clock, currTime=currTime, rc=rc)
+    ! call esmf_err(ierr, subname, "ESMF_ClockGet(currTime)")
+    ! call ESMF_ClockGetNextTime(clock, nextTime, rc=rc)
+    ! call esmf_err(ierr, subname, "ESMF_ClockGet(nexTTime)")
+    ! importexport = get_importexport(currTime, nextTime, rc=rc)
+    ! call esmf_err(ierr, subname, "get_importexport")
+    ! print *,'after while loop '//importexport
+
     ! --- Loop has ended at stopTime. state_n%filename now holds "15" --
     ! the file whose regular tracking began on the model's own last tick
     ! (the ring at stopTime itself). Capture it directly from state_n
@@ -260,16 +273,29 @@ contains
     ! production itself is tracking -- no risk of an independent-formula
     ! mismatch here.
     pending_filename = state_n%filename
+    print *,'pending filename from state_n%filename '//trim(pending_filename)
+
+    pending_filename = ring_filename
+    print *,'pending filename from ring_filename '//trim(pending_filename)
 
     ! --- Compute "21"'s filename the same way the real lstop block does
     ! (prevRingTime, not currTime/nextTime), since nothing has created it
     ! yet -- its own ring never happens.
     call ESMF_AlarmGet(cf_n%alarm, prevRingTime=prevring, rc=ierr)
     call esmf_err(ierr, subname, "ESMF_AlarmGet(prevRingTime)")
-    timestr = get_timestr(prevring - 30*freq*tincrement, rc=ierr)
+
+    ! debug
+    timestr = get_timestr(prevring, ierr)
+    call esmf_err(ierr, subname, "get_timestr")
+    print *,'prevRing time = '//timestr
+
+    !timestr = get_timestr(prevring - 30*freq*tincrement, rc=ierr)
     call esmf_err(ierr, subname, "get_timestr(lstop)")
-    lstop_filename = trim(outputdir)//trim(cf_n%fnameprefix)//trim(timestr)//'.nc' &
-         //trim(cf_n%fnamesuffix)
+    !lstop_filename = trim(outputdir)//trim(cf_n%fnameprefix)//trim(timestr)//'.nc' &
+    !     //trim(cf_n%fnamesuffix)
+
+    lstop_filename = trim(pending_filename)
+    print *,'lstop_filename = ',lstop_filename
 
     ! --- Both fixtures reach genuine completion now, matching FMS actually
     ! finishing the writes by the time finalize runs.
@@ -349,7 +375,7 @@ contains
     read(logunit,'(a)',iostat=ios) line
     is_passing = is_passing .and. (ios == 0) .and. (trim(line) == trim(expline))
 
-    ! confirm EXACTLY 5 lines -- no more (would mean an unexpected extra
+    ! confirm EACTLY 5 lines -- no more (would mean an unexpected extra
     ! optional field got included)
     read(logunit,'(a)',iostat=ios) line
     is_passing = is_passing .and. (ios /= 0)
