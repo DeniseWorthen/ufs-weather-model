@@ -1,11 +1,11 @@
-!> Narrow orchestration test for outputlog_freqn
+!> Narrow orchestration test for the outputlog_freqn machinery
 !!
 !! Ring timing (AlarmInit/set_toffset) is validated in test_alarminit.F90.
 !! Completion criteria (file_is_complete/get_file_state) are validated in
 !! test_outputlog_completion.F90. Given both are already independently
-!! trusted, this file's only job is to confirm outputlog_freqn correctly
-!! WIRES them together:
-!!   1. at ring time, computes the right filename (the nextTime-
+!! trusted, this file's job is to confirm get_ring_state and
+!! check_file_completion correctly coordinate through state_n:
+!!   1. at a ring, computes the right filename (the nextTime-
 !!      filename_fhoffset lookback) and correctly initializes state_n from
 !!      a real check of that file
 !!   2. correctly reports completion by genuinely polling the real fixture
@@ -13,30 +13,35 @@
 !!   3. when a second ring fires, correctly re-initializes and starts
 !!      tracking the new file, superseding whatever it was tracking before
 !!
+!! DESIGN NOTE: this file calls get_ring_state/check_file_completion
+!! DIRECTLY -- not outputlog_freqn itself. outputlog_freqn is now just a
+!! thin dispatcher (check ringing, call get_ring_state if so, always call
+!! check_file_completion) with no real logic of its own left to test; all
+!! the actual state-tracking/completion/supersession behavior lives in the
+!! two routines this file exercises directly. Since get_ring_state takes a
+!! plain nextTime (not a clock), and check_file_completion needs no
+!! clock/alarm at all, this file needs NO real advancing ESMF_Clock and NO
+!! alarm-ringing detection -- "this is a ring" is simply asserted by each
+!! case's own ring_hours(:) data, not derived from ESMF. Ring TIMING
+!! correctness itself is out of scope here (owned by test_alarminit.F90);
+!! ring_hours(:) values below are literals matching what's already been
+!! independently confirmed correct elsewhere, not re-derived here.
+!!
 !! Explicitly OUT OF SCOPE here, left to their own dedicated tests:
 !!   - restart pairing (state_n%time_lastrestart) -- lastrestart is a fixed
 !!     dummy value below, never asserted on
-!!   - lstop / finalize behavior -- outputlog_freqn is never called with
-!!     atStopTime=.true. here
+!!   - finalize behavior (both the plain and lstop-specific finalize calls)
+!!     -- get_lstop_ring_state is never called here; see
+!!     test_outputlog_finalize.F90
 !!
-!! Each ring's expected filename is computed independently only as
-!! plumbing (to know where to place the fixture), using the same offset
-!! formula + the real get_timestr production itself uses. This is not the
-!! oracle: if the computed path were wrong, outputlog_freqn would look for
-!! a different file, find nothing, and the test would fail loudly (wrong
-!! completion count), not silently pass. The completion COUNT -- the actual
-!! oracle -- is never independently recomputed; it's read directly from
-!! outputlog_freqn's own filecomplete_out/filecomplete_lstop_out arguments.
-!!
-!> @date 08-08-2026
+!> @date 08-12-2026
 program test_outputlog_freqn
 
   use ESMF
   use mpi_f08,               only : MPI_Init, MPI_Finalize, MPI_Comm, MPI_Comm_rank, MPI_COMM_WORLD, MPI_Barrier
   use test_utils
-  use mom_outputlog_methods, only : outputlog_config_type, outputlog_state_type, get_timestr, set_toffset
-  use mom_outputlog_methods, only : get_ring_state
-  use MOM_cap_outputlog,     only : outputlog_freqn
+  use mom_outputlog_methods, only : outputlog_config_type, outputlog_state_type, get_timestr
+  use mom_outputlog_methods, only : get_ring_state, check_file_completion
   use MOM_cap_time,          only : AlarmInit
   use nc_fixture_mod,        only : create_schema, write_record, write_padding, write_bulk_data
 
@@ -70,28 +75,24 @@ program test_outputlog_freqn
   call esmf_err(ierr, subname, "ESMF_Initialize")
 
   ! ------------------
-  ! Case 1: single ring closing a REAL (non-phantom) window, resolved
-  ! through ordinary mid-run polling -- NOT relying on the finalize
-  ! sequence. run_hours=13 is deliberate: with start=6,freq=6, the ring at
-  ! 12:00 only closes the phantom [0,6] window (predates model start); the
-  ! ring at 18:00 closes the real [6,12] window, but 18:00 is itself only
-  ! stopTime if run_hours=12 -- that would resolve via the finalize call,
-  ! not mid-run polling. run_hours=13 leaves one real tick (18:30) after
-  ! the ring for the default ticks_to_complete=1 to resolve normally.
+  ! Case 1: single ring closing a REAL (non-phantom) window -- ring at
+  ! hour 12 closes the phantom [0,6] window (predates model start=6, never
+  ! completes); ring at hour 18 closes the real [6,12] window, and does
+  ! complete. Literals confirmed via the earlier orchestration-test work.
   ! ------------------
-  testname = 'single ring, real window, resolved by normal polling (no finalize)'
-  call run_case(freq=6, start_hour=6, run_hours=13, ring_ticks=[-1,1], &
+  testname = 'single ring, real window, completes correctly'
+  call run_case(freq=6, start_hour=6, ring_hours=[12,18], ring_ticks=[-1,1], &
        expected_completions=1, is_passing=is_passing)
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
   call addresult(freqntests, assertrc, trim(assertmsg), '')
 
   ! ------------------
-  ! Case 2: single ring, fixture never completes within the run -- confirms
-  ! outputlog_freqn correctly keeps reporting not-complete rather than
-  ! falsely completing or erroring.
+  ! Case 2: single ring, fixture never completes -- confirms
+  ! check_file_completion correctly keeps reporting not-complete rather
+  ! than falsely completing or erroring.
   ! ------------------
   testname = 'test 02 single ring never completes'
-  call run_case(freq=6, start_hour=6, run_hours=9, ring_ticks=[-1], &
+  call run_case(freq=6, start_hour=6, ring_hours=[12], ring_ticks=[-1], &
        expected_completions=0, is_passing=is_passing)
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
   call addresult(freqntests, assertrc, trim(assertmsg), '')
@@ -103,7 +104,7 @@ program test_outputlog_freqn
   ! incomplete first file blocking or double-counting anything.
   ! ------------------
   testname = 'test 03 second ring supersedes first'
-  call run_case(freq=6, start_hour=0, run_hours=15, ring_ticks=[-1,1], &
+  call run_case(freq=6, start_hour=0, ring_hours=[6,12], ring_ticks=[-1,1], &
        expected_completions=1, is_passing=is_passing)
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
   call addresult(freqntests, assertrc, trim(assertmsg), '')
@@ -111,10 +112,9 @@ program test_outputlog_freqn
   ! ------------------
   ! Case 4: single ring, snapshot ('none') type -- exercises the 1x
   ! (60*freq) filename lookback, distinct from 'average's 1.5x (90*freq).
-  ! This code path has never been exercised by this file before.
   ! ------------------
   testname = 'test 04 single ring snapshot (none) type completes correctly'
-  call run_case(freq=6, start_hour=6, run_hours=9, ring_ticks=[1], &
+  call run_case(freq=6, start_hour=6, ring_hours=[12,18], ring_ticks=[-1,1], &
        expected_completions=1, is_passing=is_passing, timereduce='none')
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
   call addresult(freqntests, assertrc, trim(assertmsg), '')
@@ -122,12 +122,12 @@ program test_outputlog_freqn
   ! ------------------
   ! Case 5: single ring, ATM-style fixture (nlen=1 immediately at ring
   ! time, completion via fsize growth instead of a nlen flip) -- exercises
-  ! outputlog_freqn's own use_filesize=.true. INFERENCE from a real ring-
+  ! get_ring_state's own use_filesize=.true. INFERENCE from a real ring-
   ! time check, distinct from test_outputlog_completion.F90 (which only
   ! tests file_is_complete given use_filesize already known as an input).
   ! ------------------
   testname = 'test 05 single ring ATM-style (use_filesize) completes correctly'
-  call run_case(freq=6, start_hour=6, run_hours=9, ring_ticks=[1], &
+  call run_case(freq=6, start_hour=6, ring_hours=[12,18], ring_ticks=[-1,1], &
        expected_completions=1, is_passing=is_passing, use_filesize=.true.)
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
   call addresult(freqntests, assertrc, trim(assertmsg), '')
@@ -154,15 +154,17 @@ program test_outputlog_freqn
 
 contains
 
-  !> Drives outputlog_freqn through one run. ring_ticks(ring_index) controls
-  !! when that ring's fixture completes: a positive value N schedules the
-  !! fixture's completing write N ticks after that ring fires; -1 means
-  !! never scheduled at all. Any ring beyond size(ring_ticks) also never
-  !! completes. Counts how many completions outputlog_freqn itself reports
-  !! and compares to expected_completions.
-  subroutine run_case(freq, start_hour, run_hours, ring_ticks, expected_completions, is_passing, &
+  !> Drives get_ring_state/check_file_completion through a sequence of
+  !! abstract "hours" (no real clock advances -- this is just an integer
+  !! counter, matched against ring_hours(:) to decide when a ring
+  !! "happens"). ring_ticks(i) controls when ring_hours(i)'s fixture
+  !! completes: a positive N schedules the fixture's completing write N
+  !! hours after that ring; -1 means never. Counts how many completions
+  !! are reported and compares to expected_completions.
+  subroutine run_case(freq, start_hour, ring_hours, ring_ticks, expected_completions, is_passing, &
        timereduce, use_filesize)
-    integer, intent(in)  :: freq, start_hour, run_hours
+    integer, intent(in)  :: freq, start_hour
+    integer, intent(in)  :: ring_hours(:)
     integer, intent(in)  :: ring_ticks(:)
     integer, intent(in)  :: expected_completions
     logical, intent(out) :: is_passing
@@ -173,31 +175,29 @@ contains
     logical          :: this_use_filesize
 
     type(ESMF_Clock)         :: clock
-    type(ESMF_Time)          :: startTime, stopTime, nextTime, refTime, lastrestart
-    type(ESMF_TimeInterval)  :: timeStep, runOffset, tincrement, alarmoffset
+    type(ESMF_Time)          :: startTime, nextTime, lastrestart
+    type(ESMF_TimeInterval)  :: timeStep, tincrement, hourInterval
     type(outputlog_config_type) :: cf_n
     type(outputlog_state_type)  :: state_n
-    integer :: toffset
 
     integer :: ierr, rc
-    integer :: ring_index, absolute_tick, this_ticks
+    integer :: hour, max_hour, ring_index
     integer :: num_completions
-    logical :: ringing, filecomplete, filecomplete_lstop
+    logical :: filecomplete
     character(len=16)  :: timestr
     character(len=256) :: ring_filename, outputdir
+    character(len=3)   :: chour
 
     type :: pending_transition_type
        character(len=256) :: filename = ""
-       integer :: target_tick = -1
+       integer :: target_hour = -1
        logical :: active = .false.
     end type pending_transition_type
-    type(pending_transition_type) :: pending(size(ring_ticks))
+    type(pending_transition_type) :: pending(size(ring_hours))
     integer :: n_pending, i
 
     outputdir = "./"
     num_completions = 0
-    ring_index = 0
-    absolute_tick = 0
     n_pending = 0
 
     this_timereduce = 'average'
@@ -217,23 +217,19 @@ contains
     call esmf_err(ierr, subname, "ESMF_TimeSet(startTime)")
     call ESMF_TimeIntervalSet(timeStep, s=1800, rc=ierr)
     call esmf_err(ierr, subname, "ESMF_TimeIntervalSet(timeStep)")
-    call ESMF_TimeIntervalSet(runOffset, h=run_hours, rc=ierr)
-    call esmf_err(ierr, subname, "ESMF_TimeIntervalSet(runOffset)")
-    stopTime = startTime + runOffset
-
-    clock = ESMF_ClockCreate(timeStep=timeStep, startTime=startTime, stopTime=stopTime, rc=ierr)
-    call esmf_err(ierr, subname, "ESMF_ClockCreate")
-
     call ESMF_TimeIntervalSet(tincrement, m=1, rc=ierr)
     call esmf_err(ierr, subname, "ESMF_TimeIntervalSet(tincrement)")
+    call ESMF_TimeIntervalSet(hourInterval, h=1, rc=ierr)
+    call esmf_err(ierr, subname, "ESMF_TimeIntervalSet(hourInterval)")
 
-    ! Real production toffset -- not a reimplementation.
-    toffset = set_toffset(start_hour, freq)
-    alarmoffset = toffset*60*tincrement
-    refTime = startTime + alarmoffset
-
+    ! Minimal clock + alarm, purely to get a VALID ESMF_Alarm handle for
+    ! get_ring_state to call ESMF_AlarmRingerOff on -- NEVER advanced.
+    ! Ring timing itself is out of scope here (owned by test_alarminit.F90);
+    ! ring_hours(:) above are literals, not derived from this alarm at all.
+    clock = ESMF_ClockCreate(timeStep=timeStep, startTime=startTime, rc=ierr)
+    call esmf_err(ierr, subname, "ESMF_ClockCreate")
     call AlarmInit(clock, alarm=cf_n%alarm, option='nhours', opt_n=freq, opt_ymd=-999, &
-         RefTime=refTime, alarmname='test_alarm', rc=ierr)
+         RefTime=startTime, alarmname='test_alarm', rc=ierr)
     call esmf_err(ierr, subname, "AlarmInit")
 
     ! --- Build the rest of cf_n exactly as outputlog_init would ---
@@ -256,36 +252,26 @@ contains
     state_n%filename            = ""
     state_n%createsize          = 0
 
+    write(chour,'(I2.2,A)') freq,'h'
+
     ! Restart pairing is out of scope for this file -- fixed dummy value,
     ! never asserted on. See the dedicated restart-pairing test.
     lastrestart = startTime
 
-    do while (.not. ESMF_ClockIsStopTime(clock, rc=ierr))
-       call esmf_err(ierr, subname, "ESMF_ClockIsStopTime")
+    max_hour = maxval(ring_hours) + maxval([ring_ticks, 1]) + 1
 
-       ! Check ring state BEFORE this tick's advance, using the same
-       ! shared get_ring_state production itself calls -- confirmed
-       ! against real PET-log output that mclock's currTime/nextTime stay
-       ! FIXED for the whole duration of one ModelAdvance call (nothing
-       ! inside the cap ever advances the clock itself; only the external
-       ! NUOPC driver does, between calls). Advancing first and checking
-       ! after (the original structure here) does not match that -- it
-       ! silently computes a nextTime one full timestep later than
-       ! production would, which only surfaced once test_outputlog_lstop.F90
-       ! needed exact filename correctness rather than just self-consistent
-       ! completion counts.
-       call get_ring_state(clock, cf_n%alarm, ringing, nextTime, rc=ierr)
-       call esmf_err(ierr, subname, "get_ring_state")
+    ring_index = 0
+    do hour = 1, max_hour
+       nextTime = startTime + hour*hourInterval
 
-       if (ringing) then
-          ring_index = ring_index + 1
-
+       ring_index = findloc_int(ring_hours, hour)
+       if (ring_index > 0) then
           timestr = get_timestr(nextTime - cf_n%filename_fhoffset, rc=ierr)
           call esmf_err(ierr, subname, "get_timestr")
           ring_filename = trim(outputdir)//trim(cf_n%fnameprefix)//trim(timestr)//'.nc' &
                //trim(cf_n%fnamesuffix)
 
-          ! Place the fixture in its INCOMPLETE state before outputlog_freqn's
+          ! Place the fixture in its INCOMPLETE state before get_ring_state's
           ! own get_file_state call, so use_filesize is inferred correctly:
           ! write_padding leaves nlen=0 (DATM-style); write_record sets
           ! nlen=1 immediately (ATM-style), and also sets createsize.
@@ -298,25 +284,23 @@ contains
              end if
           end if
 
+          call get_ring_state(nextTime, cf_n%alarm, cf_n, state_n, comm, isroot, rootpe, outputdir, rc)
+          call esmf_err(rc, subname, "get_ring_state")
+
           ! Schedule this ring's completion transition, per ring_ticks.
-          if (ring_index <= size(ring_ticks)) then
-             this_ticks = ring_ticks(ring_index)
-          else
-             this_ticks = -1
-          end if
-          if (this_ticks > 0) then
+          if (ring_ticks(ring_index) > 0) then
              n_pending = n_pending + 1
              pending(n_pending)%filename    = ring_filename
-             pending(n_pending)%target_tick = absolute_tick + this_ticks
+             pending(n_pending)%target_hour = hour + ring_ticks(ring_index)
              pending(n_pending)%active      = .true.
           end if
        end if
 
-       ! Fire any pending transitions scheduled for THIS tick -- independent
+       ! Fire any pending transitions scheduled for THIS hour -- independent
        ! of whichever ring is currently tracked, so a still-pending write
        ! from a superseded ring still lands on disk (just never seen).
        do i = 1, n_pending
-          if (pending(i)%active .and. pending(i)%target_tick == absolute_tick) then
+          if (pending(i)%active .and. pending(i)%target_hour == hour) then
              if (isroot) then
                 if (this_use_filesize) then
                    call write_bulk_data(trim(pending(i)%filename))   ! fsize grows past createsize
@@ -328,19 +312,30 @@ contains
           end if
        end do
 
-       call outputlog_freqn(clock, cf_n, state_n, comm, isroot, rootpe, outputdir, tincrement, &
-            lastrestart, verbose, atStopTime=.false., rc=rc, &
-            filecomplete_out=filecomplete, filecomplete_lstop_out=filecomplete_lstop)
-       call esmf_err(rc, subname, "outputlog_freqn (main loop)")
+       call check_file_completion(state_n, comm, isroot, rootpe, startTime, &
+            nextTime - cf_n%logname_fhoffset, 'mom6.'//trim(chour), lastrestart, filecomplete, rc)
+       call esmf_err(rc, subname, "check_file_completion")
        if (filecomplete) num_completions = num_completions + 1
-
-       ! Advance LAST, preparing the clock for the next iteration.
-       call ESMF_ClockAdvance(clock, rc=ierr)
-       call esmf_err(ierr, subname, "ESMF_ClockAdvance")
-       absolute_tick = absolute_tick + 1
     end do
 
     is_passing = (num_completions == expected_completions)
   end subroutine run_case
+
+  !> Index of target in arr, or 0 if not present -- plain integer lookup,
+  !! no ESMF/production logic involved.
+  function findloc_int(arr, target) result(idx)
+    integer, intent(in) :: arr(:)
+    integer, intent(in) :: target
+    integer :: idx
+    integer :: k
+
+    idx = 0
+    do k = 1, size(arr)
+       if (arr(k) == target) then
+          idx = k
+          return
+       end if
+    end do
+  end function findloc_int
 
 end program test_outputlog_freqn

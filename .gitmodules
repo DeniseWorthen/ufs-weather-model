@@ -23,7 +23,8 @@
   #url = https://github.com/NOAA-EMC/MOM6
   #branch = dev/emc
   url = https://github.com/DeniseWorthen/MOM6
-  branch = feature/logrefactor
+  #branch = feature/logrefactor
+  branch = logrefactor_stash2
 [submodule "CICE"]
   path = CICE-interface/CICE
   url = https://github.com/NOAA-EMC/CICE
