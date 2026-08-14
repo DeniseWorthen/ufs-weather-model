@@ -34,6 +34,16 @@
 !!     -- get_lstop_ring_state is never called here; see
 !!     test_outputlog_finalize.F90
 !!
+!! Coverage matrix (timereduce x use_filesize) is deliberately complete,
+!! not just DATM: ATM (use_filesize=.true.) is the operational
+!! configuration; DATM is a real code path needing correctness coverage but
+!! isn't what's actually deployed. Cases 1-4 (DATM) each have an ATM
+!! sibling (5, 6, 7, 8) rather than being inferred as "probably fine" from
+!! one config alone -- notably case 7, where createsize is functionally
+!! inert under DATM (only nlen matters) but load-bearing under ATM,
+!! meaning DATM's version of that case cannot catch a stale-createsize-on-
+!! supersession bug even in principle.
+!!
 !> @date 08-12-2026
 program test_outputlog_freqn
 
@@ -133,6 +143,52 @@ program test_outputlog_freqn
   call addresult(freqntests, assertrc, trim(assertmsg), '')
 
   ! ------------------
+  ! Case 6: ATM sibling of case 2 -- never completes, but under the
+  ! use_filesize=.true. scheme (fsize stuck at createsize forever, never
+  ! growing) rather than DATM's nlen-stuck-at-0. Added deliberately: ATM is
+  ! the operational configuration; DATM coverage alone isn't sufficient
+  ! evidence this mechanism works under what's actually running.
+  ! ------------------
+  testname = 'test 06 single ring never completes (ATM-style)'
+  call run_case(freq=6, start_hour=6, ring_hours=[12], ring_ticks=[-1], &
+       expected_completions=0, is_passing=is_passing, use_filesize=.true.)
+  call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
+  call addresult(freqntests, assertrc, trim(assertmsg), '')
+
+  ! ------------------
+  ! Case 7: ATM sibling of case 3 -- supersession, under use_filesize=.true.
+  ! This is the one case where DATM structurally CANNOT stand in for ATM:
+  ! createsize is functionally inert under DATM (completion only checks
+  ! nlen), but load-bearing under ATM (fsize > createsize IS the check).
+  ! Confirms get_ring_state correctly resets createsize to ring 2's own
+  ! value when superseding ring 1's tracking, and that check_file_completion
+  ! then correctly evaluates fsize against the NEW createsize, not a stale
+  ! one left over from ring 1.
+  ! ------------------
+  testname = 'test 07 second ring supersedes first (ATM-style)'
+  call run_case(freq=6, start_hour=0, ring_hours=[6,12], ring_ticks=[-1,1], &
+       expected_completions=1, is_passing=is_passing, use_filesize=.true.)
+  call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
+  call addresult(freqntests, assertrc, trim(assertmsg), '')
+
+  ! ------------------
+  ! Case 8: ATM sibling of case 4 -- snapshot ('none') type under
+  ! use_filesize=.true., completing the {average,none} x {DATM,ATM} matrix.
+  ! This combination (snapshot + active ATM) is the real operational case
+  ! that originally motivated this refactor (per user, alongside
+  ! average+freq=6) -- the specific frequency doesn't matter here (ring
+  ! timing itself is exhaustively covered elsewhere, across all valid
+  ! frequencies, by test_alarminit.F90); what matters is that this
+  ! timereduce/use_filesize COMBINATION is directly exercised, not merely
+  ! inferred from testing each half separately.
+  ! ------------------
+  testname = 'test 08 single ring snapshot (none) type, ATM-style'
+  call run_case(freq=6, start_hour=6, ring_hours=[12,18], ring_ticks=[-1,1], &
+       expected_completions=1, is_passing=is_passing, timereduce='none', use_filesize=.true.)
+  call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
+  call addresult(freqntests, assertrc, trim(assertmsg), '')
+
+  ! ------------------
   ! Test results
   ! ------------------
   if (freqntests%nfail > 0) then
@@ -205,8 +261,12 @@ contains
     this_use_filesize = .false.
     if (present(use_filesize)) this_use_filesize = use_filesize
 
-    ! Fixture files from a prior case must not leak into this one.
-    if (isroot) call execute_command_line('rm -f '//trim(outputdir)//'*.nc', wait=.true.)
+    ! Fixture files (*.nc) AND log_restart_fh's real output (a genuine side
+    ! effect of check_file_completion whenever a fixture completes -- format
+    ! YYYYMMDD.HHMMSS.mom6.<chour>, no .nc extension) from a prior case must
+    ! not leak into this one.
+    if (isroot) call execute_command_line('rm -f '//trim(outputdir)//'*.nc '//trim(outputdir)//'*.mom6.*', &
+         wait=.true.)
     call MPI_Barrier(comm, ierr)
     if (ierr /= 0) then
        write(0,'(A)') "FATAL ("//trim(subname)//"): MPI_Barrier (post-cleanup) failed"
