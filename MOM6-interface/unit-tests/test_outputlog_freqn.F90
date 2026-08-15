@@ -71,7 +71,7 @@ program test_outputlog_freqn
 
   logical :: is_passing, assertrc
   integer :: n
-  logical :: verbose = .true.
+  logical :: verbose = .false.
 
   comm = MPI_COMM_WORLD
   rootpe = 0
@@ -95,7 +95,7 @@ program test_outputlog_freqn
        expected_completions=1, is_passing=is_passing)
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
   call addresult(freqntests, assertrc, trim(assertmsg), '')
-#ifdef test
+
   ! ------------------
   ! Case 2: single ring, fixture never completes -- confirms
   ! check_file_completion correctly keeps reporting not-complete rather
@@ -187,7 +187,7 @@ program test_outputlog_freqn
        expected_completions=1, is_passing=is_passing, timereduce='none', use_filesize=.true.)
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
   call addresult(freqntests, assertrc, trim(assertmsg), '')
-#endif
+
   ! ------------------
   ! Test results
   ! ------------------
@@ -329,7 +329,6 @@ contains
        nextTime = startTime + hour*hourInterval
 
        ring_index = findloc_int(ring_hours, hour)
-       print *,ring_index
        if (ring_index > 0) then
           timestr = get_timestr(nextTime - cf_n%filename_fhoffset, rc=ierr)
           call esmf_err(ierr, subname, "get_timestr")
@@ -350,7 +349,6 @@ contains
              end if
           end if
           timestr = get_timestr(nextTime,rc=ierr)
-          print *,'XXX ',trim(ring_filename)//'  '//timestr,' ',ring_ticks(ring_index)
 
           call get_ring_state(nextTime, cf_n%alarm, cf_n, state_n, comm, isroot, rootpe, outputdir, rc)
           call esmf_err(rc, subname, "get_ring_state")

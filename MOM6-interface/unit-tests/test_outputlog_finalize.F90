@@ -1,329 +1,787 @@
-!> Dedicated test for outputlog_freqn's finalize behavior -- both halves of
-!! mom_cap.F90's two-call finalize sequence (the ordinary per-ring
-!! mechanism's last chance, and the lstop-only currently-open interval),
-!! since production always uses them as a pair. Scoped separately from
-!! test_outputlog_freqn.F90, which covers the same regular mechanism during
-!! an ONGOING run and never touches atStopTime at all.
-!!
-!! At finalize, mom_cap.F90 calls outputlog_run TWICE at the same clock
-!! state (see the actual call site, ocean_model_finalize):
-!!     call outputlog_run(clock, rc=rc)          ! plain
-!!     call outputlog_run(clock, .true., rc=rc)  ! lstop
-!! (comment there: "need to call twice to force logging of last output file")
-!!
-!! Why two calls, and what each is for (confirmed against the real code and
-!! worked through with the user, since this was initially misunderstood):
-!! the regular per-ring mechanism tracks exactly ONE interval per ring --
-!! when ring N fires, it checks/completes the interval that just closed
-!! (ring N-1 to ring N). The interval that's CURRENTLY open when the model
-!! stops (ring N to the ring N+1 that will now never happen) is never
-!! tracked by the regular mechanism at all -- only the lstop call, using
-!! ESMF_AlarmGet's prevRingTime, can ever reach it.
-!!
-!! This creates two genuinely different scenarios, both real, both needing
-!! their own fixture:
-!!   - a file whose regular tracking began on the model's OWN LAST tick
-!!     (so it only ever got one chance to be checked before the loop
-!!     ended) -- resolved by the PLAIN finalize call giving it one more
-!!     legitimate look, not by lstop
-!!   - a file with NO regular tracking at all, since its own closing ring
-!!     never happens -- resolved ONLY by the lstop call
-!!
-!! Worked example (start=6, freq=6, run_hours=18, average): rings at
-!! 12/18/day2-00 (=stopTime). Ring day2-00 is the model's last tick --
-!! it starts tracking "15" (window [12,18]), which gets exactly one
-!! (incomplete) check before the loop ends. The window [18,day2-00] never
-!! gets its own ring at all (would be day2-06, past stopTime) -- lstop's
-!! prevRingTime (day2-00) is the only way to ever reach its file ("21",
-!! via prevRingTime-0.5*freq).
-!!
-!> @date 08-10-2026
-program test_outputlog_finalize
+! This file is part of MOM6, the Modular Ocean Model version 6.
+! See the LICENSE file for licensing information.
+! SPDX-License-Identifier: Apache-2.0
 
-  use ESMF
-  use mpi_f08,               only : MPI_Init, MPI_Finalize, MPI_Comm, MPI_Comm_rank, MPI_COMM_WORLD, MPI_Barrier
-  use test_utils
-  use mom_outputlog_methods, only : outputlog_config_type, outputlog_state_type, get_timestr, set_toffset
-  use MOM_cap_outputlog,     only : outputlog_freqn
-  use MOM_cap_time,          only : AlarmInit
-  use nc_fixture_mod,        only : create_schema, write_record, write_padding
+!> This module contains a set of subroutines that are required by the UFS
+!> outputlog feature
 
-  implicit none
+module mom_outputlog_methods
 
-  type(MPI_Comm) :: comm
-  integer        :: rank, ierr, rootpe
-  logical        :: isroot
-  integer, parameter :: base_yy = 2021, base_mm = 3, base_dd = 22
-  integer, parameter :: maxtests = 10
+use ESMF,              only : ESMF_Alarm, ESMF_TimeInterval, ESMF_Clock
+use ESMF,              only : ESMF_SUCCESS, ESMF_Failure, ESMF_Time, ESMF_TimeGet
+use ESMF,              only : ESMF_ClockGetNextTime
+use ESMF,              only : ESMF_AlarmRingerOff, ESMF_AlarmGet, operator(-), operator(*)
+use shr_is_restart_fh_mod , only : log_restart_fh
+use MOM_cap_methods,   only : ChkErr
+use mpi_f08,           only : MPI_Comm, MPI_INTEGER, MPI_SUCCESS
+use netcdf
 
-  character(len=128) :: testname
-  character(len=256) :: assertmsg
-  character(len=24)  :: subname = 'test_outputlog_finalize'
+implicit none; private
 
-  type(testsummary) :: finalizetests
+type :: outputlog_config_type
+  character(len=14)       :: alarm_name
+  integer                 :: opt_n
+  logical                 :: requested
+  character(len=7)        :: timereduce
+  character(len=13)       :: fnameprefix   ! 12 user chars max + appended '_' -- see setprefix
+  character(len=4)        :: fnamesuffix
+  type(ESMF_Alarm)        :: alarm
+  type(ESMF_TimeInterval) :: logname_fhoffset
+  type(ESMF_TimeInterval) :: filename_fhoffset
+end type outputlog_config_type
 
-  logical :: is_passing, assertrc
-  integer :: n
-  logical :: verbose = .false.
+type :: outputlog_state_type
+  logical                 :: chkfile_nextAdvance
+  logical                 :: use_filesize
+  character(len=256)      :: filename
+  integer                 :: createsize
+  type(ESMF_Time)         :: time_lastrestart
+end type outputlog_state_type
 
-  comm = MPI_COMM_WORLD
-  rootpe = 0
+character(len=*), parameter :: u_FILE_u = &
+     __FILE__
 
-  call finalizetests%init(maxtests)
+public :: get_file_state, file_is_complete, get_unlimited_len
+public :: get_timestr, get_importexport
+public :: readnml, debug_info, nf90_err
+public :: outputlog_config_type, outputlog_state_type
 
-  call MPI_Init(ierr)
-  call MPI_Comm_rank(comm, rank, ierr)
-  isroot = (rank == rootpe)
-  call ESMF_Initialize(defaultCalKind=ESMF_CALKIND_GREGORIAN, rc=ierr)
-  call esmf_err(ierr, subname, "ESMF_Initialize")
-
-  ! ------------------
-  ! The double-close: "15" resolved by the plain finalize call (its
-  ! regular tracking began on the model's own last tick), "21" resolved
-  ! only by the lstop call (its own closing ring never happens).
-  ! ------------------
-  testname = 'test 01 double-close at finalize: plain catches 15, lstop catches 21'
-  call run_lstop_case(freq=6, start_hour=6, run_hours=18, is_passing=is_passing)
-  call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
-  call addresult(finalizetests, assertrc, trim(assertmsg), '')
-
-  ! ------------------
-  ! Test results
-  ! ------------------
-  if (finalizetests%nfail > 0) then
-     print '(A)', 'FAIL: At least one test failed '
-     do n = 1,finalizetests%count
-        if (.not. finalizetests%teststatus(n)) print '(A)', trim(finalizetests%testmessage(n)%str)
-     enddo
-  else
-     do n = 1,finalizetests%count
-        print '(A)', trim(finalizetests%testmessage(n)%str)
-     enddo
-  endif
-  print '(3(A,I0))','Total tests = ',finalizetests%count,' Passing = ',finalizetests%npass,' Failing = ',finalizetests%nfail
-
-  call ESMF_Finalize(rc=ierr)
-  call esmf_err(ierr, subname, "ESMF_Finalize")
-
-  if (finalizetests%nfail > 0) stop 1
+public :: setrequest, settype, setprefix, set_toffset, get_ring_state
+public :: get_lstop_ring_state, check_file_completion
 
 contains
 
-  !> Drives outputlog_freqn through one run, then replays mom_cap.F90's
-  !! real two-call finalize sequence (plain, then atStopTime=.true.) at the
-  !! final clock state, asserting each call catches the file only it can.
-  subroutine run_lstop_case(freq, start_hour, run_hours, is_passing)
-    integer, intent(in)  :: freq, start_hour, run_hours
-    logical, intent(out) :: is_passing
+!> Read nml options to configure output logging
+!!
+!! @param[in]     fname    input namelist file
+!! @param[inout]  cf       outputlog configuration
+!! @param[out]    debug    logical flag to enable debug output
+!! @param[out]    errmsg   error message
+!! @param[out]    rc       return code
+subroutine readnml(fname, cf, debug, errmsg, rc)
 
-    type(ESMF_Clock)         :: clock
-    type(ESMF_Time)          :: startTime, stopTime, nextTime, refTime, lastrestart, prevring
-    type(ESMF_TimeInterval)  :: timeStep, runOffset, tincrement, alarmoffset, elapsedTime
-    type(outputlog_config_type) :: cf_n
-    type(outputlog_state_type)  :: state_n
-    integer :: toffset
+  character(len=*),            intent(in)    :: fname
+  type(outputlog_config_type), intent(inout) :: cf(:)
+  logical,                     intent(out)   :: debug
+  character(len=*),            intent(out)   :: errmsg
+  integer,                     intent(out)   :: rc
 
-    integer :: ierr, rc
-    logical :: ringing, filecomplete, filecomplete_lstop
-    character(len=16)  :: timestr, chour
-    character(len=256) :: ring_filename, lstop_filename, pending_filename, outputdir
-    character(len=256) :: lstop_logname
-    character(len=256) :: line, expline
-    integer :: logunit, ios
-    integer :: yr, mon, day, hour, minute, sec
-    real(kind=ESMF_KIND_R8) :: fhour
+  integer :: nfreq, iounit, ierr
+  logical :: existflag, outputlog_debug
 
-    outputdir = "./"
+  integer,           allocatable :: outputlog_fh(:)
+  character(len=7),  allocatable :: outputlog_treduce(:)
+  character(len=24), allocatable :: outputlog_fnameprefix(:)
 
-    if (isroot) call execute_command_line('rm -f '//trim(outputdir)//'*.nc', wait=.true.)
-    call MPI_Barrier(comm, ierr)
+  namelist / MOM_outputlog_nml/ outputlog_fh, outputlog_fnameprefix, outputlog_treduce, outputlog_debug
+
+  rc = 0
+  errmsg = ''
+  nfreq = size(cf)
+  allocate(outputlog_fh(1:nfreq))
+  allocate(outputlog_treduce(1:nfreq))
+  allocate(outputlog_fnameprefix(1:nfreq))
+  outputlog_fh(:) = 0
+  outputlog_treduce(:) = cf(1:nfreq)%timereduce
+  outputlog_fnameprefix(:) = cf(1:nfreq)%fnameprefix
+  outputlog_debug = .false.
+
+  inquire(file=trim(fname), exist=existflag)
+  if (.not. existflag) then
+    write (errmsg, '(a)') 'FATAL ERROR: input file '//trim(fname)//' does not exist'
+    ierr = 1
+    return
+  else
+    open (action='read', file=trim(fname), iostat=ierr, newunit=iounit)
+    read (nml=MOM_outputlog_nml, iostat=ierr, unit=iounit)
+    close (iounit)
     if (ierr /= 0) then
-       write(0,'(A)') "FATAL ("//trim(subname)//"): MPI_Barrier (post-cleanup) failed"
-       stop 99
-    end if
+      cf(:)%requested = .false.
+      write (errmsg, '(a)') ' Namelist ERROR: MOM output logging disabled '
+      return
+    endif
+  endif
 
-    call ESMF_TimeSet(startTime, yy=base_yy, mm=base_mm, dd=base_dd, h=start_hour, rc=ierr)
-    call esmf_err(ierr, subname, "ESMF_TimeSet(startTime)")
-    call ESMF_TimeIntervalSet(timeStep, s=1800, rc=ierr)
-    call esmf_err(ierr, subname, "ESMF_TimeIntervalSet(timeStep)")
-    call ESMF_TimeIntervalSet(runOffset, h=run_hours, rc=ierr)
-    call esmf_err(ierr, subname, "ESMF_TimeIntervalSet(runOffset)")
-    stopTime = startTime + runOffset
+  debug = outputlog_debug
 
-    clock = ESMF_ClockCreate(timeStep=timeStep, startTime=startTime, stopTime=stopTime, rc=ierr)
-    call esmf_err(ierr, subname, "ESMF_ClockCreate")
+  cf%requested = setrequest(cf%opt_n, outputlog_fh, errmsg, ierr)
+  if (ierr /= 0) return
 
-    call ESMF_TimeIntervalSet(tincrement, m=1, rc=ierr)
-    call esmf_err(ierr, subname, "ESMF_TimeIntervalSet(tincrement)")
+  cf%timereduce = settype(cf%opt_n, cf%requested, outputlog_fh, outputlog_treduce, errmsg, ierr)
+  if (ierr /= 0) return
 
-    toffset = set_toffset(start_hour, freq)
-    alarmoffset = toffset*60*tincrement
-    refTime = startTime + alarmoffset
+  cf%fnameprefix = setprefix(cf%opt_n, cf%requested, outputlog_fh, outputlog_fnameprefix, errmsg, ierr)
+  if (ierr /= 0) return
 
-    call AlarmInit(clock, alarm=cf_n%alarm, option='nhours', opt_n=freq, opt_ymd=-999, &
-         RefTime=refTime, alarmname='test_alarm', rc=ierr)
-    call esmf_err(ierr, subname, "AlarmInit")
+end subroutine readnml
+!> Retrieve the unlimited dimension length and file size, broadcasting to all PEs
+!!
+!! @param[in]   comm      the MPI communicator
+!! @param[in]   isroot    logical flag for root PE
+!! @param[in]   rootpe    root rank in communicator
+!! @param[in]   fname     the file name
+!! @param[out]  nlen      optional, the length of the unlimited dimension
+!! @param[out]  fsize     optional, the file size in bytes
+!! @param[out]  rc        return code
+subroutine get_file_state(comm, isroot, rootpe, fname, nlen, fsize, rc)
 
-    cf_n%alarm_name        = "test_alarm"
-    cf_n%opt_n             = freq
-    cf_n%requested         = .true.
-    cf_n%timereduce        = 'average'
-    cf_n%fnameprefix       = "ocn_"
-    cf_n%fnamesuffix       = ""
-    cf_n%logname_fhoffset  = 60*freq*tincrement
-    cf_n%filename_fhoffset = 90*freq*tincrement
+  type(MPI_Comm),    intent(in)  :: comm
+  logical,           intent(in)  :: isroot
+  integer,           intent(in)  :: rootpe
+  character(len=*),  intent(in)  :: fname
+  integer, optional, intent(out) :: nlen
+  integer, optional, intent(out) :: fsize
+  integer,           intent(out) :: rc
 
-    write(chour,'(I2.2,A)') freq,'h'
+  logical :: existflag
+  integer :: ierr, stats(2)
 
+  rc = 0
+  stats = nf90_fill_int
+
+  if (isroot) then
+    inquire(file=fname, exist=existflag)
+    if (existflag) then
+      if (present(nlen)) stats(1) = get_unlimited_len(trim(fname))
+      if (present(fsize)) inquire(file=fname, size=stats(2))
+    endif
+  endif
+
+  call MPI_Bcast(stats, 2, MPI_INTEGER, rootpe, comm, ierr)
+  if (ierr /= MPI_SUCCESS) then
+    rc = ierr
+    return
+  endif
+
+  if (present(nlen)) nlen  = stats(1)
+  if (present(fsize)) fsize = stats(2)
+
+end subroutine get_file_state
+!> Determine if the netcdf output file is complete
+!!
+!! @param[in]   comm          the MPI communicator
+!! @param[in]   isroot        logical flag for root PE
+!! @param[in]   rootpe        root rank in communicator
+!! @param[in]   fname         the file name
+!! @param[in]   chk4size      logical flag for check method in use
+!! @param[in]   createsize    the filesize at creation
+!! @param[out]  rc            return code
+!! @return                    logical flag, true if the file is complete
+logical function file_is_complete(comm, isroot, rootpe, fname, chk4size, createsize, rc) result(filecomplete)
+
+  type(MPI_Comm),   intent(in)  :: comm
+  logical,          intent(in)  :: isroot
+  integer,          intent(in)  :: rootpe
+  character(len=*), intent(in)  :: fname
+  logical,          intent(in)  :: chk4size
+  integer,          intent(in)  :: createsize
+  integer,          intent(out) :: rc
+
+  logical :: existflag
+  integer :: l_nlen, l_fsize, ierr
+  !----------------------------------------------------------------------------
+
+  rc = 0
+  filecomplete = .false.
+  l_nlen = nf90_fill_int
+  l_fsize = nf90_fill_int
+
+  if (chk4size) then
+    call get_file_state(comm, isroot, rootpe, fname, nlen=l_nlen, fsize=l_fsize, rc=ierr)
+    if (ierr == 0) then
+      filecomplete = (l_nlen > 0 .and. l_fsize > createsize)
+    endif
+  else
+    call get_file_state(comm, isroot, rootpe, fname, nlen=l_nlen, rc=ierr)
+    if (ierr == 0) then
+      filecomplete = (l_nlen > 0)
+    endif
+  endif
+  rc = ierr
+
+end function file_is_complete
+
+!> Validate requested output frequencies from namelist entries
+!!
+!! @param[in]   validfreqs     supported output frequencies (hours)
+!! @param[in]   requested_fh   requested frequencies read from namelist
+!! @param[out]  errmsg         error message
+!! @param[out]  ierr           return code
+!! @return                     logical flags indicating requested valid frequencies
+function setrequest(validfreqs, requested_fh, errmsg, ierr) result(is_requested)
+  integer,          intent(in)  :: validfreqs(:)
+  integer,          intent(in)  :: requested_fh(:)
+  character(len=*), intent(out) :: errmsg
+  integer,          intent(out) :: ierr
+
+  integer :: n, nfreq, reqval
+  logical :: is_requested(size(validfreqs))
+
+  nfreq = size(validfreqs)
+  ierr = 0
+  errmsg = ''
+  is_requested = .false.
+
+  if (all(requested_fh == 0)) return
+
+  do n = 1,nfreq
+    reqval = requested_fh(n)
+    if (reqval /= 0) then
+      if (.not. any(validfreqs == reqval)) then
+        ierr = 1
+        write(errmsg, '(A, I0)') "MOM_outputlog: Unsupported output frequency requested: ", reqval
+        return
+      endif
+    endif
+  enddo
+
+  do n = 1, size(requested_fh)
+    reqval = requested_fh(n)
+    if (reqval /= 0) then
+      if (count(requested_fh == reqval) > 1) then
+        ierr = 1
+        write(errmsg, '(A, I0)') "MOM_outputlog: Duplicate output frequency requested: ", reqval
+        return
+      endif
+    endif
+  enddo
+
+  do n = 1, nfreq
+    if (any(requested_fh == validfreqs(n))) then
+      is_requested(n) = .true.
+    endif
+  enddo
+end function setrequest
+!> Helper function to locate index of namelist provided frequency in array of valid frequencies
+!!
+!! param[in]      nml_fh        namelist freq list
+!! param[in]      target_freq   desired frequency value
+!! @return        m             index association
+function find_nml_slot(nml_fh, target_freq) result(m)
+  integer, intent(in) :: nml_fh(:)
+  integer, intent(in) :: target_freq
+
+  integer :: m
+
+  do m = 1, size(nml_fh)
+    if (nml_fh(m) == target_freq) return
+  enddo
+  m = 0
+end function find_nml_slot
+!> Determine output reduction type for each requested frequency
+!!
+!! @param[in]   validfreqs   supported output frequencies (hours)
+!! @param[in]   requested    logical flags for active output frequencies
+!! @param[in]   nml_fh       requested frequencies read from namelist
+!! @param[in]   nml_type     requested output reduction types from namelist
+!! @param[out]  errmsg       error message
+!! @param[out]  ierr         return code
+!! @return                   output reduction type by supported frequency slot
+function settype(validfreqs, requested, nml_fh, nml_type, errmsg, ierr) result(filetypes)
+
+  integer,          intent(in)  :: validfreqs(:)
+  logical,          intent(in)  :: requested(:)
+  integer,          intent(in)  :: nml_fh(:)
+  character(len=*), intent(in)  :: nml_type(:)
+  character(len=*), intent(out) :: errmsg
+  integer,          intent(out) :: ierr
+
+  integer :: n, m, nfreq
+  character(len=7) :: reqval
+  character(len=7) :: filetypes(size(validfreqs))
+
+  nfreq = size(validfreqs)
+  ierr = 0
+  errmsg = ''
+  filetypes = ''
+
+  if (.not. any(requested)) return
+
+  do m = 1, nfreq
+    reqval = trim(adjustl(nml_type(m)))
+    if (reqval /= '') then
+      if (reqval /= 'average' .and. reqval /= 'none') then
+        ierr = 1
+        errmsg = "MOM_outputlog: Invalid nml_type '"// trim(reqval)// "'. Must be exactly 'average' or 'none'"
+        return
+      endif
+    endif
+  enddo
+
+  do n = 1, nfreq
+    if (nml_fh(n) == 0 .and. len_trim(nml_type(n)) > 0) then
+      ierr = 1
+      errmsg = "MOM_outputlog: File type keyword provided for an inactive frequency slot."
+      return
+    endif
+  enddo
+
+  do n = 1, nfreq
+    if (.not. requested(n)) cycle
+
+    m = find_nml_slot(nml_fh, validfreqs(n))
+    if (m == 0) then
+      ierr = 1
+      write(errmsg, '(A, I0)') "MOM_outputlog: internal error -- no matching nml_fh slot for validfreqs ", &
+           validfreqs(n)
+      return
+    endif
+
+    reqval = trim(adjustl(nml_type(m)))
+    if (reqval == 'average' .or. reqval == 'none') then
+      filetypes(n) = reqval
+    else
+      filetypes(n) = 'average'
+    endif
+  enddo
+end function settype
+!> Determine filename prefixes for each requested frequency
+!!
+!! @param[in]   validfreqs       supported output frequencies (hours)
+!! @param[in]   requested        logical flags for active output frequencies
+!! @param[in]   nml_fh           requested frequencies read from namelist
+!! @param[in]   nml_fnameprefix  requested filename prefixes from namelist
+!! @param[out]  errmsg           error message
+!! @param[out]  ierr             return code
+!! @return                       filename prefixes by supported frequency slot
+function setprefix(validfreqs, requested, nml_fh, nml_fnameprefix, errmsg, ierr) result(fileprefixes)
+
+  integer,          intent(in)  :: validfreqs(:)
+  logical,          intent(in)  :: requested(:)
+  integer,          intent(in)  :: nml_fh(:)
+  character(len=*), intent(in)  :: nml_fnameprefix(:)
+  character(len=*), intent(out) :: errmsg
+  integer,          intent(out) :: ierr
+
+  integer :: n, m, nfreq, n_active
+  character(len=13) :: reqval       ! 12 user chars max + appended '_'
+  character(len=13) :: fileprefixes(size(validfreqs))
+
+  nfreq = size(validfreqs)
+  ierr = 0
+  errmsg = ''
+  fileprefixes = ''
+
+  n_active = count(requested)
+  if (n_active == 0) return
+
+  do n = 1, nfreq
+    if (nml_fh(n) == 0 .and. len_trim(nml_fnameprefix(n)) > 0) then
+      ierr = 1
+      write(errmsg, '(A, I2)') 'MOM_outputlog: filename prefix provided for inactive slot ', n
+      return
+    endif
+  enddo
+  do n = 1, nfreq
+    if (nml_fh(n) /= 0 .and. len_trim(nml_fnameprefix(n)) > 12) then
+      ierr = 1
+      write(errmsg, '(A, I2)') 'MOM_outputlog: filename prefix too long for active slot ', n
+      return
+    endif
+  enddo
+  do n = 1, nfreq
+    if (nml_fh(n) /= 0 .and. len_trim(nml_fnameprefix(n)) > 0) then
+      if (verify(trim(nml_fnameprefix(n)), &
+           'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_') > 0) then
+        ierr = 1
+        write(errmsg, '(A, I2, A)') 'MOM_outputlog: filename prefix for active slot ', n, &
+             ' contains invalid characters (letters, digits, underscore only)'
+        return
+      endif
+    endif
+  enddo
+
+  ! default file prefix == 'ocn' for any single freq run
+  if (n_active == 1) then
+    n = findloc(requested, .true., dim=1)   ! exactly one true value
+
+    m = find_nml_slot(nml_fh, validfreqs(n))
+    if (m == 0) then
+      ierr = 1
+      write(errmsg, '(A, I0)') "MOM_outputlog: internal error -- no matching nml_fh slot for validfreqs ", &
+           validfreqs(n)
+      return
+    endif
+
+    reqval = trim(adjustl(nml_fnameprefix(m)))
+    if (reqval == '') then
+      fileprefixes(n) = 'ocn_'
+    else
+      fileprefixes(n) = trim(reqval)//'_'
+    endif
+    return
+  endif
+
+  ! multi-freq output; must provide fileprefixes
+  if (n_active > 1) then
+    do n = 1, nfreq
+      if (.not. requested(n)) cycle
+
+      m = find_nml_slot(nml_fh, validfreqs(n))
+      if (m == 0) then
+        ierr = 1
+        write(errmsg, '(A, I0)') "MOM_outputlog: internal error -- no matching nml_fh slot for validfreqs ", &
+             validfreqs(n)
+        return
+      endif
+
+      reqval = trim(adjustl(nml_fnameprefix(m)))
+      if (reqval == '') then
+        ierr = 1
+        write(errmsg, '(A, I0, A)') "MOM_outputlog: Multiple frequencies requested," // &
+             " but nml_fnameprefix is missing for frequency ", validfreqs(n), "h."
+        return
+      endif
+      fileprefixes(n) = trim(reqval)//'_'
+    enddo
+
+    ! multi-freq output: must provide unique fileprefixes
+    do n = 1, nfreq
+      if (.not. requested(n)) cycle
+
+      do m = n + 1, nfreq
+        if (requested(m) .and. fileprefixes(n) == fileprefixes(m)) then
+          ierr = 1
+          errmsg = "MOM_outputlog: Ambiguous nml_fnameprefix '" // trim(fileprefixes(n)) // &
+               "'. Multiple active output streams cannot share the same filename root."
+          return
+        endif
+      enddo
+    enddo
+  endif ! n_active > 1
+
+end function setprefix
+!> Compute the alarm-alignment toffset
+!!
+!! The time offset in hours (toffset) required to ensure that an output-frequency alarm
+!! rings on that frequency's own nominal grid, regardless of the actual (eg restart or
+!! IAU-shifted) start hour.
+!!
+!! @param[in]  hour   the model's actual start hour (0-23)
+!! @param[in]  freq   the output frequency, in hours
+!! @return            the alignment offset, in hours
+function set_toffset(hour, freq) result(toffset)
+  integer, intent(in) :: hour
+  integer, intent(in) :: freq
+
+  integer             :: toffset
+
+  if (freq == 1 .or. freq == 24) then
+    toffset = 0
+  else if (mod(hour, freq) /= 0) then
+    toffset = freq - mod(hour, freq)
+  else
+    toffset = 0
+  endif
+end function set_toffset
+
+!> Given that this frequency's alarm has JUST rung (the caller has already
+!! determined this, however -- production and tests do so differently, so
+!! this routine deliberately doesn't check ringing itself), sets up
+!! tracking for the newly-closing interval: turns the alarm off, computes
+!! the filename from nextTime, checks the file's real initial state, and
+!! records createsize/use_filesize/chkfile_nextAdvance into state_n. This
+!! is exactly outputlog_freqn's own regular (non-lstop) ring-response
+!! logic, factored out so it can be driven directly by a test without
+!! needing a real advancing ESMF_Clock -- only a plain ESMF_Time for
+!! nextTime is needed, however it was obtained.
+!!
+!! @param[in]     nextTime   the clock's next time (currTime + timeStep)
+!! @param[inout]  alarm      the alarm that just rang (turned off here)
+!! @param[in]     cf_n       this frequency's config (fnameprefix etc.)
+!! @param[inout]  state_n    this frequency's state -- mutated here
+!! @param[in]     comm       MPI communicator
+!! @param[in]     isroot     .true. on the root PE
+!! @param[in]     rootpe     the root PE's rank
+!! @param[in]     outputdir  output directory
+!! @param[out]    rc         return code
+subroutine get_ring_state(nextTime, alarm, cf_n, state_n, comm, isroot, rootpe, outputdir, rc)
+  type(ESMF_Time),              intent(in)    :: nextTime
+  type(ESMF_Alarm),              intent(inout) :: alarm
+  type(outputlog_config_type),  intent(in)    :: cf_n
+  type(outputlog_state_type),   intent(inout) :: state_n
+  type(MPI_Comm),                intent(in)    :: comm
+  logical,                       intent(in)    :: isroot
+  integer,                       intent(in)    :: rootpe
+  character(len=*),              intent(in)    :: outputdir
+  integer,                       intent(out)   :: rc
+
+  integer :: nlen, fsize
+  character(len=16) :: timestr
+
+  call ESMF_AlarmRingerOff(alarm, rc=rc)
+  if (rc /= ESMF_SUCCESS) return
+
+  state_n%chkfile_nextAdvance = .true.
+
+  timestr = get_timestr(nextTime-cf_n%filename_fhoffset, rc=rc)
+  if (rc /= ESMF_SUCCESS) return
+  state_n%filename = trim(outputdir)//trim(cf_n%fnameprefix)//trim(timestr)//'.nc' &
+       //trim(cf_n%fnamesuffix)
+
+  call get_file_state(comm, isroot, rootpe, state_n%filename, nlen=nlen, fsize=fsize, rc=rc)
+  rc = merge(ESMF_SUCCESS, ESMF_Failure, rc == 0)
+  if (rc /= ESMF_SUCCESS) return
+
+  state_n%createsize = fsize
+  if (nlen == 0) then
+    state_n%use_filesize = .false.
+  else
+    state_n%use_filesize = .true.
+  endif
+end subroutine get_ring_state
+
+!> lstop's OWN version of get_ring_state: sets up tracking for the
+!! CURRENTLY OPEN interval (the one whose own closing ring will never
+!! happen, since the model is stopping), using prevRingTime as the
+!! filename basis instead of nextTime -- the only real difference from the
+!! regular case. Does NOT turn any alarm off (lstop isn't responding to a
+!! ring event) but DOES set chkfile_nextAdvance=.true., since
+!! check_file_completion's early-return guard depends on it and this
+!! routine now shares that routine with the regular path (a real bug in an
+!! earlier version of this refactor: the plain finalize call completing an
+!! earlier file clears this flag, so without setting it again here, a
+!! subsequent lstop check_file_completion call would silently no-op).
+!!
+!! @param[in]     alarm      this frequency's alarm (read prevRingTime from it)
+!! @param[in]     tincrement one-minute interval, used in the 'average' offset
+!! @param[in]     cf_n       this frequency's config
+!! @param[inout]  state_n    this frequency's state -- mutated here
+!! @param[in]     comm       MPI communicator
+!! @param[in]     isroot     .true. on the root PE
+!! @param[in]     rootpe     the root PE's rank
+!! @param[in]     outputdir  output directory
+!! @param[out]    prevring   the alarm's own last-rung time, for the caller
+!!                           to also pass to check_file_completion's logtime
+!! @param[out]    rc         return code
+subroutine get_lstop_ring_state(alarm, tincrement, cf_n, state_n, comm, isroot, rootpe, &
+     outputdir, prevring, rc)
+  type(ESMF_Alarm),              intent(in)    :: alarm
+  type(ESMF_TimeInterval),       intent(in)    :: tincrement
+  type(outputlog_config_type),  intent(in)    :: cf_n
+  type(outputlog_state_type),   intent(inout) :: state_n
+  type(MPI_Comm),                intent(in)    :: comm
+  logical,                       intent(in)    :: isroot
+  integer,                       intent(in)    :: rootpe
+  character(len=*),              intent(in)    :: outputdir
+  type(ESMF_Time),               intent(out)   :: prevring
+  integer,                       intent(out)   :: rc
+
+  integer :: nlen, fsize
+  character(len=16) :: timestr
+
+  ! use prevRing in place of currTime to allow for stopping between
+  ! averaging intervals; prevring == currTime if stopping on intervals
+  call ESMF_AlarmGet(alarm, prevRingTime=prevring, rc=rc)
+  if (rc /= ESMF_SUCCESS) return
+
+  if (trim(cf_n%timereduce) == 'none') then
+    timestr = get_timestr(prevring, rc=rc)
+  else
+    timestr = get_timestr(prevring-30*cf_n%opt_n*tincrement, rc=rc)
+  endif
+  if (rc /= ESMF_SUCCESS) return
+
+  state_n%filename = trim(outputdir)//trim(cf_n%fnameprefix)//trim(timestr)//'.nc' &
+       //trim(cf_n%fnamesuffix)
+
+  ! check_file_completion's early-return guard (`if (.not.
+  ! state_n%chkfile_nextAdvance) return`) was designed for the regular
+  ! path, where get_ring_state sets this true -- but check_file_completion
+  ! is shared with the lstop path too, so this MUST also be set true here,
+  ! or a plain finalize call completing (and clearing) an earlier regular
+  ! file immediately before this one runs would cause check_file_completion
+  ! to bail out here without ever checking anything. The original,
+  ! pre-refactor lstop block never had this dependency at all (it called
+  ! file_is_complete directly, unconditionally) -- this is a product of
+  ! sharing the completion-check routine, not something lstop itself ever
+  ! needed to reason about before.
+  state_n%chkfile_nextAdvance = .true.
+
+  call get_file_state(comm, isroot, rootpe, state_n%filename, nlen=nlen, fsize=fsize, rc=rc)
+  rc = merge(ESMF_SUCCESS, ESMF_Failure, rc == 0)
+  if (rc /= ESMF_SUCCESS) return
+
+  state_n%createsize = fsize
+  if (nlen == 0) then
+    state_n%use_filesize = .false.
+  else
+    state_n%use_filesize = .true.
+  endif
+end subroutine get_lstop_ring_state
+
+!> Given that state_n is tracking a file (set up by either get_ring_state
+!! or get_lstop_ring_state), polls its real current state and, if
+!! complete, clears tracking and, if a log basis was supplied, logs it via
+!! log_restart_fh. Shared by both the regular and lstop paths -- they
+!! differ only in WHICH time/name basis the log uses, both passed in here
+!! rather than hardcoded, so this routine itself never needs to know which
+!! path called it. logtime/complog are OPTIONAL: state_n%time_lastrestart
+!! still gets updated on every completion regardless (a real state
+!! transition, not tied to whether a log gets written), but the
+!! log_restart_fh call itself is skipped entirely if the caller has no use
+!! for a log (e.g. a test verifying completion detection alone, where a
+!! log file would just be untested noise in the output directory).
+!!
+!! @param[inout]  state_n      this frequency's state -- mutated here
+!! @param[in]     comm         MPI communicator
+!! @param[in]     isroot       .true. on the root PE
+!! @param[in]     rootpe       the root PE's rank
+!! @param[in]     startTime    the run's start time (passed through to the log)
+!! @param[in]     lastrestart  always applied to state_n%time_lastrestart
+!!                             on completion; also passed through to the
+!!                             log when one is written
+!! @param[out]    filecomplete .true. if the file was found complete this call
+!! @param[out]    rc           return code
+!! @param[in]     logtime      OPTIONAL -- time basis for log_restart_fh
+!!                             (regular: currTime-logname_fhoffset; lstop:
+!!                             prevring). Log is only written if BOTH
+!!                             logtime and complog are present.
+!! @param[in]     complog      OPTIONAL -- the log's base name (regular:
+!!                             'mom6.'//chour; lstop: 'mom6.lstop.'//chour)
+subroutine check_file_completion(state_n, comm, isroot, rootpe, startTime, lastrestart, &
+     filecomplete, rc, logtime, complog)
+  type(outputlog_state_type),  intent(inout) :: state_n
+  type(MPI_Comm),               intent(in)    :: comm
+  logical,                      intent(in)    :: isroot
+  integer,                      intent(in)    :: rootpe
+  type(ESMF_Time),              intent(in)    :: startTime
+  type(ESMF_Time),              intent(in)    :: lastrestart
+  logical,                      intent(out)   :: filecomplete
+  integer,                      intent(out)   :: rc
+  type(ESMF_Time),  optional,   intent(in)    :: logtime
+  character(len=*), optional,   intent(in)    :: complog
+
+  filecomplete = .false.
+  rc = ESMF_SUCCESS
+  if (.not. state_n%chkfile_nextAdvance) return
+
+  filecomplete = file_is_complete(comm, isroot, rootpe, state_n%filename, &
+       state_n%use_filesize, state_n%createsize, rc)
+  rc = merge(ESMF_SUCCESS, ESMF_Failure, rc == 0)
+  if (rc /= ESMF_SUCCESS) return
+
+  if (filecomplete) then
     state_n%chkfile_nextAdvance = .false.
-    state_n%use_filesize        = .false.
-    state_n%filename            = ""
-    state_n%createsize          = 0
+    state_n%time_lastrestart = lastrestart
+    if (isroot .and. present(logtime) .and. present(complog)) then
+      call log_restart_fh(logtime, startTime, trim(complog), prefixtime=.true., &
+           lastrestart=state_n%time_lastrestart, lastoutput=state_n%filename, rc=rc)
+    endif
+  endif
+end subroutine check_file_completion
+!> Return the length of the unlimited dimension
+!!
+!! @param[in]  fname   the file name
+!! @return             unlimited dimension length
+integer function get_unlimited_len(fname) result(unlen)
+  character(len=*), intent(in) :: fname
 
-    ! Restart pairing is out of scope here -- fixed dummy, never asserted on.
-    lastrestart = startTime
+  integer :: ncid, dimid
+  !----------------------------------------------------------------------------
 
-    ! --- Main loop. Capture nextTime BEFORE advancing (equal to what
-    ! currTime becomes after this tick's advance) -- matches production's
-    ! actual pairing at the point outputlog_run reads the clock (confirmed
-    ! against real PET-log output: ringing is reported together with the
-    ! PRE-advance currTime/nextTime pair, e.g. 11:30/12:00, not the
-    ! post-advance 12:00/12:30). Every ring's fixture is created
-    ! (schema+padding, incomplete) but NEVER completed in-loop -- both "15"
-    ! and "21"'s fixtures are deliberately left pending until after the
-    ! loop, matching the real FMS-lag scenario this test exists to check.
-    do while (.not. ESMF_ClockIsStopTime(clock, rc=ierr))
-       call esmf_err(ierr, subname, "ESMF_ClockIsStopTime")
+  unlen = nf90_fill_int
+  call nf90_err(nf90_open(trim(fname), nf90_nowrite, ncid), 'nf90_open: '//trim(fname))
+  call nf90_err(nf90_inquire(ncid, unlimiteddimid=dimid), 'inquire unlimiteddimid')
+  call nf90_err(nf90_inquire_dimension(ncid, dimid, len=unlen), 'inquire unlimited dimension')
+  call nf90_err(nf90_close(ncid), 'close: '//trim(fname))
+end function get_unlimited_len
+!> Convenience function to return a 16-character time string
+!!
+!! @param[in]  MyTime   an ESMF_Time object
+!! @param[out] rc       return code
+!! @return              16-character formatted time string (YYYY_MM_DD_HH_MM)
+function get_timestr(MyTime, rc) result(timestr)
+  type(ESMF_Time), intent(in)  :: MyTime
+  integer,         intent(out) :: rc
 
-       call ESMF_ClockGetNextTime(clock, nextTime, rc=ierr)
-       call esmf_err(ierr, subname, "ESMF_ClockGetNextTime (pre-advance)")
+  character(len=16) :: timestr
+  integer :: year, month, day, hour, minute
+  !----------------------------------------------------------------------------
 
-       call ESMF_ClockAdvance(clock, rc=ierr)
-       call esmf_err(ierr, subname, "ESMF_ClockAdvance")
+  rc = ESMF_SUCCESS
 
-       ringing = ESMF_AlarmIsRinging(cf_n%alarm, rc=ierr)
-       call esmf_err(ierr, subname, "ESMF_AlarmIsRinging")
+  call ESMF_TimeGet(MyTime, yy=year, mm=month, dd=day, h=hour, m=minute, rc=rc)
+  if (ChkErr(rc,__LINE__,u_FILE_u)) return
+  write(timestr,'(I4.4,4(A,I2.2))')year,'_',month,'_',day,'_',hour,'_',minute
+end function get_timestr
+!> Convenience function to return import/export timestring
+!!
+!! @param[in]  currTime   an ESMF_Time object
+!! @param[in]  nextTime   an ESMF_Time object
+!! @param[out] rc         return code
+!! @return                40-character string
+function get_importexport(currTime, nextTime, rc) result(importexport)
 
-       if (ringing) then
-          timestr = get_timestr(nextTime - cf_n%filename_fhoffset, rc=ierr)
-          call esmf_err(ierr, subname, "get_timestr")
-          ring_filename = trim(outputdir)//trim(cf_n%fnameprefix)//trim(timestr)//'.nc' &
-               //trim(cf_n%fnamesuffix)
+  type(ESMF_Time), intent(in)  :: currTime, nextTime
+  integer,         intent(out) :: rc
 
-          if (isroot) then
-             call create_schema(trim(ring_filename))
-             call write_padding(trim(ring_filename))
-          end if
-       end if
+  character(len=19) :: import_timestr, export_timestr
+  character(len=40) :: importexport
+  !----------------------------------------------------------------------------
 
-       call outputlog_freqn(clock, cf_n, state_n, comm, isroot, rootpe, outputdir, tincrement, &
-            lastrestart, verbose, atStopTime=.false., rc=rc, &
-            filecomplete_out=filecomplete, filecomplete_lstop_out=filecomplete_lstop)
-       call esmf_err(rc, subname, "outputlog_freqn (main loop)")
-    end do
+  rc = ESMF_SUCCESS
 
-    ! --- Loop has ended at stopTime. state_n%filename now holds "15" --
-    ! the file whose regular tracking began on the model's own last tick
-    ! (the ring at stopTime itself). Capture it directly from state_n
-    ! rather than recomputing independently, since that's exactly what
-    ! production itself is tracking -- no risk of an independent-formula
-    ! mismatch here.
-    pending_filename = state_n%filename
+  call ESMF_TimeGet(currTime, timestring=import_timestr, rc=rc)
+  if (ChkErr(rc,__LINE__,u_FILE_u)) return
+  call ESMF_TimeGet(nextTime, timestring=export_timestr, rc=rc)
+  if (ChkErr(rc,__LINE__,u_FILE_u)) return
+  importexport = trim(import_timestr)//'  '//trim(export_timestr)
+end function get_importexport
 
-    ! --- Compute "21"'s filename the same way the real lstop block does
-    ! (prevRingTime, not currTime/nextTime), since nothing has created it
-    ! yet -- its own ring never happens.
-    call ESMF_AlarmGet(cf_n%alarm, prevRingTime=prevring, rc=ierr)
-    call esmf_err(ierr, subname, "ESMF_AlarmGet(prevRingTime)")
-    timestr = get_timestr(prevring - 30*freq*tincrement, rc=ierr)
-    call esmf_err(ierr, subname, "get_timestr(lstop)")
-    lstop_filename = trim(outputdir)//trim(cf_n%fnameprefix)//trim(timestr)//'.nc' &
-         //trim(cf_n%fnamesuffix)
+!> Write debug info to stdout, only called on root pe
+!!
+!! @param[in]    tag            an information tag
+!! @param[in]    fname          the filename to check
+!! @param[in]    filesize       the filesize at creation time
+!! @param[in]    chkflag        logical flag for checking next Advance
+!! @param[in]    timestring     a timestring
+subroutine debug_info(tag,fname,chkflag,filesize,timestring)
+  character(len=*), intent(in) :: tag
+  character(len=*), intent(in) :: fname
+  integer,          intent(in) :: filesize
+  logical,          intent(in) :: chkflag
+  character(len=*), intent(in) :: timestring
 
-    ! --- Both fixtures reach genuine completion now, matching FMS actually
-    ! finishing the writes by the time finalize runs.
-    if (isroot) then
-       call create_schema(trim(lstop_filename))
-       call write_padding(trim(lstop_filename))
-       call write_record(trim(pending_filename))
-       call write_record(trim(lstop_filename))
-    end if
-    call MPI_Barrier(comm, ierr)
+  logical :: existflag
+  integer :: fsize
+  integer :: unlen
+  character(len=256) :: msgString
+  !----------------------------------------------------------------------------
 
-    ! --- Replay mom_cap.F90's real finalize sequence exactly: plain call
-    ! first, then atStopTime=.true. -- same clock state, no advance
-    ! between them.
-    call outputlog_freqn(clock, cf_n, state_n, comm, isroot, rootpe, outputdir, tincrement, &
-         lastrestart, verbose, atStopTime=.false., rc=rc, &
-         filecomplete_out=filecomplete, filecomplete_lstop_out=filecomplete_lstop)
-    call esmf_err(rc, subname, "outputlog_freqn (finalize, plain)")
-    is_passing = filecomplete   ! plain call must catch "15"
+  inquire(file=fname, exist=existflag)
+  if (existflag) then
+    inquire(file=fname, size=fsize)
+    unlen = get_unlimited_len(trim(fname))
 
-    call outputlog_freqn(clock, cf_n, state_n, comm, isroot, rootpe, outputdir, tincrement, &
-         lastrestart, verbose, atStopTime=.true., rc=rc, &
-         filecomplete_out=filecomplete, filecomplete_lstop_out=filecomplete_lstop)
-    call esmf_err(rc, subname, "outputlog_freqn (finalize, lstop)")
-    is_passing = is_passing .and. filecomplete_lstop   ! lstop call must catch "21"
-    if (.not. is_passing) return
+    write(msgString,'(A)')tag//'  '//fname//' exists '//timestring
+    if (chkflag) then
+      print '(A,L,2i16,i5)',trim(msgString)//' not complete, chkflag ',chkflag,filesize,fsize,unlen
+    else
+      print '(A,L,2i16,i5)',trim(msgString)//'     complete, chkflag ',chkflag,filesize,fsize,unlen
+    endif
+  else
+    write(msgString,'(A)')tag//'  '//'no output file exists '//timestring
+    print '(A)',trim(msgString)
+  endif
+end subroutine debug_info
 
-    ! --- Verify log_restart_fh's REAL output directly: the call in
-    ! question is log_restart_fh(prevring, startTime, 'mom6.lstop.'//chour,
-    ! prefixtime=.true., lastrestart=state_n%time_lastrestart,
-    ! lastoutput=state_n%filename, rc=rc). log_restart_fh's own internals
-    ! (CDEPS) aren't our concern -- whether THIS call passes the right
-    ! arguments is. Expected filename/content built using the SAME
-    ! standard Fortran format specifiers log_restart_fh itself uses
-    ! (i4.4/i2.2/i8/f10.3 -- mechanical rendering, not logic under test),
-    ! applied to values this test already independently knows -- not a
-    ! re-derivation of anything log_restart_fh decides.
-    call ESMF_TimeGet(prevring, yy=yr, mm=mon, dd=day, h=hour, m=minute, s=sec, rc=ierr)
-    call esmf_err(ierr, subname, "ESMF_TimeGet(prevring)")
-    write(lstop_logname,'(i4.4,2(i2.2),A,3(i2.2),A)') yr, mon, day, '.', hour, minute, sec, &
-         '.mom6.lstop.'//trim(chour)
+!> Handle netcdf errors
+!!
+!! @param[in]  ierr        the error code
+!! @param[in]  string      the error message
+subroutine nf90_err(ierr, string)
+  integer,          intent(in) :: ierr
+  character(len=*), intent(in) :: string
+  !----------------------------------------------------------------------------
 
-    open(newunit=logunit, file=trim(lstop_logname), status='old', action='read', iostat=ios)
-    if (ios /= 0) then
-       is_passing = .false.
-       return
-    end if
-
-    ! line 1: completed:
-    read(logunit,'(a)',iostat=ios) line
-    is_passing = is_passing .and. (ios == 0) .and. (trim(line) == 'completed: mom6.lstop.'//trim(chour))
-
-    ! line 2: forecast hour: <elapsed hours from startTime to prevring, f10.3>
-    elapsedTime = prevring - startTime
-    call ESMF_TimeIntervalGet(elapsedTime, h_r8=fhour, rc=ierr)
-    call esmf_err(ierr, subname, "ESMF_TimeIntervalGet(elapsedTime)")
-    write(expline,'(a,f10.3)') 'forecast hour:', fhour
-    read(logunit,'(a)',iostat=ios) line
-    is_passing = is_passing .and. (ios == 0) .and. (trim(line) == trim(expline))
-
-    ! line 3: valid time: <prevring, 6i8>
-    write(expline,'(a,6i8)') 'valid time: ', yr, mon, day, hour, minute, sec
-    read(logunit,'(a)',iostat=ios) line
-    is_passing = is_passing .and. (ios == 0) .and. (trim(line) == trim(expline))
-
-    ! line 4: last output: <state_n%filename, which is lstop_filename by
-    ! this point -- the lstop block reassigns it before calling
-    ! log_restart_fh>
-    write(expline,'(a)') 'last output: '//trim(lstop_filename)
-    read(logunit,'(a)',iostat=ios) line
-    is_passing = is_passing .and. (ios == 0) .and. (trim(line) == trim(expline))
-
-    ! line 5: last restart: <lastrestart (our fixed dummy = startTime), 6i8>
-    call ESMF_TimeGet(lastrestart, yy=yr, mm=mon, dd=day, h=hour, m=minute, s=sec, rc=ierr)
-    call esmf_err(ierr, subname, "ESMF_TimeGet(lastrestart)")
-    write(expline,'(a,6i8)') 'last restart: ', yr, mon, day, hour, minute, sec
-    read(logunit,'(a)',iostat=ios) line
-    is_passing = is_passing .and. (ios == 0) .and. (trim(line) == trim(expline))
-
-    ! confirm EXACTLY 5 lines -- no more (would mean an unexpected extra
-    ! optional field got included)
-    read(logunit,'(a)',iostat=ios) line
-    is_passing = is_passing .and. (ios /= 0)
-
-    close(logunit)
-  end subroutine run_lstop_case
-
-end program test_outputlog_finalize
+  if (ierr /= nf90_noerr) then
+    write(0, '(A)') 'FATAL ERROR: ' // trim(string)// ' : ' // trim(nf90_strerror(ierr))
+    ! This fails on WCOSS2 with Intel 19 compiler. See https://community.intel.com/
+    ! Search term "STOP and ERROR STOP with variable stop codes"
+    ! When WCOSS2 moves to Intel 2020+, uncomment the next line and remove stop 99
+    !stop ierr
+    stop 99
+  endif
+end subroutine nf90_err
+end module mom_outputlog_methods
