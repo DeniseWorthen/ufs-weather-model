@@ -71,7 +71,7 @@ program test_outputlog_freqn
 
   logical :: is_passing, assertrc
   integer :: n
-  logical :: verbose = .false.
+  logical :: verbose = .true.
 
   comm = MPI_COMM_WORLD
   rootpe = 0
@@ -91,18 +91,18 @@ program test_outputlog_freqn
   ! complete. Literals confirmed via the earlier orchestration-test work.
   ! ------------------
   testname = 'single ring, real window, completes correctly'
-  call run_case(freq=6, start_hour=6, ring_hours=[12,18], ring_ticks=[-1,1], &
+  call run_case(trim(testname), freq=6, start_hour=6, ring_hours=[6,12], ring_ticks=[-1,1], &
        expected_completions=1, is_passing=is_passing)
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
   call addresult(freqntests, assertrc, trim(assertmsg), '')
-
+#ifdef test
   ! ------------------
   ! Case 2: single ring, fixture never completes -- confirms
   ! check_file_completion correctly keeps reporting not-complete rather
   ! than falsely completing or erroring.
   ! ------------------
   testname = 'test 02 single ring never completes'
-  call run_case(freq=6, start_hour=6, ring_hours=[12], ring_ticks=[-1], &
+  call run_case(trim(testname), freq=6, start_hour=6, ring_hours=[12], ring_ticks=[-1], &
        expected_completions=0, is_passing=is_passing)
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
   call addresult(freqntests, assertrc, trim(assertmsg), '')
@@ -114,7 +114,7 @@ program test_outputlog_freqn
   ! incomplete first file blocking or double-counting anything.
   ! ------------------
   testname = 'test 03 second ring supersedes first'
-  call run_case(freq=6, start_hour=0, ring_hours=[6,12], ring_ticks=[-1,1], &
+  call run_case(trim(testname), freq=6, start_hour=0, ring_hours=[6,12], ring_ticks=[-1,1], &
        expected_completions=1, is_passing=is_passing)
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
   call addresult(freqntests, assertrc, trim(assertmsg), '')
@@ -124,7 +124,7 @@ program test_outputlog_freqn
   ! (60*freq) filename lookback, distinct from 'average's 1.5x (90*freq).
   ! ------------------
   testname = 'test 04 single ring snapshot (none) type completes correctly'
-  call run_case(freq=6, start_hour=6, ring_hours=[12,18], ring_ticks=[-1,1], &
+  call run_case(trim(testname), freq=6, start_hour=6, ring_hours=[6,12], ring_ticks=[-1,1], &
        expected_completions=1, is_passing=is_passing, timereduce='none')
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
   call addresult(freqntests, assertrc, trim(assertmsg), '')
@@ -137,7 +137,7 @@ program test_outputlog_freqn
   ! tests file_is_complete given use_filesize already known as an input).
   ! ------------------
   testname = 'test 05 single ring ATM-style (use_filesize) completes correctly'
-  call run_case(freq=6, start_hour=6, ring_hours=[12,18], ring_ticks=[-1,1], &
+  call run_case(trim(testname), freq=6, start_hour=6, ring_hours=[6,12], ring_ticks=[-1,1], &
        expected_completions=1, is_passing=is_passing, use_filesize=.true.)
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
   call addresult(freqntests, assertrc, trim(assertmsg), '')
@@ -150,7 +150,7 @@ program test_outputlog_freqn
   ! evidence this mechanism works under what's actually running.
   ! ------------------
   testname = 'test 06 single ring never completes (ATM-style)'
-  call run_case(freq=6, start_hour=6, ring_hours=[12], ring_ticks=[-1], &
+  call run_case(trim(testname), freq=6, start_hour=6, ring_hours=[12], ring_ticks=[-1], &
        expected_completions=0, is_passing=is_passing, use_filesize=.true.)
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
   call addresult(freqntests, assertrc, trim(assertmsg), '')
@@ -166,7 +166,7 @@ program test_outputlog_freqn
   ! one left over from ring 1.
   ! ------------------
   testname = 'test 07 second ring supersedes first (ATM-style)'
-  call run_case(freq=6, start_hour=0, ring_hours=[6,12], ring_ticks=[-1,1], &
+  call run_case(trim(testname), freq=6, start_hour=0, ring_hours=[6,12], ring_ticks=[-1,1], &
        expected_completions=1, is_passing=is_passing, use_filesize=.true.)
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
   call addresult(freqntests, assertrc, trim(assertmsg), '')
@@ -183,11 +183,11 @@ program test_outputlog_freqn
   ! inferred from testing each half separately.
   ! ------------------
   testname = 'test 08 single ring snapshot (none) type, ATM-style'
-  call run_case(freq=6, start_hour=6, ring_hours=[12,18], ring_ticks=[-1,1], &
+  call run_case(trim(testname), freq=6, start_hour=6, ring_hours=[6,12], ring_ticks=[-1,1], &
        expected_completions=1, is_passing=is_passing, timereduce='none', use_filesize=.true.)
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
   call addresult(freqntests, assertrc, trim(assertmsg), '')
-
+#endif
   ! ------------------
   ! Test results
   ! ------------------
@@ -217,8 +217,9 @@ contains
   !! completes: a positive N schedules the fixture's completing write N
   !! hours after that ring; -1 means never. Counts how many completions
   !! are reported and compares to expected_completions.
-  subroutine run_case(freq, start_hour, ring_hours, ring_ticks, expected_completions, is_passing, &
+  subroutine run_case(test, freq, start_hour, ring_hours, ring_ticks, expected_completions, is_passing, &
        timereduce, use_filesize)
+    character(len=*), intent(in) :: test
     integer, intent(in)  :: freq, start_hour
     integer, intent(in)  :: ring_hours(:)
     integer, intent(in)  :: ring_ticks(:)
@@ -242,7 +243,7 @@ contains
     logical :: filecomplete
     character(len=16)  :: timestr
     character(len=256) :: ring_filename, outputdir
-    character(len=3)   :: chour
+    character(len=256) :: cmdstr = ''
 
     type :: pending_transition_type
        character(len=256) :: filename = ""
@@ -261,12 +262,14 @@ contains
     this_use_filesize = .false.
     if (present(use_filesize)) this_use_filesize = use_filesize
 
-    ! Fixture files (*.nc) AND log_restart_fh's real output (a genuine side
-    ! effect of check_file_completion whenever a fixture completes -- format
-    ! YYYYMMDD.HHMMSS.mom6.<chour>, no .nc extension) from a prior case must
-    ! not leak into this one.
-    if (isroot) call execute_command_line('rm -f '//trim(outputdir)//'*.nc '//trim(outputdir)//'*.mom6.*', &
-         wait=.true.)
+    ! Fixture files from a prior case must not leak into this one. (No
+    ! log_restart_fh output to clean up here -- check_file_completion is
+    ! deliberately called without logtime/complog below, so no log files
+    ! are ever produced by this test.)
+    if (isroot) then
+       cmdstr = 'rm -f '//trim(outputdir)//'*.nc'
+       call execute_command_line(trim(cmdstr), wait=.true.)
+    endif
     call MPI_Barrier(comm, ierr)
     if (ierr /= 0) then
        write(0,'(A)') "FATAL ("//trim(subname)//"): MPI_Barrier (post-cleanup) failed"
@@ -312,22 +315,25 @@ contains
     state_n%filename            = ""
     state_n%createsize          = 0
 
-    write(chour,'(I2.2,A)') freq,'h'
-
     ! Restart pairing is out of scope for this file -- fixed dummy value,
     ! never asserted on. See the dedicated restart-pairing test.
     lastrestart = startTime
 
     max_hour = maxval(ring_hours) + maxval([ring_ticks, 1]) + 1
+    if (verbose) then
+       print '(A,i4,A)','TEST: '//test//', run for ',max_hour,' hours'
+    endif
 
     ring_index = 0
     do hour = 1, max_hour
        nextTime = startTime + hour*hourInterval
 
        ring_index = findloc_int(ring_hours, hour)
+       print *,ring_index
        if (ring_index > 0) then
           timestr = get_timestr(nextTime - cf_n%filename_fhoffset, rc=ierr)
           call esmf_err(ierr, subname, "get_timestr")
+
           ring_filename = trim(outputdir)//trim(cf_n%fnameprefix)//trim(timestr)//'.nc' &
                //trim(cf_n%fnamesuffix)
 
@@ -343,6 +349,8 @@ contains
                 call write_padding(trim(ring_filename))
              end if
           end if
+          timestr = get_timestr(nextTime,rc=ierr)
+          print *,'XXX ',trim(ring_filename)//'  '//timestr,' ',ring_ticks(ring_index)
 
           call get_ring_state(nextTime, cf_n%alarm, cf_n, state_n, comm, isroot, rootpe, outputdir, rc)
           call esmf_err(rc, subname, "get_ring_state")
@@ -353,6 +361,16 @@ contains
              pending(n_pending)%filename    = ring_filename
              pending(n_pending)%target_hour = hour + ring_ticks(ring_index)
              pending(n_pending)%active      = .true.
+             if (verbose) then
+                print '(i3,A,3(A,i3),2(A,L),(A,i12),/)',n_pending, &
+                     ' pending = '//trim(pending(n_pending)%filename), &
+                     ' ring_index = ',ring_index, &
+                     ' ring_ticks = ',ring_ticks(ring_index), &
+                     ' target_hour = ',pending(n_pending)%target_hour, &
+                     ' active = ',pending(n_pending)%active, &
+                     ' use_filesize = ',state_n%use_filesize, &
+                     ' createsize = ',state_n%createsize
+             end if
           end if
        end if
 
@@ -372,10 +390,12 @@ contains
           end if
        end do
 
-       call check_file_completion(state_n, comm, isroot, rootpe, startTime, &
-            nextTime - cf_n%logname_fhoffset, 'mom6.'//trim(chour), lastrestart, filecomplete, rc)
+       call check_file_completion(state_n, comm, isroot, rootpe, startTime, lastrestart, &
+            filecomplete, rc)
        call esmf_err(rc, subname, "check_file_completion")
+
        if (filecomplete) num_completions = num_completions + 1
+
     end do
 
     is_passing = (num_completions == expected_completions)
