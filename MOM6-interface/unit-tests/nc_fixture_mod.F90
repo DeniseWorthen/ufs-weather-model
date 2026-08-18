@@ -51,8 +51,8 @@ contains
   !> Extend the unlimited dim by writing record 1's time-coordinate value.
   !> nlen: 0 -> 1. Does NOT write the bulk data variable.
   subroutine write_record(fname, time_value)
-    character(len=*), intent(in) :: fname
-    real(8), intent(in), optional :: time_value
+    character(len=*), intent(in)           :: fname
+    real(8),          intent(in), optional :: time_value
 
     integer :: ncid, varid_t
     real(8) :: tval
@@ -70,8 +70,8 @@ contains
   !> Write the bulk "data" variable for record 1. Grows fsize. Requires
   !> write_record to have been called first (record 1 must already exist).
   subroutine write_bulk_data(fname, fill_value)
-    character(len=*), intent(in) :: fname
-    real(8), intent(in), optional :: fill_value
+    character(len=*), intent(in)           :: fname
+    real(8),          intent(in), optional :: fill_value
 
     integer :: ncid, varid_data
     real(8) :: data_vals(fixture_nx)
@@ -98,8 +98,8 @@ contains
   !> internal variable structure. file_is_complete/get_file_state only look
   !> at nlen and fsize, so that's sufficient for what's under test.
   subroutine write_padding(fname, fill_value)
-    character(len=*), intent(in) :: fname
-    real(8), intent(in), optional :: fill_value
+    character(len=*), intent(in)           :: fname
+    real(8),          intent(in), optional :: fill_value
 
     integer :: ncid, varid_pad
     real(8) :: pad_vals(fixture_pad_n)
@@ -143,7 +143,7 @@ contains
   end subroutine make_datm_complete
 
   subroutine make_atm_incomplete(fname, createsize_out)
-    character(len=*), intent(in)  :: fname
+    character(len=*),  intent(in)  :: fname
     integer,           intent(out) :: createsize_out
     integer :: fsize
     call create_schema(fname)
@@ -153,7 +153,7 @@ contains
   end subroutine make_atm_incomplete
 
   subroutine make_atm_complete(fname, createsize_out)
-    character(len=*), intent(in)  :: fname
+    character(len=*),  intent(in)  :: fname
     integer,           intent(out) :: createsize_out
     call make_atm_incomplete(fname, createsize_out)
     call write_bulk_data(fname)

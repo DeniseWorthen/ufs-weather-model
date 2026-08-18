@@ -32,10 +32,10 @@
 !!
 program test_outputlog_completion
 
-  use mpi_f08,              only : MPI_Init, MPI_Finalize, MPI_Comm, MPI_Comm_rank, MPI_COMM_WORLD
+  use mpi_f08,               only : MPI_Init, MPI_Finalize, MPI_Comm, MPI_Comm_rank, MPI_COMM_WORLD
   use mom_outputlog_methods, only : get_file_state, file_is_complete
-  use nc_fixture_mod,        only : make_datm_incomplete, make_datm_complete, &
-                                     make_atm_incomplete,  make_atm_complete
+  use nc_fixture_mod,        only : make_datm_incomplete, make_datm_complete
+ use nc_fixture_mod,         only : make_atm_incomplete,  make_atm_complete
 
   implicit none
 
@@ -54,13 +54,6 @@ program test_outputlog_completion
   call MPI_Init(ierr)
   call MPI_Comm_rank(comm, rank, ierr)
   isroot = (rank == rootpe)
-
-  ! ==========================================================================
-  ! Option B: unit test of get_file_state / file_is_complete in isolation.
-  ! createsize and use_filesize are supplied directly by the test (not derived
-  ! from any ring/timing logic) -- these are the leaf functions' own contract,
-  ! independent of outputlog_freqn's sequencing.
-  ! ==========================================================================
 
   call check_datm_incomplete()
   call check_datm_complete()
@@ -94,7 +87,6 @@ contains
 
     if (isroot) call make_datm_incomplete(fname)
     call get_file_state(comm, isroot, rootpe, fname, nlen=nlen, rc=rc)
-    !if (isroot .and. verbose) print '(A,i6,A)',fname//',  nlen = ',nlen,', fsize value ignored '
 
     call assert_equal(0, rc, "DATM incomplete: get_file_state rc")
     call assert_equal(0, nlen, "DATM incomplete: nlen should be 0")
