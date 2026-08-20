@@ -1,4 +1,4 @@
-!> Narrow orchestration test for the outputlog_freqn machinery
+!>  Narrow orchestration test for the outputlog_freqn machinery
 !!
 !> @date 08-12-2026
 program test_driver
@@ -30,8 +30,8 @@ program test_driver
   logical :: debug_onroot
   logical :: assertrc
   integer :: n,nt
+  integer :: expected, completions
   logical :: verbose = .true.
-  integer :: completions
 
   comm = MPI_COMM_WORLD
   rootpe = 0
@@ -46,97 +46,94 @@ program test_driver
 
   debug_onroot = verbose .and. isroot
   nt = 0
-#ifdef test
-  ! ------------------
-  ! Case 1: single ring closing a REAL (non-phantom) window -- ring at
-  ! hour 12 closes the phantom [0,6] window (predates model start=6, never
-  ! completes); ring at hour 18 closes the real [6,12] window, and does
-  ! complete
+  ! ===========================================================================
+  ! Test cases
+  ! - ring_hours is clock hour when rings happen
+  ! - ring_ticks is whether the ring_hour index will create a file
+  ! ===========================================================================
+
   ! ------------------
   nt = nt + 1
-  write(testname,'(A,I2.2,A)')'test ',nt,' single ring, real window, completes correctly'
-  call run_case(trim(testname), freq=6, start_hour=6, ring_hours=[6,12], ring_ticks=[-1,1], &
-       use_filesize = .true.,    &
-       expected_completions = 1, &
-       is_passing=is_passing)
+  expected = 1  ! ring at hour=18 completes 09 file
+  write(testname,'(A,I2.2,A)')'test ',nt,' two rings, one tracked averaging window completes '
 
-  call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
+  call run_case(trim(testname),               &
+       freq=6, start_hour=6, runhours=13,     &
+       ring_hours=[12,18], ring_ticks=[-1,1], &
+       use_filesize=.true.,                   &
+       completions=completions)
+
+  call assert_equal(completions, expected, testname, assertrc, assertmsg)
   call addresult(freqntests, assertrc, trim(assertmsg), '')
 
   ! ------------------
-  ! Case 2: single ring, fixture never completes -- confirms
-  ! check_file_completion correctly keeps reporting not-complete rather
-  ! than falsely completing or erroring.
-  ! ------------------
   nt = nt + 1
-  write(testname,'(A,I2.2,A)')'test ',nt,' single ring never completes'
-  call run_case(trim(testname), freq=6, start_hour=6, ring_hours=[12], ring_ticks=[-1], &
-       use_filesize = .true.,    &
-       expected_completions = 0, &
-       is_passing=is_passing)
+  expected = 1 ! ring at hour 18 tracks 09 file for DATM
+  write(testname,'(A,I2.2,A)')'test ',nt,' two rings, one tracked averaging window completes (DATM)'
 
-  call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
-  call addresult(freqntests, assertrc, trim(assertmsg), '')
-  ! ------------------
-  ! Case 3: two rings, the first never completes, the second does.
-  ! ------------------
-  nt = nt + 1
-  write(testname,'(A,I2.2,A)')'test ',nt,' two consecutive rings, second completes'
-  call run_case(trim(testname), freq=6, start_hour=0, ring_hours=[6,12], ring_ticks=[-1,1], &
-       use_filesize = .true.,    &
-       expected_completions = 1, &
-       is_passing=is_passing)
+  call run_case(trim(testname),               &
+       freq=6, start_hour=6, runhours=13,     &
+       ring_hours=[12,18], ring_ticks=[-1,1], &
+       completions=completions)
 
-  call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
+  call assert_equal(completions, expected, testname, assertrc, assertmsg)
   call addresult(freqntests, assertrc, trim(assertmsg), '')
 
   ! ------------------
-  ! Case 4: single ring, snapshot ('none') type -- exercises the 1x
-  ! (60*freq) filename lookback, distinct from 'average's 1.5x (90*freq).
-  ! ------------------
   nt = nt + 1
-  write(testname,'(A,I2.2,A)')'test ',nt,' single ring snapshot (none) type completes correctly'
-  call run_case(trim(testname), freq=6, start_hour=6, ring_hours=[6,12], ring_ticks=[-1,1], &
-       use_filesize = .true.,    &
-       expected_completions = 1, &
-       timereduce='none',        &
-       is_passing=is_passing)
+  expected = 3 ! rings at hour=8,9,10 complete 07,08,09 files
+  write(testname,'(A,I2.2,A)')'test ',nt,' snapshots, multiple rings complete correctly'
 
-  call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
+  call run_case(trim(testname),                      &
+       freq=1, start_hour=6, runhours=5,             &
+       ring_hours=[7,8,9,10], ring_ticks=[-1,1,1,1], &
+       use_filesize=.true., timereduce='none',       &
+       completions=completions)
+
+  call assert_equal(completions, expected, testname, assertrc, assertmsg)
   call addresult(freqntests, assertrc, trim(assertmsg), '')
-#endif
-  ! ------------------
-  ! Case 5: single ring, DATM-style fixture (nlen flips at completion)
+
   ! ------------------
   nt = nt + 1
-  write(testname,'(A,I2.2,A)')'test ',nt,' single ring DATM-style completes correctly'
-  call run_case(trim(testname), freq=6, start_hour=6, ring_hours=[6,12], ring_ticks=[-1,1], &
+  expected = 0 ! ring at hour 12 tracks 03 phantom file
+  write(testname,'(A,I2.2,A)')'test ',nt,' single ring tracks phantom 03 file'
+
+  call run_case(trim(testname),          &
+       freq=6, start_hour=6, runhours=7, &
+       ring_hours=[12], ring_ticks=[-1], &
+       use_filesize=.true.,              &
+       completions = completions)
+
+  call assert_equal(completions, expected, testname, assertrc, assertmsg)
+  call addresult(freqntests, assertrc, trim(assertmsg), '')
+
+  ! ------------------
+  nt = nt + 1
+  expected = 1 ! rings at hours 12,18 track phantom files 03,09; hour=24 tracks real 15 file
+  write(testname,'(A,I2.2,A)')'test ',nt,' three ring, but only one real window, completes correctly'
+
+  call run_case(trim(testname),                     &
+       freq=6, start_hour=9, runhours=18,           &
+       ring_hours=[12,18,24], ring_ticks=[-1,-1,1], &
+       use_filesize=.true.,                         &
        completions=completions)
 
   call assert_equal(completions, 1, testname, assertrc, assertmsg)
   call addresult(freqntests, assertrc, trim(assertmsg), '')
-!#endif
-  ! ------------------
-  ! Case 6: multiple rings complete
+
   ! ------------------
   nt = nt + 1
-  write(testname,'(A,I2.2,A)')'test ',nt,' multiple rings complete correctly'
-  call run_case(trim(testname), freq=6, start_hour=12, ring_hours=[18,00,6], ring_ticks=[-1,1,1], &
-       completions = completions, use_filesize = .true.)
+  write(testname,'(A,I2.2,A)')'test ',nt,' two ring, one real window, completes correctly'
 
-  call assert_equal(completions, 2, testname, assertrc, assertmsg)
-  call addresult(freqntests, assertrc, trim(assertmsg), '')
-!#endif
-  ! ------------------
-  ! Case 7: multiple rings complete, 1 hour frequency
-  ! ------------------
-  nt = nt + 1
-  write(testname,'(A,I2.2,A)')'test ',nt,' multiple rings complete correctly'
-  call run_case(trim(testname), freq=1, start_hour=6, ring_hours=[8,9], ring_ticks=[1,1], &
-       completions=completions, use_filesize = .true., timereduce='none')
+  call run_case(trim(testname),               &
+       freq=24, start_hour=6, runhours=56,    &
+       ring_hours=[30,54], ring_ticks=[-1,1], &
+       use_filesize=.true.,                   &
+       completions=completions)
 
-  call assert_equal(completions, 2, testname, assertrc, assertmsg)
+  call assert_equal(completions, 1, testname, assertrc, assertmsg)
   call addresult(freqntests, assertrc, trim(assertmsg), '')
+
   ! ------------------
   ! Test results
   ! ------------------
@@ -157,26 +154,18 @@ program test_driver
 
   if (freqntests%nfail > 0) stop 1
 contains
+  !> TODO
+  subroutine run_case(test, freq, start_hour, runhours, ring_hours, ring_ticks, &
+       timereduce, use_filesize, nfiles, completions)
 
-  !> Drives get_ring_state/check_file_completion through a sequence of
-  !! abstract "hours" (no real clock advances -- this is just an integer
-  !! counter, matched against ring_hours(:) to decide when a ring
-  !! "happens"). ring_ticks(i) controls when ring_hours(i)'s fixture
-  !! completes: a positive N schedules the fixture's completing write N
-  !! hours after that ring; -1 means never. Counts how many completions
-  !! are reported and compares to expected_completions.
-  subroutine run_case(test, freq, start_hour, ring_hours, ring_ticks, completions, &
-       timereduce, use_filesize, nfiles)
-
-    character(len=*), intent(in)  :: test
-    integer,          intent(in)  :: freq, start_hour
-    integer,          intent(in)  :: ring_hours(:)
-    integer,          intent(in)  :: ring_ticks(:)
-     integer,          intent(out)  :: completions
-    !logical,          intent(out) :: is_passing
+    character(len=*), intent(in)           :: test
+    integer,          intent(in)           :: freq, start_hour, runhours
+    integer,          intent(in)           :: ring_hours(:)
+    integer,          intent(in)           :: ring_ticks(:)
     character(len=*), intent(in), optional :: timereduce
     logical,          intent(in), optional :: use_filesize
     integer,          intent(in), optional :: nfiles
+    integer,          intent(out)          :: completions
 
     character(len=7) :: l_timereduce
     logical          :: l_use_filesize
@@ -184,12 +173,14 @@ contains
 
     type(ESMF_Clock)         :: modelclock
     type(ESMF_Time)          :: startTime, currTime, nextTime, stopTime, lastrestart
-    type(ESMF_TimeInterval)  :: timeStep, tincrement, alarmoffset, elapsedhours
+    type(ESMF_TimeInterval)  :: timeStep, tincrement, elapsedtime
 
     type(outputlog_config_type) :: cf_n
     type(outputlog_state_type)  :: state_n
 
-    integer :: max_hour, day, hour, ring_index
+    integer :: minutes
+    integer :: elapsedhours
+    integer :: ring_index
     integer :: ierr, rc
     integer :: toffset, count
     logical :: pending, firstcomplete
@@ -198,6 +189,7 @@ contains
     character(len=256) :: outputdir
     character(len=256) :: cmdstr = ''
     character(len=40)  :: importexport
+    character(len=20)  :: subname = 'run_case'
 
     !debug
     integer :: nlen, fsize
@@ -222,88 +214,27 @@ contains
        stop 99
     endif
 
-    max_hour = maxval(ring_hours) + maxval([ring_ticks, 1]) + 1
-    if (debug_onroot) then
-       print '(A,i4,A)','TEST: '//test//', run for ',max_hour,' hours'
-    endif
-
-    call ESMF_TimeSet(startTime, yy=base_yy, mm=base_mm, dd=base_dd, h=start_hour, rc=ierr)
-    call esmf_err(ierr, subname, "ESMF_TimeSet(startTime)")
-    call ESMF_TimeSet(stopTime,  yy=base_yy, mm=base_mm, dd=base_dd, h=start_hour+max_hour, rc=ierr)
-
-    call ESMF_TimeIntervalSet(timeStep, s=1800, rc=ierr)
-    call esmf_err(ierr, subname, "ESMF_TimeIntervalSet(timeStep)")
-    call ESMF_TimeIntervalSet(tincrement, m=1, rc=ierr)
-    call esmf_err(ierr, subname, "ESMF_TimeIntervalSet(tincrement)")
-    modelClock  = ESMF_ClockCreate(name="Model",timeStep=timeStep, startTime=startTime, stopTime=stopTime, rc=rc)
-
-    call ESMF_ClockGet(modelclock, currTime=currTime, rc=ierr)
-    call esmf_err(ierr, subname, "get currTime")
-
-    ! --- Build the rest of cf_n exactly as outputlog_init would ---
-    cf_n%alarm_name           = 'test_alarm'
-    cf_n%opt_n                = freq
-    cf_n%requested            = .true.
-    cf_n%timereduce           = l_timereduce
-    cf_n%fnameprefix          = 'ocn_'
-    if (l_nfiles == 1) then
-       cf_n%fnamesuffix       = ''
-    else
-       cf_n%fnamesuffix       = '.000'
-    endif
-    if (trim(l_timereduce) == 'none') then
-       cf_n%logname_fhoffset  = 0*tincrement
-       cf_n%filename_fhoffset = 60*freq*tincrement
-    else
-       cf_n%logname_fhoffset  = 60*freq*tincrement
-       cf_n%filename_fhoffset = 90*freq*tincrement
-    endif
-
-    state_n%chkfile_nextAdvance = .false.
-    state_n%use_filesize        = .false.
-    state_n%createsize          = 0
-    state_n%filecomplete        = .false.
-
-    ! Restart pairing is out of scope for this file -- fixed dummy value,
-    ! never asserted on. See the dedicated restart-pairing test.
-    state_n%time_lastrestart         = startTime
-
-    ! the time offset in hours required to ensure the alarm rings at multiples of freq(n)
-    ! regardless of start day/hour
-    toffset = set_toffset(start_hour, freq)
-    alarmoffset = toffset*60*tincrement
-
-    call AlarmInit(modelclock,              &
-         alarm     = cf_n%alarm,            &
-         option    = 'nhours',              &
-         opt_n     = cf_n%opt_n,            &
-         opt_ymd   = -999,                  &
-         RefTime   = currTime+alarmoffset,  &
-         alarmname = cf_n%alarm_name, rc=ierr)
-    call esmf_err(ierr, subname, "call AlarmInit")
+    ! mimic outputlog_init setup
+    call setup_case(start_hour, runhours, freq, l_nfiles, l_timereduce, modelClock, cf_n, state_n, rc)
 
     completions = 0
     do while (.not. ESMF_ClockIsStopTime(modelClock, rc=ierr))
        call esmf_err(ierr, subname, "clock at stop time")
 
-       call ESMF_ClockGet(modelclock, currTime=currTime, rc=ierr)
-       call esmf_err(rc, subname, "get currTime")
+       call ESMF_ClockGet(modelclock, startTime=startTime, currTime=currTime, rc=ierr)
+       call esmf_err(rc, subname, "get start and currTime")
        call ESMF_ClockGetNextTime(modelclock, nextTime, rc=ierr)
        call esmf_err(rc, subname, "get nextTime")
        importexport = get_importexport(currTime, nextTime, rc=ierr)
        call esmf_err(rc, subname, "get importexport")
 
-       !elapsedhours = nextTime - startTime
-       !call ESMF_TimeIntervalGet(elapsedhours, h=hour, rc=rc)
-       !ring_index = findloc_int(ring_hours, hour)
-
-       call ESMF_TimeGet(nextTime, d=day, h=hour, rc=ierr)
-       !call esmf_err(rc, subname, "get time")
-       ring_index = findloc_int(ring_hours, hour)
-       !print *,'XXX '//importexport//'  ',hour,ring_index
+       elapsedtime = nextTime - startTime
+       call ESMF_TimeIntervalGet(elapsedtime, m=minutes, rc=rc)
+       elapsedhours = minutes/60
+       ! ring_index serves to match ring hour with whether a file predates start
+       ring_index = findloc_int(ring_hours, start_hour+elapsedhours)
        !if (ring_index > 0) then
-       !   if (debug_onroot) print '(A,3i4,A,L,A)','ring info hour = ',hour,ring_index,ring_ticks(ring_index), &
-       !        '  ',l_use_filesize,'  '//importexport
+       !   if (debug_onroot) print '(A,3i4)',importexport//' elapsedhours = ',elapsedhours,ring_index,ring_ticks(ring_index)
        !endif
 
        state_n%ringing = .false.
@@ -314,18 +245,14 @@ contains
           state_n%ringing = .true.
           call ESMF_AlarmRingerOff(cf_n%alarm, rc=ierr)
           call esmf_err(rc, subname, "alarm ringer off")
-          !print *,importexport,state_n%ringing
        endif
 
        pending = .false.
-       if (ring_index > 0 ) then
-          if (ring_ticks(ring_index) > 0) then
+       if (ring_index > 0) then
+          if (state_n%ringing .and. ring_ticks(ring_index) > 0) then
              timestr = get_timestr(nextTime - cf_n%filename_fhoffset, rc=ierr)
-             !print *,timestr
              state_n%filename = trim(outputdir)//trim(cf_n%fnameprefix)//trim(timestr)//'.nc' &
                   //trim(cf_n%fnamesuffix)
-             ! write_padding leaves nlen=0 (DATM-style)
-             ! write_record sets nlen=1 immediately (ATM-style), and also sets createsize.
              if (isroot) then
                 call create_schema(state_n%filename)
                 if (l_use_filesize) then
@@ -333,20 +260,18 @@ contains
                 else
                    call write_padding(state_n%filename)
                 endif
-                pending = .true.
              endif
-             if (debug_onroot) then
-                call get_file_state(comm, isroot, rootpe, state_n%filename, nlen=nlen, fsize=fsize, rc=rc)
-                print '(A,i4,i12,A,L)',importexport//' create file '//state_n%filename, &
-                     nlen,fsize,' pending ',pending
-             endif
-
+             !if (debug_onroot) then
+             !   call get_file_state(comm, isroot, rootpe, state_n%filename, nlen=nlen, fsize=fsize, rc=rc)
+             !   print '(A,i4,i12,A,L)',' create file '//state_n%filename//'  '//importexport,  &
+             !        nlen,fsize,' pending ',pending
+             !endif
+             pending = .true.
           endif
        endif
-!#ifdef test
+
        call outputlog_run(startTime, currTime, nextTime, state_n, cf_n, comm, isroot, rootpe, ierr)
 
-       ! complete file for the next advance
        if (pending .and. len_trim(state_n%filename) > 0) then
           if (isroot) then
              if (l_use_filesize) then
@@ -357,22 +282,19 @@ contains
           endif
           pending = .false.
           firstcomplete = .false.
-          if (debug_onroot) then
-             call get_file_state(comm, isroot, rootpe, state_n%filename, nlen=nlen, fsize=fsize, rc=rc)
-             print '(A,i4,i12,A,L)',importexport//'  write file '//state_n%filename, &
-                  nlen,fsize,' pending ',pending
-          endif
+          !if (debug_onroot) then
+          !   call get_file_state(comm, isroot, rootpe, state_n%filename, nlen=nlen, fsize=fsize, rc=rc)
+          !   print '(A,i4,i12,A,L)','  write file '//state_n%filename//'  '//importexport, &
+          !        nlen,fsize,' pending ',pending
+          !endif
        endif
 
        if (state_n%filecomplete .and. .not.firstcomplete) then
           completions = completions + 1
           firstcomplete = .true.
        endif
-       !if (debug_onroot) then
-       !   print *,importexport//'  ',state_n%filecomplete,completions,firstcomplete
-       !endif
-!#endif
-    enddo
+    enddo ! do while
+
   end subroutine run_case
 
   subroutine outputlog_run(startTime,currTime,nextTime,state_n,cf_n,comm,isroot,rootpe,ierr)
@@ -417,25 +339,105 @@ contains
          logtime=currTime-cf_n%logname_fhoffset, complog='mom6.'//chour, rc=rc)
     call esmf_err(rc, subname, "check_file_completion")
 
-    !if (debug_onroot) call debug_info(trim(subname)//'  ',state_n%filename, &
-    !     state_n%chkfile_nextAdvance, state_n%createsize, importexport)
+    if (debug_onroot) call debug_info(trim(subname)//'  ',state_n%filename, &
+         state_n%chkfile_nextAdvance, state_n%createsize, importexport)
+  end subroutine outputlog_run
 
-end subroutine outputlog_run
-!> Index of target in arr, or 0 if not present -- plain integer lookup,
-!! no ESMF/production logic involved.
-function findloc_int(arr, target) result(idx)
-  integer, intent(in) :: arr(:)
-  integer, intent(in) :: target
-  integer :: idx
-  integer :: k
+  !> Index of target in arr, or 0 if not present -- plain integer lookup,
+  !! no ESMF/production logic involved.
+  function findloc_int(arr, target) result(idx)
+    integer, intent(in) :: arr(:)
+    integer, intent(in) :: target
+    integer :: idx
+    integer :: k
 
-  idx = 0
-  do k = 1, size(arr)
-     if (arr(k) == target) then
-        idx = k
-        return
-     endif
-  enddo
-end function findloc_int
+    idx = 0
+    do k = 1, size(arr)
+       if (arr(k) == target) then
+          idx = k
+          return
+       endif
+    enddo
+  end function findloc_int
+
+  subroutine setup_case(start_hour, runhours, freq, l_nfiles, l_timereduce, modelClock, cf_n, state_n, rc)
+
+    integer,                     intent(in)  :: start_hour, runhours, freq, l_nfiles
+    character(len=*),            intent(in)  :: l_timereduce
+    type(ESMF_Clock),            intent(out) :: modelClock
+    type(outputlog_config_type), intent(out) :: cf_n
+    type(outputlog_state_type),  intent(out) :: state_n
+    integer,                     intent(out) :: rc
+
+    type(ESMF_TimeInterval) :: alarmoffset
+    type(ESMF_Time)         :: startTime, currTime, nextTime, stopTime, refTime
+    type(ESMF_TimeInterval) :: timeStep, tincrement, elapsedhours
+
+    integer :: toffset
+    character(len=16)  :: startstr, stopstr
+    character(len=120) :: subname = 'setup_case'
+
+    rc = ESMF_SUCCESS
+
+    call ESMF_TimeSet(startTime, yy=base_yy, mm=base_mm, dd=base_dd, h=start_hour, rc=rc)
+    call esmf_err(rc, subname, "ESMF_TimeSet(startTime)")
+    call ESMF_TimeSet(stopTime,  yy=base_yy, mm=base_mm, dd=base_dd, h=start_hour+runhours, rc=rc)
+
+    call ESMF_TimeIntervalSet(timeStep, s=1800, rc=rc)
+    call esmf_err(rc, subname, "ESMF_TimeIntervalSet(timeStep)")
+    call ESMF_TimeIntervalSet(tincrement, m=1, rc=rc)
+    call esmf_err(rc, subname, "ESMF_TimeIntervalSet(tincrement)")
+    modelClock  = ESMF_ClockCreate(name="Model",timeStep=timeStep, startTime=startTime, stopTime=stopTime, rc=rc)
+
+    call ESMF_ClockGet(modelclock, currTime=currTime, startTime=startTime, stopTime=stopTime, rc=rc)
+    call esmf_err(rc, subname, "ESMF_ClockGet start,stop time")
+    startstr = get_timestr(startTime, rc=rc)
+    stopstr = get_timestr(stopTime, rc=rc)
+    if (debug_onroot) then
+       print '(A)','Clock will run from '//startstr//' to '//stopstr
+    endif
+
+    ! --- Build the rest of cf_n exactly as outputlog_init would ---
+    cf_n%alarm_name           = 'test_alarm'
+    cf_n%opt_n                = freq
+    cf_n%requested            = .true.
+    cf_n%timereduce           = l_timereduce
+    cf_n%fnameprefix          = 'ocn_'
+    if (l_nfiles == 1) then
+       cf_n%fnamesuffix       = ''
+    else
+       cf_n%fnamesuffix       = '.000'
+    endif
+    if (trim(l_timereduce) == 'none') then
+       cf_n%logname_fhoffset  = 0*tincrement
+       cf_n%filename_fhoffset = 60*freq*tincrement
+    else
+       cf_n%logname_fhoffset  = 60*freq*tincrement
+       cf_n%filename_fhoffset = 90*freq*tincrement
+    endif
+
+    state_n%chkfile_nextAdvance = .false.
+    state_n%use_filesize        = .false.
+    state_n%createsize          = 0
+    state_n%filecomplete        = .false.
+
+    ! Restart pairing is out of scope for this file -- fixed dummy value,
+    ! never asserted on. See the dedicated restart-pairing test.
+    state_n%time_lastrestart         = startTime
+
+    ! the time offset in hours required to ensure the alarm rings at multiples of freq(n)
+    ! regardless of start day/hour
+    toffset = set_toffset(start_hour, freq)
+    alarmoffset = toffset*60*tincrement
+
+    call AlarmInit(modelclock,              &
+         alarm     = cf_n%alarm,            &
+         option    = 'nhours',              &
+         opt_n     = cf_n%opt_n,            &
+         opt_ymd   = -999,                  &
+         RefTime   = currTime+alarmoffset,  &
+         alarmname = cf_n%alarm_name, rc=rc)
+    call esmf_err(rc, subname, "call AlarmInit")
+  end subroutine setup_case
 
 end program test_driver
