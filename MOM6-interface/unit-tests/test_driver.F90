@@ -6,9 +6,10 @@ program test_driver
   use ESMF
   use mpi_f08,               only : MPI_Init, MPI_Finalize, MPI_Comm, MPI_Comm_rank, MPI_COMM_WORLD, MPI_Barrier
   use test_utils
-  use mom_outputlog_methods, only : outputlog_config_type, outputlog_state_type
+  use mom_cap_outputlog,     only : outputlog_freqn
+  use mom_outputlog_methods, only : outputlog_config_type, outputlog_state_type, outputlog_modeltime_type
   use mom_outputlog_methods, only : get_timestr, get_importexport, set_toffset, get_file_state, debug_info
-  use mom_outputlog_methods, only : get_ring_state, check_file_completion
+  use mom_outputlog_methods, only : get_ring_state
   use MOM_cap_time,          only : AlarmInit
   use nc_fixture_mod,        only : create_schema, write_record, write_padding, write_bulk_data
 
@@ -171,12 +172,13 @@ contains
     logical          :: l_use_filesize
     integer          :: l_nfiles
 
-    type(ESMF_Clock)         :: modelclock
+    type(ESMF_Clock)         :: modelClock
     type(ESMF_Time)          :: startTime, currTime, nextTime, stopTime, lastrestart
     type(ESMF_TimeInterval)  :: timeStep, tincrement, elapsedtime
 
-    type(outputlog_config_type) :: cf_n
-    type(outputlog_state_type)  :: state_n
+    type(outputlog_config_type)    :: cf_n
+    type(outputlog_state_type)     :: state_n
+    type(outputlog_modeltime_type) :: modeltime
 
     integer :: minutes
     integer :: elapsedhours
@@ -218,17 +220,22 @@ contains
     call setup_case(start_hour, runhours, freq, l_nfiles, l_timereduce, modelClock, cf_n, state_n, rc)
 
     completions = 0
-    do while (.not. ESMF_ClockIsStopTime(modelClock, rc=ierr))
-       call esmf_err(ierr, subname, "clock at stop time")
+    ! dummy value, restart pairing is out of scope for this test
+    lastrestart = state_n%time_lastrestart
 
-       call ESMF_ClockGet(modelclock, startTime=startTime, currTime=currTime, rc=ierr)
+    do while (.not. ESMF_ClockIsStopTime(modelClock, rc=rc))
+       call esmf_err(rc, subname, "advance to stop time")
+
+       call ESMF_ClockGet(modelClock, startTime=modeltime%startTime, currTime=modeltime%currTime, rc=rc)
        call esmf_err(rc, subname, "get start and currTime")
-       call ESMF_ClockGetNextTime(modelclock, nextTime, rc=ierr)
+       call ESMF_ClockGetNextTime(modelClock, modeltime%nextTime, rc=rc)
        call esmf_err(rc, subname, "get nextTime")
-       importexport = get_importexport(currTime, nextTime, rc=ierr)
+       importexport = get_importexport(modeltime%currTime, modeltime%nextTime, rc=rc)
        call esmf_err(rc, subname, "get importexport")
+       call ESMF_TimeIntervalSet(modeltime%tincrement, m=1, rc=rc)
+       call esmf_err(rc, subname, "ESMF_TimeIntervalSet(tincrement)")
 
-       elapsedtime = nextTime - startTime
+       elapsedtime = modeltime%nextTime - modeltime%startTime
        call ESMF_TimeIntervalGet(elapsedtime, m=minutes, rc=rc)
        elapsedhours = minutes/60
        ! ring_index serves to match ring hour with whether a file predates start
@@ -239,39 +246,15 @@ contains
 
        state_n%ringing = .false.
        count = 0
-       call ESMF_ClockAdvance(modelClock,ringingalarmcount=count,rc=ierr)
+       call ESMF_ClockAdvance(modelClock,ringingalarmcount=count,rc=rc)
        call esmf_err(rc, subname, "ringing alarm count")
        if (count > 0) then
           state_n%ringing = .true.
-          call ESMF_AlarmRingerOff(cf_n%alarm, rc=ierr)
+          call ESMF_AlarmRingerOff(cf_n%alarm, rc=rc)
           call esmf_err(rc, subname, "alarm ringer off")
        endif
 
-       pending = .false.
-       if (ring_index > 0) then
-          if (state_n%ringing .and. ring_ticks(ring_index) > 0) then
-             timestr = get_timestr(nextTime - cf_n%filename_fhoffset, rc=ierr)
-             state_n%filename = trim(outputdir)//trim(cf_n%fnameprefix)//trim(timestr)//'.nc' &
-                  //trim(cf_n%fnamesuffix)
-             if (isroot) then
-                call create_schema(state_n%filename)
-                if (l_use_filesize) then
-                   call write_record(state_n%filename)
-                else
-                   call write_padding(state_n%filename)
-                endif
-             endif
-             !if (debug_onroot) then
-             !   call get_file_state(comm, isroot, rootpe, state_n%filename, nlen=nlen, fsize=fsize, rc=rc)
-             !   print '(A,i4,i12,A,L)',' create file '//state_n%filename//'  '//importexport,  &
-             !        nlen,fsize,' pending ',pending
-             !endif
-             pending = .true.
-          endif
-       endif
-
-       call outputlog_run(startTime, currTime, nextTime, state_n, cf_n, comm, isroot, rootpe, ierr)
-
+       ! complete any pending file from previous advance (mimics FMS complete)
        if (pending .and. len_trim(state_n%filename) > 0) then
           if (isroot) then
              if (l_use_filesize) then
@@ -282,12 +265,37 @@ contains
           endif
           pending = .false.
           firstcomplete = .false.
-          !if (debug_onroot) then
-          !   call get_file_state(comm, isroot, rootpe, state_n%filename, nlen=nlen, fsize=fsize, rc=rc)
-          !   print '(A,i4,i12,A,L)','  write file '//state_n%filename//'  '//importexport, &
-          !        nlen,fsize,' pending ',pending
-          !endif
+          ! if (debug_onroot) then
+          !    call get_file_state(comm, isroot, rootpe, state_n%filename, nlen=nlen, fsize=fsize, rc=rc)
+          !    print '(A,i4,i12,2(A,L))',trim(subname)//' complete file '//state_n%filename//'  '//importexport, &
+          !         nlen,fsize,' pending ',pending,' ringing ',state_n%ringing
+          ! endif
        endif
+
+       if (ring_index > 0) then
+          if (state_n%ringing .and. ring_ticks(ring_index) > 0) then
+             timestr = get_timestr(modeltime%nextTime - cf_n%filename_fhoffset, rc=rc)
+             state_n%filename = trim(outputdir)//trim(cf_n%fnameprefix)//trim(timestr)//'.nc' &
+                  //trim(cf_n%fnamesuffix)
+             if (isroot) then
+                call create_schema(state_n%filename)
+                if (l_use_filesize) then
+                   call write_record(state_n%filename)
+                else
+                   call write_padding(state_n%filename)
+                endif
+             endif
+             pending = .true.
+             ! if (debug_onroot) then
+             !    call get_file_state(comm, isroot, rootpe, state_n%filename, nlen=nlen, fsize=fsize, rc=rc)
+             !    print '(A,i4,i12,2(A,L))',trim(subname)//' create file '//state_n%filename//'  '//importexport,  &
+             !         nlen,fsize,' pending ',pending,' ringing ',state_n%ringing
+             ! endif
+          endif
+       endif
+
+       call outputlog_freqn(modeltime, cf_n, state_n, comm, isroot, rootpe, outputdir, lastrestart, &
+            debug_onroot, .false., rc)
 
        if (state_n%filecomplete .and. .not.firstcomplete) then
           completions = completions + 1
@@ -296,53 +304,6 @@ contains
     enddo ! do while
 
   end subroutine run_case
-
-  subroutine outputlog_run(startTime,currTime,nextTime,state_n,cf_n,comm,isroot,rootpe,ierr)
-
-    type(ESMF_Time),             intent(in)    :: startTime, currTime, nextTime
-    type(outputlog_state_type),  intent(inout) :: state_n
-    type(outputlog_config_type), intent(inout) :: cf_n
-    type(MPI_Comm),              intent(in)    :: comm
-    logical,                     intent(in)    :: isroot
-    integer,                     intent(in)    :: rootpe
-    integer,                     intent(out)   :: ierr
-
-    type(ESMF_Time) :: lastrestart
-
-    character(len=40) :: importexport
-    character(len=16) :: timestr
-    character(len=3)  :: chour
-    integer :: nlen,fsize,rc
-
-    ierr = 0
-    write(chour,'(I2.2,A)')cf_n%opt_n,'h'
-
-    ! dummy value, restart pairing is out of scope for this test
-    lastrestart = startTime
-
-    importexport = get_importexport(currTime, nextTime, rc=ierr)
-
-    if (state_n%ringing) then
-       state_n%chkfile_nextAdvance = .true.
-       ! filename already set
-       call get_ring_state(state_n, comm, isroot, rootpe, rc=rc)
-       call esmf_err(rc, subname, "get_ring_state")
-
-       if (debug_onroot) then
-          print '(A,2(A,L),A,i16)',trim(subname)//' fname '//state_n%filename//'  '        &
-               //trim(importexport),' checkflag ',state_n%chkfile_nextAdvance,' use_filesize ',  &
-               state_n%use_filesize, '  ',state_n%createsize
-       endif
-    endif
-
-    call check_file_completion(state_n, lastrestart, comm, isroot, rootpe, startTime, &
-         logtime=currTime-cf_n%logname_fhoffset, complog='mom6.'//chour, rc=rc)
-    call esmf_err(rc, subname, "check_file_completion")
-
-    if (debug_onroot) call debug_info(trim(subname)//'  ',state_n%filename, &
-         state_n%chkfile_nextAdvance, state_n%createsize, importexport)
-  end subroutine outputlog_run
-
   !> Index of target in arr, or 0 if not present -- plain integer lookup,
   !! no ESMF/production logic involved.
   function findloc_int(arr, target) result(idx)
@@ -374,7 +335,7 @@ contains
     type(ESMF_TimeInterval) :: timeStep, tincrement, elapsedhours
 
     integer :: toffset
-    character(len=16)  :: startstr, stopstr
+    character(len=16)  :: startstr, stopstr, timestr
     character(len=120) :: subname = 'setup_case'
 
     rc = ESMF_SUCCESS
@@ -418,7 +379,9 @@ contains
 
     state_n%chkfile_nextAdvance = .false.
     state_n%use_filesize        = .false.
+    state_n%filecomplete        = .false.
     state_n%createsize          = 0
+    state_n%completesize        = 0
     state_n%filecomplete        = .false.
 
     ! Restart pairing is out of scope for this file -- fixed dummy value,
