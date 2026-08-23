@@ -24,7 +24,7 @@ program test_driver
 
   character(len=128) :: testname
   character(len=256) :: assertmsg
-  character(len=20)  :: subname = 'test_outputlog_freqn'
+  character(len=20)  :: subname = 'test_track_freqn'
 
   type(testsummary) :: freqntests
 
@@ -294,7 +294,7 @@ contains
           endif
        endif
 
-       call outputlog_freqn(modeltime, cf_n, state_n, comm, isroot, rootpe, outputdir, lastrestart, &
+       call track_freqn(modeltime, cf_n, state_n, comm, isroot, rootpe, outputdir, lastrestart, &
             debug_onroot, .false., rc)
 
        if (state_n%filecomplete .and. .not.firstcomplete) then
