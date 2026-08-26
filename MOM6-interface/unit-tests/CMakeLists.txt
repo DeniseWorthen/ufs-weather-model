@@ -83,17 +83,17 @@ add_mom6_unit_test(test_outputlog_alarm
   SOURCES test_alarminit.F90
   EXTRA_LIBS mom6_test_utils)
 
-add_mom6_unit_test(test_outputlog_freqn
-  CTEST_NAME MOM6_Outputlog_Freqn
-  SOURCES test_outputlog_freqn.F90
-  EXTRA_LIBS mom6_test_utils nc_fixture_mod NetCDF::NetCDF_Fortran MPI::MPI_Fortran
-  USE_MPI)
-
-#add_mom6_unit_test(test_outputlog_completion
-#  CTEST_NAME MOM6_Outputlog_Completion
-#  SOURCES test_outputlog_completion.F90
-#  EXTRA_LIBS nc_fixture_mod NetCDF::NetCDF_Fortran MPI::MPI_Fortran
+#add_mom6_unit_test(test_outputlog_freqn
+#  CTEST_NAME MOM6_Outputlog_Freqn
+#  SOURCES test_outputlog_freqn.F90
+#  EXTRA_LIBS mom6_test_utils nc_fixture_mod NetCDF::NetCDF_Fortran MPI::MPI_Fortran
 #  USE_MPI)
+
+add_mom6_unit_test(test_outputlog_completion
+ CTEST_NAME MOM6_Outputlog_Completion
+ SOURCES test_outputlog_completion.F90
+ EXTRA_LIBS nc_fixture_mod NetCDF::NetCDF_Fortran MPI::MPI_Fortran
+ USE_MPI)
 
 #add_mom6_unit_test(test_outputlog_finalize
 #   CTEST_NAME MOM6_Outputlog_Finalize
@@ -102,7 +102,13 @@ add_mom6_unit_test(test_outputlog_freqn
 #   USE_MPI)
 
 add_mom6_unit_test(test_driver
-   CTEST_NAME MOM6_Outputlog_Finalize
-   SOURCES test_driver.F90
+   CTEST_NAME MOM6_Outputlog_Freqn
+   SOURCES test_driver2.F90
    EXTRA_LIBS mom6_test_utils nc_fixture_mod NetCDF::NetCDF_Fortran MPI::MPI_Fortran
    USE_MPI)
+
+#add_mom6_unit_test(test_driver_lstop
+#   CTEST_NAME MOM6_Outputlog_Finalize
+#   SOURCES test_driver_lstop.F90
+#   EXTRA_LIBS mom6_test_utils nc_fixture_mod NetCDF::NetCDF_Fortran MPI::MPI_Fortran
+#   USE_MPI)
