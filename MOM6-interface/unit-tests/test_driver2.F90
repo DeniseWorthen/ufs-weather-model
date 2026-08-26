@@ -128,11 +128,24 @@ program test_driver
        use_filesize=.true.,                         &
        completions=completions)
 
-  call assert_equal(completions, 1, testname, assertrc, assertmsg)
+  call assert_equal(completions, expected, testname, assertrc, assertmsg)
   call addresult(freqntests, assertrc, trim(assertmsg), '')
 
   ! ------------------
   nt = nt + 1
+  expected = 5 ! rings at hour 15,18,21 track files 10.5,13.5,16.5; hour=24 tracks 19.5 and 22.5 file at finalize
+  write(testname,'(A,I2.2,A)')'test ',nt,' three rings, but only two real windows, both complete at finalize'
+
+  call run_case(trim(testname),                     &
+       freq=3, start_hour=9, runhours=15,           &
+       use_filesize=.true.,                         &
+       completions=completions)
+
+  call assert_equal(completions, expected, testname, assertrc, assertmsg)
+  call addresult(freqntests, assertrc, trim(assertmsg), '')
+  ! ------------------
+  nt = nt + 1
+  expected = 1
   write(testname,'(A,I2.2,A)')'test ',nt,' two ring, one real window, completes correctly'
 
   call run_case(trim(testname),               &
@@ -140,7 +153,7 @@ program test_driver
        use_filesize=.true.,                   &
        completions=completions)
 
-  call assert_equal(completions, 1, testname, assertrc, assertmsg)
+  call assert_equal(completions, expected, testname, assertrc, assertmsg)
   call addresult(freqntests, assertrc, trim(assertmsg), '')
 
   ! ------------------
@@ -350,9 +363,12 @@ contains
        ! actual feature obtains prevRing from model clock to set file name at lstop
        ! here, must rig the correct filename to stage the file
        ! ======================================================================
+
+       toffset = set_toffset(start_hour, freq)
        elapsedtime = modeltime%nextTime - modeltime%startTime
        call ESMF_TimeIntervalGet(elapsedtime, m=minutes, rc=rc)
-       elapsedhours = minutes/60
+       call esmf_err(rc, subname, "get elapsedtime at lstop")
+       elapsedhours = toffset + minutes/60
 
        if (modeltime%nextTime == stopTime) then
           if (mod(elapsedhours,freq) == 0) then
