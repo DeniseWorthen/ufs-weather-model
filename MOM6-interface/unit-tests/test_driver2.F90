@@ -224,6 +224,8 @@ contains
 
     !debug
     integer :: nlen, fsize
+    type(ESMF_Time) :: ringtime
+    character(len=16) :: ringb4, ringaf
 
     completions = 0
 
@@ -271,14 +273,21 @@ contains
        count = 0
        call ESMF_ClockAdvance(modelClock,ringingalarmcount=count,rc=rc)
        call esmf_err(rc, subname, "ringing alarm count")
+
+       call ESMF_AlarmGet(cf_n%alarm, prevRingTime=ringtime, rc=rc)
+       ringb4 = get_timestr(ringtime, rc=rc)
+
        if (count > 0) then
           state_n%ringing = .true.
           call ESMF_AlarmRingerOff(cf_n%alarm, rc=rc)
           call esmf_err(rc, subname, "alarm ringer off")
        endif
-       call ESMF_AlarmGet(cf_n%alarm, prevRingTime=modeltime%prevring, rc=rc)
+       call ESMF_AlarmGet(cf_n%alarm, prevRingTime=ringtime, rc=rc)
+       ringaf = get_timestr(ringtime, rc=rc)
+       if (debug_onroot) print *,'XXX prev ring before,ring after ',ringb4//'   '//ringaf
+
+       call ESMF_AlarmGet(cf_n%alarm, prevRingTime=state_n%prevring, rc=rc)
        call esmf_err(rc, subname, "get prevRing")
-       timestr = get_timestr(modeltime%prevring, rc=rc)
 
        call ESMF_ClockGet(modelClock, stopTime=stopTime,rc=rc)
        call esmf_err(rc, subname, "get stopTime")
@@ -373,9 +382,9 @@ contains
        if (modeltime%nextTime == stopTime) then
           if (mod(elapsedhours,freq) == 0) then
              if (trim(cf_n%timereduce) == 'none') then
-                timestr = get_timestr(modeltime%prevring, rc=rc)
+                timestr = get_timestr(state_n%prevring, rc=rc)
              else
-                timestr = get_timestr(modeltime%prevring-30*cf_n%opt_n*modeltime%tincrement, rc=rc)
+                timestr = get_timestr(state_n%prevring-30*cf_n%opt_n*modeltime%tincrement, rc=rc)
              endif
 
              state_n%filename = trim(outputdir)//trim(cf_n%fnameprefix)//trim(timestr)//'.nc' &

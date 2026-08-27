@@ -53,24 +53,37 @@ program test_driver
   ! ===========================================================================
   ! Test cases
   ! ===========================================================================
+!#ifdef test
+  !------------------
+  nt = nt + 1
+  expected = 1 ! ring at hour=18 completes 09 file
+  write(testname,'(A,I2.2,A)')'test ',nt,' two rings, one tracked averaging window completes '
 
-  ! ! ------------------
-  ! nt = nt + 1
-  ! expected = 1  ! ring at hour=18 completes 09 file
-  ! write(testname,'(A,I2.2,A)')'test ',nt,' two rings, one tracked averaging window completes '
+  call run_case(trim(testname),           &
+       freq=6, start_hour=6, runhours=13, &
+       use_filesize=.true.,               &
+       completions=completions)
 
-  ! call run_case(trim(testname),           &
-  !      freq=6, start_hour=6, runhours=13, &
-  !      use_filesize=.true.,               &
-  !      completions=completions)
+  call assert_equal(completions, expected, testname, assertrc, assertmsg)
+  call addresult(freqntests, assertrc, trim(assertmsg), '')
 
-  ! call assert_equal(completions, expected, testname, assertrc, assertmsg)
-  ! call addresult(freqntests, assertrc, trim(assertmsg), '')
+  !------------------
+  nt = nt + 1
+  expected = 5 ! rings at hour=8,9,10 complete 07,08,09 files; first finalize completes file 10, second complete 11 file
+  write(testname,'(A,I2.2,A)')'test ',nt,' snapshots, multiple rings complete correctly; 2 at finalize'
+
+  call run_case(trim(testname),                      &
+       freq=1, start_hour=6, runhours=5,             &
+       use_filesize=.true., timereduce='none',       &
+       completions=completions)
+
+  call assert_equal(completions, expected, testname, assertrc, assertmsg)
+  call addresult(freqntests, assertrc, trim(assertmsg), '')
 
   ! ------------------
   nt = nt + 1
   expected = 2  ! stop at hour=18 completes 09 and 15 file
-  write(testname,'(A,I2.2,A)')'test ',nt,' two tracked averaging windows, one completes at stop'
+  write(testname,'(A,I2.2,A)')'test ',nt,' two tracked averaging windows, both complete at finalize'
 
   call run_case(trim(testname),           &
        freq=6, start_hour=6, runhours=12, &
@@ -79,7 +92,7 @@ program test_driver
 
   call assert_equal(completions, expected, testname, assertrc, assertmsg)
   call addresult(freqntests, assertrc, trim(assertmsg), '')
-#ifdef test
+
   ! ------------------
   nt = nt + 1
   expected = 1 ! ring at hour 18 tracks 09 file for DATM
@@ -91,19 +104,7 @@ program test_driver
 
   call assert_equal(completions, expected, testname, assertrc, assertmsg)
   call addresult(freqntests, assertrc, trim(assertmsg), '')
-
-  ! ------------------
-  nt = nt + 1
-  expected = 4 ! rings at hour=8,9,10 complete 07,08,09 files; lstop completes file 10
-  write(testname,'(A,I2.2,A)')'test ',nt,' snapshots, multiple rings complete correctly'
-
-  call run_case(trim(testname),                      &
-       freq=1, start_hour=6, runhours=5,             &
-       use_filesize=.true., timereduce='none',       &
-       completions=completions)
-
-  call assert_equal(completions, expected, testname, assertrc, assertmsg)
-  call addresult(freqntests, assertrc, trim(assertmsg), '')
+!#endif
 
   ! ------------------
   nt = nt + 1
@@ -120,11 +121,11 @@ program test_driver
 
   ! ------------------
   nt = nt + 1
-  expected = 1 ! rings at hours 12,18 track phantom files 03,09; hour=24 tracks real 15 file
-  write(testname,'(A,I2.2,A)')'test ',nt,' three ring, but only one real window, completes correctly'
+  expected = 2 ! rings at hours 12,18 track phantom files 03,09; hour=24 tracks 15 and 21 file at finalize
+  write(testname,'(A,I2.2,A)')'test ',nt,' three rings, but only two real windows, both complete at finalize'
 
   call run_case(trim(testname),                     &
-       freq=6, start_hour=9, runhours=18,           &
+       freq=6, start_hour=9, runhours=15,           &
        use_filesize=.true.,                         &
        completions=completions)
 
@@ -142,7 +143,7 @@ program test_driver
 
   call assert_equal(completions, 1, testname, assertrc, assertmsg)
   call addresult(freqntests, assertrc, trim(assertmsg), '')
-#endif
+
   ! ------------------
   ! Test results
   ! ------------------
@@ -162,10 +163,15 @@ program test_driver
   !   cmdstr = 'rm -f '//trim(outputdir)//'*.nc '//trim(outputdir)//'*.mom6.*'//'  ./PET*'
   !   call execute_command_line(trim(cmdstr), wait=.true.)
   !endif
+
   call ESMF_Finalize(rc=ierr)
   call esmf_err(ierr, subname, "ESMF_Finalize")
 
-  if (freqntests%nfail > 0) stop 1
+  if (freqntests%nfail > 0) then
+     print '(A)','Test failures! '
+     stop
+  endif
+
 contains
   !> TODO
   subroutine run_case(test, freq, start_hour, runhours, timereduce, use_filesize, nfiles, &
@@ -193,11 +199,11 @@ contains
     integer :: ierr, rc
     integer :: toffset, count
     logical :: phantom_file, lstop
-    logical :: firstcompletion = .false.   ! want only the first time the file completes to count
+    logical :: found_firstcompletion = .false.   ! count only the first time the file completes
+    logical :: wrotefilenow = .false.
     logical :: pending = .false.
 
     character(len=16)  :: timestr
-
     character(len=40)  :: importexport
     character(len=20)  :: subname = 'run_case'
 
@@ -232,6 +238,9 @@ contains
     ! dummy value, restart pairing is out of scope for this test
     lastrestart = state_n%time_lastrestart
 
+    if (debug_onroot) then
+       print '(A)','Running test '//test
+    endif
     call ESMF_TimeIntervalSet(modeltime%tincrement, m=1, rc=rc)
     call esmf_err(rc, subname, "ESMF_TimeIntervalSet(tincrement)")
 
@@ -256,28 +265,46 @@ contains
        endif
        call ESMF_AlarmGet(cf_n%alarm, prevRingTime=modeltime%prevring, rc=rc)
        call esmf_err(rc, subname, "get prevRing")
-       !timestr = get_timestr(modeltime%prevring, rc=rc)
+       timestr = get_timestr(modeltime%prevring, rc=rc)
 
        ! at stop time, output log run is called from mom_finalize with lstop = .true.
        ! file has been written complete in single shot
        call ESMF_ClockGet(modelClock, stopTime=stopTime,rc=rc)
        call esmf_err(rc, subname, "get stopTime")
-       lstop = (modeltime%nextTime == stopTime)
+       !lstop = (modeltime%nextTime == stopTime)
        !print *,'XXX '//importexport//'  ',state_n%ringing
        !timestr=get_timestr(stopTime, rc=rc)
        !print *,'XXX stoptime '//timestr
-
+       lstop = (modeltime%nextTime == stopTime)
+       if (lstop) then
+          timestr = get_timestr(modeltime%prevring, rc=rc)
+          print *,'XXX ',lstop,'  prevring '//timestr
+       endif
+       !print *,'XXX ',lstop
        ! ======================================================================
        ! set up file states to mimic FMS
        ! ======================================================================
 
-       elapsedtime = modeltime%nextTime - modeltime%startTime
-       call ESMF_TimeIntervalGet(elapsedtime, m=minutes, rc=rc)
-       elapsedhours = minutes/60
+       ! lstop related
+       !elapsedtime = modeltime%nextTime - modeltime%startTime
+       !call ESMF_TimeIntervalGet(elapsedtime, m=minutes, rc=rc)
+       !elapsedhours = minutes/60
+
+       ! during continuous polling, file is pending until on first advance on new file window (ringing off)
+       if (pending .and. len_trim(state_n%filename)>0) then
+          call handlefiles(isroot, state_n%filename, l_use_filesize, 'complete')
+          pending = .false.
+          if (debug_onroot) then
+             call get_file_state(comm, isroot, rootpe, state_n%filename, nlen=nlen, fsize=fsize, rc=rc)
+             print '(A,i4,i12,2(A,L))',trim(subname)//' complete file '//state_n%filename//'  '//importexport, &
+                  nlen,fsize,' pending ',pending,' ringing ',state_n%ringing
+          endif
+       endif
 
        ! during continuous polling, file will be created when ring occurs at tracking window
        if (state_n%ringing) then
           phantom_file = .false.
+          found_firstcompletion = .false.
           timestr = get_timestr(modeltime%nextTime - cf_n%filename_fhoffset, rc=rc)
           if (modeltime%nextTime - cf_n%filename_fhoffset <= modeltime%startTime) phantom_file = .true.
 
@@ -287,17 +314,10 @@ contains
           if (phantom_file) then
              pending = .false.
              if (debug_onroot) then
-                print '(A)',' file '//timestr//' is phantom'
+                print '(A)',' file '//state_n%filename//' is phantom'
              endif
           else
-             if (isroot) then
-                call create_schema(state_n%filename)
-                if (l_use_filesize) then
-                   call write_record(state_n%filename)
-                else
-                   call write_padding(state_n%filename)
-                endif
-             endif
+             call handlefiles(isroot, state_n%filename, l_use_filesize, 'create')
              pending = .true.
              if (debug_onroot) then
                call get_file_state(comm, isroot, rootpe, state_n%filename, nlen=nlen, fsize=fsize, rc=rc)
@@ -307,54 +327,57 @@ contains
           endif
        endif
 
-       ! during continuous polling, file is pending until on first advance on new file window
-       if (pending .and. len_trim(state_n%filename)>0) then
-          if (isroot) then
-             if (l_use_filesize) then
-                call write_bulk_data(state_n%filename)   ! fsize grows past createsize
-             else
-                call write_record(state_n%filename)      ! nlen 0->1
-             endif
-          endif
-          pending = .false.
-          if (debug_onroot) then
-             call get_file_state(comm, isroot, rootpe, state_n%filename, nlen=nlen, fsize=fsize, rc=rc)
-             print '(A,i4,i12,2(A,L))',trim(subname)//' complete file '//state_n%filename//'  '//importexport, &
-                  nlen,fsize,' pending ',pending,' ringing ',state_n%ringing
-          endif
-       endif
        ! ======================================================================
        ! end of file preparation for continuous polling
        ! ======================================================================
 
        call track_freqn(modeltime, cf_n, state_n, comm, isroot, rootpe, outputdir, lastrestart, &
             debug_onroot, .false., rc)
-       if (state_n%filecomplete .and. .not.firstcompletion) then
+       if (state_n%filecomplete .and. .not.found_firstcompletion) then
           completions = completions + 1
-          firstcompletion = .true.
+          found_firstcompletion = .true.
+       endif
+       !if (state_n%filecomplete) print *,'XXX completions = ',completions,pending,found_firstcompletion
+
+       !if (modeltime%nextTime == stopTime) print '(A,L,A,i4)','at stop time ',pending,state_n%filename,completions
+!#ifdef test
+       ! first call during finalize; io_infra_end/MOM_infra_end finishes any pending file
+       if (modeltime%nextTime == stopTime) then
+          if (pending) then
+             call handlefiles(isroot, state_n%filename, l_use_filesize, 'complete')
+             pending = .false.
+             found_firstcompletion = .false.
+             if (debug_onroot) then
+                call get_file_state(comm, isroot, rootpe, state_n%filename, nlen=nlen, fsize=fsize, rc=rc)
+                print '(A,i4,i12,2(A,L))',trim(subname)//' complete file '//state_n%filename//'  '//importexport, &
+                     nlen,fsize,' pending ',pending,' ringing ',state_n%ringing
+             endif
+
+             state_n%ringing = .false.
+             state_n%chkfile_nextAdvance = .true.
+             call track_freqn(modeltime, cf_n, state_n, comm, isroot, rootpe, outputdir, lastrestart, &
+                  debug_onroot, .false., rc)
+             !print *,'XXX ',state_n%filecomplete,found_firstcompletion
+             if (state_n%filecomplete .and. .not.found_firstcompletion) then
+                completions = completions + 1
+                found_firstcompletion = .true.
+             endif
+          endif
        endif
 
-       ! if (lstop) then
-       !    call track_freqn(modeltime, cf_n, state_n, comm, isroot, rootpe, outputdir, lastrestart, &
-       !         debug_onroot, .false., rc)
-       !    if (state_n%filecomplete .and. .not.firstcompletion) then
-       !       completions = completions + 1
-       !       firstcompletion = .true.
-       !    endif
-       ! endif
+       timestr = get_timestr(modeltime%currTime,rc=rc)
+       !print *,'XXX timestr = ',timestr
+       !print *,state_n%completesize
+       ! second call during finalize completes any stopTime which as also the end of last interval, otherwise untracked
 
+       ! actual feature obtains prevRing from model clock to set file name at lstop
+       ! here, must rig the correct filename to stage the file
+       elapsedtime = modeltime%nextTime - modeltime%startTime
+       call ESMF_TimeIntervalGet(elapsedtime, m=minutes, rc=rc)
+       elapsedhours = minutes/60
 
-       ! ======================================================================
-
-#ifdef test
-       if (lstop ) then
-          ! actual feature obtains prevRing from model clock to set file name at lstop
-          ! here, must rig the correct filename to stage the file
-
+       if (modeltime%nextTime == stopTime) then
           if (mod(elapsedhours,freq) == 0) then
-             !modeltime%prevRing = stopTime - 60*cf_n%opt_n*modeltime%tincrement
-             !timestr = get_timestr(modeltime%prevRing,rc=rc)
-             !print *,'XXX prevRing '//timestr//'  '//importexport
              if (trim(cf_n%timereduce) == 'none') then
                 timestr = get_timestr(modeltime%prevring, rc=rc)
              else
@@ -362,50 +385,33 @@ contains
              endif
              state_n%filename = trim(outputdir)//trim(cf_n%fnameprefix)//trim(timestr)//'.nc' &
                   //trim(cf_n%fnamesuffix)
+             !print *,'stop time ',state_n%filename
+             call handlefiles(isroot, state_n%filename, l_use_filesize, 'create-complete')
 
-             if (isroot) then
-                call create_schema(state_n%filename)
-                if (l_use_filesize) then
-                   call write_record(state_n%filename)
-                   call write_bulk_data(state_n%filename)   ! fsize grows past createsize
-                else
-                   call write_padding(state_n%filename)
-                   call write_record(state_n%filename)      ! nlen 0->1
-                endif
+             if (debug_onroot) then
+                call get_file_state(comm, isroot, rootpe, state_n%filename, nlen=nlen, fsize=fsize, rc=rc)
+                print '(A,i4,i12,2(A,L))',trim(subname)//' create-complete file '//state_n%filename//'  '//importexport, &
+                     nlen,fsize,' pending ',pending,' ringing ',state_n%ringing
              endif
-             !state_n%ringing = .false.
-             !pending = .false.
-             !firstcompletion = .false.
-             call get_file_state(comm, isroot, rootpe, state_n%filename, fsize=state_n%createsize, rc=rc)
-             call esmf_err(rc, subname, "get createsize at lstop")
-             state_n%completesize = state_n%createsize
-             ! if (debug_onroot) then
-             !    call get_file_state(comm, isroot, rootpe, state_n%filename, nlen=nlen, fsize=fsize, rc=rc)
-             !    print '(A,i4,i12,2(A,L))',trim(subname)//' complete file '//state_n%filename//'  '//importexport, &
-             !         nlen,fsize,' pending ',pending,' ringing ',state_n%ringing
-             ! endif
+          endif
+
+          state_n%ringing = .false.
+          state_n%chkfile_nextAdvance = .false.
+          found_firstcompletion = .false.
+          call track_freqn(modeltime, cf_n, state_n, comm, isroot, rootpe, outputdir, lastrestart, &
+               debug_onroot, .true., rc)
+          !print *,'XXX ',state_n%filecomplete,found_firstcompletion
+          if (state_n%filecomplete .and. .not.found_firstcompletion) then
+             completions = completions + 1
+             found_firstcompletion = .true.
           endif
        endif
 
-       ! ======================================================================
-       ! end of file preparation
-       ! ======================================================================
-
-       !if (allocated(state_n%filename)) then
-          !print *,'XXX b4 track '//state_n%filename,firstcompletion,state_n%filecomplete
-          call track_freqn(modeltime, cf_n, state_n, comm, isroot, rootpe, outputdir, lastrestart, &
-               debug_onroot, lstop, rc)
-          !print *,'XXX af track '//state_n%filename,firstcompletion,state_n%filecomplete
-          !if (state_n%filecomplete) then
-          if (state_n%filecomplete .and. .not.firstcompletion) then
-             completions = completions + 1
-             firstcompletion = .true.
-             print *,'XXX  '//state_n%filename,firstcompletion,state_n%filecomplete,completions
-          endif
-       !endif
-#endif
+!#endif
     enddo ! do while
-
+    if (debug_onroot) then
+       print '(A,/)','Completed test '//test
+    endif
   end subroutine run_case
 
   subroutine setup_case(start_hour, runhours, freq, l_nfiles, l_timereduce, modelClock, cf_n, state_n, rc)
@@ -491,4 +497,51 @@ contains
     call esmf_err(rc, subname, "call AlarmInit")
   end subroutine setup_case
 
+  subroutine handlefiles(isroot, fname, use_filesize, mode)
+
+    logical,          intent(in)  :: isroot
+    character(len=*), intent(in)  :: fname
+    logical,          intent(in)  :: use_filesize
+    character(len=*), intent(in)  :: mode
+
+    select case (mode)
+    case ('create')
+       if (isroot) then
+          call create_schema(fname)
+          if (use_filesize) then
+             call write_record(fname)
+          else
+             call write_padding(fname)
+          endif
+       endif
+
+    case ('complete')
+       if (isroot) then
+          if (use_filesize) then
+             call write_bulk_data(fname)   ! fsize grows past createsize
+          else
+             call write_record(fname)      ! nlen 0->1
+          endif
+       endif
+
+    case('create-complete')
+       if (isroot) then
+          call create_schema(fname)
+          if (use_filesize) then
+             call write_record(fname)
+             call write_bulk_data(fname)   ! fsize grows past createsize
+          else
+             call write_padding(fname)
+             call write_record(fname)      ! nlen 0->1
+          endif
+       endif
+
+    case default
+       if (isroot) then
+          print '(A)',' ERROR: unknown case '
+          stop
+       endif
+    end select
+
+  end subroutine handlefiles
 end program test_driver
