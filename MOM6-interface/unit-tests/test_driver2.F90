@@ -224,8 +224,6 @@ contains
 
     !debug
     integer :: nlen, fsize
-    type(ESMF_Time) :: ringtime
-    character(len=16) :: ringb4, ringaf
 
     completions = 0
 
@@ -274,18 +272,11 @@ contains
        call ESMF_ClockAdvance(modelClock,ringingalarmcount=count,rc=rc)
        call esmf_err(rc, subname, "ringing alarm count")
 
-       call ESMF_AlarmGet(cf_n%alarm, prevRingTime=ringtime, rc=rc)
-       ringb4 = get_timestr(ringtime, rc=rc)
-
        if (count > 0) then
           state_n%ringing = .true.
           call ESMF_AlarmRingerOff(cf_n%alarm, rc=rc)
           call esmf_err(rc, subname, "alarm ringer off")
        endif
-       call ESMF_AlarmGet(cf_n%alarm, prevRingTime=ringtime, rc=rc)
-       ringaf = get_timestr(ringtime, rc=rc)
-       if (debug_onroot) print *,'XXX prev ring before,ring after ',ringb4//'   '//ringaf
-
        call ESMF_AlarmGet(cf_n%alarm, prevRingTime=state_n%prevring, rc=rc)
        call esmf_err(rc, subname, "get prevRing")
 
