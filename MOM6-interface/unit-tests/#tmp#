@@ -1,0 +1,5 @@
+
+Develop component testing capability in the coupled UFS framework by integrating inline CMEPS in model components (Milestone 1.6)
+Deliverable: UFS framework to test atmosphere, ocean, ice, and wave components individually.
+
+Deliverable: Extend capabilty of UFS to test physics updates and options in isolation for the all marine components of UFS using a DATM component.

@@ -459,10 +459,8 @@ contains
        cf_n%fnamesuffix       = '.000'
     endif
     if (trim(l_timereduce) == 'none') then
-       cf_n%logname_fhoffset  = 0*tincrement
        cf_n%filename_fhoffset = 60*freq*tincrement
     else
-       cf_n%logname_fhoffset  = 60*freq*tincrement
        cf_n%filename_fhoffset = 90*freq*tincrement
     endif
 
