@@ -1,23 +1,30 @@
-!> Restart-pairing test for track_freqn/outputlog_run
+!> Restart-pairing test for track_freqn
 !!
-!! Verifies that state_n%time_lastrestart, and the real log_restart_fh
-!! output's "last restart:" line, correctly reflect the most recent
-!! restart-cadence point at each history completion. Restart files have NO
-!! completion lag (confirmed with the feature owner: written complete,
-!! instantly, at their own indicated hour -- unlike history files, which
-!! have the familiar ~1-tick FMS lag) -- so lastrestart is driven directly
-!! here as "the most recent restart_hours(:) entry reached so far," no
-!! fixture files needed for restarts themselves.
+!! Verifies that state_n%time_lastrestart correctly reflects the most
+!! recent restart-cadence point at each history completion. Restart files
+!! have NO completion lag (confirmed with the feature owner: written
+!! complete, instantly, at their own indicated hour -- unlike history
+!! files, which have the familiar ~1-tick FMS lag) -- so lastrestart is
+!! driven directly here as "the most recent restart_hours(:) entry reached
+!! so far," no fixture files needed for restarts themselves. Also
+!! confirmed with the feature owner: in mom_cap.F90, restarts are written,
+!! then outputlog_restart is called (updating the module-level lastrestart
+!! this test drives an equivalent of), then outputlog_run -- all within
+!! the same tick, so a restart due on tick T is correctly reflected in
+!! that same tick's history completions, never lagging by a tick the way
+!! history completion itself does.
 !!
 !! Reuses setup_case/handlefiles from outputlog_test_helpers (shared with
 !! test_freqn) for all the real ESMF clock/alarm/cf_n/state_n setup and
 !! history-fixture handling -- this file adds ONLY the restart-cadence
-!! driving and the log-content verification on top.
+!! driving and the state_n%time_lastrestart verification on top.
 !!
-!! Since track_freqn (this refactor) no longer calls log_restart_fh itself
-!! -- that now happens in outputlog_run, outside track_freqn -- this test
-!! replicates that same call directly after track_freqn returns, exactly
-!! matching outputlog_run's own logic (complog naming, argument list).
+!! Deliberately does NOT call or verify log_restart_fh: track_freqn itself
+!! never calls it (that only happens in outputlog_run, which this test
+!! doesn't exercise -- see the accompanying discussion on why outputlog_run
+!! is treated as an accepted, unplanned gap for now), so doing so here
+!! would only confirm log_restart_fh formats whatever we hand it
+!! correctly, not anything about track_freqn's own behavior.
 !!
 !! Case 1 only (freq=6, start=6, restart_freq=15, runhours=36) -- case 2
 !! (freq=24, start=0, restart_freq=15, runhours=50) still needs its own
@@ -33,7 +40,6 @@ program test_restart_pairing
   use mom_outputlog_methods,  only : outputlog_config_type, outputlog_state_type, outputlog_modeltime_type
   use mom_outputlog_methods,  only : get_timestr, get_importexport, set_toffset, get_file_state
   use outputlog_test_helpers, only : base_yy, base_mm, base_dd, setup_case, handlefiles
-  use shr_is_restart_fh_mod,  only : log_restart_fh
 
   implicit none
 
@@ -111,9 +117,7 @@ contains
   !! structure), while independently driving lastrestart per restart_freq
   !! (no lag -- restarts are complete the instant their own hour arrives).
   !! At every real completion, asserts state_n%time_lastrestart against an
-  !! externally-derived expected value, then replicates outputlog_run's
-  !! own log_restart_fh call and reads back the real resulting file to
-  !! confirm its "last restart:" line matches too.
+  !! externally-derived expected value.
   subroutine run_case(test, freq, start_hour, runhours, restart_freq, is_passing, failmsg)
 
     character(len=*), intent(in)  :: test
@@ -143,13 +147,8 @@ contains
     logical :: phantom_file, lstop, pending
     logical :: found_firstcompletion
 
-    character(len=16)  :: timestr, logfile
+    character(len=16)  :: timestr
     character(len=40)  :: importexport
-    character(len=256) :: logname
-    character(len=256) :: readline
-
-    integer :: logunit, ios
-    integer :: yr, mon, day, hr, minute, sec
 
     is_passing = .true.
     failmsg = ''
@@ -266,8 +265,7 @@ contains
        call esmf_err(rc, subname, "track_freqn (main loop)")
        if (state_n%filecomplete .and. .not.found_firstcompletion) then
           found_firstcompletion = .true.
-          write(logfile,'(A,I2.2,A)') 'mom6.',cf_n%opt_n,'h'
-          call verify_completion(logfile)
+          call verify_completion()
           if (.not. is_passing) return
        endif
 
@@ -285,8 +283,7 @@ contains
              call esmf_err(rc, subname, "track_freqn (plain finalize)")
              if (state_n%filecomplete .and. .not.found_firstcompletion) then
                 found_firstcompletion = .true.
-                write(logfile,'(A,I2.2,A)') 'mom6.',cf_n%opt_n,'h'
-                call verify_completion(logfile)
+                call verify_completion()
                 if (.not. is_passing) return
              endif
           endif
@@ -315,8 +312,7 @@ contains
           call esmf_err(rc, subname, "track_freqn (lstop)")
           if (state_n%filecomplete .and. .not.found_firstcompletion) then
              found_firstcompletion = .true.
-             write(logfile,'(A,I2.2,A)') 'mom6.lstop.',cf_n%opt_n,'h'
-             call verify_completion(logfile)
+             call verify_completion()
              if (.not. is_passing) return
           endif
        endif
@@ -330,24 +326,19 @@ contains
 
   contains
 
-    !> Called once per real completion: replicates outputlog_run's own
-    !! log_restart_fh call, then verifies both state_n%time_lastrestart
-    !! and the real resulting log file's "last restart:" line against the
-    !! externally-derived expected value for this completion.
-    subroutine verify_completion(complog)
-      character(len=*), intent(in) :: complog
-
+    !> Called once per real completion: verifies state_n%time_lastrestart
+    !! against the externally-derived expected value for this completion.
+    !! Does NOT call log_restart_fh or check its output -- track_freqn
+    !! itself never calls it (that happens in outputlog_run, which this
+    !! test doesn't exercise), so doing so here would only confirm
+    !! log_restart_fh formats whatever we hand it correctly, not anything
+    !! about track_freqn's own behavior.
+    subroutine verify_completion()
       completion_count = completion_count + 1
       if (completion_count > max_completions) then
          is_passing = .false.
          failmsg = 'Fail: '//trim(test)//' | more completions than expected'
          return
-      endif
-
-      if (isroot) then
-         call log_restart_fh(state_n%time_logfile, startTime, complog=trim(complog), &
-              prefixtime=.true., lastrestart=state_n%time_lastrestart, lastoutput=state_n%filename, rc=rc)
-         call esmf_err(rc, subname, "log_restart_fh")
       endif
 
       ! --- state_n%time_lastrestart, against the externally-derived
@@ -358,40 +349,6 @@ contains
          is_passing = .false.
          write(failmsg,'(A,I0,A)') 'Fail: '//trim(test)//' | completion ', completion_count, &
               ' state_n%time_lastrestart does not match expected'
-         return
-      endif
-
-      ! --- Real log file content, read back directly (matches
-      ! test_outputlog_finalize.F90's established pattern: predict the
-      ! filename/expected lines using the SAME format specifiers
-      ! log_restart_fh itself uses, applied to values already known here).
-      call ESMF_TimeGet(state_n%time_logfile, yy=yr, mm=mon, dd=day, h=hr, m=minute, s=sec, rc=rc)
-      call esmf_err(rc, subname, "ESMF_TimeGet(time_logfile)")
-      write(logname,'(i4.4,2(i2.2),A,3(i2.2),A)') yr, mon, day, '.', hr, minute, sec, '.'//trim(complog)
-
-      open(newunit=logunit, file=trim(logname), status='old', action='read', iostat=ios)
-      if (ios /= 0) then
-         is_passing = .false.
-         write(failmsg,'(A,I0,A)') 'Fail: '//trim(test)//' | completion ', completion_count, &
-              ' expected log file not found: '//trim(logname)
-         return
-      endif
-
-      ! last restart: <lastrestart, 6i8> -- skip completed:/forecast hour:/valid time:/last output:
-      read(logunit,'(a)',iostat=ios) readline
-      read(logunit,'(a)',iostat=ios) readline
-      read(logunit,'(a)',iostat=ios) readline
-      read(logunit,'(a)',iostat=ios) readline
-      call ESMF_TimeGet(expected_lastrestart(completion_count), yy=yr, mm=mon, dd=day, h=hr, m=minute, s=sec, rc=rc)
-      call esmf_err(rc, subname, "ESMF_TimeGet(expected_lastrestart)")
-      write(logname,'(a,6i8)') 'last restart: ', yr, mon, day, hr, minute, sec   ! reuse logname as scratch
-      read(logunit,'(a)',iostat=ios) readline
-      close(logunit)
-
-      if (ios /= 0 .or. trim(readline) /= trim(logname)) then
-         is_passing = .false.
-         write(failmsg,'(A,I0,A)') 'Fail: '//trim(test)//' | completion ', completion_count, &
-              ' log file last restart: line does not match expected'
          return
       endif
     end subroutine verify_completion
