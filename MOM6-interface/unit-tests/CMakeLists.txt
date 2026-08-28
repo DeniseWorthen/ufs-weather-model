@@ -28,6 +28,17 @@ if(MOM6_INC_DIR)
   target_include_directories(nc_fixture_mod PRIVATE ${MOM6_INC_DIR})
 endif()
 
+# outputlog_test_helpers holds setup_case/handlefiles, shared by test_driver2
+# (freqn) and test_restart_pairing -- extracted so both don't duplicate the
+# real ESMF clock/alarm/cf_n/state_n setup and fixture-file handling by hand.
+# Needs mom6_test_utils (esmf_err) and nc_fixture_mod (create_schema/
+# write_record/write_padding/write_bulk_data).
+add_library(outputlog_test_helpers STATIC outputlog_test_helpers.F90)
+target_link_libraries(outputlog_test_helpers PRIVATE mom6 ESMF::ESMF mom6_test_utils nc_fixture_mod)
+if(MOM6_INC_DIR)
+  target_include_directories(outputlog_test_helpers PRIVATE ${MOM6_INC_DIR})
+endif()
+
 # -----------------------------------------------------------------------------
 # add_mom6_unit_test(<exe_name>
 #     SOURCES <src1> [<src2> ...]
@@ -104,7 +115,13 @@ add_mom6_unit_test(test_outputlog_completion
 add_mom6_unit_test(test_driver
    CTEST_NAME MOM6_Outputlog_Freqn
    SOURCES test_driver2.F90
-   EXTRA_LIBS mom6_test_utils nc_fixture_mod NetCDF::NetCDF_Fortran MPI::MPI_Fortran
+   EXTRA_LIBS mom6_test_utils nc_fixture_mod outputlog_test_helpers NetCDF::NetCDF_Fortran MPI::MPI_Fortran
+   USE_MPI)
+
+add_mom6_unit_test(test_restart_pairing
+   CTEST_NAME MOM6_Outputlog_RestartPairing
+   SOURCES test_restart_pairing.F90
+   EXTRA_LIBS mom6_test_utils nc_fixture_mod outputlog_test_helpers NetCDF::NetCDF_Fortran MPI::MPI_Fortran
    USE_MPI)
 
 #add_mom6_unit_test(test_driver_lstop
