@@ -1,0 +1,49 @@
+\doxysection{mom\+\_\+cap\+\_\+time Module Reference}
+\hypertarget{namespacemom__cap__time}{}\label{namespacemom__cap__time}\index{mom\_cap\_time@{mom\_cap\_time}}
+
+
+This was originally share code in CIME, but required CIME as a dependency to build the MOM cap. The options here for setting a restart alarm are useful for all caps, so a second step is to determine if/how these could be offered more generally in a shared library. For now we really want the MOM cap to only depend on MOM and ESMF/\+NUOPC.  
+
+
+\doxysubsubsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+subroutine, public \mbox{\hyperlink{namespacemom__cap__time_ac8e0563870bae7d0602767488e68189f}{alarminit}} (clock, alarm, option, opt\+\_\+n, opt\+\_\+ymd, opt\+\_\+tod, reftime, alarmname, rc)
+\begin{DoxyCompactList}\small\item\em Setup an alarm in a clock. The ringtime sent to Alarm\+Create MUST be the next alarm time. If you send an arbitrary but proper ringtime from the past and the ring interval, the alarm will always go off on the next clock advance and this will cause serious problems. Even if it makes sense to initialize an alarm with some reference time and the alarm interval, that reference time has to be advance forward to be \texorpdfstring{$>$}{>}= the current time. In the logic below we set an appropriate "{}\+Next\+Alarm"{} and then we make sure to advance it properly based on the ring interval. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This was originally share code in CIME, but required CIME as a dependency to build the MOM cap. The options here for setting a restart alarm are useful for all caps, so a second step is to determine if/how these could be offered more generally in a shared library. For now we really want the MOM cap to only depend on MOM and ESMF/\+NUOPC. 
+
+\doxysubsection{Function/\+Subroutine Documentation}
+\Hypertarget{namespacemom__cap__time_ac8e0563870bae7d0602767488e68189f}\label{namespacemom__cap__time_ac8e0563870bae7d0602767488e68189f} 
+\index{mom\_cap\_time@{mom\_cap\_time}!alarminit@{alarminit}}
+\index{alarminit@{alarminit}!mom\_cap\_time@{mom\_cap\_time}}
+\doxysubsubsection{\texorpdfstring{alarminit()}{alarminit()}}
+{\footnotesize\ttfamily subroutine, public mom\+\_\+cap\+\_\+time\+::alarminit (\begin{DoxyParamCaption}\item[{type(esmf\+\_\+clock), intent(inout)}]{clock,  }\item[{type(esmf\+\_\+alarm), intent(inout)}]{alarm,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{option,  }\item[{integer, intent(in), optional}]{opt\+\_\+n,  }\item[{integer, intent(in), optional}]{opt\+\_\+ymd,  }\item[{integer, intent(in), optional}]{opt\+\_\+tod,  }\item[{type(esmf\+\_\+time), intent(in), optional}]{reftime,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in), optional}]{alarmname,  }\item[{integer, intent(inout)}]{rc }\end{DoxyParamCaption})}
+
+
+
+Setup an alarm in a clock. The ringtime sent to Alarm\+Create MUST be the next alarm time. If you send an arbitrary but proper ringtime from the past and the ring interval, the alarm will always go off on the next clock advance and this will cause serious problems. Even if it makes sense to initialize an alarm with some reference time and the alarm interval, that reference time has to be advance forward to be \texorpdfstring{$>$}{>}= the current time. In the logic below we set an appropriate "{}\+Next\+Alarm"{} and then we make sure to advance it properly based on the ring interval. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em clock} & ESMF clock \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em alarm} & ESMF alarm \\
+\hline
+\mbox{\texttt{ in}}  & {\em option} & alarm option \\
+\hline
+\mbox{\texttt{ in}}  & {\em opt\+\_\+n} & alarm freq \\
+\hline
+\mbox{\texttt{ in}}  & {\em opt\+\_\+ymd} & alarm ymd \\
+\hline
+\mbox{\texttt{ in}}  & {\em opt\+\_\+tod} & alarm tod (sec) \\
+\hline
+\mbox{\texttt{ in}}  & {\em reftime} & ref time \\
+\hline
+\mbox{\texttt{ in}}  & {\em alarmname} & alarm name \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em rc} & Return code \\
+\hline
+\end{DoxyParams}

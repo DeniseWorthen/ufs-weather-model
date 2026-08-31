@@ -1,0 +1,18 @@
+\doxysection{/work/noaa/nems/dworthen/ufs\+\_\+dw/\+MOM6-\/interface/\+MOM6/config\+\_\+src/drivers/nuopc\+\_\+cap/mom\+\_\+cap\+\_\+outputlog.F90 File Reference}
+\hypertarget{mom__cap__outputlog_8F90}{}\label{mom__cap__outputlog_8F90}\index{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/MOM6/config\_src/drivers/nuopc\_cap/mom\_cap\_outputlog.F90@{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/MOM6/config\_src/drivers/nuopc\_cap/mom\_cap\_outputlog.F90}}
+\doxysubsubsection*{Modules}
+\begin{DoxyCompactItemize}
+\item 
+module \mbox{\hyperlink{namespacemom__cap__outputlog}{mom\+\_\+cap\+\_\+outputlog}}
+\begin{DoxyCompactList}\small\item\em This module contains a set of subroutines that check if MOM restart and history files have been written and closed. This file is specific to UWM operational requirements and configurations (eg specific output frequencies in hours) and may break if used outside the scope of intended use. This module is a stub when CESMCOUPLED is defined. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+subroutine, public \mbox{\hyperlink{namespacemom__cap__outputlog_a772944ef6621c112cfb36b604ba5f75e}{mom\+\_\+cap\+\_\+outputlog\+::outputlog\+\_\+init}} (gcomp, mclock, ocean\+\_\+grid, rc)
+\begin{DoxyCompactList}\small\item\em Initialize a set of Alarms at the allowed output frequencies. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemom__cap__outputlog_a63c992951482449c83f6bd9c7de49626}{mom\+\_\+cap\+\_\+outputlog\+::outputlog\+\_\+run}} (mclock, atstoptime, rc)
+\begin{DoxyCompactList}\small\item\em Wrapper for logging output at single frequency. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemom__cap__outputlog_abf152af2b5ff79377f77ac979555bbac}{mom\+\_\+cap\+\_\+outputlog\+::track\+\_\+freqn}} (mtime, cf\+\_\+n, state\+\_\+n, comm, isroot, rootpe, outputdir, lastrestart, debug\+\_\+onroot, lstop, rc)
+\begin{DoxyCompactList}\small\item\em Track and log file state at single output-\/frequency alarm. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemom__cap__outputlog_af85f24b5e98f54d3ac8497288891c97d}{mom\+\_\+cap\+\_\+outputlog\+::outputlog\+\_\+restart}} (mclock, num\+\_\+rest\+\_\+files, rc)
+\begin{DoxyCompactList}\small\item\em Check all restart files to determine if output has been completed. \end{DoxyCompactList}\end{DoxyCompactItemize}

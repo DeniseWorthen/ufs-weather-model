@@ -1,0 +1,27 @@
+\doxysection{/work/noaa/nems/dworthen/ufs\+\_\+dw/\+MOM6-\/interface/\+MOM6/config\+\_\+src/drivers/nuopc\+\_\+cap/mom\+\_\+cap\+\_\+methods.F90 File Reference}
+\hypertarget{mom__cap__methods_8F90}{}\label{mom__cap__methods_8F90}\index{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/MOM6/config\_src/drivers/nuopc\_cap/mom\_cap\_methods.F90@{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/MOM6/config\_src/drivers/nuopc\_cap/mom\_cap\_methods.F90}}
+\doxysubsubsection*{Modules}
+\begin{DoxyCompactItemize}
+\item 
+module \mbox{\hyperlink{namespacemom__cap__methods}{mom\+\_\+cap\+\_\+methods}}
+\begin{DoxyCompactList}\small\item\em Contains import/export methods for CMEPS. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+subroutine, public \mbox{\hyperlink{namespacemom__cap__methods_a9a70c05fed708d66fb539759427a9c65}{mom\+\_\+cap\+\_\+methods\+::mom\+\_\+set\+\_\+geomtype}} (geomtype\+\_\+in)
+\begin{DoxyCompactList}\small\item\em Sets module variable geometry type. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemom__cap__methods_a9a1516340f994c8aa4cbad78d9e9fd0c}{mom\+\_\+cap\+\_\+methods\+::mom\+\_\+import}} (ocean\+\_\+public, ocean\+\_\+grid, importstate, ice\+\_\+ocean\+\_\+boundary, set\+\_\+missing\+\_\+stks\+\_\+to\+\_\+zero, rc)
+\begin{DoxyCompactList}\small\item\em This function has a few purposes\+: (1) it imports surface fluxes using data from the mediator; and (2) it can apply restoring in SST and SSS. (3) it can convert imported stokes drift components to zero if they are missing. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemom__cap__methods_a5782b034cb7f00dbc152d056824987b5}{mom\+\_\+cap\+\_\+methods\+::mom\+\_\+export}} (ocean\+\_\+public, ocean\+\_\+grid, ocean\+\_\+state, exportstate, clock, rc)
+\begin{DoxyCompactList}\small\item\em Maps outgoing ocean data to ESMF State. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemom__cap__methods_aa7c5b4a219cee49bf52db378ce3e1892}{mom\+\_\+cap\+\_\+methods\+::state\+\_\+diagnose}} (state, string, rc)
+\begin{DoxyCompactList}\small\item\em This subroutine writes the minimum, maximum and sum of each field contained within an ESMF state. \end{DoxyCompactList}\item 
+logical function, public \mbox{\hyperlink{namespacemom__cap__methods_a42043f9ab5d0e8e5d140bc3da2408b90}{mom\+\_\+cap\+\_\+methods\+::chkerr}} (rc, line, file)
+\begin{DoxyCompactList}\small\item\em Returns true if ESMF\+\_\+\+Log\+Found\+Error() determines that rc is an error code. Otherwise false. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+real(esmf\+\_\+kind\+\_\+r8), dimension(\+:), allocatable, public \mbox{\hyperlink{namespacemom__cap__methods_a0487d34956bc6b9cd5eadaa558abbfe0}{mom\+\_\+cap\+\_\+methods\+::mod2med\+\_\+areacor}}
+\item 
+real(esmf\+\_\+kind\+\_\+r8), dimension(\+:), allocatable, public \mbox{\hyperlink{namespacemom__cap__methods_a804c0125ae042b08b380230bee4870e6}{mom\+\_\+cap\+\_\+methods\+::med2mod\+\_\+areacor}}
+\end{DoxyCompactItemize}

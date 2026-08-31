@@ -1,0 +1,47 @@
+\doxysection{/work/noaa/nems/dworthen/ufs\+\_\+dw/\+MOM6-\/interface/unit-\/tests/test\+\_\+outputlog\+\_\+finalize.F90 File Reference}
+\hypertarget{test__outputlog__finalize_8F90}{}\label{test__outputlog__finalize_8F90}\index{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/unit-\/tests/test\_outputlog\_finalize.F90@{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/unit-\/tests/test\_outputlog\_finalize.F90}}
+\doxysubsubsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+program \mbox{\hyperlink{test__outputlog__finalize_8F90_ab93b7ebe6e2f5fc1101ca399b4e3b72d}{test\+\_\+outputlog\+\_\+finalize}}
+\begin{DoxyCompactList}\small\item\em Dedicated test for outputlog\+\_\+freqn\textquotesingle{}s finalize behavior -- both halves of \doxylink{mom__cap_8F90}{mom\+\_\+cap.\+F90}\textquotesingle{}s two-\/call finalize sequence (the ordinary per-\/ring mechanism\textquotesingle{}s last chance, and the lstop-\/only currently-\/open interval), since production always uses them as a pair. Scoped separately from \doxylink{test__outputlog__freqn_8F90}{test\+\_\+outputlog\+\_\+freqn.\+F90}, which covers the same regular mechanism during an ONGOING run and never touches at\+Stop\+Time at all. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{test__outputlog__finalize_8F90_a56f7c2d23cc3470b784bdc60f23987eb}{run\+\_\+lstop\+\_\+case}} (freq, start\+\_\+hour, run\+\_\+hours, is\+\_\+passing)
+\begin{DoxyCompactList}\small\item\em Drives get\+\_\+ring\+\_\+state/check\+\_\+file\+\_\+completion through one run (real, advancing clock -- unlike \doxylink{test__outputlog__freqn_8F90}{test\+\_\+outputlog\+\_\+freqn.\+F90}, this file genuinely needs one, since get\+\_\+lstop\+\_\+ring\+\_\+state\textquotesingle{}s prev\+Ring\+Time only becomes meaningful through real ESMF ring-\/detection), then replays \doxylink{mom__cap_8F90}{mom\+\_\+cap.\+F90}\textquotesingle{}s real two-\/call finalize sequence (plain check\+\_\+file\+\_\+completion, then get\+\_\+lstop\+\_\+ring\+\_\+state+check\+\_\+file\+\_\+completion) at the final clock state, asserting each call catches the file only it can. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function/\+Subroutine Documentation}
+\Hypertarget{test__outputlog__finalize_8F90_a56f7c2d23cc3470b784bdc60f23987eb}\label{test__outputlog__finalize_8F90_a56f7c2d23cc3470b784bdc60f23987eb} 
+\index{test\_outputlog\_finalize.F90@{test\_outputlog\_finalize.F90}!run\_lstop\_case@{run\_lstop\_case}}
+\index{run\_lstop\_case@{run\_lstop\_case}!test\_outputlog\_finalize.F90@{test\_outputlog\_finalize.F90}}
+\doxysubsubsection{\texorpdfstring{run\_lstop\_case()}{run\_lstop\_case()}}
+{\footnotesize\ttfamily subroutine test\+\_\+outputlog\+\_\+finalize\+::run\+\_\+lstop\+\_\+case (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{freq,  }\item[{integer, intent(in)}]{start\+\_\+hour,  }\item[{integer, intent(in)}]{run\+\_\+hours,  }\item[{logical, intent(out)}]{is\+\_\+passing }\end{DoxyParamCaption})}
+
+
+
+Drives get\+\_\+ring\+\_\+state/check\+\_\+file\+\_\+completion through one run (real, advancing clock -- unlike \doxylink{test__outputlog__freqn_8F90}{test\+\_\+outputlog\+\_\+freqn.\+F90}, this file genuinely needs one, since get\+\_\+lstop\+\_\+ring\+\_\+state\textquotesingle{}s prev\+Ring\+Time only becomes meaningful through real ESMF ring-\/detection), then replays \doxylink{mom__cap_8F90}{mom\+\_\+cap.\+F90}\textquotesingle{}s real two-\/call finalize sequence (plain check\+\_\+file\+\_\+completion, then get\+\_\+lstop\+\_\+ring\+\_\+state+check\+\_\+file\+\_\+completion) at the final clock state, asserting each call catches the file only it can. 
+
+\Hypertarget{test__outputlog__finalize_8F90_ab93b7ebe6e2f5fc1101ca399b4e3b72d}\label{test__outputlog__finalize_8F90_ab93b7ebe6e2f5fc1101ca399b4e3b72d} 
+\index{test\_outputlog\_finalize.F90@{test\_outputlog\_finalize.F90}!test\_outputlog\_finalize@{test\_outputlog\_finalize}}
+\index{test\_outputlog\_finalize@{test\_outputlog\_finalize}!test\_outputlog\_finalize.F90@{test\_outputlog\_finalize.F90}}
+\doxysubsubsection{\texorpdfstring{test\_outputlog\_finalize()}{test\_outputlog\_finalize()}}
+{\footnotesize\ttfamily program test\+\_\+outputlog\+\_\+finalize}
+
+
+
+Dedicated test for outputlog\+\_\+freqn\textquotesingle{}s finalize behavior -- both halves of \doxylink{mom__cap_8F90}{mom\+\_\+cap.\+F90}\textquotesingle{}s two-\/call finalize sequence (the ordinary per-\/ring mechanism\textquotesingle{}s last chance, and the lstop-\/only currently-\/open interval), since production always uses them as a pair. Scoped separately from \doxylink{test__outputlog__freqn_8F90}{test\+\_\+outputlog\+\_\+freqn.\+F90}, which covers the same regular mechanism during an ONGOING run and never touches at\+Stop\+Time at all. 
+
+At finalize, \doxylink{mom__cap_8F90}{mom\+\_\+cap.\+F90} calls outputlog\+\_\+run TWICE at the same clock state (see the actual call site, ocean\+\_\+model\+\_\+finalize)\+: call outputlog\+\_\+run(clock, rc=rc) ! plain call outputlog\+\_\+run(clock, .true., rc=rc) ! lstop (comment there\+: "{}need to call twice to force logging of last output file"{})
+
+Why two calls, and what each is for (confirmed against the real code and worked through with the user, since this was initially misunderstood)\+: the regular per-\/ring mechanism tracks exactly ONE interval per ring -- when ring N fires, it checks/completes the interval that just closed (ring N-\/1 to ring N). The interval that\textquotesingle{}s CURRENTLY open when the model stops (ring N to the ring N+1 that will now never happen) is never tracked by the regular mechanism at all -- only the lstop call, using ESMF\+\_\+\+Alarm\+Get\textquotesingle{}s prev\+Ring\+Time, can ever reach it.
+
+This creates two genuinely different scenarios, both real, both needing their own fixture\+:
+\begin{DoxyItemize}
+\item a file whose regular tracking began on the model\textquotesingle{}s OWN LAST tick (so it only ever got one chance to be checked before the loop ended) -- resolved by the PLAIN finalize call giving it one more legitimate look, not by lstop
+\item a file with NO regular tracking at all, since its own closing ring never happens -- resolved ONLY by the lstop call
+\end{DoxyItemize}
+
+Worked example (start=6, freq=6, run\+\_\+hours=18, average)\+: rings at 12/18/day2-\/00 (=stop\+Time). Ring day2-\/00 is the model\textquotesingle{}s last tick -- it starts tracking "{}15"{} (window \mbox{[}12,18\mbox{]}), which gets exactly one (incomplete) check before the loop ends. The window \mbox{[}18,day2-\/00\mbox{]} never gets its own ring at all (would be day2-\/06, past stop\+Time) -- lstop\textquotesingle{}s prev\+Ring\+Time (day2-\/00) is the only way to ever reach its file ("{}21"{}, via prev\+Ring\+Time-\/0.\+5\texorpdfstring{$\ast$}{*}freq).
+
+\begin{DoxyDate}{Date}
+08-\/10-\/2026 
+\end{DoxyDate}

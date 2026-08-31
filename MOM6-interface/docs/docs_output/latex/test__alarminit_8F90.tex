@@ -1,0 +1,37 @@
+\doxysection{/work/noaa/nems/dworthen/ufs\+\_\+dw/\+MOM6-\/interface/unit-\/tests/test\+\_\+alarminit.F90 File Reference}
+\hypertarget{test__alarminit_8F90}{}\label{test__alarminit_8F90}\index{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/unit-\/tests/test\_alarminit.F90@{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/unit-\/tests/test\_alarminit.F90}}
+\doxysubsubsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+program \mbox{\hyperlink{test__alarminit_8F90_a2a844ddee965b100f6087d4ea3fbf1c5}{test\+\_\+alarminit}}
+\begin{DoxyCompactList}\small\item\em Test code for outputlog Alarm Initialization. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{test__alarminit_8F90_a7bf9edbebc78f81e0ae204accfeac511}{find\+\_\+ring\+\_\+time}} (freq, start\+\_\+hour, ringtime, starttime, toffset, ierr, errmsg, dt)
+\begin{DoxyCompactList}\small\item\em Steps the clock forward (small dt, checked every step) until the given alarm actually rings, or gives up after max\+\_\+steps. Pure mechanics only -- no assertions, no notion of "{}correct."{} Shared by run\+\_\+case (structural primary+secondary checks) and any literal-\/value test (direct comparison against a hand-\/verified expected time), so the ring-\/detection logic itself only exists in one place. Also returns start\+Time and toffset, since both run\+\_\+case\textquotesingle{}s checks and a literal test\textquotesingle{}s own comparison need them (start\+Time to build an expected ESMF\+\_\+\+Time; toffset only for run\+\_\+case\textquotesingle{}s regression check). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function/\+Subroutine Documentation}
+\Hypertarget{test__alarminit_8F90_a7bf9edbebc78f81e0ae204accfeac511}\label{test__alarminit_8F90_a7bf9edbebc78f81e0ae204accfeac511} 
+\index{test\_alarminit.F90@{test\_alarminit.F90}!find\_ring\_time@{find\_ring\_time}}
+\index{find\_ring\_time@{find\_ring\_time}!test\_alarminit.F90@{test\_alarminit.F90}}
+\doxysubsubsection{\texorpdfstring{find\_ring\_time()}{find\_ring\_time()}}
+{\footnotesize\ttfamily subroutine test\+\_\+alarminit\+::find\+\_\+ring\+\_\+time (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{freq,  }\item[{integer, intent(in)}]{start\+\_\+hour,  }\item[{type(esmf\+\_\+time), intent(out)}]{ringtime,  }\item[{type(esmf\+\_\+time), intent(out)}]{starttime,  }\item[{integer, intent(out)}]{toffset,  }\item[{integer, intent(out)}]{ierr,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(out)}]{errmsg,  }\item[{integer, intent(in), optional}]{dt }\end{DoxyParamCaption})}
+
+
+
+Steps the clock forward (small dt, checked every step) until the given alarm actually rings, or gives up after max\+\_\+steps. Pure mechanics only -- no assertions, no notion of "{}correct."{} Shared by run\+\_\+case (structural primary+secondary checks) and any literal-\/value test (direct comparison against a hand-\/verified expected time), so the ring-\/detection logic itself only exists in one place. Also returns start\+Time and toffset, since both run\+\_\+case\textquotesingle{}s checks and a literal test\textquotesingle{}s own comparison need them (start\+Time to build an expected ESMF\+\_\+\+Time; toffset only for run\+\_\+case\textquotesingle{}s regression check). 
+
+\Hypertarget{test__alarminit_8F90_a2a844ddee965b100f6087d4ea3fbf1c5}\label{test__alarminit_8F90_a2a844ddee965b100f6087d4ea3fbf1c5} 
+\index{test\_alarminit.F90@{test\_alarminit.F90}!test\_alarminit@{test\_alarminit}}
+\index{test\_alarminit@{test\_alarminit}!test\_alarminit.F90@{test\_alarminit.F90}}
+\doxysubsubsection{\texorpdfstring{test\_alarminit()}{test\_alarminit()}}
+{\footnotesize\ttfamily program test\+\_\+alarminit}
+
+
+
+Test code for outputlog Alarm Initialization. 
+
+Probes the use of Alarm\+Init from MOM6 NUOPC cap to intialize alarms for use by outputlog feature. Tests to ensure the outputlog alarms will trigger for start hours which are not multiples of 6 (eg IAU use cases)
+
+@author\+Denise\href{mailto:.Worthen@noaa.gov}{\texttt{ .\+Worthen@noaa.\+gov}} \begin{DoxyDate}{Date}
+08-\/01-\/2026 
+\end{DoxyDate}

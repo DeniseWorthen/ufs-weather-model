@@ -1,0 +1,12 @@
+\doxysection{/work/noaa/nems/dworthen/ufs\+\_\+dw/\+MOM6-\/interface/\+MOM6/config\+\_\+src/drivers/nuopc\+\_\+cap/mom\+\_\+cap\+\_\+time.F90 File Reference}
+\hypertarget{mom__cap__time_8F90}{}\label{mom__cap__time_8F90}\index{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/MOM6/config\_src/drivers/nuopc\_cap/mom\_cap\_time.F90@{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/MOM6/config\_src/drivers/nuopc\_cap/mom\_cap\_time.F90}}
+\doxysubsubsection*{Modules}
+\begin{DoxyCompactItemize}
+\item 
+module \mbox{\hyperlink{namespacemom__cap__time}{mom\+\_\+cap\+\_\+time}}
+\begin{DoxyCompactList}\small\item\em This was originally share code in CIME, but required CIME as a dependency to build the MOM cap. The options here for setting a restart alarm are useful for all caps, so a second step is to determine if/how these could be offered more generally in a shared library. For now we really want the MOM cap to only depend on MOM and ESMF/\+NUOPC. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+subroutine, public \mbox{\hyperlink{namespacemom__cap__time_ac8e0563870bae7d0602767488e68189f}{mom\+\_\+cap\+\_\+time\+::alarminit}} (clock, alarm, option, opt\+\_\+n, opt\+\_\+ymd, opt\+\_\+tod, reftime, alarmname, rc)
+\begin{DoxyCompactList}\small\item\em Setup an alarm in a clock. The ringtime sent to Alarm\+Create MUST be the next alarm time. If you send an arbitrary but proper ringtime from the past and the ring interval, the alarm will always go off on the next clock advance and this will cause serious problems. Even if it makes sense to initialize an alarm with some reference time and the alarm interval, that reference time has to be advance forward to be \texorpdfstring{$>$}{>}= the current time. In the logic below we set an appropriate "{}\+Next\+Alarm"{} and then we make sure to advance it properly based on the ring interval. \end{DoxyCompactList}\end{DoxyCompactItemize}

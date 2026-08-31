@@ -1,0 +1,677 @@
+\doxysection{mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs Type Reference}
+\hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs}{}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs}\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+
+
+Contains pointers to the forcing fields which may be used to drive MOM. All fluxes are positive downward.  
+
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+logical \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a710ee7ba697526aaa7ff0179ae82161e}{use\+\_\+temperature}}
+\item 
+real \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a330c10bda8393246ced294148abdb835}{wind\+\_\+stress\+\_\+multiplier}}
+\begin{DoxyCompactList}\small\item\em A multiplier applied to incoming wind stress (nondim). \end{DoxyCompactList}\item 
+real \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a6050543c14452ee475885619a24cc30f}{rho0}}
+\begin{DoxyCompactList}\small\item\em Boussinesq reference density \mbox{[}R \texorpdfstring{$\sim$}{\string~}\texorpdfstring{$>$}{>} kg m-\/3\mbox{]}. \end{DoxyCompactList}\item 
+real \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a0ef84f255eab419905bcfe515ebff4c8}{area\+\_\+surf}} = -\/1.\+0
+\begin{DoxyCompactList}\small\item\em total ocean surface area \mbox{[}L2 \texorpdfstring{$\sim$}{\string~}\texorpdfstring{$>$}{>} m2\mbox{]} \end{DoxyCompactList}\item 
+real \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_acbb8776d88b2a2d0c81772c68336ebaa}{latent\+\_\+heat\+\_\+fusion}}
+\begin{DoxyCompactList}\small\item\em latent heat of fusion \mbox{[}J/kg\mbox{]} \end{DoxyCompactList}\item 
+real \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a62bc305cecbd667093d67c3cabc2cdfa}{latent\+\_\+heat\+\_\+vapor}}
+\begin{DoxyCompactList}\small\item\em latent heat of vaporization \mbox{[}J/kg\mbox{]} \end{DoxyCompactList}\item 
+real \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a13df9fa3145731631cdfa38a5a356538}{max\+\_\+p\+\_\+surf}}
+\begin{DoxyCompactList}\small\item\em maximum surface pressure that can be exerted by the atmosphere and floating sea-\/ice \mbox{[}R L2 T-\/2 \texorpdfstring{$\sim$}{\string~}\texorpdfstring{$>$}{>} Pa\mbox{]}. This is needed because the FMS coupling structure does not limit the water that can be frozen out of the ocean and the ice-\/ocean heat fluxes are treated explicitly. \end{DoxyCompactList}\item 
+logical \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_ae185a599a76fd9f39cdf438077ed453f}{use\+\_\+limited\+\_\+p\+\_\+ssh}}
+\begin{DoxyCompactList}\small\item\em If true, return the sea surface height with the correction for the atmospheric (and sea-\/ice) pressure limited by max\+\_\+p\+\_\+surf instead of the full atmospheric pressure. The default is true. \end{DoxyCompactList}\item 
+logical \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a41d5b45bd8ed619fd47cc9512e86c069}{use\+\_\+cfc}}
+\begin{DoxyCompactList}\small\item\em enables the MOM\+\_\+\+CFC\+\_\+cap tracer package. \end{DoxyCompactList}\item 
+logical \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_ab7fbbd1da6d02b03da572291b9782fd9}{use\+\_\+marbl\+\_\+tracers}}
+\begin{DoxyCompactList}\small\item\em enables the MARBL tracer package. \end{DoxyCompactList}\item 
+logical \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a8c5cb7f7da8cbae5cdbd88ef3e8a8d8c}{enthalpy\+\_\+cpl}}
+\begin{DoxyCompactList}\small\item\em Controls if enthalpy terms are provided by the coupler or computed internally. \end{DoxyCompactList}\item 
+real \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_aae233e9ee302e068bfcbcce48f2c14e7}{gust\+\_\+const}}
+\begin{DoxyCompactList}\small\item\em constant unresolved background gustiness for ustar \mbox{[}R L Z T-\/2 \texorpdfstring{$\sim$}{\string~}\texorpdfstring{$>$}{>} Pa\mbox{]} \end{DoxyCompactList}\item 
+logical \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a490938375abe7a80ed6863b0943907b7}{read\+\_\+gust\+\_\+2d}}
+\begin{DoxyCompactList}\small\item\em If true, use a 2-\/dimensional gustiness supplied from an input file. \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a5747fc63b99f27245fc06bd4747fe189}{tke\+\_\+tidal}} =$>$ NULL()
+\begin{DoxyCompactList}\small\item\em turbulent kinetic energy introduced to the \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_afaa8a06b3f164d6a2539ffb80db7c0bd}{gust}} =$>$ NULL()
+\begin{DoxyCompactList}\small\item\em spatially varying unresolved background \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a94974c5219c7ea552eb05fdbf83eb75f}{ustar\+\_\+tidal}} =$>$ NULL()
+\begin{DoxyCompactList}\small\item\em tidal contribution to the bottom friction velocity \mbox{[}Z T-\/1 \texorpdfstring{$\sim$}{\string~}\texorpdfstring{$>$}{>} m s-\/1\mbox{]} \end{DoxyCompactList}\item 
+real \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a31f13113f4f3e8cf1a692c517c98aade}{cd\+\_\+tides}}
+\begin{DoxyCompactList}\small\item\em drag coefficient that applies to the tides (nondimensional) \end{DoxyCompactList}\item 
+real \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a93eea86437cf846f9317a546446df058}{utide}}
+\begin{DoxyCompactList}\small\item\em constant tidal velocity to use if read\+\_\+tideamp is false \mbox{[}Z T-\/1 \texorpdfstring{$\sim$}{\string~}\texorpdfstring{$>$}{>} m s-\/1\mbox{]} \end{DoxyCompactList}\item 
+logical \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_abee737cb2cdc45421142ab0511c46eb6}{read\+\_\+tideamp}}
+\begin{DoxyCompactList}\small\item\em If true, spatially varying tidal amplitude read from a file. \end{DoxyCompactList}\item 
+logical \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a71eb72375b5e1763e6c5f7585f644cc5}{rigid\+\_\+sea\+\_\+ice}}
+\begin{DoxyCompactList}\small\item\em If true, sea-\/ice exerts a rigidity that acts to damp surface deflections (especially surface gravity waves). The default is false. \end{DoxyCompactList}\item 
+real \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a2304223c3666b57744a1bb9d306d29a6}{g\+\_\+earth}}
+\begin{DoxyCompactList}\small\item\em Gravitational acceleration \mbox{[}L2 Z-\/1 T-\/2 \texorpdfstring{$\sim$}{\string~}\texorpdfstring{$>$}{>} m s-\/2\mbox{]}. \end{DoxyCompactList}\item 
+real \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a9ec781f1394827c30d9e89566badf59a}{kv\+\_\+sea\+\_\+ice}}
+\begin{DoxyCompactList}\small\item\em Viscosity in sea-\/ice that resists sheared vertical motions \mbox{[}L4 Z-\/2 T-\/1 \texorpdfstring{$\sim$}{\string~}\texorpdfstring{$>$}{>} m2 s-\/1\mbox{]}. \end{DoxyCompactList}\item 
+real \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_afe8bcf2c723d0fc60c361a20e0aa6c2f}{density\+\_\+sea\+\_\+ice}}
+\begin{DoxyCompactList}\small\item\em Typical density of sea-\/ice \mbox{[}R \texorpdfstring{$\sim$}{\string~}\texorpdfstring{$>$}{>} kg m-\/3\mbox{]}. The value is only used to convert the ice pressure into appropriate units for use with Kv\+\_\+sea\+\_\+ice. \end{DoxyCompactList}\item 
+real \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_ad1a02a13e64f80b97d38b7bd58e8dc25}{rigid\+\_\+sea\+\_\+ice\+\_\+mass}}
+\begin{DoxyCompactList}\small\item\em A mass per unit area of sea-\/ice beyond which sea-\/ice viscosity becomes effective \mbox{[}R Z \texorpdfstring{$\sim$}{\string~}\texorpdfstring{$>$}{>} kg m-\/2\mbox{]}, typically of order 1000 kg m-\/2. \end{DoxyCompactList}\item 
+logical \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a9ff63dfa62c86b3560802c1a0af0715a}{allow\+\_\+flux\+\_\+adjustments}}
+\begin{DoxyCompactList}\small\item\em If true, use data\+\_\+override to obtain flux adjustments. \end{DoxyCompactList}\item 
+logical \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_ab4266bcd23eda9fb54e463c4b104e6ea}{liquid\+\_\+runoff\+\_\+from\+\_\+data}}
+\begin{DoxyCompactList}\small\item\em If true, use data\+\_\+override to obtain liquid runoff. \end{DoxyCompactList}\item 
+real \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a6947730412ec46a295fa7c7e099b9bbc}{flux\+\_\+const}}
+\begin{DoxyCompactList}\small\item\em piston velocity for surface restoring \mbox{[}Z T-\/1 \texorpdfstring{$\sim$}{\string~}\texorpdfstring{$>$}{>} m s-\/1\mbox{]} \end{DoxyCompactList}\item 
+logical \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_ae7917749fb9b389fb328f33c36f3ded5}{salt\+\_\+restore\+\_\+as\+\_\+sflux}}
+\begin{DoxyCompactList}\small\item\em If true, SSS restore as salt flux instead of water flux. \end{DoxyCompactList}\item 
+logical \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a91c7597acce86923b4e42c68b55f9478}{adjust\+\_\+net\+\_\+srestore\+\_\+to\+\_\+zero}}
+\begin{DoxyCompactList}\small\item\em adjust srestore to zero (for both salt\+\_\+flux or vprec) \end{DoxyCompactList}\item 
+logical \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_aea0a6a12b1d357da06a87837c9ab281b}{adjust\+\_\+net\+\_\+srestore\+\_\+by\+\_\+scaling}}
+\begin{DoxyCompactList}\small\item\em adjust srestore w/o moving zero contour \end{DoxyCompactList}\item 
+logical \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a541efb17cdefc684fd085d1c16a3b9d5}{adjust\+\_\+net\+\_\+fresh\+\_\+water\+\_\+to\+\_\+zero}}
+\begin{DoxyCompactList}\small\item\em adjust net surface fresh-\/water (w/ restoring) to zero \end{DoxyCompactList}\item 
+logical \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a856df9d2fbfaab789b54b37ab527883e}{use\+\_\+net\+\_\+fw\+\_\+adjustment\+\_\+sign\+\_\+bug}}
+\begin{DoxyCompactList}\small\item\em use the wrong sign when adjusting net FW \end{DoxyCompactList}\item 
+logical \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_af8b06538a1d4427dc37e93ba7edc86f2}{adjust\+\_\+net\+\_\+fresh\+\_\+water\+\_\+by\+\_\+scaling}}
+\begin{DoxyCompactList}\small\item\em adjust net surface fresh-\/water w/o moving zero contour \end{DoxyCompactList}\item 
+logical \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a8fe96abe4cfc48091cfbc9f864e87689}{mask\+\_\+srestore\+\_\+under\+\_\+ice}}
+\begin{DoxyCompactList}\small\item\em If true, use an ice mask defined by frazil criteria for salinity restoring. \end{DoxyCompactList}\item 
+real \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_af56cd6c024aac41a13ae40a1b2bb33cd}{ice\+\_\+salt\+\_\+concentration}}
+\begin{DoxyCompactList}\small\item\em salt concentration for sea ice \mbox{[}kg/kg\mbox{]} \end{DoxyCompactList}\item 
+logical \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_ab9f6e4539ce8982b4ff2078c0e3ad42a}{mask\+\_\+srestore\+\_\+marginal\+\_\+seas}}
+\begin{DoxyCompactList}\small\item\em if true, then mask SSS restoring in marginal seas \end{DoxyCompactList}\item 
+real \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_aaa45db8981bb521d201d363dc055b8ea}{max\+\_\+delta\+\_\+srestore}}
+\begin{DoxyCompactList}\small\item\em maximum delta salinity used for restoring \mbox{[}S \texorpdfstring{$\sim$}{\string~}\texorpdfstring{$>$}{>} ppt\mbox{]} \end{DoxyCompactList}\item 
+real \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a99fd9b14e33feee6e0a387e6b7cb2b8f}{max\+\_\+delta\+\_\+trestore}}
+\begin{DoxyCompactList}\small\item\em maximum delta sst used for restoring \mbox{[}C \texorpdfstring{$\sim$}{\string~}\texorpdfstring{$>$}{>} degC\mbox{]} \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a39e0b4d70c19508c719407906e9fd084}{basin\+\_\+mask}} =$>$ NULL()
+\begin{DoxyCompactList}\small\item\em mask for SSS restoring by basin \end{DoxyCompactList}\item 
+logical \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a95e41a4e480874c45f3e3f43d238174e}{ustar\+\_\+gustless\+\_\+bug}}
+\begin{DoxyCompactList}\small\item\em If true, include a bug in the time-\/averaging of the gustless wind friction velocity. \end{DoxyCompactList}\item 
+type(diag\+\_\+ctrl), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a55af765ae3ec1c34c591b0d06d90e255}{diag}}
+\begin{DoxyCompactList}\small\item\em structure to regulate diagnostic output timing \end{DoxyCompactList}\item 
+character(len=200) \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a7d80896888b5b7db81e342210dbf187c}{inputdir}}
+\begin{DoxyCompactList}\small\item\em directory where Net\+CDF input files are \end{DoxyCompactList}\item 
+character(len=200) \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a1f01a9da763b9b9cab25e3b562629c6b}{salt\+\_\+restore\+\_\+file}}
+\begin{DoxyCompactList}\small\item\em filename for salt restoring data \end{DoxyCompactList}\item 
+character(len=30) \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_ac533a0462834f8ce3070e434201a48c5}{salt\+\_\+restore\+\_\+var\+\_\+name}}
+\begin{DoxyCompactList}\small\item\em name of surface salinity in salt\+\_\+restore\+\_\+file \end{DoxyCompactList}\item 
+logical \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a6183a610f7be15b8e47b800db89ced4f}{mask\+\_\+srestore}}
+\begin{DoxyCompactList}\small\item\em if true, apply a 2-\/dimensional mask to the surface salinity restoring fluxes. The masking file should be in inputdir/salt\+\_\+restore\+\_\+mask.\+nc and the field should be named \textquotesingle{}mask\textquotesingle{} \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a5ab9d0bd3817027fad6eda511ff35076}{srestore\+\_\+mask}} =$>$ NULL()
+\begin{DoxyCompactList}\small\item\em mask for SSS restoring \end{DoxyCompactList}\item 
+character(len=200) \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a31e389600723a64070be296267f0dd75}{temp\+\_\+restore\+\_\+file}}
+\begin{DoxyCompactList}\small\item\em filename for sst restoring data \end{DoxyCompactList}\item 
+character(len=30) \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a971a5e32e796de922073226bda071c64}{temp\+\_\+restore\+\_\+var\+\_\+name}}
+\begin{DoxyCompactList}\small\item\em name of surface temperature in temp\+\_\+restore\+\_\+file \end{DoxyCompactList}\item 
+logical \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_ae9c09218ed849ae100411427bf813755}{mask\+\_\+trestore}}
+\begin{DoxyCompactList}\small\item\em if true, apply a 2-\/dimensional mask to the surface temperature restoring fluxes. The masking file should be in inputdir/temp\+\_\+restore\+\_\+mask.\+nc and the field should be named \textquotesingle{}mask\textquotesingle{} \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a8cc8fb5e3f49b2e3263d01a2887f347e}{trestore\+\_\+mask}} =$>$ NULL()
+\begin{DoxyCompactList}\small\item\em mask for SST restoring \end{DoxyCompactList}\item 
+type(external\+\_\+field) \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a7875f6754a807ba82de01ab9d5923c27}{srestore\+\_\+handle}}
+\begin{DoxyCompactList}\small\item\em Handle for time-\/interpolated salt restoration field. \end{DoxyCompactList}\item 
+type(external\+\_\+field) \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a489863cf81399e73cfe383445250be36}{trestore\+\_\+handle}}
+\begin{DoxyCompactList}\small\item\em Handle for time-\/interpolated temperature restoration field. \end{DoxyCompactList}\item 
+type(forcing\+\_\+diags), public \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a9275eda370afd90c06bceddd8b1c75f3}{handles}}
+\item 
+type(mom\+\_\+restart\+\_\+cs), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a8e59f7619c8adcd020066a619039bdb1}{restart\+\_\+csp}} =$>$ NULL()
+\item 
+type(user\+\_\+revise\+\_\+forcing\+\_\+cs), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_adaa3271efaad7677c8778b70de2a02cd}{urf\+\_\+cs}} =$>$ NULL()
+\item 
+type(marbl\+\_\+forcing\+\_\+cs), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_afeee48ef1d7818842b41e836c4a6b550}{marbl\+\_\+forcing\+\_\+csp}} =$>$ NULL()
+\begin{DoxyCompactList}\small\item\em parameters for getting MARBL forcing \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contains pointers to the forcing fields which may be used to drive MOM. All fluxes are positive downward. 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_af8b06538a1d4427dc37e93ba7edc86f2}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_af8b06538a1d4427dc37e93ba7edc86f2} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!adjust\_net\_fresh\_water\_by\_scaling@{adjust\_net\_fresh\_water\_by\_scaling}}
+\index{adjust\_net\_fresh\_water\_by\_scaling@{adjust\_net\_fresh\_water\_by\_scaling}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{adjust\_net\_fresh\_water\_by\_scaling}{adjust\_net\_fresh\_water\_by\_scaling}}
+{\footnotesize\ttfamily logical mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::adjust\+\_\+net\+\_\+fresh\+\_\+water\+\_\+by\+\_\+scaling}
+
+
+
+adjust net surface fresh-\/water w/o moving zero contour 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a541efb17cdefc684fd085d1c16a3b9d5}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a541efb17cdefc684fd085d1c16a3b9d5} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!adjust\_net\_fresh\_water\_to\_zero@{adjust\_net\_fresh\_water\_to\_zero}}
+\index{adjust\_net\_fresh\_water\_to\_zero@{adjust\_net\_fresh\_water\_to\_zero}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{adjust\_net\_fresh\_water\_to\_zero}{adjust\_net\_fresh\_water\_to\_zero}}
+{\footnotesize\ttfamily logical mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::adjust\+\_\+net\+\_\+fresh\+\_\+water\+\_\+to\+\_\+zero}
+
+
+
+adjust net surface fresh-\/water (w/ restoring) to zero 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_aea0a6a12b1d357da06a87837c9ab281b}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_aea0a6a12b1d357da06a87837c9ab281b} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!adjust\_net\_srestore\_by\_scaling@{adjust\_net\_srestore\_by\_scaling}}
+\index{adjust\_net\_srestore\_by\_scaling@{adjust\_net\_srestore\_by\_scaling}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{adjust\_net\_srestore\_by\_scaling}{adjust\_net\_srestore\_by\_scaling}}
+{\footnotesize\ttfamily logical mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::adjust\+\_\+net\+\_\+srestore\+\_\+by\+\_\+scaling}
+
+
+
+adjust srestore w/o moving zero contour 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a91c7597acce86923b4e42c68b55f9478}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a91c7597acce86923b4e42c68b55f9478} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!adjust\_net\_srestore\_to\_zero@{adjust\_net\_srestore\_to\_zero}}
+\index{adjust\_net\_srestore\_to\_zero@{adjust\_net\_srestore\_to\_zero}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{adjust\_net\_srestore\_to\_zero}{adjust\_net\_srestore\_to\_zero}}
+{\footnotesize\ttfamily logical mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::adjust\+\_\+net\+\_\+srestore\+\_\+to\+\_\+zero}
+
+
+
+adjust srestore to zero (for both salt\+\_\+flux or vprec) 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a9ff63dfa62c86b3560802c1a0af0715a}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a9ff63dfa62c86b3560802c1a0af0715a} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!allow\_flux\_adjustments@{allow\_flux\_adjustments}}
+\index{allow\_flux\_adjustments@{allow\_flux\_adjustments}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{allow\_flux\_adjustments}{allow\_flux\_adjustments}}
+{\footnotesize\ttfamily logical mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::allow\+\_\+flux\+\_\+adjustments}
+
+
+
+If true, use data\+\_\+override to obtain flux adjustments. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a0ef84f255eab419905bcfe515ebff4c8}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a0ef84f255eab419905bcfe515ebff4c8} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!area\_surf@{area\_surf}}
+\index{area\_surf@{area\_surf}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{area\_surf}{area\_surf}}
+{\footnotesize\ttfamily real mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::area\+\_\+surf = -\/1.\+0}
+
+
+
+total ocean surface area \mbox{[}L2 \texorpdfstring{$\sim$}{\string~}\texorpdfstring{$>$}{>} m2\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a39e0b4d70c19508c719407906e9fd084}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a39e0b4d70c19508c719407906e9fd084} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!basin\_mask@{basin\_mask}}
+\index{basin\_mask@{basin\_mask}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{basin\_mask}{basin\_mask}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::basin\+\_\+mask =$>$ NULL()}
+
+
+
+mask for SSS restoring by basin 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a31f13113f4f3e8cf1a692c517c98aade}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a31f13113f4f3e8cf1a692c517c98aade} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!cd\_tides@{cd\_tides}}
+\index{cd\_tides@{cd\_tides}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{cd\_tides}{cd\_tides}}
+{\footnotesize\ttfamily real mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::cd\+\_\+tides}
+
+
+
+drag coefficient that applies to the tides (nondimensional) 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_afe8bcf2c723d0fc60c361a20e0aa6c2f}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_afe8bcf2c723d0fc60c361a20e0aa6c2f} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!density\_sea\_ice@{density\_sea\_ice}}
+\index{density\_sea\_ice@{density\_sea\_ice}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{density\_sea\_ice}{density\_sea\_ice}}
+{\footnotesize\ttfamily real mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::density\+\_\+sea\+\_\+ice}
+
+
+
+Typical density of sea-\/ice \mbox{[}R \texorpdfstring{$\sim$}{\string~}\texorpdfstring{$>$}{>} kg m-\/3\mbox{]}. The value is only used to convert the ice pressure into appropriate units for use with Kv\+\_\+sea\+\_\+ice. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a55af765ae3ec1c34c591b0d06d90e255}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a55af765ae3ec1c34c591b0d06d90e255} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!diag@{diag}}
+\index{diag@{diag}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{diag}{diag}}
+{\footnotesize\ttfamily type(diag\+\_\+ctrl), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::diag}
+
+
+
+structure to regulate diagnostic output timing 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a8c5cb7f7da8cbae5cdbd88ef3e8a8d8c}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a8c5cb7f7da8cbae5cdbd88ef3e8a8d8c} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!enthalpy\_cpl@{enthalpy\_cpl}}
+\index{enthalpy\_cpl@{enthalpy\_cpl}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{enthalpy\_cpl}{enthalpy\_cpl}}
+{\footnotesize\ttfamily logical mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::enthalpy\+\_\+cpl}
+
+
+
+Controls if enthalpy terms are provided by the coupler or computed internally. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a6947730412ec46a295fa7c7e099b9bbc}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a6947730412ec46a295fa7c7e099b9bbc} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!flux\_const@{flux\_const}}
+\index{flux\_const@{flux\_const}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{flux\_const}{flux\_const}}
+{\footnotesize\ttfamily real mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::flux\+\_\+const}
+
+
+
+piston velocity for surface restoring \mbox{[}Z T-\/1 \texorpdfstring{$\sim$}{\string~}\texorpdfstring{$>$}{>} m s-\/1\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a2304223c3666b57744a1bb9d306d29a6}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a2304223c3666b57744a1bb9d306d29a6} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!g\_earth@{g\_earth}}
+\index{g\_earth@{g\_earth}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{g\_earth}{g\_earth}}
+{\footnotesize\ttfamily real mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::g\+\_\+earth}
+
+
+
+Gravitational acceleration \mbox{[}L2 Z-\/1 T-\/2 \texorpdfstring{$\sim$}{\string~}\texorpdfstring{$>$}{>} m s-\/2\mbox{]}. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_afaa8a06b3f164d6a2539ffb80db7c0bd}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_afaa8a06b3f164d6a2539ffb80db7c0bd} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!gust@{gust}}
+\index{gust@{gust}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{gust}{gust}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::gust =$>$ NULL()}
+
+
+
+spatially varying unresolved background 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_aae233e9ee302e068bfcbcce48f2c14e7}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_aae233e9ee302e068bfcbcce48f2c14e7} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!gust\_const@{gust\_const}}
+\index{gust\_const@{gust\_const}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{gust\_const}{gust\_const}}
+{\footnotesize\ttfamily real mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::gust\+\_\+const}
+
+
+
+constant unresolved background gustiness for ustar \mbox{[}R L Z T-\/2 \texorpdfstring{$\sim$}{\string~}\texorpdfstring{$>$}{>} Pa\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a9275eda370afd90c06bceddd8b1c75f3}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a9275eda370afd90c06bceddd8b1c75f3} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!handles@{handles}}
+\index{handles@{handles}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{handles}{handles}}
+{\footnotesize\ttfamily type(forcing\+\_\+diags), public mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::handles}
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_af56cd6c024aac41a13ae40a1b2bb33cd}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_af56cd6c024aac41a13ae40a1b2bb33cd} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!ice\_salt\_concentration@{ice\_salt\_concentration}}
+\index{ice\_salt\_concentration@{ice\_salt\_concentration}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{ice\_salt\_concentration}{ice\_salt\_concentration}}
+{\footnotesize\ttfamily real mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::ice\+\_\+salt\+\_\+concentration}
+
+
+
+salt concentration for sea ice \mbox{[}kg/kg\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a7d80896888b5b7db81e342210dbf187c}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a7d80896888b5b7db81e342210dbf187c} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!inputdir@{inputdir}}
+\index{inputdir@{inputdir}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{inputdir}{inputdir}}
+{\footnotesize\ttfamily character(len=200) mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::inputdir}
+
+
+
+directory where Net\+CDF input files are 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a9ec781f1394827c30d9e89566badf59a}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a9ec781f1394827c30d9e89566badf59a} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!kv\_sea\_ice@{kv\_sea\_ice}}
+\index{kv\_sea\_ice@{kv\_sea\_ice}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{kv\_sea\_ice}{kv\_sea\_ice}}
+{\footnotesize\ttfamily real mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::kv\+\_\+sea\+\_\+ice}
+
+
+
+Viscosity in sea-\/ice that resists sheared vertical motions \mbox{[}L4 Z-\/2 T-\/1 \texorpdfstring{$\sim$}{\string~}\texorpdfstring{$>$}{>} m2 s-\/1\mbox{]}. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_acbb8776d88b2a2d0c81772c68336ebaa}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_acbb8776d88b2a2d0c81772c68336ebaa} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!latent\_heat\_fusion@{latent\_heat\_fusion}}
+\index{latent\_heat\_fusion@{latent\_heat\_fusion}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{latent\_heat\_fusion}{latent\_heat\_fusion}}
+{\footnotesize\ttfamily real mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::latent\+\_\+heat\+\_\+fusion}
+
+
+
+latent heat of fusion \mbox{[}J/kg\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a62bc305cecbd667093d67c3cabc2cdfa}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a62bc305cecbd667093d67c3cabc2cdfa} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!latent\_heat\_vapor@{latent\_heat\_vapor}}
+\index{latent\_heat\_vapor@{latent\_heat\_vapor}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{latent\_heat\_vapor}{latent\_heat\_vapor}}
+{\footnotesize\ttfamily real mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::latent\+\_\+heat\+\_\+vapor}
+
+
+
+latent heat of vaporization \mbox{[}J/kg\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_ab4266bcd23eda9fb54e463c4b104e6ea}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_ab4266bcd23eda9fb54e463c4b104e6ea} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!liquid\_runoff\_from\_data@{liquid\_runoff\_from\_data}}
+\index{liquid\_runoff\_from\_data@{liquid\_runoff\_from\_data}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{liquid\_runoff\_from\_data}{liquid\_runoff\_from\_data}}
+{\footnotesize\ttfamily logical mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::liquid\+\_\+runoff\+\_\+from\+\_\+data}
+
+
+
+If true, use data\+\_\+override to obtain liquid runoff. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_afeee48ef1d7818842b41e836c4a6b550}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_afeee48ef1d7818842b41e836c4a6b550} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!marbl\_forcing\_csp@{marbl\_forcing\_csp}}
+\index{marbl\_forcing\_csp@{marbl\_forcing\_csp}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{marbl\_forcing\_csp}{marbl\_forcing\_csp}}
+{\footnotesize\ttfamily type(marbl\+\_\+forcing\+\_\+cs), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::marbl\+\_\+forcing\+\_\+csp =$>$ NULL()}
+
+
+
+parameters for getting MARBL forcing 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a6183a610f7be15b8e47b800db89ced4f}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a6183a610f7be15b8e47b800db89ced4f} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!mask\_srestore@{mask\_srestore}}
+\index{mask\_srestore@{mask\_srestore}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{mask\_srestore}{mask\_srestore}}
+{\footnotesize\ttfamily logical mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::mask\+\_\+srestore}
+
+
+
+if true, apply a 2-\/dimensional mask to the surface salinity restoring fluxes. The masking file should be in inputdir/salt\+\_\+restore\+\_\+mask.\+nc and the field should be named \textquotesingle{}mask\textquotesingle{} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_ab9f6e4539ce8982b4ff2078c0e3ad42a}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_ab9f6e4539ce8982b4ff2078c0e3ad42a} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!mask\_srestore\_marginal\_seas@{mask\_srestore\_marginal\_seas}}
+\index{mask\_srestore\_marginal\_seas@{mask\_srestore\_marginal\_seas}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{mask\_srestore\_marginal\_seas}{mask\_srestore\_marginal\_seas}}
+{\footnotesize\ttfamily logical mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::mask\+\_\+srestore\+\_\+marginal\+\_\+seas}
+
+
+
+if true, then mask SSS restoring in marginal seas 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a8fe96abe4cfc48091cfbc9f864e87689}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a8fe96abe4cfc48091cfbc9f864e87689} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!mask\_srestore\_under\_ice@{mask\_srestore\_under\_ice}}
+\index{mask\_srestore\_under\_ice@{mask\_srestore\_under\_ice}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{mask\_srestore\_under\_ice}{mask\_srestore\_under\_ice}}
+{\footnotesize\ttfamily logical mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::mask\+\_\+srestore\+\_\+under\+\_\+ice}
+
+
+
+If true, use an ice mask defined by frazil criteria for salinity restoring. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_ae9c09218ed849ae100411427bf813755}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_ae9c09218ed849ae100411427bf813755} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!mask\_trestore@{mask\_trestore}}
+\index{mask\_trestore@{mask\_trestore}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{mask\_trestore}{mask\_trestore}}
+{\footnotesize\ttfamily logical mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::mask\+\_\+trestore}
+
+
+
+if true, apply a 2-\/dimensional mask to the surface temperature restoring fluxes. The masking file should be in inputdir/temp\+\_\+restore\+\_\+mask.\+nc and the field should be named \textquotesingle{}mask\textquotesingle{} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_aaa45db8981bb521d201d363dc055b8ea}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_aaa45db8981bb521d201d363dc055b8ea} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!max\_delta\_srestore@{max\_delta\_srestore}}
+\index{max\_delta\_srestore@{max\_delta\_srestore}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{max\_delta\_srestore}{max\_delta\_srestore}}
+{\footnotesize\ttfamily real mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::max\+\_\+delta\+\_\+srestore}
+
+
+
+maximum delta salinity used for restoring \mbox{[}S \texorpdfstring{$\sim$}{\string~}\texorpdfstring{$>$}{>} ppt\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a99fd9b14e33feee6e0a387e6b7cb2b8f}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a99fd9b14e33feee6e0a387e6b7cb2b8f} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!max\_delta\_trestore@{max\_delta\_trestore}}
+\index{max\_delta\_trestore@{max\_delta\_trestore}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{max\_delta\_trestore}{max\_delta\_trestore}}
+{\footnotesize\ttfamily real mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::max\+\_\+delta\+\_\+trestore}
+
+
+
+maximum delta sst used for restoring \mbox{[}C \texorpdfstring{$\sim$}{\string~}\texorpdfstring{$>$}{>} degC\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a13df9fa3145731631cdfa38a5a356538}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a13df9fa3145731631cdfa38a5a356538} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!max\_p\_surf@{max\_p\_surf}}
+\index{max\_p\_surf@{max\_p\_surf}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{max\_p\_surf}{max\_p\_surf}}
+{\footnotesize\ttfamily real mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::max\+\_\+p\+\_\+surf}
+
+
+
+maximum surface pressure that can be exerted by the atmosphere and floating sea-\/ice \mbox{[}R L2 T-\/2 \texorpdfstring{$\sim$}{\string~}\texorpdfstring{$>$}{>} Pa\mbox{]}. This is needed because the FMS coupling structure does not limit the water that can be frozen out of the ocean and the ice-\/ocean heat fluxes are treated explicitly. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a490938375abe7a80ed6863b0943907b7}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a490938375abe7a80ed6863b0943907b7} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!read\_gust\_2d@{read\_gust\_2d}}
+\index{read\_gust\_2d@{read\_gust\_2d}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{read\_gust\_2d}{read\_gust\_2d}}
+{\footnotesize\ttfamily logical mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::read\+\_\+gust\+\_\+2d}
+
+
+
+If true, use a 2-\/dimensional gustiness supplied from an input file. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_abee737cb2cdc45421142ab0511c46eb6}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_abee737cb2cdc45421142ab0511c46eb6} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!read\_tideamp@{read\_tideamp}}
+\index{read\_tideamp@{read\_tideamp}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{read\_tideamp}{read\_tideamp}}
+{\footnotesize\ttfamily logical mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::read\+\_\+tideamp}
+
+
+
+If true, spatially varying tidal amplitude read from a file. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a8e59f7619c8adcd020066a619039bdb1}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a8e59f7619c8adcd020066a619039bdb1} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!restart\_csp@{restart\_csp}}
+\index{restart\_csp@{restart\_csp}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{restart\_csp}{restart\_csp}}
+{\footnotesize\ttfamily type(mom\+\_\+restart\+\_\+cs), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::restart\+\_\+csp =$>$ NULL()}
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a6050543c14452ee475885619a24cc30f}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a6050543c14452ee475885619a24cc30f} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!rho0@{rho0}}
+\index{rho0@{rho0}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{rho0}{rho0}}
+{\footnotesize\ttfamily real mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::rho0}
+
+
+
+Boussinesq reference density \mbox{[}R \texorpdfstring{$\sim$}{\string~}\texorpdfstring{$>$}{>} kg m-\/3\mbox{]}. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a71eb72375b5e1763e6c5f7585f644cc5}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a71eb72375b5e1763e6c5f7585f644cc5} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!rigid\_sea\_ice@{rigid\_sea\_ice}}
+\index{rigid\_sea\_ice@{rigid\_sea\_ice}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{rigid\_sea\_ice}{rigid\_sea\_ice}}
+{\footnotesize\ttfamily logical mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::rigid\+\_\+sea\+\_\+ice}
+
+
+
+If true, sea-\/ice exerts a rigidity that acts to damp surface deflections (especially surface gravity waves). The default is false. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_ad1a02a13e64f80b97d38b7bd58e8dc25}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_ad1a02a13e64f80b97d38b7bd58e8dc25} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!rigid\_sea\_ice\_mass@{rigid\_sea\_ice\_mass}}
+\index{rigid\_sea\_ice\_mass@{rigid\_sea\_ice\_mass}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{rigid\_sea\_ice\_mass}{rigid\_sea\_ice\_mass}}
+{\footnotesize\ttfamily real mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::rigid\+\_\+sea\+\_\+ice\+\_\+mass}
+
+
+
+A mass per unit area of sea-\/ice beyond which sea-\/ice viscosity becomes effective \mbox{[}R Z \texorpdfstring{$\sim$}{\string~}\texorpdfstring{$>$}{>} kg m-\/2\mbox{]}, typically of order 1000 kg m-\/2. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_ae7917749fb9b389fb328f33c36f3ded5}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_ae7917749fb9b389fb328f33c36f3ded5} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!salt\_restore\_as\_sflux@{salt\_restore\_as\_sflux}}
+\index{salt\_restore\_as\_sflux@{salt\_restore\_as\_sflux}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{salt\_restore\_as\_sflux}{salt\_restore\_as\_sflux}}
+{\footnotesize\ttfamily logical mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::salt\+\_\+restore\+\_\+as\+\_\+sflux}
+
+
+
+If true, SSS restore as salt flux instead of water flux. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a1f01a9da763b9b9cab25e3b562629c6b}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a1f01a9da763b9b9cab25e3b562629c6b} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!salt\_restore\_file@{salt\_restore\_file}}
+\index{salt\_restore\_file@{salt\_restore\_file}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{salt\_restore\_file}{salt\_restore\_file}}
+{\footnotesize\ttfamily character(len=200) mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::salt\+\_\+restore\+\_\+file}
+
+
+
+filename for salt restoring data 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_ac533a0462834f8ce3070e434201a48c5}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_ac533a0462834f8ce3070e434201a48c5} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!salt\_restore\_var\_name@{salt\_restore\_var\_name}}
+\index{salt\_restore\_var\_name@{salt\_restore\_var\_name}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{salt\_restore\_var\_name}{salt\_restore\_var\_name}}
+{\footnotesize\ttfamily character(len=30) mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::salt\+\_\+restore\+\_\+var\+\_\+name}
+
+
+
+name of surface salinity in salt\+\_\+restore\+\_\+file 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a7875f6754a807ba82de01ab9d5923c27}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a7875f6754a807ba82de01ab9d5923c27} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!srestore\_handle@{srestore\_handle}}
+\index{srestore\_handle@{srestore\_handle}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{srestore\_handle}{srestore\_handle}}
+{\footnotesize\ttfamily type(external\+\_\+field) mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::srestore\+\_\+handle}
+
+
+
+Handle for time-\/interpolated salt restoration field. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a5ab9d0bd3817027fad6eda511ff35076}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a5ab9d0bd3817027fad6eda511ff35076} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!srestore\_mask@{srestore\_mask}}
+\index{srestore\_mask@{srestore\_mask}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{srestore\_mask}{srestore\_mask}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::srestore\+\_\+mask =$>$ NULL()}
+
+
+
+mask for SSS restoring 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a31e389600723a64070be296267f0dd75}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a31e389600723a64070be296267f0dd75} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!temp\_restore\_file@{temp\_restore\_file}}
+\index{temp\_restore\_file@{temp\_restore\_file}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{temp\_restore\_file}{temp\_restore\_file}}
+{\footnotesize\ttfamily character(len=200) mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::temp\+\_\+restore\+\_\+file}
+
+
+
+filename for sst restoring data 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a971a5e32e796de922073226bda071c64}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a971a5e32e796de922073226bda071c64} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!temp\_restore\_var\_name@{temp\_restore\_var\_name}}
+\index{temp\_restore\_var\_name@{temp\_restore\_var\_name}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{temp\_restore\_var\_name}{temp\_restore\_var\_name}}
+{\footnotesize\ttfamily character(len=30) mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::temp\+\_\+restore\+\_\+var\+\_\+name}
+
+
+
+name of surface temperature in temp\+\_\+restore\+\_\+file 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a5747fc63b99f27245fc06bd4747fe189}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a5747fc63b99f27245fc06bd4747fe189} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!tke\_tidal@{tke\_tidal}}
+\index{tke\_tidal@{tke\_tidal}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{tke\_tidal}{tke\_tidal}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::tke\+\_\+tidal =$>$ NULL()}
+
+
+
+turbulent kinetic energy introduced to the 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a489863cf81399e73cfe383445250be36}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a489863cf81399e73cfe383445250be36} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!trestore\_handle@{trestore\_handle}}
+\index{trestore\_handle@{trestore\_handle}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{trestore\_handle}{trestore\_handle}}
+{\footnotesize\ttfamily type(external\+\_\+field) mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::trestore\+\_\+handle}
+
+
+
+Handle for time-\/interpolated temperature restoration field. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a8cc8fb5e3f49b2e3263d01a2887f347e}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a8cc8fb5e3f49b2e3263d01a2887f347e} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!trestore\_mask@{trestore\_mask}}
+\index{trestore\_mask@{trestore\_mask}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{trestore\_mask}{trestore\_mask}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::trestore\+\_\+mask =$>$ NULL()}
+
+
+
+mask for SST restoring 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_adaa3271efaad7677c8778b70de2a02cd}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_adaa3271efaad7677c8778b70de2a02cd} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!urf\_cs@{urf\_cs}}
+\index{urf\_cs@{urf\_cs}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{urf\_cs}{urf\_cs}}
+{\footnotesize\ttfamily type(user\+\_\+revise\+\_\+forcing\+\_\+cs), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::urf\+\_\+cs =$>$ NULL()}
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a41d5b45bd8ed619fd47cc9512e86c069}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a41d5b45bd8ed619fd47cc9512e86c069} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!use\_cfc@{use\_cfc}}
+\index{use\_cfc@{use\_cfc}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{use\_cfc}{use\_cfc}}
+{\footnotesize\ttfamily logical mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::use\+\_\+cfc}
+
+
+
+enables the MOM\+\_\+\+CFC\+\_\+cap tracer package. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_ae185a599a76fd9f39cdf438077ed453f}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_ae185a599a76fd9f39cdf438077ed453f} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!use\_limited\_p\_ssh@{use\_limited\_p\_ssh}}
+\index{use\_limited\_p\_ssh@{use\_limited\_p\_ssh}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{use\_limited\_p\_ssh}{use\_limited\_p\_ssh}}
+{\footnotesize\ttfamily logical mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::use\+\_\+limited\+\_\+p\+\_\+ssh}
+
+
+
+If true, return the sea surface height with the correction for the atmospheric (and sea-\/ice) pressure limited by max\+\_\+p\+\_\+surf instead of the full atmospheric pressure. The default is true. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_ab7fbbd1da6d02b03da572291b9782fd9}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_ab7fbbd1da6d02b03da572291b9782fd9} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!use\_marbl\_tracers@{use\_marbl\_tracers}}
+\index{use\_marbl\_tracers@{use\_marbl\_tracers}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{use\_marbl\_tracers}{use\_marbl\_tracers}}
+{\footnotesize\ttfamily logical mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::use\+\_\+marbl\+\_\+tracers}
+
+
+
+enables the MARBL tracer package. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a856df9d2fbfaab789b54b37ab527883e}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a856df9d2fbfaab789b54b37ab527883e} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!use\_net\_fw\_adjustment\_sign\_bug@{use\_net\_fw\_adjustment\_sign\_bug}}
+\index{use\_net\_fw\_adjustment\_sign\_bug@{use\_net\_fw\_adjustment\_sign\_bug}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{use\_net\_fw\_adjustment\_sign\_bug}{use\_net\_fw\_adjustment\_sign\_bug}}
+{\footnotesize\ttfamily logical mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::use\+\_\+net\+\_\+fw\+\_\+adjustment\+\_\+sign\+\_\+bug}
+
+
+
+use the wrong sign when adjusting net FW 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a710ee7ba697526aaa7ff0179ae82161e}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a710ee7ba697526aaa7ff0179ae82161e} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!use\_temperature@{use\_temperature}}
+\index{use\_temperature@{use\_temperature}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{use\_temperature}{use\_temperature}}
+{\footnotesize\ttfamily logical mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::use\+\_\+temperature}
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a95e41a4e480874c45f3e3f43d238174e}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a95e41a4e480874c45f3e3f43d238174e} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!ustar\_gustless\_bug@{ustar\_gustless\_bug}}
+\index{ustar\_gustless\_bug@{ustar\_gustless\_bug}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{ustar\_gustless\_bug}{ustar\_gustless\_bug}}
+{\footnotesize\ttfamily logical mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::ustar\+\_\+gustless\+\_\+bug}
+
+
+
+If true, include a bug in the time-\/averaging of the gustless wind friction velocity. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a94974c5219c7ea552eb05fdbf83eb75f}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a94974c5219c7ea552eb05fdbf83eb75f} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!ustar\_tidal@{ustar\_tidal}}
+\index{ustar\_tidal@{ustar\_tidal}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{ustar\_tidal}{ustar\_tidal}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::ustar\+\_\+tidal =$>$ NULL()}
+
+
+
+tidal contribution to the bottom friction velocity \mbox{[}Z T-\/1 \texorpdfstring{$\sim$}{\string~}\texorpdfstring{$>$}{>} m s-\/1\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a93eea86437cf846f9317a546446df058}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a93eea86437cf846f9317a546446df058} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!utide@{utide}}
+\index{utide@{utide}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{utide}{utide}}
+{\footnotesize\ttfamily real mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::utide}
+
+
+
+constant tidal velocity to use if read\+\_\+tideamp is false \mbox{[}Z T-\/1 \texorpdfstring{$\sim$}{\string~}\texorpdfstring{$>$}{>} m s-\/1\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a330c10bda8393246ced294148abdb835}\label{structmom__surface__forcing__nuopc_1_1surface__forcing__cs_a330c10bda8393246ced294148abdb835} 
+\index{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}!wind\_stress\_multiplier@{wind\_stress\_multiplier}}
+\index{wind\_stress\_multiplier@{wind\_stress\_multiplier}!mom\_surface\_forcing\_nuopc::surface\_forcing\_cs@{mom\_surface\_forcing\_nuopc::surface\_forcing\_cs}}
+\doxysubsubsection{\texorpdfstring{wind\_stress\_multiplier}{wind\_stress\_multiplier}}
+{\footnotesize\ttfamily real mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs\+::wind\+\_\+stress\+\_\+multiplier}
+
+
+
+A multiplier applied to incoming wind stress (nondim). 
+
+
+
+The documentation for this type was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/work/noaa/nems/dworthen/ufs\+\_\+dw/\+MOM6-\/interface/\+MOM6/config\+\_\+src/drivers/nuopc\+\_\+cap/\mbox{\hyperlink{mom__surface__forcing__nuopc_8F90}{mom\+\_\+surface\+\_\+forcing\+\_\+nuopc.\+F90}}\end{DoxyCompactItemize}

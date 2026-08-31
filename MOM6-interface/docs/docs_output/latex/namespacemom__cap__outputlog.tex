@@ -1,0 +1,118 @@
+\doxysection{mom\+\_\+cap\+\_\+outputlog Module Reference}
+\hypertarget{namespacemom__cap__outputlog}{}\label{namespacemom__cap__outputlog}\index{mom\_cap\_outputlog@{mom\_cap\_outputlog}}
+
+
+This module contains a set of subroutines that check if MOM restart and history files have been written and closed. This file is specific to UWM operational requirements and configurations (eg specific output frequencies in hours) and may break if used outside the scope of intended use. This module is a stub when CESMCOUPLED is defined.  
+
+
+\doxysubsubsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+subroutine, public \mbox{\hyperlink{namespacemom__cap__outputlog_a772944ef6621c112cfb36b604ba5f75e}{outputlog\+\_\+init}} (gcomp, mclock, ocean\+\_\+grid, rc)
+\begin{DoxyCompactList}\small\item\em Initialize a set of Alarms at the allowed output frequencies. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemom__cap__outputlog_a63c992951482449c83f6bd9c7de49626}{outputlog\+\_\+run}} (mclock, atstoptime, rc)
+\begin{DoxyCompactList}\small\item\em Wrapper for logging output at single frequency. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemom__cap__outputlog_abf152af2b5ff79377f77ac979555bbac}{track\+\_\+freqn}} (mtime, cf\+\_\+n, state\+\_\+n, comm, isroot, rootpe, outputdir, lastrestart, debug\+\_\+onroot, lstop, rc)
+\begin{DoxyCompactList}\small\item\em Track and log file state at single output-\/frequency alarm. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemom__cap__outputlog_af85f24b5e98f54d3ac8497288891c97d}{outputlog\+\_\+restart}} (mclock, num\+\_\+rest\+\_\+files, rc)
+\begin{DoxyCompactList}\small\item\em Check all restart files to determine if output has been completed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This module contains a set of subroutines that check if MOM restart and history files have been written and closed. This file is specific to UWM operational requirements and configurations (eg specific output frequencies in hours) and may break if used outside the scope of intended use. This module is a stub when CESMCOUPLED is defined. 
+
+\doxysubsection{Function/\+Subroutine Documentation}
+\Hypertarget{namespacemom__cap__outputlog_a772944ef6621c112cfb36b604ba5f75e}\label{namespacemom__cap__outputlog_a772944ef6621c112cfb36b604ba5f75e} 
+\index{mom\_cap\_outputlog@{mom\_cap\_outputlog}!outputlog\_init@{outputlog\_init}}
+\index{outputlog\_init@{outputlog\_init}!mom\_cap\_outputlog@{mom\_cap\_outputlog}}
+\doxysubsubsection{\texorpdfstring{outputlog\_init()}{outputlog\_init()}}
+{\footnotesize\ttfamily subroutine, public mom\+\_\+cap\+\_\+outputlog\+::outputlog\+\_\+init (\begin{DoxyParamCaption}\item[{type(esmf\+\_\+gridcomp)}]{gcomp,  }\item[{type(esmf\+\_\+clock)}]{mclock,  }\item[{type(ocean\+\_\+grid\+\_\+type), intent(in), pointer}]{ocean\+\_\+grid,  }\item[{integer, intent(out)}]{rc }\end{DoxyParamCaption})}
+
+
+
+Initialize a set of Alarms at the allowed output frequencies. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em gcomp} & an ESMF\+\_\+\+Grid\+Comp object \\
+\hline
+ & {\em clock} & an ESMF\+\_\+\+Clock object \\
+\hline
+\mbox{\texttt{ in}}  & {\em ocean\+\_\+grid} & ocean grid \\
+\hline
+\mbox{\texttt{ out}}  & {\em rc} & return code \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacemom__cap__outputlog_af85f24b5e98f54d3ac8497288891c97d}\label{namespacemom__cap__outputlog_af85f24b5e98f54d3ac8497288891c97d} 
+\index{mom\_cap\_outputlog@{mom\_cap\_outputlog}!outputlog\_restart@{outputlog\_restart}}
+\index{outputlog\_restart@{outputlog\_restart}!mom\_cap\_outputlog@{mom\_cap\_outputlog}}
+\doxysubsubsection{\texorpdfstring{outputlog\_restart()}{outputlog\_restart()}}
+{\footnotesize\ttfamily subroutine, public mom\+\_\+cap\+\_\+outputlog\+::outputlog\+\_\+restart (\begin{DoxyParamCaption}\item[{type(esmf\+\_\+clock)}]{mclock,  }\item[{integer, intent(in)}]{num\+\_\+rest\+\_\+files,  }\item[{integer, intent(out)}]{rc }\end{DoxyParamCaption})}
+
+
+
+Check all restart files to determine if output has been completed. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em clock} & an ESMF\+\_\+\+Clock object \\
+\hline
+\mbox{\texttt{ in}}  & {\em num\+\_\+rest\+\_\+files} & the number of restart files \\
+\hline
+\mbox{\texttt{ out}}  & {\em rc} & return code \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacemom__cap__outputlog_a63c992951482449c83f6bd9c7de49626}\label{namespacemom__cap__outputlog_a63c992951482449c83f6bd9c7de49626} 
+\index{mom\_cap\_outputlog@{mom\_cap\_outputlog}!outputlog\_run@{outputlog\_run}}
+\index{outputlog\_run@{outputlog\_run}!mom\_cap\_outputlog@{mom\_cap\_outputlog}}
+\doxysubsubsection{\texorpdfstring{outputlog\_run()}{outputlog\_run()}}
+{\footnotesize\ttfamily subroutine, public mom\+\_\+cap\+\_\+outputlog\+::outputlog\+\_\+run (\begin{DoxyParamCaption}\item[{type(esmf\+\_\+clock)}]{mclock,  }\item[{logical, intent(in), optional}]{atstoptime,  }\item[{integer, intent(out)}]{rc }\end{DoxyParamCaption})}
+
+
+
+Wrapper for logging output at single frequency. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em clock} & an ESMF\+\_\+\+Clock object \\
+\hline
+{\em at\+Stop\+Time} & when present, checks for final output file \\
+\hline
+{\em rc} & return code \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacemom__cap__outputlog_abf152af2b5ff79377f77ac979555bbac}\label{namespacemom__cap__outputlog_abf152af2b5ff79377f77ac979555bbac} 
+\index{mom\_cap\_outputlog@{mom\_cap\_outputlog}!track\_freqn@{track\_freqn}}
+\index{track\_freqn@{track\_freqn}!mom\_cap\_outputlog@{mom\_cap\_outputlog}}
+\doxysubsubsection{\texorpdfstring{track\_freqn()}{track\_freqn()}}
+{\footnotesize\ttfamily subroutine, public mom\+\_\+cap\+\_\+outputlog\+::track\+\_\+freqn (\begin{DoxyParamCaption}\item[{type(\mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__modeltime__type}{outputlog\+\_\+modeltime\+\_\+type}}), intent(in)}]{mtime,  }\item[{type(\mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__config__type}{outputlog\+\_\+config\+\_\+type}}), intent(inout)}]{cf\+\_\+n,  }\item[{type(\mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__state__type}{outputlog\+\_\+state\+\_\+type}}), intent(inout)}]{state\+\_\+n,  }\item[{type(mpi\+\_\+comm), intent(in)}]{comm,  }\item[{logical, intent(in)}]{isroot,  }\item[{integer, intent(in)}]{rootpe,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{outputdir,  }\item[{type(esmf\+\_\+time), intent(in)}]{lastrestart,  }\item[{logical, intent(in)}]{debug\+\_\+onroot,  }\item[{logical, intent(in)}]{lstop,  }\item[{integer, intent(out)}]{rc }\end{DoxyParamCaption})}
+
+
+
+Track and log file state at single output-\/frequency alarm. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em mtime} & the model time state \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em cf\+\_\+n} & configuration for this frequency \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em state\+\_\+n} & tracked state for this frequency \\
+\hline
+\mbox{\texttt{ in}}  & {\em mpicomm} & MPI communicator \\
+\hline
+\mbox{\texttt{ in}}  & {\em isroot} & logical flag for root PE \\
+\hline
+\mbox{\texttt{ in}}  & {\em rootpe} & root rank in communicator \\
+\hline
+\mbox{\texttt{ in}}  & {\em outputdir} & output directory path \\
+\hline
+\mbox{\texttt{ in}}  & {\em lastrestart} & last restart write time \\
+\hline
+\mbox{\texttt{ in}}  & {\em debug\+\_\+onroot} & logical flag to enable debug printing \\
+\hline
+\mbox{\texttt{ in}}  & {\em lstop} & logical flag for checking files at finalize \\
+\hline
+\mbox{\texttt{ out}}  & {\em rc} & return code \\
+\hline
+\end{DoxyParams}

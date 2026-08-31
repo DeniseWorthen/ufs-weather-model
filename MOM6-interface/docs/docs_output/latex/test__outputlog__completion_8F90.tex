@@ -1,0 +1,39 @@
+\doxysection{/work/noaa/nems/dworthen/ufs\+\_\+dw/\+MOM6-\/interface/unit-\/tests/test\+\_\+outputlog\+\_\+completion.F90 File Reference}
+\hypertarget{test__outputlog__completion_8F90}{}\label{test__outputlog__completion_8F90}\index{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/unit-\/tests/test\_outputlog\_completion.F90@{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/unit-\/tests/test\_outputlog\_completion.F90}}
+\doxysubsubsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+program \mbox{\hyperlink{test__outputlog__completion_8F90_a42d4d0b626aa7ea0abe174cd844fa0fd}{test\+\_\+outputlog\+\_\+completion}}
+\begin{DoxyCompactList}\small\item\em Test code for the outputlog file-\/completion contract. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{test__outputlog__completion_8F90_a3865c2d504211b0a7cc2f73592b8967f}{check\+\_\+datm\+\_\+incomplete}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function/\+Subroutine Documentation}
+\Hypertarget{test__outputlog__completion_8F90_a3865c2d504211b0a7cc2f73592b8967f}\label{test__outputlog__completion_8F90_a3865c2d504211b0a7cc2f73592b8967f} 
+\index{test\_outputlog\_completion.F90@{test\_outputlog\_completion.F90}!check\_datm\_incomplete@{check\_datm\_incomplete}}
+\index{check\_datm\_incomplete@{check\_datm\_incomplete}!test\_outputlog\_completion.F90@{test\_outputlog\_completion.F90}}
+\doxysubsubsection{\texorpdfstring{check\_datm\_incomplete()}{check\_datm\_incomplete()}}
+{\footnotesize\ttfamily subroutine test\+\_\+outputlog\+\_\+completion\+::check\+\_\+datm\+\_\+incomplete}
+
+\Hypertarget{test__outputlog__completion_8F90_a42d4d0b626aa7ea0abe174cd844fa0fd}\label{test__outputlog__completion_8F90_a42d4d0b626aa7ea0abe174cd844fa0fd} 
+\index{test\_outputlog\_completion.F90@{test\_outputlog\_completion.F90}!test\_outputlog\_completion@{test\_outputlog\_completion}}
+\index{test\_outputlog\_completion@{test\_outputlog\_completion}!test\_outputlog\_completion.F90@{test\_outputlog\_completion.F90}}
+\doxysubsubsection{\texorpdfstring{test\_outputlog\_completion()}{test\_outputlog\_completion()}}
+{\footnotesize\ttfamily program test\+\_\+outputlog\+\_\+completion}
+
+
+
+Test code for the outputlog file-\/completion contract. 
+
+Probes get\+\_\+file\+\_\+state / file\+\_\+is\+\_\+complete directly against real net\+CDF-\/4 fixture files (see \doxylink{nc__fixture__mod_8F90}{nc\+\_\+fixture\+\_\+mod.\+F90}), independent of the alarm/clock machinery in outputlog\+\_\+freqn -- this file only asks\+: given a file in a known nlen/fsize state, does file\+\_\+is\+\_\+complete correctly report whether it\textquotesingle{}s complete?
+
+A test like this only has value if its notion of "{}correct"{} doesn\textquotesingle{}t come from the same place as the code being tested -- otherwise it just checks that the code agrees with itself. Two things keep this one independent\+:
+
+
+\begin{DoxyEnumerate}
+\item The fixtures are built with plain net\+CDF library calls (nf90\+\_\+create, nf90\+\_\+put\+\_\+var, nf90\+\_\+sync) -- never by calling file\+\_\+is\+\_\+complete or anything in \doxylink{namespacemom__outputlog__methods}{mom\+\_\+outputlog\+\_\+methods}. There\textquotesingle{}s no shared code between the files under test and the function testing them.
+\item The nlen/fsize completion contract itself predates this test, and predates file\+\_\+is\+\_\+complete\textquotesingle{}s implementation even existing in a form anyone could read\+: it was discovered by hand, empirically, while the outputlog feature was first being built -- printing nlen during real DATM runs, then finding nlen alone insufficient for active ATM, which is specifically what led to tracking fsize too. file\+\_\+is\+\_\+complete\textquotesingle{}s formula is downstream of that discovery, not the other way around. A second, separate confirmation of the same contract came from ncdump -\/c snapshots of real production files (a wholly different tool, sharing no code with either file\+\_\+is\+\_\+complete or these fixtures).
+\end{DoxyEnumerate}
+
+So the fixtures here aren\textquotesingle{}t constructed to match file\+\_\+is\+\_\+complete\textquotesingle{}s own logic -- they\textquotesingle{}re constructed to match a pattern established independently of it, twice over, and file\+\_\+is\+\_\+complete is checked against that. 

@@ -1,0 +1,126 @@
+\doxysection{nc\+\_\+fixture\+\_\+mod Module Reference}
+\hypertarget{namespacenc__fixture__mod}{}\label{namespacenc__fixture__mod}\index{nc\_fixture\_mod@{nc\_fixture\_mod}}
+\doxysubsubsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+subroutine \mbox{\hyperlink{namespacenc__fixture__mod_a33163f82ef2f3c15497085369acfe643}{create\+\_\+schema}} (fname, createsize\+\_\+out)
+\begin{DoxyCompactList}\small\item\em Create a fresh file with the schema defined but zero records written. nlen=0. Includes an extra "{}pad"{} variable that does NOT use the unlimited "{}time"{} dim -- see write\+\_\+padding for why. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacenc__fixture__mod_a33fb11a600ad64847155775b1fcc71ae}{write\+\_\+record}} (fname, time\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Extend the unlimited dim by writing record 1\textquotesingle{}s time-\/coordinate value. nlen\+: 0 -\/\texorpdfstring{$>$}{>} 1. Does NOT write the bulk data variable. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacenc__fixture__mod_afe19d49dcceb26ddd76443b510d2f39f}{write\+\_\+bulk\+\_\+data}} (fname, fill\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Write the bulk "{}data"{} variable for record 1. Grows fsize. Requires write\+\_\+record to have been called first (record 1 must already exist). \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacenc__fixture__mod_a3ea7e4875a4cb18ab8d534d251b35285}{write\+\_\+padding}} (fname, fill\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Write the "{}pad"{} variable -- deliberately NOT tied to the unlimited "{}time"{} dim. This models the confirmed real DATM behavior\+: the bulk payload is already fully on disk (fsize \texorpdfstring{$\sim$}{\string~}final) BEFORE nlen ever advances from 0. We can\textquotesingle{}t reproduce that using a variable that actually shares "{}time"{} (writing any such variable immediately advances nlen, per the earlier reproducer) -- so this is a deliberate stand-\/in that reproduces the observable nlen/fsize progression without replicating the real file\textquotesingle{}s internal variable structure. file\+\_\+is\+\_\+complete/get\+\_\+file\+\_\+state only look at nlen and fsize, so that\textquotesingle{}s sufficient for what\textquotesingle{}s under test. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacenc__fixture__mod_ab85b0768f6b4e68415050083c7960e9a}{make\+\_\+datm\+\_\+incomplete}} (fname)
+\begin{DoxyCompactList}\small\item\em DATM incomplete\+: confirmed against real production output -- the bulk payload is already fully written (fsize \texorpdfstring{$\sim$}{\string~}final) while nlen=0. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacenc__fixture__mod_a0a9a3536d648f3c26b36ca143bdb43c4}{make\+\_\+datm\+\_\+complete}} (fname)
+\begin{DoxyCompactList}\small\item\em DATM complete\+: confirmed against real production output -- differs from incomplete ONLY by the record/timestamp write (nlen 0-\/\texorpdfstring{$>$}{>}1, fsize grows by exactly one real\texorpdfstring{$\ast$}{*}8). The bulk payload was already present. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacenc__fixture__mod_a93bc72eff1df153d9999613099227964}{make\+\_\+atm\+\_\+incomplete}} (fname, createsize\+\_\+out)
+\item 
+subroutine \mbox{\hyperlink{namespacenc__fixture__mod_aaef8977c70f696bed84aaaa874b59e0f}{make\+\_\+atm\+\_\+complete}} (fname, createsize\+\_\+out)
+\item 
+subroutine \mbox{\hyperlink{namespacenc__fixture__mod_a7ac05ec01ccf9c85a21ee8ecbb38394d}{nf90\+\_\+err}} (ierr, context)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+integer, parameter \mbox{\hyperlink{namespacenc__fixture__mod_a6144befa81ddbde91b266c92d4b1b9c3}{fixture\+\_\+nx}} = 200
+\item 
+integer, parameter \mbox{\hyperlink{namespacenc__fixture__mod_aca30621fd4abfa61dc964073cd30394c}{fixture\+\_\+pad\+\_\+n}} = 100000
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function/\+Subroutine Documentation}
+\Hypertarget{namespacenc__fixture__mod_a33163f82ef2f3c15497085369acfe643}\label{namespacenc__fixture__mod_a33163f82ef2f3c15497085369acfe643} 
+\index{nc\_fixture\_mod@{nc\_fixture\_mod}!create\_schema@{create\_schema}}
+\index{create\_schema@{create\_schema}!nc\_fixture\_mod@{nc\_fixture\_mod}}
+\doxysubsubsection{\texorpdfstring{create\_schema()}{create\_schema()}}
+{\footnotesize\ttfamily subroutine nc\+\_\+fixture\+\_\+mod\+::create\+\_\+schema (\begin{DoxyParamCaption}\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{fname,  }\item[{integer, intent(out), optional}]{createsize\+\_\+out }\end{DoxyParamCaption})}
+
+
+
+Create a fresh file with the schema defined but zero records written. nlen=0. Includes an extra "{}pad"{} variable that does NOT use the unlimited "{}time"{} dim -- see write\+\_\+padding for why. 
+
+\Hypertarget{namespacenc__fixture__mod_aaef8977c70f696bed84aaaa874b59e0f}\label{namespacenc__fixture__mod_aaef8977c70f696bed84aaaa874b59e0f} 
+\index{nc\_fixture\_mod@{nc\_fixture\_mod}!make\_atm\_complete@{make\_atm\_complete}}
+\index{make\_atm\_complete@{make\_atm\_complete}!nc\_fixture\_mod@{nc\_fixture\_mod}}
+\doxysubsubsection{\texorpdfstring{make\_atm\_complete()}{make\_atm\_complete()}}
+{\footnotesize\ttfamily subroutine nc\+\_\+fixture\+\_\+mod\+::make\+\_\+atm\+\_\+complete (\begin{DoxyParamCaption}\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{fname,  }\item[{integer, intent(out)}]{createsize\+\_\+out }\end{DoxyParamCaption})}
+
+\Hypertarget{namespacenc__fixture__mod_a93bc72eff1df153d9999613099227964}\label{namespacenc__fixture__mod_a93bc72eff1df153d9999613099227964} 
+\index{nc\_fixture\_mod@{nc\_fixture\_mod}!make\_atm\_incomplete@{make\_atm\_incomplete}}
+\index{make\_atm\_incomplete@{make\_atm\_incomplete}!nc\_fixture\_mod@{nc\_fixture\_mod}}
+\doxysubsubsection{\texorpdfstring{make\_atm\_incomplete()}{make\_atm\_incomplete()}}
+{\footnotesize\ttfamily subroutine nc\+\_\+fixture\+\_\+mod\+::make\+\_\+atm\+\_\+incomplete (\begin{DoxyParamCaption}\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{fname,  }\item[{integer, intent(out)}]{createsize\+\_\+out }\end{DoxyParamCaption})}
+
+\Hypertarget{namespacenc__fixture__mod_a0a9a3536d648f3c26b36ca143bdb43c4}\label{namespacenc__fixture__mod_a0a9a3536d648f3c26b36ca143bdb43c4} 
+\index{nc\_fixture\_mod@{nc\_fixture\_mod}!make\_datm\_complete@{make\_datm\_complete}}
+\index{make\_datm\_complete@{make\_datm\_complete}!nc\_fixture\_mod@{nc\_fixture\_mod}}
+\doxysubsubsection{\texorpdfstring{make\_datm\_complete()}{make\_datm\_complete()}}
+{\footnotesize\ttfamily subroutine nc\+\_\+fixture\+\_\+mod\+::make\+\_\+datm\+\_\+complete (\begin{DoxyParamCaption}\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{fname }\end{DoxyParamCaption})}
+
+
+
+DATM complete\+: confirmed against real production output -- differs from incomplete ONLY by the record/timestamp write (nlen 0-\/\texorpdfstring{$>$}{>}1, fsize grows by exactly one real\texorpdfstring{$\ast$}{*}8). The bulk payload was already present. 
+
+\Hypertarget{namespacenc__fixture__mod_ab85b0768f6b4e68415050083c7960e9a}\label{namespacenc__fixture__mod_ab85b0768f6b4e68415050083c7960e9a} 
+\index{nc\_fixture\_mod@{nc\_fixture\_mod}!make\_datm\_incomplete@{make\_datm\_incomplete}}
+\index{make\_datm\_incomplete@{make\_datm\_incomplete}!nc\_fixture\_mod@{nc\_fixture\_mod}}
+\doxysubsubsection{\texorpdfstring{make\_datm\_incomplete()}{make\_datm\_incomplete()}}
+{\footnotesize\ttfamily subroutine nc\+\_\+fixture\+\_\+mod\+::make\+\_\+datm\+\_\+incomplete (\begin{DoxyParamCaption}\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{fname }\end{DoxyParamCaption})}
+
+
+
+DATM incomplete\+: confirmed against real production output -- the bulk payload is already fully written (fsize \texorpdfstring{$\sim$}{\string~}final) while nlen=0. 
+
+\Hypertarget{namespacenc__fixture__mod_a7ac05ec01ccf9c85a21ee8ecbb38394d}\label{namespacenc__fixture__mod_a7ac05ec01ccf9c85a21ee8ecbb38394d} 
+\index{nc\_fixture\_mod@{nc\_fixture\_mod}!nf90\_err@{nf90\_err}}
+\index{nf90\_err@{nf90\_err}!nc\_fixture\_mod@{nc\_fixture\_mod}}
+\doxysubsubsection{\texorpdfstring{nf90\_err()}{nf90\_err()}}
+{\footnotesize\ttfamily subroutine nc\+\_\+fixture\+\_\+mod\+::nf90\+\_\+err (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{ierr,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{context }\end{DoxyParamCaption})}
+
+\Hypertarget{namespacenc__fixture__mod_afe19d49dcceb26ddd76443b510d2f39f}\label{namespacenc__fixture__mod_afe19d49dcceb26ddd76443b510d2f39f} 
+\index{nc\_fixture\_mod@{nc\_fixture\_mod}!write\_bulk\_data@{write\_bulk\_data}}
+\index{write\_bulk\_data@{write\_bulk\_data}!nc\_fixture\_mod@{nc\_fixture\_mod}}
+\doxysubsubsection{\texorpdfstring{write\_bulk\_data()}{write\_bulk\_data()}}
+{\footnotesize\ttfamily subroutine nc\+\_\+fixture\+\_\+mod\+::write\+\_\+bulk\+\_\+data (\begin{DoxyParamCaption}\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{fname,  }\item[{real(8), intent(in), optional}]{fill\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+Write the bulk "{}data"{} variable for record 1. Grows fsize. Requires write\+\_\+record to have been called first (record 1 must already exist). 
+
+\Hypertarget{namespacenc__fixture__mod_a3ea7e4875a4cb18ab8d534d251b35285}\label{namespacenc__fixture__mod_a3ea7e4875a4cb18ab8d534d251b35285} 
+\index{nc\_fixture\_mod@{nc\_fixture\_mod}!write\_padding@{write\_padding}}
+\index{write\_padding@{write\_padding}!nc\_fixture\_mod@{nc\_fixture\_mod}}
+\doxysubsubsection{\texorpdfstring{write\_padding()}{write\_padding()}}
+{\footnotesize\ttfamily subroutine nc\+\_\+fixture\+\_\+mod\+::write\+\_\+padding (\begin{DoxyParamCaption}\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{fname,  }\item[{real(8), intent(in), optional}]{fill\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+Write the "{}pad"{} variable -- deliberately NOT tied to the unlimited "{}time"{} dim. This models the confirmed real DATM behavior\+: the bulk payload is already fully on disk (fsize \texorpdfstring{$\sim$}{\string~}final) BEFORE nlen ever advances from 0. We can\textquotesingle{}t reproduce that using a variable that actually shares "{}time"{} (writing any such variable immediately advances nlen, per the earlier reproducer) -- so this is a deliberate stand-\/in that reproduces the observable nlen/fsize progression without replicating the real file\textquotesingle{}s internal variable structure. file\+\_\+is\+\_\+complete/get\+\_\+file\+\_\+state only look at nlen and fsize, so that\textquotesingle{}s sufficient for what\textquotesingle{}s under test. 
+
+\Hypertarget{namespacenc__fixture__mod_a33fb11a600ad64847155775b1fcc71ae}\label{namespacenc__fixture__mod_a33fb11a600ad64847155775b1fcc71ae} 
+\index{nc\_fixture\_mod@{nc\_fixture\_mod}!write\_record@{write\_record}}
+\index{write\_record@{write\_record}!nc\_fixture\_mod@{nc\_fixture\_mod}}
+\doxysubsubsection{\texorpdfstring{write\_record()}{write\_record()}}
+{\footnotesize\ttfamily subroutine nc\+\_\+fixture\+\_\+mod\+::write\+\_\+record (\begin{DoxyParamCaption}\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{fname,  }\item[{real(8), intent(in), optional}]{time\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+Extend the unlimited dim by writing record 1\textquotesingle{}s time-\/coordinate value. nlen\+: 0 -\/\texorpdfstring{$>$}{>} 1. Does NOT write the bulk data variable. 
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacenc__fixture__mod_a6144befa81ddbde91b266c92d4b1b9c3}\label{namespacenc__fixture__mod_a6144befa81ddbde91b266c92d4b1b9c3} 
+\index{nc\_fixture\_mod@{nc\_fixture\_mod}!fixture\_nx@{fixture\_nx}}
+\index{fixture\_nx@{fixture\_nx}!nc\_fixture\_mod@{nc\_fixture\_mod}}
+\doxysubsubsection{\texorpdfstring{fixture\_nx}{fixture\_nx}}
+{\footnotesize\ttfamily integer, parameter nc\+\_\+fixture\+\_\+mod\+::fixture\+\_\+nx = 200}
+
+\Hypertarget{namespacenc__fixture__mod_aca30621fd4abfa61dc964073cd30394c}\label{namespacenc__fixture__mod_aca30621fd4abfa61dc964073cd30394c} 
+\index{nc\_fixture\_mod@{nc\_fixture\_mod}!fixture\_pad\_n@{fixture\_pad\_n}}
+\index{fixture\_pad\_n@{fixture\_pad\_n}!nc\_fixture\_mod@{nc\_fixture\_mod}}
+\doxysubsubsection{\texorpdfstring{fixture\_pad\_n}{fixture\_pad\_n}}
+{\footnotesize\ttfamily integer, parameter nc\+\_\+fixture\+\_\+mod\+::fixture\+\_\+pad\+\_\+n = 100000}
+

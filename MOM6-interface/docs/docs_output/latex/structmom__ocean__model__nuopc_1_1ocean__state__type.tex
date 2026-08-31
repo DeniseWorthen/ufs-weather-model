@@ -1,0 +1,465 @@
+\doxysection{mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type Type Reference}
+\hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type}{}\label{structmom__ocean__model__nuopc_1_1ocean__state__type}\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+
+
+The \doxylink{structmom__ocean__model__nuopc_1_1ocean__state__type}{ocean\+\_\+state\+\_\+type} contains all information about the state of the ocean, with a format that is private so it can be readily changed without disrupting other coupled components.  
+
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+type(time\+\_\+type) \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type_a2391e52aabff411872f02226925c3a1b}{time}}
+\begin{DoxyCompactList}\small\item\em The ocean model\textquotesingle{}s time and master clock. \end{DoxyCompactList}\item 
+integer \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type_aa4c0d85ac89045ae1ce1ae54bb882bc1}{restart\+\_\+control}}
+\begin{DoxyCompactList}\small\item\em An integer that is bit-\/tested to determine whether incremental restart files are saved and whether they have a time stamped name. +1 (bit 0) for generic files and +2 (bit 1) for time-\/stamped files. A restart file is saved at the end of a run segment unless Restart\+\_\+control is negative. \end{DoxyCompactList}\item 
+integer \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type_aa076da7b92be6dce782a5b526d826042}{nstep}} = 0
+\begin{DoxyCompactList}\small\item\em The number of calls to update\+\_\+ocean. \end{DoxyCompactList}\item 
+logical \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type_a31b1eae5f59a7de9f6ec515933dd4101}{use\+\_\+ice\+\_\+shelf}}
+\begin{DoxyCompactList}\small\item\em If true, the ice shelf model is enabled. \end{DoxyCompactList}\item 
+logical, public \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type_a766381ebbc4c7a0e09f28ff980f4b1bf}{use\+\_\+waves}}
+\begin{DoxyCompactList}\small\item\em If true use wave coupling. \end{DoxyCompactList}\item 
+character(len=40) \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type_aa36d866377e026c37046de6d4df47b92}{wave\+\_\+method}}
+\begin{DoxyCompactList}\small\item\em Wave coupling method. \end{DoxyCompactList}\item 
+logical, public \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type_a11a8ef99f3c3bafeba1006d0ac95586f}{use\+\_\+marbl}}
+\begin{DoxyCompactList}\small\item\em If true, use MARBL tracers. \end{DoxyCompactList}\item 
+logical \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type_a06c238367438c36f05dbb8ee6abeea7a}{icebergs\+\_\+alter\+\_\+ocean}}
+\begin{DoxyCompactList}\small\item\em If true, the icebergs can change ocean the ocean dynamics and forcing fluxes. \end{DoxyCompactList}\item 
+logical \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type_acb98e5a871dbab5a23fcb3de13ca9a68}{restore\+\_\+salinity}}
+\begin{DoxyCompactList}\small\item\em If true, the coupled MOM driver adds a term to restore salinity to a specified value. \end{DoxyCompactList}\item 
+logical \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type_a0e885693e75e4d9573cfb13497c7df5c}{restore\+\_\+temp}}
+\begin{DoxyCompactList}\small\item\em If true, the coupled MOM driver adds a term to restore sst to a specified value. \end{DoxyCompactList}\item 
+real \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type_a5e9e3d0587a5e869d78991a35fb14a3c}{press\+\_\+to\+\_\+z}}
+\begin{DoxyCompactList}\small\item\em A conversion factor between pressure and ocean depth in m, usually 1/(rho\+\_\+0\texorpdfstring{$\ast$}{*}g), in m Pa-\/1. \end{DoxyCompactList}\item 
+real \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type_abd1db8e6b317dc63333a4d74c68590f4}{c\+\_\+p}}
+\begin{DoxyCompactList}\small\item\em The heat capacity of seawater, in J K-\/1 kg-\/1. \end{DoxyCompactList}\item 
+logical \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type_ad1661eddb45a988cfada02918f84a62a}{offline\+\_\+tracer\+\_\+mode}} = .false.
+\begin{DoxyCompactList}\small\item\em If false, use the model in prognostic mode with the barotropic and baroclinic dynamics, thermodynamics, etc. stepped forward integrated in time. If true, all of the above are bypassed with all fields necessary to integrate only the tracer advection and diffusion equation read in from files stored from a previous integration of the prognostic model. \end{DoxyCompactList}\item 
+logical \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type_aa1a288a3472f0c321efcb598eb5c107e}{single\+\_\+step\+\_\+call}}
+\begin{DoxyCompactList}\small\item\em If true, advance the state of MOM with a single step including both dynamics and thermodynamics. If false, the two phases are advanced with separate calls. The default is true. \end{DoxyCompactList}\item 
+real \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type_a6049ea114db9c4885aae15cabdfd30c0}{dt}}
+\begin{DoxyCompactList}\small\item\em (baroclinic) dynamics time step (seconds) \end{DoxyCompactList}\item 
+real \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type_a2154508dbb6f1f7cfae7940db6116d7f}{dt\+\_\+therm}}
+\begin{DoxyCompactList}\small\item\em thermodynamics time step \mbox{[}T \texorpdfstring{$\sim$}{\string~}\texorpdfstring{$>$}{>} s\mbox{]} \end{DoxyCompactList}\item 
+logical \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type_aade3ceda6cefbd89b51f56b23ad1814f}{thermo\+\_\+spans\+\_\+coupling}}
+\begin{DoxyCompactList}\small\item\em If true, thermodynamic and tracer time steps can span multiple coupled time steps. \end{DoxyCompactList}\item 
+logical \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type_ae7a47ec2c455d7c83e06832162e2316e}{diabatic\+\_\+first}}
+\begin{DoxyCompactList}\small\item\em If true, apply diabatic and thermodynamic processes before time stepping the dynamics. \end{DoxyCompactList}\item 
+logical \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type_a82fd1f33afdb8640ec61b6e3627b1e5a}{do\+\_\+sppt}}
+\begin{DoxyCompactList}\small\item\em If true, stochastically perturb the diabatic tendencies and write restarts. \end{DoxyCompactList}\item 
+logical \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type_a3f57c91806f804ea92048144f4461372}{pert\+\_\+epbl}}
+\begin{DoxyCompactList}\small\item\em If true, then randomly perturb the KE dissipation and generation terms and write restarts. \end{DoxyCompactList}\item 
+logical \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type_ac87e254c446aab331cd66cb6aef61701}{do\+\_\+skeb}}
+\begin{DoxyCompactList}\small\item\em If true, stochastically perturb the ocean lateral velocity and write restarts. \end{DoxyCompactList}\item 
+real \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type_ae7933e867b7599d266c49fd1bee670aa}{eps\+\_\+omesh}}
+\begin{DoxyCompactList}\small\item\em Max allowable difference between ESMF mesh and MOM6 domain coordinates. \end{DoxyCompactList}\item 
+type(directories) \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type_a42f9f02184aff5e11502d9f677c35646}{dirs}}
+\begin{DoxyCompactList}\small\item\em A structure containing several relevant directory paths. \end{DoxyCompactList}\item 
+type(mech\+\_\+forcing) \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type_a38e61e963eccee4280c4960e7d21626f}{forces}}
+\begin{DoxyCompactList}\small\item\em A structure with the driving mechanical surface forces. \end{DoxyCompactList}\item 
+type(forcing) \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type_a8335a3775527287b6f96e81f833d5350}{fluxes}}
+\begin{DoxyCompactList}\small\item\em A structure containing pointers to the thermodynamic ocean forcing fields. \end{DoxyCompactList}\item 
+type(forcing) \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type_abaf7e36293c3943de7f27ad7a44205c4}{flux\+\_\+tmp}}
+\begin{DoxyCompactList}\small\item\em A secondary structure containing pointers to the ocean forcing fields for when multiple coupled timesteps are taken per thermodynamic step. \end{DoxyCompactList}\item 
+type(surface) \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type_a2e11c6c50720ab24ea06df9af2408dea}{sfc\+\_\+state}}
+\begin{DoxyCompactList}\small\item\em A structure containing pointers to the ocean surface state fields. \end{DoxyCompactList}\item 
+type(ocean\+\_\+grid\+\_\+type), pointer \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type_ac651ea4eaaf1da51cc420b1640e6cbc2}{grid}} =$>$ NULL()
+\begin{DoxyCompactList}\small\item\em A pointer to a grid structure containing metrics. \end{DoxyCompactList}\item 
+type(verticalgrid\+\_\+type), pointer \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type_ab4b0d81f6a7106f8061616977c271270}{gv}} =$>$ NULL()
+\begin{DoxyCompactList}\small\item\em A pointer to a structure containing information. \end{DoxyCompactList}\item 
+type(unit\+\_\+scale\+\_\+type), pointer \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type_ad7d18dffb0dfb9bfe0a8a86b9d370326}{us}} =$>$ NULL()
+\begin{DoxyCompactList}\small\item\em A pointer to a structure containing dimensional unit scaling factors. \end{DoxyCompactList}\item 
+type(mom\+\_\+control\+\_\+struct) \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type_aafa0dbdf2835949819ca9b835a7e35f2}{mom\+\_\+csp}}
+\begin{DoxyCompactList}\small\item\em MOM control structure. \end{DoxyCompactList}\item 
+type(ice\+\_\+shelf\+\_\+cs), pointer \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type_a15757d0b181d93063911e8b219ed16d9}{ice\+\_\+shelf\+\_\+csp}} =$>$ NULL()
+\begin{DoxyCompactList}\small\item\em A pointer to the control structure for the. \end{DoxyCompactList}\item 
+type(marine\+\_\+ice\+\_\+cs), pointer \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type_a3195a10a2eed24cfd8be726ae5adfd59}{marine\+\_\+ice\+\_\+csp}} =$>$ NULL()
+\begin{DoxyCompactList}\small\item\em A pointer to the control structure for the. \end{DoxyCompactList}\item 
+type(tracer\+\_\+flow\+\_\+control\+\_\+cs), pointer \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type_a39f29ec371113ed912776886b9aac732}{tracer\+\_\+flow\+\_\+csp}} =$>$ NULL()
+\begin{DoxyCompactList}\small\item\em A pointer to the tracer flow control structure. \end{DoxyCompactList}\item 
+type(wave\+\_\+parameters\+\_\+cs), pointer, public \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type_a1b97b6d4bbe83face80474dff9d01c84}{waves}} =$>$ NULL()
+\begin{DoxyCompactList}\small\item\em A pointer to the surface wave control structure. \end{DoxyCompactList}\item 
+type(\mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs}{surface\+\_\+forcing\+\_\+cs}}), pointer \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type_a808291ad0ed34c3937a16ab3359b2d37}{forcing\+\_\+csp}} =$>$ NULL()
+\begin{DoxyCompactList}\small\item\em A pointer to the MOM forcing control structure. \end{DoxyCompactList}\item 
+type(diag\+\_\+ctrl), pointer \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type_a84b8ebba1a017538ac6abc09e8d09766}{diag}} =$>$ NULL()
+\begin{DoxyCompactList}\small\item\em A pointer to the diagnostic regulatory structure. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \doxylink{structmom__ocean__model__nuopc_1_1ocean__state__type}{ocean\+\_\+state\+\_\+type} contains all information about the state of the ocean, with a format that is private so it can be readily changed without disrupting other coupled components. 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type_abd1db8e6b317dc63333a4d74c68590f4}\label{structmom__ocean__model__nuopc_1_1ocean__state__type_abd1db8e6b317dc63333a4d74c68590f4} 
+\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}!c\_p@{c\_p}}
+\index{c\_p@{c\_p}!mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+\doxysubsubsection{\texorpdfstring{c\_p}{c\_p}}
+{\footnotesize\ttfamily real mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type\+::c\+\_\+p}
+
+
+
+The heat capacity of seawater, in J K-\/1 kg-\/1. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type_ae7a47ec2c455d7c83e06832162e2316e}\label{structmom__ocean__model__nuopc_1_1ocean__state__type_ae7a47ec2c455d7c83e06832162e2316e} 
+\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}!diabatic\_first@{diabatic\_first}}
+\index{diabatic\_first@{diabatic\_first}!mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+\doxysubsubsection{\texorpdfstring{diabatic\_first}{diabatic\_first}}
+{\footnotesize\ttfamily logical mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type\+::diabatic\+\_\+first}
+
+
+
+If true, apply diabatic and thermodynamic processes before time stepping the dynamics. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type_a84b8ebba1a017538ac6abc09e8d09766}\label{structmom__ocean__model__nuopc_1_1ocean__state__type_a84b8ebba1a017538ac6abc09e8d09766} 
+\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}!diag@{diag}}
+\index{diag@{diag}!mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+\doxysubsubsection{\texorpdfstring{diag}{diag}}
+{\footnotesize\ttfamily type(diag\+\_\+ctrl), pointer mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type\+::diag =$>$ NULL()}
+
+
+
+A pointer to the diagnostic regulatory structure. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type_a42f9f02184aff5e11502d9f677c35646}\label{structmom__ocean__model__nuopc_1_1ocean__state__type_a42f9f02184aff5e11502d9f677c35646} 
+\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}!dirs@{dirs}}
+\index{dirs@{dirs}!mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+\doxysubsubsection{\texorpdfstring{dirs}{dirs}}
+{\footnotesize\ttfamily type(directories) mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type\+::dirs}
+
+
+
+A structure containing several relevant directory paths. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type_ac87e254c446aab331cd66cb6aef61701}\label{structmom__ocean__model__nuopc_1_1ocean__state__type_ac87e254c446aab331cd66cb6aef61701} 
+\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}!do\_skeb@{do\_skeb}}
+\index{do\_skeb@{do\_skeb}!mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+\doxysubsubsection{\texorpdfstring{do\_skeb}{do\_skeb}}
+{\footnotesize\ttfamily logical mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type\+::do\+\_\+skeb}
+
+
+
+If true, stochastically perturb the ocean lateral velocity and write restarts. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type_a82fd1f33afdb8640ec61b6e3627b1e5a}\label{structmom__ocean__model__nuopc_1_1ocean__state__type_a82fd1f33afdb8640ec61b6e3627b1e5a} 
+\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}!do\_sppt@{do\_sppt}}
+\index{do\_sppt@{do\_sppt}!mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+\doxysubsubsection{\texorpdfstring{do\_sppt}{do\_sppt}}
+{\footnotesize\ttfamily logical mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type\+::do\+\_\+sppt}
+
+
+
+If true, stochastically perturb the diabatic tendencies and write restarts. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type_a6049ea114db9c4885aae15cabdfd30c0}\label{structmom__ocean__model__nuopc_1_1ocean__state__type_a6049ea114db9c4885aae15cabdfd30c0} 
+\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}!dt@{dt}}
+\index{dt@{dt}!mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+\doxysubsubsection{\texorpdfstring{dt}{dt}}
+{\footnotesize\ttfamily real mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type\+::dt}
+
+
+
+(baroclinic) dynamics time step (seconds) 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type_a2154508dbb6f1f7cfae7940db6116d7f}\label{structmom__ocean__model__nuopc_1_1ocean__state__type_a2154508dbb6f1f7cfae7940db6116d7f} 
+\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}!dt\_therm@{dt\_therm}}
+\index{dt\_therm@{dt\_therm}!mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+\doxysubsubsection{\texorpdfstring{dt\_therm}{dt\_therm}}
+{\footnotesize\ttfamily real mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type\+::dt\+\_\+therm}
+
+
+
+thermodynamics time step \mbox{[}T \texorpdfstring{$\sim$}{\string~}\texorpdfstring{$>$}{>} s\mbox{]} 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type_ae7933e867b7599d266c49fd1bee670aa}\label{structmom__ocean__model__nuopc_1_1ocean__state__type_ae7933e867b7599d266c49fd1bee670aa} 
+\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}!eps\_omesh@{eps\_omesh}}
+\index{eps\_omesh@{eps\_omesh}!mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+\doxysubsubsection{\texorpdfstring{eps\_omesh}{eps\_omesh}}
+{\footnotesize\ttfamily real mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type\+::eps\+\_\+omesh}
+
+
+
+Max allowable difference between ESMF mesh and MOM6 domain coordinates. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type_abaf7e36293c3943de7f27ad7a44205c4}\label{structmom__ocean__model__nuopc_1_1ocean__state__type_abaf7e36293c3943de7f27ad7a44205c4} 
+\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}!flux\_tmp@{flux\_tmp}}
+\index{flux\_tmp@{flux\_tmp}!mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+\doxysubsubsection{\texorpdfstring{flux\_tmp}{flux\_tmp}}
+{\footnotesize\ttfamily type(forcing) mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type\+::flux\+\_\+tmp}
+
+
+
+A secondary structure containing pointers to the ocean forcing fields for when multiple coupled timesteps are taken per thermodynamic step. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type_a8335a3775527287b6f96e81f833d5350}\label{structmom__ocean__model__nuopc_1_1ocean__state__type_a8335a3775527287b6f96e81f833d5350} 
+\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}!fluxes@{fluxes}}
+\index{fluxes@{fluxes}!mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+\doxysubsubsection{\texorpdfstring{fluxes}{fluxes}}
+{\footnotesize\ttfamily type(forcing) mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type\+::fluxes}
+
+
+
+A structure containing pointers to the thermodynamic ocean forcing fields. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type_a38e61e963eccee4280c4960e7d21626f}\label{structmom__ocean__model__nuopc_1_1ocean__state__type_a38e61e963eccee4280c4960e7d21626f} 
+\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}!forces@{forces}}
+\index{forces@{forces}!mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+\doxysubsubsection{\texorpdfstring{forces}{forces}}
+{\footnotesize\ttfamily type(mech\+\_\+forcing) mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type\+::forces}
+
+
+
+A structure with the driving mechanical surface forces. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type_a808291ad0ed34c3937a16ab3359b2d37}\label{structmom__ocean__model__nuopc_1_1ocean__state__type_a808291ad0ed34c3937a16ab3359b2d37} 
+\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}!forcing\_csp@{forcing\_csp}}
+\index{forcing\_csp@{forcing\_csp}!mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+\doxysubsubsection{\texorpdfstring{forcing\_csp}{forcing\_csp}}
+{\footnotesize\ttfamily type(\mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs}{surface\+\_\+forcing\+\_\+cs}}), pointer mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type\+::forcing\+\_\+csp =$>$ NULL()}
+
+
+
+A pointer to the MOM forcing control structure. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type_ac651ea4eaaf1da51cc420b1640e6cbc2}\label{structmom__ocean__model__nuopc_1_1ocean__state__type_ac651ea4eaaf1da51cc420b1640e6cbc2} 
+\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}!grid@{grid}}
+\index{grid@{grid}!mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+\doxysubsubsection{\texorpdfstring{grid}{grid}}
+{\footnotesize\ttfamily type(ocean\+\_\+grid\+\_\+type), pointer mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type\+::grid =$>$ NULL()}
+
+
+
+A pointer to a grid structure containing metrics. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type_ab4b0d81f6a7106f8061616977c271270}\label{structmom__ocean__model__nuopc_1_1ocean__state__type_ab4b0d81f6a7106f8061616977c271270} 
+\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}!gv@{gv}}
+\index{gv@{gv}!mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+\doxysubsubsection{\texorpdfstring{gv}{gv}}
+{\footnotesize\ttfamily type(verticalgrid\+\_\+type), pointer mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type\+::gv =$>$ NULL()}
+
+
+
+A pointer to a structure containing information. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type_a15757d0b181d93063911e8b219ed16d9}\label{structmom__ocean__model__nuopc_1_1ocean__state__type_a15757d0b181d93063911e8b219ed16d9} 
+\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}!ice\_shelf\_csp@{ice\_shelf\_csp}}
+\index{ice\_shelf\_csp@{ice\_shelf\_csp}!mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+\doxysubsubsection{\texorpdfstring{ice\_shelf\_csp}{ice\_shelf\_csp}}
+{\footnotesize\ttfamily type(ice\+\_\+shelf\+\_\+cs), pointer mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type\+::ice\+\_\+shelf\+\_\+csp =$>$ NULL()}
+
+
+
+A pointer to the control structure for the. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type_a06c238367438c36f05dbb8ee6abeea7a}\label{structmom__ocean__model__nuopc_1_1ocean__state__type_a06c238367438c36f05dbb8ee6abeea7a} 
+\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}!icebergs\_alter\_ocean@{icebergs\_alter\_ocean}}
+\index{icebergs\_alter\_ocean@{icebergs\_alter\_ocean}!mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+\doxysubsubsection{\texorpdfstring{icebergs\_alter\_ocean}{icebergs\_alter\_ocean}}
+{\footnotesize\ttfamily logical mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type\+::icebergs\+\_\+alter\+\_\+ocean}
+
+
+
+If true, the icebergs can change ocean the ocean dynamics and forcing fluxes. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type_a3195a10a2eed24cfd8be726ae5adfd59}\label{structmom__ocean__model__nuopc_1_1ocean__state__type_a3195a10a2eed24cfd8be726ae5adfd59} 
+\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}!marine\_ice\_csp@{marine\_ice\_csp}}
+\index{marine\_ice\_csp@{marine\_ice\_csp}!mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+\doxysubsubsection{\texorpdfstring{marine\_ice\_csp}{marine\_ice\_csp}}
+{\footnotesize\ttfamily type(marine\+\_\+ice\+\_\+cs), pointer mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type\+::marine\+\_\+ice\+\_\+csp =$>$ NULL()}
+
+
+
+A pointer to the control structure for the. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type_aafa0dbdf2835949819ca9b835a7e35f2}\label{structmom__ocean__model__nuopc_1_1ocean__state__type_aafa0dbdf2835949819ca9b835a7e35f2} 
+\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}!mom\_csp@{mom\_csp}}
+\index{mom\_csp@{mom\_csp}!mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+\doxysubsubsection{\texorpdfstring{mom\_csp}{mom\_csp}}
+{\footnotesize\ttfamily type(mom\+\_\+control\+\_\+struct) mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type\+::mom\+\_\+csp}
+
+
+
+MOM control structure. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type_aa076da7b92be6dce782a5b526d826042}\label{structmom__ocean__model__nuopc_1_1ocean__state__type_aa076da7b92be6dce782a5b526d826042} 
+\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}!nstep@{nstep}}
+\index{nstep@{nstep}!mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+\doxysubsubsection{\texorpdfstring{nstep}{nstep}}
+{\footnotesize\ttfamily integer mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type\+::nstep = 0}
+
+
+
+The number of calls to update\+\_\+ocean. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type_ad1661eddb45a988cfada02918f84a62a}\label{structmom__ocean__model__nuopc_1_1ocean__state__type_ad1661eddb45a988cfada02918f84a62a} 
+\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}!offline\_tracer\_mode@{offline\_tracer\_mode}}
+\index{offline\_tracer\_mode@{offline\_tracer\_mode}!mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+\doxysubsubsection{\texorpdfstring{offline\_tracer\_mode}{offline\_tracer\_mode}}
+{\footnotesize\ttfamily logical mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type\+::offline\+\_\+tracer\+\_\+mode = .false.}
+
+
+
+If false, use the model in prognostic mode with the barotropic and baroclinic dynamics, thermodynamics, etc. stepped forward integrated in time. If true, all of the above are bypassed with all fields necessary to integrate only the tracer advection and diffusion equation read in from files stored from a previous integration of the prognostic model. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type_a3f57c91806f804ea92048144f4461372}\label{structmom__ocean__model__nuopc_1_1ocean__state__type_a3f57c91806f804ea92048144f4461372} 
+\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}!pert\_epbl@{pert\_epbl}}
+\index{pert\_epbl@{pert\_epbl}!mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+\doxysubsubsection{\texorpdfstring{pert\_epbl}{pert\_epbl}}
+{\footnotesize\ttfamily logical mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type\+::pert\+\_\+epbl}
+
+
+
+If true, then randomly perturb the KE dissipation and generation terms and write restarts. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type_a5e9e3d0587a5e869d78991a35fb14a3c}\label{structmom__ocean__model__nuopc_1_1ocean__state__type_a5e9e3d0587a5e869d78991a35fb14a3c} 
+\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}!press\_to\_z@{press\_to\_z}}
+\index{press\_to\_z@{press\_to\_z}!mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+\doxysubsubsection{\texorpdfstring{press\_to\_z}{press\_to\_z}}
+{\footnotesize\ttfamily real mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type\+::press\+\_\+to\+\_\+z}
+
+
+
+A conversion factor between pressure and ocean depth in m, usually 1/(rho\+\_\+0\texorpdfstring{$\ast$}{*}g), in m Pa-\/1. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type_aa4c0d85ac89045ae1ce1ae54bb882bc1}\label{structmom__ocean__model__nuopc_1_1ocean__state__type_aa4c0d85ac89045ae1ce1ae54bb882bc1} 
+\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}!restart\_control@{restart\_control}}
+\index{restart\_control@{restart\_control}!mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+\doxysubsubsection{\texorpdfstring{restart\_control}{restart\_control}}
+{\footnotesize\ttfamily integer mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type\+::restart\+\_\+control}
+
+
+
+An integer that is bit-\/tested to determine whether incremental restart files are saved and whether they have a time stamped name. +1 (bit 0) for generic files and +2 (bit 1) for time-\/stamped files. A restart file is saved at the end of a run segment unless Restart\+\_\+control is negative. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type_acb98e5a871dbab5a23fcb3de13ca9a68}\label{structmom__ocean__model__nuopc_1_1ocean__state__type_acb98e5a871dbab5a23fcb3de13ca9a68} 
+\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}!restore\_salinity@{restore\_salinity}}
+\index{restore\_salinity@{restore\_salinity}!mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+\doxysubsubsection{\texorpdfstring{restore\_salinity}{restore\_salinity}}
+{\footnotesize\ttfamily logical mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type\+::restore\+\_\+salinity}
+
+
+
+If true, the coupled MOM driver adds a term to restore salinity to a specified value. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type_a0e885693e75e4d9573cfb13497c7df5c}\label{structmom__ocean__model__nuopc_1_1ocean__state__type_a0e885693e75e4d9573cfb13497c7df5c} 
+\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}!restore\_temp@{restore\_temp}}
+\index{restore\_temp@{restore\_temp}!mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+\doxysubsubsection{\texorpdfstring{restore\_temp}{restore\_temp}}
+{\footnotesize\ttfamily logical mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type\+::restore\+\_\+temp}
+
+
+
+If true, the coupled MOM driver adds a term to restore sst to a specified value. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type_a2e11c6c50720ab24ea06df9af2408dea}\label{structmom__ocean__model__nuopc_1_1ocean__state__type_a2e11c6c50720ab24ea06df9af2408dea} 
+\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}!sfc\_state@{sfc\_state}}
+\index{sfc\_state@{sfc\_state}!mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+\doxysubsubsection{\texorpdfstring{sfc\_state}{sfc\_state}}
+{\footnotesize\ttfamily type(surface) mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type\+::sfc\+\_\+state}
+
+
+
+A structure containing pointers to the ocean surface state fields. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type_aa1a288a3472f0c321efcb598eb5c107e}\label{structmom__ocean__model__nuopc_1_1ocean__state__type_aa1a288a3472f0c321efcb598eb5c107e} 
+\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}!single\_step\_call@{single\_step\_call}}
+\index{single\_step\_call@{single\_step\_call}!mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+\doxysubsubsection{\texorpdfstring{single\_step\_call}{single\_step\_call}}
+{\footnotesize\ttfamily logical mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type\+::single\+\_\+step\+\_\+call}
+
+
+
+If true, advance the state of MOM with a single step including both dynamics and thermodynamics. If false, the two phases are advanced with separate calls. The default is true. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type_aade3ceda6cefbd89b51f56b23ad1814f}\label{structmom__ocean__model__nuopc_1_1ocean__state__type_aade3ceda6cefbd89b51f56b23ad1814f} 
+\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}!thermo\_spans\_coupling@{thermo\_spans\_coupling}}
+\index{thermo\_spans\_coupling@{thermo\_spans\_coupling}!mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+\doxysubsubsection{\texorpdfstring{thermo\_spans\_coupling}{thermo\_spans\_coupling}}
+{\footnotesize\ttfamily logical mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type\+::thermo\+\_\+spans\+\_\+coupling}
+
+
+
+If true, thermodynamic and tracer time steps can span multiple coupled time steps. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type_a2391e52aabff411872f02226925c3a1b}\label{structmom__ocean__model__nuopc_1_1ocean__state__type_a2391e52aabff411872f02226925c3a1b} 
+\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}!time@{time}}
+\index{time@{time}!mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+\doxysubsubsection{\texorpdfstring{time}{time}}
+{\footnotesize\ttfamily type(time\+\_\+type) mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type\+::time}
+
+
+
+The ocean model\textquotesingle{}s time and master clock. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type_a39f29ec371113ed912776886b9aac732}\label{structmom__ocean__model__nuopc_1_1ocean__state__type_a39f29ec371113ed912776886b9aac732} 
+\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}!tracer\_flow\_csp@{tracer\_flow\_csp}}
+\index{tracer\_flow\_csp@{tracer\_flow\_csp}!mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+\doxysubsubsection{\texorpdfstring{tracer\_flow\_csp}{tracer\_flow\_csp}}
+{\footnotesize\ttfamily type(tracer\+\_\+flow\+\_\+control\+\_\+cs), pointer mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type\+::tracer\+\_\+flow\+\_\+csp =$>$ NULL()}
+
+
+
+A pointer to the tracer flow control structure. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type_ad7d18dffb0dfb9bfe0a8a86b9d370326}\label{structmom__ocean__model__nuopc_1_1ocean__state__type_ad7d18dffb0dfb9bfe0a8a86b9d370326} 
+\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}!us@{us}}
+\index{us@{us}!mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+\doxysubsubsection{\texorpdfstring{us}{us}}
+{\footnotesize\ttfamily type(unit\+\_\+scale\+\_\+type), pointer mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type\+::us =$>$ NULL()}
+
+
+
+A pointer to a structure containing dimensional unit scaling factors. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type_a31b1eae5f59a7de9f6ec515933dd4101}\label{structmom__ocean__model__nuopc_1_1ocean__state__type_a31b1eae5f59a7de9f6ec515933dd4101} 
+\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}!use\_ice\_shelf@{use\_ice\_shelf}}
+\index{use\_ice\_shelf@{use\_ice\_shelf}!mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+\doxysubsubsection{\texorpdfstring{use\_ice\_shelf}{use\_ice\_shelf}}
+{\footnotesize\ttfamily logical mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type\+::use\+\_\+ice\+\_\+shelf}
+
+
+
+If true, the ice shelf model is enabled. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type_a11a8ef99f3c3bafeba1006d0ac95586f}\label{structmom__ocean__model__nuopc_1_1ocean__state__type_a11a8ef99f3c3bafeba1006d0ac95586f} 
+\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}!use\_marbl@{use\_marbl}}
+\index{use\_marbl@{use\_marbl}!mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+\doxysubsubsection{\texorpdfstring{use\_marbl}{use\_marbl}}
+{\footnotesize\ttfamily logical, public mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type\+::use\+\_\+marbl}
+
+
+
+If true, use MARBL tracers. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type_a766381ebbc4c7a0e09f28ff980f4b1bf}\label{structmom__ocean__model__nuopc_1_1ocean__state__type_a766381ebbc4c7a0e09f28ff980f4b1bf} 
+\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}!use\_waves@{use\_waves}}
+\index{use\_waves@{use\_waves}!mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+\doxysubsubsection{\texorpdfstring{use\_waves}{use\_waves}}
+{\footnotesize\ttfamily logical, public mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type\+::use\+\_\+waves}
+
+
+
+If true use wave coupling. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type_aa36d866377e026c37046de6d4df47b92}\label{structmom__ocean__model__nuopc_1_1ocean__state__type_aa36d866377e026c37046de6d4df47b92} 
+\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}!wave\_method@{wave\_method}}
+\index{wave\_method@{wave\_method}!mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+\doxysubsubsection{\texorpdfstring{wave\_method}{wave\_method}}
+{\footnotesize\ttfamily character(len=40) mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type\+::wave\+\_\+method}
+
+
+
+Wave coupling method. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__state__type_a1b97b6d4bbe83face80474dff9d01c84}\label{structmom__ocean__model__nuopc_1_1ocean__state__type_a1b97b6d4bbe83face80474dff9d01c84} 
+\index{mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}!waves@{waves}}
+\index{waves@{waves}!mom\_ocean\_model\_nuopc::ocean\_state\_type@{mom\_ocean\_model\_nuopc::ocean\_state\_type}}
+\doxysubsubsection{\texorpdfstring{waves}{waves}}
+{\footnotesize\ttfamily type(wave\+\_\+parameters\+\_\+cs), pointer, public mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type\+::waves =$>$ NULL()}
+
+
+
+A pointer to the surface wave control structure. 
+
+
+
+The documentation for this type was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/work/noaa/nems/dworthen/ufs\+\_\+dw/\+MOM6-\/interface/\+MOM6/config\+\_\+src/drivers/nuopc\+\_\+cap/\mbox{\hyperlink{mom__ocean__model__nuopc_8F90}{mom\+\_\+ocean\+\_\+model\+\_\+nuopc.\+F90}}\end{DoxyCompactItemize}

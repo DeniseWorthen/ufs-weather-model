@@ -1,0 +1,151 @@
+\doxysection{mom\+\_\+cap\+\_\+methods Module Reference}
+\hypertarget{namespacemom__cap__methods}{}\label{namespacemom__cap__methods}\index{mom\_cap\_methods@{mom\_cap\_methods}}
+
+
+Contains import/export methods for CMEPS.  
+
+
+\doxysubsubsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+subroutine, public \mbox{\hyperlink{namespacemom__cap__methods_a9a70c05fed708d66fb539759427a9c65}{mom\+\_\+set\+\_\+geomtype}} (geomtype\+\_\+in)
+\begin{DoxyCompactList}\small\item\em Sets module variable geometry type. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemom__cap__methods_a9a1516340f994c8aa4cbad78d9e9fd0c}{mom\+\_\+import}} (ocean\+\_\+public, ocean\+\_\+grid, importstate, ice\+\_\+ocean\+\_\+boundary, set\+\_\+missing\+\_\+stks\+\_\+to\+\_\+zero, rc)
+\begin{DoxyCompactList}\small\item\em This function has a few purposes\+: (1) it imports surface fluxes using data from the mediator; and (2) it can apply restoring in SST and SSS. (3) it can convert imported stokes drift components to zero if they are missing. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemom__cap__methods_a5782b034cb7f00dbc152d056824987b5}{mom\+\_\+export}} (ocean\+\_\+public, ocean\+\_\+grid, ocean\+\_\+state, exportstate, clock, rc)
+\begin{DoxyCompactList}\small\item\em Maps outgoing ocean data to ESMF State. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemom__cap__methods_aa7c5b4a219cee49bf52db378ce3e1892}{state\+\_\+diagnose}} (state, string, rc)
+\begin{DoxyCompactList}\small\item\em This subroutine writes the minimum, maximum and sum of each field contained within an ESMF state. \end{DoxyCompactList}\item 
+logical function, public \mbox{\hyperlink{namespacemom__cap__methods_a42043f9ab5d0e8e5d140bc3da2408b90}{chkerr}} (rc, line, file)
+\begin{DoxyCompactList}\small\item\em Returns true if ESMF\+\_\+\+Log\+Found\+Error() determines that rc is an error code. Otherwise false. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+real(esmf\+\_\+kind\+\_\+r8), dimension(\+:), allocatable, public \mbox{\hyperlink{namespacemom__cap__methods_a0487d34956bc6b9cd5eadaa558abbfe0}{mod2med\+\_\+areacor}}
+\item 
+real(esmf\+\_\+kind\+\_\+r8), dimension(\+:), allocatable, public \mbox{\hyperlink{namespacemom__cap__methods_a804c0125ae042b08b380230bee4870e6}{med2mod\+\_\+areacor}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contains import/export methods for CMEPS. 
+
+\doxysubsection{Function/\+Subroutine Documentation}
+\Hypertarget{namespacemom__cap__methods_a42043f9ab5d0e8e5d140bc3da2408b90}\label{namespacemom__cap__methods_a42043f9ab5d0e8e5d140bc3da2408b90} 
+\index{mom\_cap\_methods@{mom\_cap\_methods}!chkerr@{chkerr}}
+\index{chkerr@{chkerr}!mom\_cap\_methods@{mom\_cap\_methods}}
+\doxysubsubsection{\texorpdfstring{chkerr()}{chkerr()}}
+{\footnotesize\ttfamily logical function, public mom\+\_\+cap\+\_\+methods\+::chkerr (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{rc,  }\item[{integer, intent(in)}]{line,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{file }\end{DoxyParamCaption})}
+
+
+
+Returns true if ESMF\+\_\+\+Log\+Found\+Error() determines that rc is an error code. Otherwise false. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em rc} & return code to check \\
+\hline
+\mbox{\texttt{ in}}  & {\em line} & Integer source line number \\
+\hline
+\mbox{\texttt{ in}}  & {\em file} & User-\/provided source file name \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacemom__cap__methods_a5782b034cb7f00dbc152d056824987b5}\label{namespacemom__cap__methods_a5782b034cb7f00dbc152d056824987b5} 
+\index{mom\_cap\_methods@{mom\_cap\_methods}!mom\_export@{mom\_export}}
+\index{mom\_export@{mom\_export}!mom\_cap\_methods@{mom\_cap\_methods}}
+\doxysubsubsection{\texorpdfstring{mom\_export()}{mom\_export()}}
+{\footnotesize\ttfamily subroutine, public mom\+\_\+cap\+\_\+methods\+::mom\+\_\+export (\begin{DoxyParamCaption}\item[{type(\mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__public__type}{ocean\+\_\+public\+\_\+type}}), intent(in)}]{ocean\+\_\+public,  }\item[{type(ocean\+\_\+grid\+\_\+type), intent(in)}]{ocean\+\_\+grid,  }\item[{type(\mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type}{ocean\+\_\+state\+\_\+type}}), pointer}]{ocean\+\_\+state,  }\item[{type(esmf\+\_\+state), intent(inout)}]{exportstate,  }\item[{type(esmf\+\_\+clock), intent(in)}]{clock,  }\item[{integer, intent(inout)}]{rc }\end{DoxyParamCaption})}
+
+
+
+Maps outgoing ocean data to ESMF State. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ocean\+\_\+public} & Ocean surface state \\
+\hline
+\mbox{\texttt{ in}}  & {\em ocean\+\_\+grid} & Ocean model grid \\
+\hline
+ & {\em ocean\+\_\+state} & Ocean state \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em exportstate} & outgoing data \\
+\hline
+\mbox{\texttt{ in}}  & {\em clock} & ESMF clock \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em rc} & Return code \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacemom__cap__methods_a9a1516340f994c8aa4cbad78d9e9fd0c}\label{namespacemom__cap__methods_a9a1516340f994c8aa4cbad78d9e9fd0c} 
+\index{mom\_cap\_methods@{mom\_cap\_methods}!mom\_import@{mom\_import}}
+\index{mom\_import@{mom\_import}!mom\_cap\_methods@{mom\_cap\_methods}}
+\doxysubsubsection{\texorpdfstring{mom\_import()}{mom\_import()}}
+{\footnotesize\ttfamily subroutine, public mom\+\_\+cap\+\_\+methods\+::mom\+\_\+import (\begin{DoxyParamCaption}\item[{type(\mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__public__type}{ocean\+\_\+public\+\_\+type}}), intent(in)}]{ocean\+\_\+public,  }\item[{type(ocean\+\_\+grid\+\_\+type), intent(in)}]{ocean\+\_\+grid,  }\item[{type(esmf\+\_\+state), intent(inout)}]{importstate,  }\item[{type(\mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type}{ice\+\_\+ocean\+\_\+boundary\+\_\+type}}), intent(inout)}]{ice\+\_\+ocean\+\_\+boundary,  }\item[{logical, intent(in)}]{set\+\_\+missing\+\_\+stks\+\_\+to\+\_\+zero,  }\item[{integer, intent(inout)}]{rc }\end{DoxyParamCaption})}
+
+
+
+This function has a few purposes\+: (1) it imports surface fluxes using data from the mediator; and (2) it can apply restoring in SST and SSS. (3) it can convert imported stokes drift components to zero if they are missing. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ocean\+\_\+public} & Ocean surface state \\
+\hline
+\mbox{\texttt{ in}}  & {\em ocean\+\_\+grid} & Ocean model grid \\
+\hline
+\mbox{\texttt{ in}}  & {\em set\+\_\+missing\+\_\+stks\+\_\+to\+\_\+zero} & If true, set missing stokes drift to zero \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em importstate} & incoming data from mediator \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em ice\+\_\+ocean\+\_\+boundary} & Ocean boundary forcing \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em rc} & Return code \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacemom__cap__methods_a9a70c05fed708d66fb539759427a9c65}\label{namespacemom__cap__methods_a9a70c05fed708d66fb539759427a9c65} 
+\index{mom\_cap\_methods@{mom\_cap\_methods}!mom\_set\_geomtype@{mom\_set\_geomtype}}
+\index{mom\_set\_geomtype@{mom\_set\_geomtype}!mom\_cap\_methods@{mom\_cap\_methods}}
+\doxysubsubsection{\texorpdfstring{mom\_set\_geomtype()}{mom\_set\_geomtype()}}
+{\footnotesize\ttfamily subroutine, public mom\+\_\+cap\+\_\+methods\+::mom\+\_\+set\+\_\+geomtype (\begin{DoxyParamCaption}\item[{type(esmf\+\_\+geomtype\+\_\+flag), intent(in)}]{geomtype\+\_\+in }\end{DoxyParamCaption})}
+
+
+
+Sets module variable geometry type. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em geomtype\+\_\+in} & ESMF type describing type of geometry (mesh or grid) \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacemom__cap__methods_aa7c5b4a219cee49bf52db378ce3e1892}\label{namespacemom__cap__methods_aa7c5b4a219cee49bf52db378ce3e1892} 
+\index{mom\_cap\_methods@{mom\_cap\_methods}!state\_diagnose@{state\_diagnose}}
+\index{state\_diagnose@{state\_diagnose}!mom\_cap\_methods@{mom\_cap\_methods}}
+\doxysubsubsection{\texorpdfstring{state\_diagnose()}{state\_diagnose()}}
+{\footnotesize\ttfamily subroutine, public mom\+\_\+cap\+\_\+methods\+::state\+\_\+diagnose (\begin{DoxyParamCaption}\item[{type(esmf\+\_\+state), intent(in)}]{state,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{string,  }\item[{integer, intent(out)}]{rc }\end{DoxyParamCaption})}
+
+
+
+This subroutine writes the minimum, maximum and sum of each field contained within an ESMF state. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em state} & An ESMF State \\
+\hline
+\mbox{\texttt{ in}}  & {\em string} & A string indicating whether the State is an import or export State \\
+\hline
+\mbox{\texttt{ out}}  & {\em rc} & Return code \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacemom__cap__methods_a804c0125ae042b08b380230bee4870e6}\label{namespacemom__cap__methods_a804c0125ae042b08b380230bee4870e6} 
+\index{mom\_cap\_methods@{mom\_cap\_methods}!med2mod\_areacor@{med2mod\_areacor}}
+\index{med2mod\_areacor@{med2mod\_areacor}!mom\_cap\_methods@{mom\_cap\_methods}}
+\doxysubsubsection{\texorpdfstring{med2mod\_areacor}{med2mod\_areacor}}
+{\footnotesize\ttfamily real(esmf\+\_\+kind\+\_\+r8), dimension(\+:), allocatable, public mom\+\_\+cap\+\_\+methods\+::med2mod\+\_\+areacor}
+
+\Hypertarget{namespacemom__cap__methods_a0487d34956bc6b9cd5eadaa558abbfe0}\label{namespacemom__cap__methods_a0487d34956bc6b9cd5eadaa558abbfe0} 
+\index{mom\_cap\_methods@{mom\_cap\_methods}!mod2med\_areacor@{mod2med\_areacor}}
+\index{mod2med\_areacor@{mod2med\_areacor}!mom\_cap\_methods@{mom\_cap\_methods}}
+\doxysubsubsection{\texorpdfstring{mod2med\_areacor}{mod2med\_areacor}}
+{\footnotesize\ttfamily real(esmf\+\_\+kind\+\_\+r8), dimension(\+:), allocatable, public mom\+\_\+cap\+\_\+methods\+::mod2med\+\_\+areacor}
+

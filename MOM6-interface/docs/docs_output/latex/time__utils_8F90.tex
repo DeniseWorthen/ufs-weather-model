@@ -1,0 +1,21 @@
+\doxysection{/work/noaa/nems/dworthen/ufs\+\_\+dw/\+MOM6-\/interface/\+MOM6/config\+\_\+src/drivers/nuopc\+\_\+cap/time\+\_\+utils.F90 File Reference}
+\hypertarget{time__utils_8F90}{}\label{time__utils_8F90}\index{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/MOM6/config\_src/drivers/nuopc\_cap/time\_utils.F90@{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/MOM6/config\_src/drivers/nuopc\_cap/time\_utils.F90}}
+\doxysubsubsection*{Data Types}
+\begin{DoxyCompactItemize}
+\item 
+interface \mbox{\hyperlink{interfacetime__utils__mod_1_1fms2esmf__cal}{time\+\_\+utils\+\_\+mod\+::fms2esmf\+\_\+cal}}
+\begin{DoxyCompactList}\small\item\em Converts calendar from FMS to ESMF format. \end{DoxyCompactList}\item 
+interface \mbox{\hyperlink{interfacetime__utils__mod_1_1esmf2fms__time}{time\+\_\+utils\+\_\+mod\+::esmf2fms\+\_\+time}}
+\begin{DoxyCompactList}\small\item\em Converts time from FMS to ESMF format. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Modules}
+\begin{DoxyCompactItemize}
+\item 
+module \mbox{\hyperlink{namespacetime__utils__mod}{time\+\_\+utils\+\_\+mod}}
+\begin{DoxyCompactList}\small\item\em Set of time utilities for converting between FMS and ESMF time type. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+type(esmf\+\_\+time) function, public \mbox{\hyperlink{namespacetime__utils__mod_ad3dfce96788e7e6db8fb609ca080a4e5}{time\+\_\+utils\+\_\+mod\+::fms2esmf\+\_\+time}} (time, calkind)
+\begin{DoxyCompactList}\small\item\em Converts date from FMS format to ESMF format. \end{DoxyCompactList}\item 
+type(time\+\_\+type) function, public \mbox{\hyperlink{namespacetime__utils__mod_a69e2dd8067790fa452eb49f8dd9cf3dc}{time\+\_\+utils\+\_\+mod\+::string\+\_\+to\+\_\+date}} (string, rc)
+\begin{DoxyCompactList}\small\item\em Converts a string (I4.\+4,I2.\+2,I2.\+2,"{}."{},I2.\+2,I2.\+2,I2.\+2) that represents yr, mon, day, hr, min, sec to a FMS data format. \end{DoxyCompactList}\end{DoxyCompactItemize}

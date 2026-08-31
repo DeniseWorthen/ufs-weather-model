@@ -1,0 +1,67 @@
+\doxysection{time\+\_\+utils\+\_\+mod Module Reference}
+\hypertarget{namespacetime__utils__mod}{}\label{namespacetime__utils__mod}\index{time\_utils\_mod@{time\_utils\_mod}}
+
+
+Set of time utilities for converting between FMS and ESMF time type.  
+
+
+\doxysubsubsection*{Data Types}
+\begin{DoxyCompactItemize}
+\item 
+interface \mbox{\hyperlink{interfacetime__utils__mod_1_1esmf2fms__time}{esmf2fms\+\_\+time}}
+\begin{DoxyCompactList}\small\item\em Converts time from FMS to ESMF format. \end{DoxyCompactList}\item 
+interface \mbox{\hyperlink{interfacetime__utils__mod_1_1fms2esmf__cal}{fms2esmf\+\_\+cal}}
+\begin{DoxyCompactList}\small\item\em Converts calendar from FMS to ESMF format. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+type(esmf\+\_\+time) function, public \mbox{\hyperlink{namespacetime__utils__mod_ad3dfce96788e7e6db8fb609ca080a4e5}{fms2esmf\+\_\+time}} (time, calkind)
+\begin{DoxyCompactList}\small\item\em Converts date from FMS format to ESMF format. \end{DoxyCompactList}\item 
+type(time\+\_\+type) function, public \mbox{\hyperlink{namespacetime__utils__mod_a69e2dd8067790fa452eb49f8dd9cf3dc}{string\+\_\+to\+\_\+date}} (string, rc)
+\begin{DoxyCompactList}\small\item\em Converts a string (I4.\+4,I2.\+2,I2.\+2,"{}."{},I2.\+2,I2.\+2,I2.\+2) that represents yr, mon, day, hr, min, sec to a FMS data format. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Set of time utilities for converting between FMS and ESMF time type. 
+
+\doxysubsection{Function/\+Subroutine Documentation}
+\Hypertarget{namespacetime__utils__mod_ad3dfce96788e7e6db8fb609ca080a4e5}\label{namespacetime__utils__mod_ad3dfce96788e7e6db8fb609ca080a4e5} 
+\index{time\_utils\_mod@{time\_utils\_mod}!fms2esmf\_time@{fms2esmf\_time}}
+\index{fms2esmf\_time@{fms2esmf\_time}!time\_utils\_mod@{time\_utils\_mod}}
+\doxysubsubsection{\texorpdfstring{fms2esmf\_time()}{fms2esmf\_time()}}
+{\footnotesize\ttfamily type(esmf\+\_\+time) function, public time\+\_\+utils\+\_\+mod\+::fms2esmf\+\_\+time (\begin{DoxyParamCaption}\item[{type(time\+\_\+type), intent(in)}]{time,  }\item[{type(esmf\+\_\+calkind\+\_\+flag), intent(in), optional}]{calkind }\end{DoxyParamCaption})}
+
+
+
+Converts date from FMS format to ESMF format. 
+
+\begin{DoxyReturn}{Returns}
+ESMF time structure 
+\end{DoxyReturn}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em time} & FMS time structure \\
+\hline
+\mbox{\texttt{ in}}  & {\em calkind} & ESMF calendar structure \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacetime__utils__mod_a69e2dd8067790fa452eb49f8dd9cf3dc}\label{namespacetime__utils__mod_a69e2dd8067790fa452eb49f8dd9cf3dc} 
+\index{time\_utils\_mod@{time\_utils\_mod}!string\_to\_date@{string\_to\_date}}
+\index{string\_to\_date@{string\_to\_date}!time\_utils\_mod@{time\_utils\_mod}}
+\doxysubsubsection{\texorpdfstring{string\_to\_date()}{string\_to\_date()}}
+{\footnotesize\ttfamily type(time\+\_\+type) function, public time\+\_\+utils\+\_\+mod\+::string\+\_\+to\+\_\+date (\begin{DoxyParamCaption}\item[{character(len=15), intent(in)}]{string,  }\item[{integer, intent(out), optional}]{rc }\end{DoxyParamCaption})}
+
+
+
+Converts a string (I4.\+4,I2.\+2,I2.\+2,"{}."{},I2.\+2,I2.\+2,I2.\+2) that represents yr, mon, day, hr, min, sec to a FMS data format. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em string} & String representing a date \\
+\hline
+\mbox{\texttt{ out}}  & {\em rc} & ESMF error handler \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+FMS time structure 
+\end{DoxyReturn}

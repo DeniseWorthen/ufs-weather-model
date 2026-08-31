@@ -1,0 +1,215 @@
+\chapter{NUOPC Cap}
+\hypertarget{nuopc_cap}{}\label{nuopc_cap}\index{NUOPC Cap@{NUOPC Cap}}
+\begin{DoxyAuthor}{Author}
+Fei Liu (\href{mailto:fei.liu@gmail.com}{\texttt{ fei.\+liu@gmail.\+com}}) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+5/10/13 Original documentation 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Rocky Dunlap (\href{mailto:rocky.dunlap@noaa.gov}{\texttt{ rocky.\+dunlap@noaa.\+gov}}) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+1/12/17 Moved to doxygen 
+
+2/28/19 Rewrote for unified cap
+\end{DoxyDate}
+\hypertarget{nuopc_cap_Overview}{}\doxysection{\texorpdfstring{Overview}{Overview}}\label{nuopc_cap_Overview}
+{\bfseries{This MOM cap has been tested with MOM6.}}
+
+This document describes the MOM NUOPC "{}cap"{}, which is a light weight software layer that is required when the \href{https://github.com/NOAA-GFDL/MOM6/tree/dev/master}{\texttt{ MOM ocean model}} is used in \mbox{[}National Unified Operation Prediction Capability\mbox{]} (\href{http://www.earthsystemcog.org/projects/nuopc}{\texttt{ http\+://www.\+earthsystemcog.\+org/projects/nuopc}}) (NUOPC) coupled systems. Also see the \href{https://github.com/NOAA-GFDL/MOM6-Examples/wiki}{\texttt{ MOM wiki}} for more documentation.
+
+NUOPC is a software layer built on top of the \mbox{[}Earth System Modeling Framework\mbox{]} (\href{https://www.earthsystemcog.org/projects/esmf}{\texttt{ https\+://www.\+earthsystemcog.\+org/projects/esmf}}) (ESMF). ESMF is a high-\/performance modeling framework that provides data structures, interfaces, and operations suited for building coupled models from a set of components. NUOPC refines the capabilities of ESMF by providing a more precise definition of what it means for a model to be a component and how components should interact and share data in a coupled system. The NUOPC Layer software is designed to work with typical high-\/performance models in the Earth sciences domain, most of which are written in Fortran and are based on a distributed memory model of parallelism (MPI).
+
+A NUOPC "{}cap"{} is a Fortran module that serves as the interface to a model when it\textquotesingle{}s used in a NUOPC-\/based coupled system. The term "{}cap"{} is used because it is a light weight software layer that sits on top of model code, making calls into it and exposing model data structures in a standard way.
+
+The MOM cap package includes the cap code itself (MOM\+\_\+cap.\+F90, MOM\+\_\+cap\+\_\+methods.\+F90 and MOM\+\_\+cap\+\_\+time.\+F90), a set of time utilities (\doxylink{time__utils_8F90}{time\+\_\+utils.\+F90}) for converting between ESMF and FMS time type and two modules MOM\+\_\+ocean\+\_\+model\+\_\+nuopc.\+F90 and MOM\+\_\+surface\+\_\+forcing\+\_\+nuopc.\+F90. MOM\+\_\+surface\+\_\+forcing\+\_\+nuopc.\+F90 converts the input ESMF data (import data) to a MOM-\/specific data type (surface\+\_\+forcing\+\_\+\+CS). MOM\+\_\+ocean\+\_\+model\+\_\+nuopc.\+F90 contains routines for initialization, update and finalization of the ocean model state.\hypertarget{nuopc_cap_CapSubroutines}{}\doxysubsection{\texorpdfstring{Cap Subroutines}{Cap Subroutines}}\label{nuopc_cap_CapSubroutines}
+The MOM cap modules contains a set of subroutines that are required by NUOPC. These subroutines are called by the NUOPC infrastructure according to a predefined calling sequence. Some subroutines are called during initialization of the coupled system, some during the run of the coupled system, and some during finalization of the coupled system.
+
+The initialization sequence is the most complex and is governed by the NUOPC technical rules. Details about the initialization sequence can be found in the \mbox{[}NUOPC Reference Manual\mbox{]} (\href{http://www.earthsystemmodeling.org/esmf_releases/last_built/NUOPC_refdoc/}{\texttt{ http\+://www.\+earthsystemmodeling.\+org/esmf\+\_\+releases/last\+\_\+built/\+NUOPC\+\_\+refdoc/}}). The cap requires beta snapshot ESMF v8.\+0.\+0bs16 or later.
+
+The following table summarizes the NUOPC-\/required subroutines that appear in the MOM cap. The "{}\+Phase"{} column says whether the subroutine is called during the initialization, run, or finalize part of the coupled system run.
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Phase }&\cellcolor{\tableheadbgcolor}\textbf{ MOM Cap Subroutine }&\cellcolor{\tableheadbgcolor}\textbf{ Description }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Phase }&\cellcolor{\tableheadbgcolor}\textbf{ MOM Cap Subroutine }&\cellcolor{\tableheadbgcolor}\textbf{ Description }\\\cline{1-3}
+\endhead
+Init &\mbox{[}Initialize\+P0\mbox{]} (MOM\+\_\+cap\+\_\+mod\+::initializep0) &Sets the Initialize Phase Definition (IPD) version to use \\\cline{1-3}
+Init &\mbox{[}Initialize\+Advertise\mbox{]} (MOM\+\_\+cap\+\_\+mod\+::initializeadvertise) &Advertises standard names of import and export fields \\\cline{1-3}
+Init &\mbox{[}Initialize\+Realize\mbox{]} (MOM\+\_\+cap\+\_\+mod\+::initializerealize) &Creates an ESMF\+\_\+\+Grid or ESMF\+\_\+\+Mesh as well as ESMF\+\_\+\+Fields for import and export fields \\\cline{1-3}
+Run &\mbox{[}Model\+Advance\mbox{]} (MOM\+\_\+cap\+\_\+mod\+::modeladvance) &Advances the model by a timestep \\\cline{1-3}
+Final &\mbox{[}Finalize\mbox{]} (MOM\+\_\+cap\+\_\+mod\+::ocean\+\_\+model\+\_\+finalize) &Cleans up \\\cline{1-3}
+\end{longtabu}
+\hypertarget{nuopc_cap_UnderlyingModelInterfaces}{}\doxysection{\texorpdfstring{Underlying Model Interfaces}{Underlying Model Interfaces}}\label{nuopc_cap_UnderlyingModelInterfaces}
+\hypertarget{nuopc_cap_DomainCreation}{}\doxysubsection{\texorpdfstring{Domain Creation}{Domain Creation}}\label{nuopc_cap_DomainCreation}
+The cap can accomodate a MOM tripolar grid which is represented either as a 2D {\ttfamily ESMF\+\_\+\+Grid} or as a 1D {\ttfamily ESMF\+\_\+\+Mesh}. Other MOM grids (e.\+g. a bipolar grid) can be represented as a 1d {\ttfamily ESMF\+\_\+\+Mesh} only. Coupling fields are placed on either the {\ttfamily ESMF\+\_\+\+Grid} or {\ttfamily ESMF\+\_\+\+Mesh}. Note that for either the {\ttfamily ESMF\+\_\+\+Grid} or {\ttfamily ESMF\+\_\+\+Mesh} representation, the fields are translated into a 2D MOM specific surface boundary type and the distinction between the two is no longer there. Calls related to creating the grid are located in the \mbox{[}Initialize\+Realize\mbox{]} (MOM\+\_\+cap\+\_\+mod\+::initializerealize) subroutine, which is called by the NUOPC infrastructure during the intialization sequence.
+
+The cap determines parameters for setting up the grid by calling subroutines in the {\ttfamily mpp\+\_\+domains\+\_\+mod} module. The global domain size is determined by calling {\ttfamily mpp\+\_\+get\+\_\+global\+\_\+domain()}. A check is in place to ensure that there is only a single tile in the domain (the cap is currently limited to one tile; multi-\/tile mosaics are not supported). The decomposition across processors is determined via calls to {\ttfamily mpp\+\_\+get\+\_\+compute\+\_\+domains()} (to retrieve decomposition block indices) and {\ttfamily mpp\+\_\+get\+\_\+pelist()} (to determine how blocks are assigned to processors).
+
+The {\ttfamily ESMF\+\_\+\+Grid} is created in several steps\+:
+\begin{DoxyItemize}
+\item an {\ttfamily ESMF\+\_\+\+DELayout} is created based on the pelist from MOM
+\item an {\ttfamily ESMF\+\_\+\+Dist\+Grid} is created over the global index space. Connections are set up so that the index space is periodic in the first dimension and has a fold at the top for the bipole. The decompostion blocks are also passed in along with the {\ttfamily ESMF\+\_\+\+DELayout} mentioned above.
+\item an {\ttfamily ESMF\+\_\+\+Grid} is then created by passing in the above {\ttfamily ESMF\+\_\+\+Dist\+Grid}.
+\item masks, areas, center (tlat, tlon), and corner (ulat, ulon) coordinates are then added to the {\ttfamily ESMF\+\_\+\+Grid} by retrieving those fields from the MOM datatype {\ttfamily ocean\+\_\+grid} elements.
+\end{DoxyItemize}
+
+The {\ttfamily ESMF\+\_\+\+Mesh} is also created in several steps\+:
+\begin{DoxyItemize}
+\item the target mesh is generated offline.
+\item a temporary mesh is created from an input file specified by the config variable {\ttfamily mesh\+\_\+ocn}. the mesh has a distribution that is automatically generated by ESMF when reading in the mesh
+\item an {\ttfamily ESMF\+\_\+\+Dist\+Grid} is created from the global index space for the computational domain.
+\item the final {\ttfamily ESMF\+\_\+\+Mesh} is then created by distributing the temporary mesh using the created {\ttfamily ESMF\+\_\+\+Dist\+Grid}.
+\end{DoxyItemize}\hypertarget{nuopc_cap_Initialization}{}\doxysubsection{\texorpdfstring{Initialization}{Initialization}}\label{nuopc_cap_Initialization}
+During the \mbox{[}Initialize\+Advertise\mbox{]} (MOM\+\_\+cap\+\_\+mod\+::initializeadvertise) phase, calls are made to MOM\textquotesingle{}s native initialization subroutines. The MPI communicator is pulled in through the ESMF VM object for the MOM component. The dt and start time are set from parameters from the incoming ESMF clock with calls to {\ttfamily set\+\_\+time()} and {\ttfamily set\+\_\+date().}\hypertarget{nuopc_cap_Run}{}\doxysubsection{\texorpdfstring{Run}{Run}}\label{nuopc_cap_Run}
+The \mbox{[}Model\+Advance\mbox{]} (MOM\+\_\+cap\+\_\+mod\+::modeladvance) subroutine is called by the NUOPC infrastructure when it\textquotesingle{}s time for MOM to advance in time. During this subroutine, there is a call into the MOM update routine\+: \begin{DoxyVerb} call update_ocean_model(Ice_ocean_boundary, Ocean_state, Ocean_public, Time, Time_step_coupled, cesm_coupled)
+\end{DoxyVerb}
+ Priori to the call to {\ttfamily update\+\_\+ocean\+\_\+model()}, the cap performs these steps
+\begin{DoxyItemize}
+\item the {\ttfamily Time} and {\ttfamily Time\+\_\+step\+\_\+coupled} parameters, based on FMS types, are derived from the incoming ESMF clock
+\item diagnostics are optionally written to files {\ttfamily field\+\_\+ocn\+\_\+import\+\_\+\texorpdfstring{$\ast$}{*}}, one for each import field
+\item mom\+\_\+import is called and translates to the ESMF input data to a MOM specific data type
+\begin{DoxyItemize}
+\item momentum flux vectors are rotated to internal grid
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+After the call to {\ttfamily update\+\_\+ocean\+\_\+model()}, the cap performs these steps\+:
+\begin{DoxyItemize}
+\item mom\+\_\+export is called
+\begin{DoxyItemize}
+\item the {\ttfamily ocean\+\_\+mask} export is set to match that of the internal MOM mask
+\item the {\ttfamily freezing\+\_\+melting\+\_\+potential} export is converted from J m-\/2 to W m-\/2 by dividing by the coupling interval
+\item vector rotations are applied to the {\ttfamily ocean\+\_\+current\+\_\+zonal} and {\ttfamily ocean\+\_\+current\+\_\+merid} exports, back to lat-\/lon grid
+\item diagnostics are optionally written to files {\ttfamily field\+\_\+ocn\+\_\+export\+\_\+\texorpdfstring{$\ast$}{*}}, one for each export field
+\item optionally, a call is made to {\ttfamily ocean\+\_\+model\+\_\+restart()} at the interval {\ttfamily restart\+\_\+interval}
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{nuopc_cap_VectorRotations}{}\doxysubsubsection{\texorpdfstring{Vector Rotations}{Vector Rotations}}\label{nuopc_cap_VectorRotations}
+Vector rotations are applied to incoming momentum fluxes (from regular lat-\/lon to tripolar grid) and outgoing ocean currents (from tripolar to regular lat-\/lon). The rotation angles are provided from the native MOM grid by a call to {\ttfamily get\+\_\+ocean\+\_\+grid(\+Ocean\+\_\+grid)}. The cosine and sine of the rotation angle are\+: \begin{DoxyVerb}ocean_grid%cos_rot(i,j)
+ocean_grid%sin_rot(i,j)
+\end{DoxyVerb}
+ The rotation of momentum flux from regular lat-\/lon to tripolar is\+:  \[
+ \begin{bmatrix}
+ \tau_x\textnormal{\textquotesingle} \\
+ \tau_y\textnormal{\textquotesingle}
+ \end{bmatrix} =
+ \begin{bmatrix}
+  cos \theta   & sin \theta \\
+  -sin \theta  & cos \theta
+ \end{bmatrix} *
+ \begin{bmatrix}
+ \tau_x \\
+ \tau_y
+ \end{bmatrix}
+ \]
+
+The rotation of ocean current from tripolar to regular lat-\/lon is\+:  \[
+ \begin{bmatrix}
+ u\textnormal{\textquotesingle} \\
+ v\textnormal{\textquotesingle}
+ \end{bmatrix} =
+ \begin{bmatrix}
+  cos \theta   & -sin \theta \\
+  sin \theta  & cos \theta
+ \end{bmatrix} *
+ \begin{bmatrix}
+ u \\
+ v
+ \end{bmatrix}
+ \] \hypertarget{nuopc_cap_Finalization}{}\doxysubsection{\texorpdfstring{Finalization}{Finalization}}\label{nuopc_cap_Finalization}
+NUOPC infrastructure calls \mbox{[}ocean\+\_\+model\+\_\+finalize\mbox{]} (MOM\+\_\+cap\+\_\+mod\+::ocean\+\_\+model\+\_\+finalize) at the end of the run. This subroutine is a hook to call into MOM\textquotesingle{}s native shutdown procedures\+: \begin{DoxyVerb}call ocean_model_end (ocean_public, ocean_State, Time)
+\end{DoxyVerb}
+ \hypertarget{nuopc_cap_ModelFields}{}\doxysection{\texorpdfstring{Model Fields}{Model Fields}}\label{nuopc_cap_ModelFields}
+The following tables list the import and export fields currently set up in the MOM cap.\hypertarget{nuopc_cap_ImportFields}{}\doxysubsection{\texorpdfstring{Import Fields}{Import Fields}}\label{nuopc_cap_ImportFields}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{5}{|X[-1]}|}
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Standard Name }&\cellcolor{\tableheadbgcolor}\textbf{ Units }&\cellcolor{\tableheadbgcolor}\textbf{ Model Variable }&\cellcolor{\tableheadbgcolor}\textbf{ Description }&\cellcolor{\tableheadbgcolor}\textbf{ Notes }\\\cline{1-5}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Standard Name }&\cellcolor{\tableheadbgcolor}\textbf{ Units }&\cellcolor{\tableheadbgcolor}\textbf{ Model Variable }&\cellcolor{\tableheadbgcolor}\textbf{ Description }&\cellcolor{\tableheadbgcolor}\textbf{ Notes }\\\cline{1-5}
+\endhead
+Sa\+\_\+pslv &Pa &p &pressure of overlying sea ice and atmosphere &\\\cline{1-5}
+mass\+\_\+of\+\_\+overlying\+\_\+sea\+\_\+ice &kg &mi &mass of overlying sea ice &\\\cline{1-5}
+Fioi\+\_\+melth &W m-\/2 &seaice\+\_\+melt\+\_\+heat &sea ice and snow melt heat flux &\\\cline{1-5}
+Fioi\+\_\+meltw &kg m-\/2 s-\/1 &seaice\+\_\+melt &water flux due to sea ice and snow melting &\\\cline{1-5}
+mean\+\_\+calving\+\_\+rate &kg m-\/2 s-\/1 &calving &mass flux of frozen runoff &\\\cline{1-5}
+Foxx\+\_\+evap &kg m-\/2 s-\/1 &q\+\_\+flux &specific humidity flux &\\\cline{1-5}
+Faxa\+\_\+snow &kg m-\/2 s-\/1 &fprec &mass flux of frozen precip &\\\cline{1-5}
+Foxx\+\_\+lwnet &W m-\/2 &lw\+\_\+flux &long wave radiation &\\\cline{1-5}
+Foxx\+\_\+swnet\+\_\+idf &W m-\/2 &sw\+\_\+flux\+\_\+nir\+\_\+dif &diffuse near IR shortwave radiation &\\\cline{1-5}
+Foxx\+\_\+swnet\+\_\+idr &W m-\/2 &sw\+\_\+flux\+\_\+nir\+\_\+dir &direct near IR shortwave radiation &\\\cline{1-5}
+Foxx\+\_\+swnet\+\_\+vdf &W m-\/2 &sw\+\_\+flux\+\_\+vis\+\_\+dif &diffuse visible shortware radiation &\\\cline{1-5}
+Foxx\+\_\+swnet\+\_\+idr &W m-\/2 &sw\+\_\+flux\+\_\+vis\+\_\+dir &direct visible shortware radiation &\\\cline{1-5}
+Faxa\+\_\+rain &kg m-\/2 s-\/1 &lprec &mass flux of liquid precip &\\\cline{1-5}
+Foxx\+\_\+hrain &W m-\/2 &hrain &heat content (enthalpy) of liquid water entering the ocean &\\\cline{1-5}
+Foxx\+\_\+hsnow &W m-\/2 &hsnow &heat content (enthalpy) of frozen water entering the ocean &\\\cline{1-5}
+Foxx\+\_\+hevap &W m-\/2 &hevap &heat content (enthalpy) of water leaving the ocean &\\\cline{1-5}
+Foxx\+\_\+hcond &W m-\/2 &hcond &heat content (enthalpy) of liquid water entering the ocean due to condensation &\\\cline{1-5}
+Foxx\+\_\+hrofl &W m-\/2 &hrofl &heat content (enthalpy) of liquid runoff &\\\cline{1-5}
+Foxx\+\_\+hrofi &W m-\/2 &hrofi &heat content (enthalpy) of frozen runoff &\\\cline{1-5}
+Foxx\+\_\+rofl &kg m-\/2 s-\/1 &runoff &mass flux of liquid runoff &\\\cline{1-5}
+Foxx\+\_\+rofi &kg m-\/2 s-\/1 &runoff &mass flux of frozen runoff &\\\cline{1-5}
+Forr\+\_\+rofl\+\_\+glc &kg m-\/2 s-\/1 &runoff &mass flux of liquid glc runoff &\\\cline{1-5}
+Forr\+\_\+rofi\+\_\+glc &kg m-\/2 s-\/1 &runoff &mass flux of frozen glc runoff &\\\cline{1-5}
+Foxx\+\_\+hrofi\+\_\+glc &W m-\/2 &hrofi\+\_\+glc &heat content (enthalpy) of frozen glc runoff &\\\cline{1-5}
+Foxx\+\_\+hrofl\+\_\+glc &W m-\/2 &hrofl\+\_\+glc &heat content (enthalpy) of liquid glc runoff &\\\cline{1-5}
+Fioi\+\_\+salt &kg m-\/2 s-\/1 &salt\+\_\+flux &salt flux &\\\cline{1-5}
+Foxx\+\_\+sen &W m-\/2 &t\+\_\+flux &sensible heat flux into ocean &\\\cline{1-5}
+Foxx\+\_\+taux &Pa &u\+\_\+flux &i-\/directed wind stress into ocean &\mbox{[}vector rotation\mbox{]} (\doxysectlink{nuopc_cap_VectorRotations}{Vector Rotations}{3}) applied -\/ lat-\/lon to tripolar  \\\cline{1-5}
+Foxx\+\_\+tauy &Pa &v\+\_\+flux &j-\/directed wind stress into ocean &\mbox{[}vector rotation\mbox{]} (\doxysectlink{nuopc_cap_VectorRotations}{Vector Rotations}{3}) applied -\/ lat-\/lon to tripolar  \\\cline{1-5}
+\end{longtabu}
+\hypertarget{nuopc_cap_ExportField}{}\doxysubsection{\texorpdfstring{Export Fields}{Export Fields}}\label{nuopc_cap_ExportField}
+Export fields are populated from the {\ttfamily ocean\+\_\+public} parameter (type {\ttfamily ocean\+\_\+public\+\_\+type}) after the call to {\ttfamily update\+\_\+ocean\+\_\+model()}.
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{5}{|X[-1]}|}
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Standard Name }&\cellcolor{\tableheadbgcolor}\textbf{ Units }&\cellcolor{\tableheadbgcolor}\textbf{ Model Variable }&\cellcolor{\tableheadbgcolor}\textbf{ Description }&\cellcolor{\tableheadbgcolor}\textbf{ Notes  }\\\cline{1-5}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Standard Name }&\cellcolor{\tableheadbgcolor}\textbf{ Units }&\cellcolor{\tableheadbgcolor}\textbf{ Model Variable }&\cellcolor{\tableheadbgcolor}\textbf{ Description }&\cellcolor{\tableheadbgcolor}\textbf{ Notes  }\\\cline{1-5}
+\endhead
+Fioo\+\_\+q &W m-\/2 &combination of frazil and melt\+\_\+potential &cap converts model units (J m-\/2) to (W m-\/2) for export &\\\cline{1-5}
+So\+\_\+omask &&&ocean mask &\\\cline{1-5}
+So\+\_\+v &m s-\/1 &v\+\_\+surf &j-\/directed surface velocity on u-\/cell &\mbox{[}vector rotation\mbox{]} (\doxysectlink{nuopc_cap_VectorRotations}{Vector Rotations}{3}) applied -\/ tripolar to lat-\/lon  \\\cline{1-5}
+So\+\_\+u &m s-\/1 &u\+\_\+surf &i-\/directed surface velocity on u-\/cell &\mbox{[}vector rotation\mbox{]} (\doxysectlink{nuopc_cap_VectorRotations}{Vector Rotations}{3}) applied -\/ tripolar to lat-\/lon  \\\cline{1-5}
+So\+\_\+s &psu &s\+\_\+surf &sea surface salinity on t-\/cell &\\\cline{1-5}
+So\+\_\+t &K &t\+\_\+surf &sea surface temperature on t-\/cell &\\\cline{1-5}
+So\+\_\+dhdx &unitless &created from ssh &sea surface zonal slope &\\\cline{1-5}
+So\+\_\+dhy &unitless &created from ssh &sea surface meridional slope &\\\cline{1-5}
+So\+\_\+bldepth &m &obld &ocean surface boundary layer depth &\\\cline{1-5}
+\end{longtabu}
+\hypertarget{nuopc_cap_MemoryManagement}{}\doxysubsection{\texorpdfstring{Memory Management}{Memory Management}}\label{nuopc_cap_MemoryManagement}
+The MOM cap has an internal state type with pointers to three types defined by MOM. There is also a small wrapper derived type required to associate an internal state instance with the ESMF/\+NUOPC component\+: \begin{DoxyVerb}type ocean_internalstate_type
+   type(ocean_public_type),       pointer :: ocean_public_type_ptr
+   type(ocean_state_type),        pointer :: ocean_state_type_ptr
+   type(ice_ocean_boundary_type), pointer :: ice_ocean_boundary_type_ptr
+end type
+
+type ocean_internalstate_wrapper
+   type(ocean_internalstate_type), pointer :: ptr
+end type
+\end{DoxyVerb}
+ The member of type {\ttfamily ocean\+\_\+public\+\_\+type} stores ocean surface fields used during the coupling. The member of type {\ttfamily ocean\+\_\+state\+\_\+type} is required by the ocean driver, although its internals are private (not to be used by the coupling directly). This type is passed to the ocean init and update routines so that it can maintain state there if desired. The member of type {\ttfamily ice\+\_\+ocean\+\_\+boundary\+\_\+type} is populated by this cap with incoming coupling fields from other components. These three derived types are allocated during the \mbox{[}Initialize\+Advertise\mbox{]} (MOM\+\_\+cap\+\_\+mod\+::initializeadvertise) phase. Also during that phase, the {\ttfamily ice\+\_\+ocean\+\_\+boundary} type members are all allocated using bounds retrieved from {\ttfamily get\+\_\+domain\+\_\+extent()}.
+
+During the \mbox{[}Initialize\+Realize\mbox{]} (MOM\+\_\+cap\+\_\+mod\+::initializerealize) phase, {\ttfamily ESMF\+\_\+\+Field}s are created for each of the coupling fields in the {\ttfamily ice\+\_\+ocean\+\_\+boundary} and {\ttfamily ocean\+\_\+public\+\_\+type} members of the internal state. These fields directly reference into the members of the {\ttfamily ice\+\_\+ocean\+\_\+boundary} and {\ttfamily ocean\+\_\+public\+\_\+type} so that memory-\/to-\/memory copies are not required to move data from the cap\textquotesingle{}s import and export states to the memory areas used internally by MOM.\hypertarget{nuopc_cap_IO}{}\doxysubsection{\texorpdfstring{I/O}{I/O}}\label{nuopc_cap_IO}
+The cap can optionally output coupling fields for diagnostic purposes if the ESMF attribute "{}\+Dump\+Fields"{} has been set to "{}true"{}. In this case the cap will write out Net\+CDF files with names "{}field\+\_\+ocn\+\_\+import\+\_\+$<$fieldname$>$.\+nc"{} and "{}field\+\_\+ocn\+\_\+export\+\_\+$<$fieldname$>$.\+nc"{}. Additionally, calls will be made to the cap subroutine \mbox{[}dump\+Mom\+Internal\mbox{]} (MOM\+\_\+cap\+\_\+mod\+::dumpmominternal) to write out model internal fields to files named "{}field\+\_\+ocn\+\_\+internal\+\_\+$<$fieldname$>$.\+nc"{}. In all cases these Net\+CDF files will contain a time series of field data.\hypertarget{nuopc_cap_RuntimeConfiguration}{}\doxysection{\texorpdfstring{Runtime Configuration}{Runtime Configuration}}\label{nuopc_cap_RuntimeConfiguration}
+At runtime, the MOM cap can be configured with several options provided as ESMF attributes. Attributes can be set in the cap by the NUOPC Driver above this cap, or in some systems ESMF attributes are set by reading in from a configuration file. The available attributes are\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily Dump\+Fields} -\/ when set to "{}true"{}, write out diagnostic Net\+CDF files for import/export/internal fields
+\item {\ttfamily Profile\+Memory} -\/ when set to "{}true"{}, write out memory usage information to the ESMF log files; this information is written when entering and leaving the \mbox{[}Model\+Advance\mbox{]} (MOM\+\_\+cap\+\_\+mod\+::modeladvance) subroutine and before and after the call to {\ttfamily update\+\_\+ocean\+\_\+model()}.
+\item {\ttfamily restart\+\_\+interval} -\/ integer number of seconds indicating the interval at which to call {\ttfamily ocean\+\_\+model\+\_\+restart()}; no restarts written if set to 0 
+\end{DoxyItemize}

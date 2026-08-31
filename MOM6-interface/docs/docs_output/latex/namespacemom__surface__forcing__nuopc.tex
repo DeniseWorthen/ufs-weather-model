@@ -1,0 +1,184 @@
+\doxysection{mom\+\_\+surface\+\_\+forcing\+\_\+nuopc Module Reference}
+\hypertarget{namespacemom__surface__forcing__nuopc}{}\label{namespacemom__surface__forcing__nuopc}\index{mom\_surface\_forcing\_nuopc@{mom\_surface\_forcing\_nuopc}}
+
+
+Converts the input ESMF data (import data) to a MOM-\/specific data type (surface\+\_\+forcing\+\_\+\+CS).  
+
+
+\doxysubsubsection*{Data Types}
+\begin{DoxyCompactItemize}
+\item 
+type \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type}{ice\+\_\+ocean\+\_\+boundary\+\_\+type}}
+\begin{DoxyCompactList}\small\item\em Structure corresponding to forcing, but with the elements, units, and conventions that exactly conform to the use for MOM-\/based coupled models. \end{DoxyCompactList}\item 
+type \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs}{surface\+\_\+forcing\+\_\+cs}}
+\begin{DoxyCompactList}\small\item\em Contains pointers to the forcing fields which may be used to drive MOM. All fluxes are positive downward. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+subroutine, public \mbox{\hyperlink{namespacemom__surface__forcing__nuopc_a5c7c4d7f636f278d1f62bc43a8317cda}{convert\+\_\+iob\+\_\+to\+\_\+fluxes}} (iob, fluxes, index\+\_\+bounds, time, valid\+\_\+time, g, us, cs, sfc\+\_\+state, restore\+\_\+salt, restore\+\_\+temp)
+\begin{DoxyCompactList}\small\item\em This subroutine translates the Ice\+\_\+ocean\+\_\+boundary\+\_\+type into a MOM thermodynamic forcing type, including changes of units, sign conventions, and putting the fields into arrays with MOM-\/standard halos. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemom__surface__forcing__nuopc_a153f219d021fa0fdfad037ae88e622cf}{convert\+\_\+iob\+\_\+to\+\_\+forces}} (iob, forces, index\+\_\+bounds, time, g, us, cs)
+\begin{DoxyCompactList}\small\item\em This subroutine translates the Ice\+\_\+ocean\+\_\+boundary\+\_\+type into a MOM mechanical forcing type, including changes of units, sign conventions, and putting the fields into arrays with MOM-\/standard halos. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemom__surface__forcing__nuopc_a04bfd900aecd5954f10a8e0a71e45aaa}{forcing\+\_\+save\+\_\+restart}} (cs, g, time, directory, time\+\_\+stamped, filename\+\_\+suffix)
+\begin{DoxyCompactList}\small\item\em Save any restart files associated with the surface forcing. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemom__surface__forcing__nuopc_af357d7a32e070717711a2c2474f25f2a}{surface\+\_\+forcing\+\_\+init}} (time, g, us, param\+\_\+file, diag, cs, restore\+\_\+salt, restore\+\_\+temp, use\+\_\+waves)
+\begin{DoxyCompactList}\small\item\em Initialize the surface forcing, including setting parameters and allocating permanent memory. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemom__surface__forcing__nuopc_a8ce655dc8d45735c02d1d28d644ab6fd}{ice\+\_\+ocn\+\_\+bnd\+\_\+type\+\_\+chksum}} (id, timestep, iobt)
+\begin{DoxyCompactList}\small\item\em Write out a set of messages with checksums of the fields in an ice\+\_\+ocen\+\_\+boundary type. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+integer \mbox{\hyperlink{namespacemom__surface__forcing__nuopc_a5a83070390f9af78e2e20cc75ebf278c}{id\+\_\+clock\+\_\+forcing}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Converts the input ESMF data (import data) to a MOM-\/specific data type (surface\+\_\+forcing\+\_\+\+CS). 
+
+\doxysubsection{Function/\+Subroutine Documentation}
+\Hypertarget{namespacemom__surface__forcing__nuopc_a5c7c4d7f636f278d1f62bc43a8317cda}\label{namespacemom__surface__forcing__nuopc_a5c7c4d7f636f278d1f62bc43a8317cda} 
+\index{mom\_surface\_forcing\_nuopc@{mom\_surface\_forcing\_nuopc}!convert\_iob\_to\_fluxes@{convert\_iob\_to\_fluxes}}
+\index{convert\_iob\_to\_fluxes@{convert\_iob\_to\_fluxes}!mom\_surface\_forcing\_nuopc@{mom\_surface\_forcing\_nuopc}}
+\doxysubsubsection{\texorpdfstring{convert\_iob\_to\_fluxes()}{convert\_iob\_to\_fluxes()}}
+{\footnotesize\ttfamily subroutine, public mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::convert\+\_\+iob\+\_\+to\+\_\+fluxes (\begin{DoxyParamCaption}\item[{type(\mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type}{ice\+\_\+ocean\+\_\+boundary\+\_\+type}}), intent(in), target}]{iob,  }\item[{type(forcing), intent(inout)}]{fluxes,  }\item[{integer, dimension(4), intent(in)}]{index\+\_\+bounds,  }\item[{type(time\+\_\+type), intent(in)}]{time,  }\item[{real, intent(in)}]{valid\+\_\+time,  }\item[{type(ocean\+\_\+grid\+\_\+type), intent(inout)}]{g,  }\item[{type(unit\+\_\+scale\+\_\+type), intent(in)}]{us,  }\item[{type(\mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs}{surface\+\_\+forcing\+\_\+cs}}), pointer}]{cs,  }\item[{type(surface), intent(in)}]{sfc\+\_\+state,  }\item[{logical, intent(in), optional}]{restore\+\_\+salt,  }\item[{logical, intent(in), optional}]{restore\+\_\+temp }\end{DoxyParamCaption})}
+
+
+
+This subroutine translates the Ice\+\_\+ocean\+\_\+boundary\+\_\+type into a MOM thermodynamic forcing type, including changes of units, sign conventions, and putting the fields into arrays with MOM-\/standard halos. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em iob} & An ice-\/ocean boundary type with fluxes to drive \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em fluxes} & A structure containing pointers to all possible mass, heat or salt flux forcing fields. Unused fields have NULL ptrs. \\
+\hline
+\mbox{\texttt{ in}}  & {\em index\+\_\+bounds} & The i-\/ and j-\/ size of the arrays in IOB. \\
+\hline
+\mbox{\texttt{ in}}  & {\em time} & The time of the fluxes, used for interpolating the salinity to the right time, when it is being restored. \\
+\hline
+\mbox{\texttt{ in}}  & {\em valid\+\_\+time} & The amount of time over which these fluxes should be applied \mbox{[}T \texorpdfstring{$\sim$}{\string~}\texorpdfstring{$>$}{>} s\mbox{]}. \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em g} & The ocean\textquotesingle{}s grid structure \\
+\hline
+\mbox{\texttt{ in}}  & {\em us} & A dimensional unit scaling type \\
+\hline
+ & {\em cs} & A pointer to the control structure returned by a previous call to surface\+\_\+forcing\+\_\+init. \\
+\hline
+\mbox{\texttt{ in}}  & {\em sfc\+\_\+state} & A structure containing fields that describe the surface state of the ocean. \\
+\hline
+\mbox{\texttt{ in}}  & {\em restore\+\_\+salt} & If true, salinity is restored to a target value. \\
+\hline
+\mbox{\texttt{ in}}  & {\em restore\+\_\+temp} & If true, temperature is restored to a target value. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacemom__surface__forcing__nuopc_a153f219d021fa0fdfad037ae88e622cf}\label{namespacemom__surface__forcing__nuopc_a153f219d021fa0fdfad037ae88e622cf} 
+\index{mom\_surface\_forcing\_nuopc@{mom\_surface\_forcing\_nuopc}!convert\_iob\_to\_forces@{convert\_iob\_to\_forces}}
+\index{convert\_iob\_to\_forces@{convert\_iob\_to\_forces}!mom\_surface\_forcing\_nuopc@{mom\_surface\_forcing\_nuopc}}
+\doxysubsubsection{\texorpdfstring{convert\_iob\_to\_forces()}{convert\_iob\_to\_forces()}}
+{\footnotesize\ttfamily subroutine, public mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::convert\+\_\+iob\+\_\+to\+\_\+forces (\begin{DoxyParamCaption}\item[{type(\mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type}{ice\+\_\+ocean\+\_\+boundary\+\_\+type}}), intent(in), target}]{iob,  }\item[{type(mech\+\_\+forcing), intent(inout)}]{forces,  }\item[{integer, dimension(4), intent(in)}]{index\+\_\+bounds,  }\item[{type(time\+\_\+type), intent(in)}]{time,  }\item[{type(ocean\+\_\+grid\+\_\+type), intent(inout)}]{g,  }\item[{type(unit\+\_\+scale\+\_\+type), intent(in)}]{us,  }\item[{type(\mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs}{surface\+\_\+forcing\+\_\+cs}}), pointer}]{cs }\end{DoxyParamCaption})}
+
+
+
+This subroutine translates the Ice\+\_\+ocean\+\_\+boundary\+\_\+type into a MOM mechanical forcing type, including changes of units, sign conventions, and putting the fields into arrays with MOM-\/standard halos. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em iob} & An ice-\/ocean boundary type with fluxes to drive \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em forces} & A structure with the driving mechanical forces \\
+\hline
+\mbox{\texttt{ in}}  & {\em index\+\_\+bounds} & The i-\/ and j-\/ size of the arrays in IOB. \\
+\hline
+\mbox{\texttt{ in}}  & {\em time} & The time of the fluxes, used for interpolating the salinity to the right time, when it is being restored. \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em g} & The ocean\textquotesingle{}s grid structure \\
+\hline
+\mbox{\texttt{ in}}  & {\em us} & A dimensional unit scaling type \\
+\hline
+ & {\em cs} & A pointer to the control structure returned by a previous call to surface\+\_\+forcing\+\_\+init. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacemom__surface__forcing__nuopc_a04bfd900aecd5954f10a8e0a71e45aaa}\label{namespacemom__surface__forcing__nuopc_a04bfd900aecd5954f10a8e0a71e45aaa} 
+\index{mom\_surface\_forcing\_nuopc@{mom\_surface\_forcing\_nuopc}!forcing\_save\_restart@{forcing\_save\_restart}}
+\index{forcing\_save\_restart@{forcing\_save\_restart}!mom\_surface\_forcing\_nuopc@{mom\_surface\_forcing\_nuopc}}
+\doxysubsubsection{\texorpdfstring{forcing\_save\_restart()}{forcing\_save\_restart()}}
+{\footnotesize\ttfamily subroutine, public mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::forcing\+\_\+save\+\_\+restart (\begin{DoxyParamCaption}\item[{type(\mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs}{surface\+\_\+forcing\+\_\+cs}}), pointer}]{cs,  }\item[{type(ocean\+\_\+grid\+\_\+type), intent(inout)}]{g,  }\item[{type(time\+\_\+type), intent(in)}]{time,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{directory,  }\item[{logical, intent(in), optional}]{time\+\_\+stamped,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in), optional}]{filename\+\_\+suffix }\end{DoxyParamCaption})}
+
+
+
+Save any restart files associated with the surface forcing. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em cs} & A pointer to the control structure returned by a previous call to surface\+\_\+forcing\+\_\+init \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em g} & The ocean\textquotesingle{}s grid structure \\
+\hline
+\mbox{\texttt{ in}}  & {\em time} & The current model time \\
+\hline
+\mbox{\texttt{ in}}  & {\em directory} & The directory into which to write the restart files \\
+\hline
+\mbox{\texttt{ in}}  & {\em time\+\_\+stamped} & If true, the restart file names include a unique time stamp. The default is false. \\
+\hline
+\mbox{\texttt{ in}}  & {\em filename\+\_\+suffix} & An optional suffix (e.\+g., a time-\/ stamp) to append to the restart file names. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacemom__surface__forcing__nuopc_a8ce655dc8d45735c02d1d28d644ab6fd}\label{namespacemom__surface__forcing__nuopc_a8ce655dc8d45735c02d1d28d644ab6fd} 
+\index{mom\_surface\_forcing\_nuopc@{mom\_surface\_forcing\_nuopc}!ice\_ocn\_bnd\_type\_chksum@{ice\_ocn\_bnd\_type\_chksum}}
+\index{ice\_ocn\_bnd\_type\_chksum@{ice\_ocn\_bnd\_type\_chksum}!mom\_surface\_forcing\_nuopc@{mom\_surface\_forcing\_nuopc}}
+\doxysubsubsection{\texorpdfstring{ice\_ocn\_bnd\_type\_chksum()}{ice\_ocn\_bnd\_type\_chksum()}}
+{\footnotesize\ttfamily subroutine, public mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocn\+\_\+bnd\+\_\+type\+\_\+chksum (\begin{DoxyParamCaption}\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{id,  }\item[{integer, intent(in)}]{timestep,  }\item[{type(\mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type}{ice\+\_\+ocean\+\_\+boundary\+\_\+type}}), intent(in)}]{iobt }\end{DoxyParamCaption})}
+
+
+
+Write out a set of messages with checksums of the fields in an ice\+\_\+ocen\+\_\+boundary type. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em id} & An identifying string for this call \\
+\hline
+\mbox{\texttt{ in}}  & {\em timestep} & The number of elapsed timesteps \\
+\hline
+\mbox{\texttt{ in}}  & {\em iobt} & An ice-\/ocean boundary type with fluxes to drive the \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacemom__surface__forcing__nuopc_af357d7a32e070717711a2c2474f25f2a}\label{namespacemom__surface__forcing__nuopc_af357d7a32e070717711a2c2474f25f2a} 
+\index{mom\_surface\_forcing\_nuopc@{mom\_surface\_forcing\_nuopc}!surface\_forcing\_init@{surface\_forcing\_init}}
+\index{surface\_forcing\_init@{surface\_forcing\_init}!mom\_surface\_forcing\_nuopc@{mom\_surface\_forcing\_nuopc}}
+\doxysubsubsection{\texorpdfstring{surface\_forcing\_init()}{surface\_forcing\_init()}}
+{\footnotesize\ttfamily subroutine, public mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+init (\begin{DoxyParamCaption}\item[{type(time\+\_\+type), intent(in)}]{time,  }\item[{type(ocean\+\_\+grid\+\_\+type), intent(in)}]{g,  }\item[{type(unit\+\_\+scale\+\_\+type), intent(in)}]{us,  }\item[{type(param\+\_\+file\+\_\+type), intent(in)}]{param\+\_\+file,  }\item[{type(diag\+\_\+ctrl), intent(inout), target}]{diag,  }\item[{type(\mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs}{surface\+\_\+forcing\+\_\+cs}}), pointer}]{cs,  }\item[{logical, intent(in), optional}]{restore\+\_\+salt,  }\item[{logical, intent(in), optional}]{restore\+\_\+temp,  }\item[{logical, intent(in), optional}]{use\+\_\+waves }\end{DoxyParamCaption})}
+
+
+
+Initialize the surface forcing, including setting parameters and allocating permanent memory. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em time} & The current model time \\
+\hline
+\mbox{\texttt{ in}}  & {\em g} & The ocean\textquotesingle{}s grid structure \\
+\hline
+\mbox{\texttt{ in}}  & {\em us} & A dimensional unit scaling type \\
+\hline
+\mbox{\texttt{ in}}  & {\em param\+\_\+file} & A structure to parse for run-\/time parameters \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em diag} & A structure that is used to regulate diagnostic output \\
+\hline
+ & {\em cs} & A pointer that is set to point to the control structure for this module \\
+\hline
+\mbox{\texttt{ in}}  & {\em restore\+\_\+salt} & If present and true surface salinity restoring will be applied in this model. \\
+\hline
+\mbox{\texttt{ in}}  & {\em restore\+\_\+temp} & If present and true surface temperature restoring will be applied in this model. \\
+\hline
+\mbox{\texttt{ in}}  & {\em use\+\_\+waves} & If present and true, use waves and activate the corresponding wave forcing diagnostics \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacemom__surface__forcing__nuopc_a5a83070390f9af78e2e20cc75ebf278c}\label{namespacemom__surface__forcing__nuopc_a5a83070390f9af78e2e20cc75ebf278c} 
+\index{mom\_surface\_forcing\_nuopc@{mom\_surface\_forcing\_nuopc}!id\_clock\_forcing@{id\_clock\_forcing}}
+\index{id\_clock\_forcing@{id\_clock\_forcing}!mom\_surface\_forcing\_nuopc@{mom\_surface\_forcing\_nuopc}}
+\doxysubsubsection{\texorpdfstring{id\_clock\_forcing}{id\_clock\_forcing}}
+{\footnotesize\ttfamily integer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::id\+\_\+clock\+\_\+forcing}
+

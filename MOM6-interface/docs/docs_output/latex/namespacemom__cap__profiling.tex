@@ -1,0 +1,61 @@
+\doxysection{mom\+\_\+cap\+\_\+profiling Module Reference}
+\hypertarget{namespacemom__cap__profiling}{}\label{namespacemom__cap__profiling}\index{mom\_cap\_profiling@{mom\_cap\_profiling}}
+
+
+Contains wrapper routines that call the ufs tracing routines.  
+
+
+\doxysubsubsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+subroutine, public \mbox{\hyperlink{namespacemom__cap__profiling_a9e109fe8cd2142768affef0eed82ebe2}{cap\+\_\+profiling\+\_\+init}} ()
+\begin{DoxyCompactList}\small\item\em Wrapper routine that calls ufs\+\_\+trace\+\_\+init. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemom__cap__profiling_acef9a6cbbc0c9cb2cad2cb013e38337c}{cap\+\_\+profiling}} (component, routine, ph)
+\begin{DoxyCompactList}\small\item\em Wrapper routine that calls ufs\+\_\+trace. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemom__cap__profiling_a4365139639422cbb671b294fd9eca488}{cap\+\_\+profiling\+\_\+finalize}} ()
+\begin{DoxyCompactList}\small\item\em Wrapper routine that calls ufs\+\_\+trace\+\_\+finalize. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contains wrapper routines that call the ufs tracing routines. 
+
+\doxysubsection{Function/\+Subroutine Documentation}
+\Hypertarget{namespacemom__cap__profiling_acef9a6cbbc0c9cb2cad2cb013e38337c}\label{namespacemom__cap__profiling_acef9a6cbbc0c9cb2cad2cb013e38337c} 
+\index{mom\_cap\_profiling@{mom\_cap\_profiling}!cap\_profiling@{cap\_profiling}}
+\index{cap\_profiling@{cap\_profiling}!mom\_cap\_profiling@{mom\_cap\_profiling}}
+\doxysubsubsection{\texorpdfstring{cap\_profiling()}{cap\_profiling()}}
+{\footnotesize\ttfamily subroutine, public mom\+\_\+cap\+\_\+profiling\+::cap\+\_\+profiling (\begin{DoxyParamCaption}\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{component,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{routine,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{ph }\end{DoxyParamCaption})}
+
+
+
+Wrapper routine that calls ufs\+\_\+trace. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em component} & Name of the component, \textquotesingle{}mom\textquotesingle{} \\
+\hline
+\mbox{\texttt{ in}}  & {\em routine} & Name of the profiled subroutine \\
+\hline
+\mbox{\texttt{ in}}  & {\em ph} & Duration event phase type. \textquotesingle{}B\textquotesingle{} or \textquotesingle{}E\textquotesingle{} for begin/end \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacemom__cap__profiling_a4365139639422cbb671b294fd9eca488}\label{namespacemom__cap__profiling_a4365139639422cbb671b294fd9eca488} 
+\index{mom\_cap\_profiling@{mom\_cap\_profiling}!cap\_profiling\_finalize@{cap\_profiling\_finalize}}
+\index{cap\_profiling\_finalize@{cap\_profiling\_finalize}!mom\_cap\_profiling@{mom\_cap\_profiling}}
+\doxysubsubsection{\texorpdfstring{cap\_profiling\_finalize()}{cap\_profiling\_finalize()}}
+{\footnotesize\ttfamily subroutine, public mom\+\_\+cap\+\_\+profiling\+::cap\+\_\+profiling\+\_\+finalize}
+
+
+
+Wrapper routine that calls ufs\+\_\+trace\+\_\+finalize. 
+
+\Hypertarget{namespacemom__cap__profiling_a9e109fe8cd2142768affef0eed82ebe2}\label{namespacemom__cap__profiling_a9e109fe8cd2142768affef0eed82ebe2} 
+\index{mom\_cap\_profiling@{mom\_cap\_profiling}!cap\_profiling\_init@{cap\_profiling\_init}}
+\index{cap\_profiling\_init@{cap\_profiling\_init}!mom\_cap\_profiling@{mom\_cap\_profiling}}
+\doxysubsubsection{\texorpdfstring{cap\_profiling\_init()}{cap\_profiling\_init()}}
+{\footnotesize\ttfamily subroutine, public mom\+\_\+cap\+\_\+profiling\+::cap\+\_\+profiling\+\_\+init}
+
+
+
+Wrapper routine that calls ufs\+\_\+trace\+\_\+init. 
+

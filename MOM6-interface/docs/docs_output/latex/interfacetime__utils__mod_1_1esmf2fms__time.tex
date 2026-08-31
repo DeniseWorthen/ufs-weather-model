@@ -1,0 +1,61 @@
+\doxysection{time\+\_\+utils\+\_\+mod\+::esmf2fms\+\_\+time Interface Reference}
+\hypertarget{interfacetime__utils__mod_1_1esmf2fms__time}{}\label{interfacetime__utils__mod_1_1esmf2fms__time}\index{time\_utils\_mod::esmf2fms\_time@{time\_utils\_mod::esmf2fms\_time}}
+
+
+Converts time from FMS to ESMF format.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+type(time\+\_\+type) function \mbox{\hyperlink{interfacetime__utils__mod_1_1esmf2fms__time_a23bbab31d4febfa4d86d3fe06588ec44}{esmf2fms\+\_\+time\+\_\+t}} (time)
+\begin{DoxyCompactList}\small\item\em Converts date from ESMF format to FMS format. \end{DoxyCompactList}\item 
+type(time\+\_\+type) function \mbox{\hyperlink{interfacetime__utils__mod_1_1esmf2fms__time_a88f5607d40cc127ea1c7f757ea3c1732}{esmf2fms\+\_\+timestep}} (timestep)
+\begin{DoxyCompactList}\small\item\em Converts time-\/interval from ESMF format to FMS format. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Converts time from FMS to ESMF format. 
+
+\doxysubsection{Member Function/\+Subroutine Documentation}
+\Hypertarget{interfacetime__utils__mod_1_1esmf2fms__time_a23bbab31d4febfa4d86d3fe06588ec44}\label{interfacetime__utils__mod_1_1esmf2fms__time_a23bbab31d4febfa4d86d3fe06588ec44} 
+\index{time\_utils\_mod::esmf2fms\_time@{time\_utils\_mod::esmf2fms\_time}!esmf2fms\_time\_t@{esmf2fms\_time\_t}}
+\index{esmf2fms\_time\_t@{esmf2fms\_time\_t}!time\_utils\_mod::esmf2fms\_time@{time\_utils\_mod::esmf2fms\_time}}
+\doxysubsubsection{\texorpdfstring{esmf2fms\_time\_t()}{esmf2fms\_time\_t()}}
+{\footnotesize\ttfamily type(time\+\_\+type) function time\+\_\+utils\+\_\+mod\+::esmf2fms\+\_\+time\+::esmf2fms\+\_\+time\+\_\+t (\begin{DoxyParamCaption}\item[{type(esmf\+\_\+time), intent(in)}]{time }\end{DoxyParamCaption})}
+
+
+
+Converts date from ESMF format to FMS format. 
+
+\begin{DoxyReturn}{Returns}
+FMS time structure 
+\end{DoxyReturn}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em time} & ESMF time structure \\
+\hline
+\end{DoxyParams}
+\Hypertarget{interfacetime__utils__mod_1_1esmf2fms__time_a88f5607d40cc127ea1c7f757ea3c1732}\label{interfacetime__utils__mod_1_1esmf2fms__time_a88f5607d40cc127ea1c7f757ea3c1732} 
+\index{time\_utils\_mod::esmf2fms\_time@{time\_utils\_mod::esmf2fms\_time}!esmf2fms\_timestep@{esmf2fms\_timestep}}
+\index{esmf2fms\_timestep@{esmf2fms\_timestep}!time\_utils\_mod::esmf2fms\_time@{time\_utils\_mod::esmf2fms\_time}}
+\doxysubsubsection{\texorpdfstring{esmf2fms\_timestep()}{esmf2fms\_timestep()}}
+{\footnotesize\ttfamily type(time\+\_\+type) function time\+\_\+utils\+\_\+mod\+::esmf2fms\+\_\+time\+::esmf2fms\+\_\+timestep (\begin{DoxyParamCaption}\item[{type(esmf\+\_\+timeinterval), intent(in)}]{timestep }\end{DoxyParamCaption})}
+
+
+
+Converts time-\/interval from ESMF format to FMS format. 
+
+\begin{DoxyReturn}{Returns}
+FMS time structure 
+\end{DoxyReturn}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em timestep} & time-\/interval following ESMF format \mbox{[}s\mbox{]} \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this interface was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/work/noaa/nems/dworthen/ufs\+\_\+dw/\+MOM6-\/interface/\+MOM6/config\+\_\+src/drivers/nuopc\+\_\+cap/\mbox{\hyperlink{time__utils_8F90}{time\+\_\+utils.\+F90}}\end{DoxyCompactItemize}

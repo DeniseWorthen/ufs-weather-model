@@ -1,0 +1,23 @@
+\doxysection{/work/noaa/nems/dworthen/ufs\+\_\+dw/\+MOM6-\/interface/unit-\/tests/outputlog\+\_\+test\+\_\+helpers.F90 File Reference}
+\hypertarget{outputlog__test__helpers_8F90}{}\label{outputlog__test__helpers_8F90}\index{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/unit-\/tests/outputlog\_test\_helpers.F90@{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/unit-\/tests/outputlog\_test\_helpers.F90}}
+\doxysubsubsection*{Modules}
+\begin{DoxyCompactItemize}
+\item 
+module \mbox{\hyperlink{namespaceoutputlog__test__helpers}{outputlog\+\_\+test\+\_\+helpers}}
+\begin{DoxyCompactList}\small\item\em Shared setup/teardown helpers for outputlog unit tests. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+subroutine, public \mbox{\hyperlink{namespaceoutputlog__test__helpers_aa686e4425f339e09909cc3cd9ad29e7c}{outputlog\+\_\+test\+\_\+helpers\+::setup\+\_\+case}} (start\+\_\+hour, runhours, freq, l\+\_\+nfiles, l\+\_\+timereduce, debug\+\_\+onroot, modelclock, cf\+\_\+n, state\+\_\+n, rc)
+\begin{DoxyCompactList}\small\item\em Build a real ESMF\+\_\+\+Clock/alarm plus cf\+\_\+n/state\+\_\+n for one test case, exactly as outputlog\+\_\+init would. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespaceoutputlog__test__helpers_af0f5c431a443318ddd9983fa85de0a40}{outputlog\+\_\+test\+\_\+helpers\+::handlefiles}} (isroot, fname, use\+\_\+filesize, mode)
+\begin{DoxyCompactList}\small\item\em Create/complete a net\+CDF fixture file, matching the real DATM/\+ATM completion contract. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+integer, parameter, public \mbox{\hyperlink{namespaceoutputlog__test__helpers_aed02edb07ac29a6fe85f20ae2c14e179}{outputlog\+\_\+test\+\_\+helpers\+::base\+\_\+yy}} = 2021
+\item 
+integer, parameter, public \mbox{\hyperlink{namespaceoutputlog__test__helpers_a29853931940e6ffcbdae805eec563d45}{outputlog\+\_\+test\+\_\+helpers\+::base\+\_\+mm}} = 3
+\item 
+integer, parameter, public \mbox{\hyperlink{namespaceoutputlog__test__helpers_a3e0c98cacb35c9ea0acf8335bdb36679}{outputlog\+\_\+test\+\_\+helpers\+::base\+\_\+dd}} = 22
+\end{DoxyCompactItemize}

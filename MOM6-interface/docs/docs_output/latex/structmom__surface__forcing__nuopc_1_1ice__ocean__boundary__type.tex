@@ -1,0 +1,693 @@
+\doxysection{mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type Type Reference}
+\hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type}{}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type}\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+
+
+Structure corresponding to forcing, but with the elements, units, and conventions that exactly conform to the use for MOM-\/based coupled models.  
+
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a4a01c640d6013e5a171987ea41109e1c}{lrunoff}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em liquid runoff \mbox{[}km m-\/2 s-\/1\mbox{]} \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ae61e993be8c7699b3072f744058689ee}{frunoff}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em ice runoff \mbox{[}km m-\/2 s-\/1\mbox{]} \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a4e7b3fd3337089a0a617060eae4d6ec1}{lrunoff\+\_\+glc}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em liquid glc runoff via rof \mbox{[}km m-\/2 s-\/1\mbox{]} \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_af14aedfe80a9a326644b4adcb7c4523f}{frunoff\+\_\+glc}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em frozen glc runoff via rof \mbox{[}km m-\/2 s-\/1\mbox{]} \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a26e2d76c204a6e5a13083831406ccbb8}{u\+\_\+flux}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em i-\/direction wind stress \mbox{[}Pa\mbox{]} \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a37f5bda100760bcf1173a165cf5a0514}{v\+\_\+flux}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em j-\/direction wind stress \mbox{[}Pa\mbox{]} \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ac7a5ccabef4f1d40e361d8bd09577872}{t\+\_\+flux}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em sensible heat flux \mbox{[}W m-\/2\mbox{]} \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a1c39e42963cf6e017cc281f18f1889c2}{q\+\_\+flux}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em specific humidity flux \mbox{[}km m-\/2 s-\/1\mbox{]} \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_abfc7e0ef67147ca76ed064d6e2f0ae5c}{salt\+\_\+flux}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em salt flux \mbox{[}km m-\/2 s-\/1\mbox{]} \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ad0c1ef1bfd566fb47d287442ff38d400}{seaice\+\_\+melt\+\_\+heat}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em sea ice and snow melt heat flux \mbox{[}W m-\/2\mbox{]} \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a1146f1f89f3007d2c1b5e4ae44a4d7b6}{seaice\+\_\+melt}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em water flux due to sea ice and snow melting \mbox{[}km m-\/2 s-\/1\mbox{]} \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a2835c675eede40164b6efe76c33b67e6}{lw\+\_\+flux}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em long wave radiation \mbox{[}W m-\/2\mbox{]} \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a424ac2b628add38dcca250d7919eed83}{sw\+\_\+flux\+\_\+vis\+\_\+dir}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em direct visible sw radiation \mbox{[}W m-\/2\mbox{]} \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a7addd1f14bf0bff3fdb8423213f811ab}{sw\+\_\+flux\+\_\+vis\+\_\+dif}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em diffuse visible sw radiation \mbox{[}W m-\/2\mbox{]} \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_abd90bca5605902843386b7dfe92c970b}{sw\+\_\+flux\+\_\+nir\+\_\+dir}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em direct Near Infra\+Red sw radiation \mbox{[}W m-\/2\mbox{]} \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a4351bb9df10c2c6a6d0328439bb33119}{sw\+\_\+flux\+\_\+nir\+\_\+dif}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em diffuse Near Infra\+Red sw radiation \mbox{[}W m-\/2\mbox{]} \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_aa3dcac71694e618edfe5624eca0f9a33}{lprec}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em mass flux of liquid precip \mbox{[}km m-\/2 s-\/1\mbox{]} \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a7333fd9ff57252d43459c74e87e0021d}{fprec}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em mass flux of frozen precip \mbox{[}km m-\/2 s-\/1\mbox{]} \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ab95a209f3578b781299246aac1bcf892}{ustar\+\_\+berg}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em frictional velocity beneath icebergs \mbox{[}m s-\/1\mbox{]} \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a0d492c8c001f939da98f3671f02139bc}{area\+\_\+berg}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em area covered by icebergs\mbox{[}m2 m-\/2\mbox{]} \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_af5dc0d106b3989077628335b5a9fe7ea}{mass\+\_\+berg}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em mass of icebergs(kg m-\/2) \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ae887cc9fa652e596a45695208a27963c}{hrofl}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em heat content from liquid runoff \mbox{[}W m-\/2\mbox{]} \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ab8c4a39049927172330602a260c19453}{hrofi}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em heat content from frozen runoff \mbox{[}W m-\/2\mbox{]} \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a0ed640793be5941b889961a4b18967ee}{hrofl\+\_\+glc}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em heat content from liquid glc runoff \mbox{[}W m-\/2\mbox{]} \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a227f92b0f9823d2962c60e096e8ee2dc}{hrofi\+\_\+glc}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em heat content from frozen glc runoff \mbox{[}W m-\/2\mbox{]} \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a28b819a34b85729b03648ae71432280b}{hrain}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em heat content from liquid precipitation \mbox{[}W m-\/2\mbox{]} \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a9c41c8f2f5030f740e80edf70e4540db}{hsnow}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em heat content from frozen precipitation \mbox{[}W m-\/2\mbox{]} \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a5a04b53a263c78514d74e892ace88121}{hevap}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em heat content from evaporation \mbox{[}W m-\/2\mbox{]} \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a0baed7dece1885efe53471dfb1976fe7}{hcond}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em heat content from condensation \mbox{[}W m-\/2\mbox{]} \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ab91d410f7e61001eb155bbc54219515a}{p}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em pressure of overlying ice and atmosphere on ocean surface \mbox{[}Pa\mbox{]} \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a446dbf31f4fb3667df2ddcf35b4f4fb0}{ice\+\_\+fraction}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em fractional ice area \mbox{[}1\mbox{]} \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a4dc34d78bf4e7a08a19aa8a00635321c}{u10\+\_\+sqr}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em wind speed squared at 10m \mbox{[}m2 s-\/2\mbox{]} \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ac5d0847f3d732498de9e4ee09bddc0a1}{nhx\+\_\+dep}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em Nitrogen deposition \mbox{[}kg m-\/2 s-\/1\mbox{]}. \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a18b6e64a9ce716bbf967bea77ba2098e}{noy\+\_\+dep}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em Nitrogen deposition \mbox{[}kg m-\/2 s-\/1\mbox{]}. \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a48c861a1bfd5448a0499ecc13cbc2622}{atm\+\_\+co2\+\_\+prog}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em Prognostic atmospheric co2 concentration \mbox{[}ppm\mbox{]}. \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ac8e9df565babdf7467026e1964a8ce34}{atm\+\_\+co2\+\_\+diag}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em Diagnostic atmospheric co2 concentration \mbox{[}ppm\mbox{]}. \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a8076a4dc57cbe023a85d9bb4c923aab7}{atm\+\_\+fine\+\_\+dust\+\_\+flux}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em Fine dust flux from atmosphere \mbox{[}kg m-\/2 s-\/1\mbox{]}. \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a8322f1f2a3363b6d723f1d0add4ce014}{atm\+\_\+coarse\+\_\+dust\+\_\+flux}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em Coarse dust flux from atmosphere \mbox{[}kg m-\/2 s-\/1\mbox{]}. \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ab72afe12ae4ec0c5693a1ff74cec460a}{seaice\+\_\+dust\+\_\+flux}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em Dust flux from seaice \mbox{[}kg m-\/2 s-\/1\mbox{]}. \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a2fd660029631992426af88496ced0ae4}{atm\+\_\+bc\+\_\+flux}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em Black carbon flux from atmosphere \mbox{[}kg m-\/2 s-\/1\mbox{]}. \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a4ee1c89b32a7b9573d0adbce3e670b55}{seaice\+\_\+bc\+\_\+flux}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em Black carbon flux from seaice \mbox{[}kg m-\/2 s-\/1\mbox{]}. \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a7d0c897eaeb6413888438f3dbb2bf92c}{afracr}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em Fractional atmosphere coverage wrt ocean \mbox{[}1\mbox{]}. \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a3c76b03125842520578bd6e7be82704e}{swnet\+\_\+afracr}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em Net shortwave radiation times atmosphere fraction positive =\texorpdfstring{$>$}{>} into the ocean \mbox{[}W m-\/2\mbox{]}. \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a84b4323d8175b9fadb77a16577c65520}{swpen\+\_\+ifrac\+\_\+n}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em Net shortwave radiation penetrating into ice and ocean times ice fraction for thickness positive =\texorpdfstring{$>$}{>} into the ocean \mbox{[}W m-\/2\mbox{]}. \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_afaf76adad204b81242963fa3151c9830}{ifrac\+\_\+n}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em Ice fraction per category \mbox{[}1\mbox{]}. \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ae434750b48e93c7fc2c48f6cc444c1cc}{mi}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em mass of ice \mbox{[}km m-\/2\mbox{]} \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a27511fc63173d3a0e852e77bb2257c52}{ice\+\_\+rigidity}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em rigidity of the sea ice, sea-\/ice and ice-\/shelves, expressed as a coefficient for divergence damping, as determined outside of the ocean model in \mbox{[}m3 s-\/1\mbox{]} \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ac955e1225eb09ed129e757fab04829c9}{lamult}} =$>$ NULL()
+\begin{DoxyCompactList}\small\item\em Langmuir enhancement factor \mbox{[}1\mbox{]}. \end{DoxyCompactList}\item 
+real, dimension(\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a99d5fe9e06a6661d3452ad70ce2f321c}{stk\+\_\+wavenumbers}} =$>$ NULL()
+\begin{DoxyCompactList}\small\item\em The central wave number of Stokes bands \mbox{[}rad/m\mbox{]}. \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a8f336f73db309263413bcf091b1c5a7e}{ustkb}} =$>$ NULL()
+\begin{DoxyCompactList}\small\item\em Stokes Drift spectrum, zonal \mbox{[}m s-\/1\mbox{]} Horizontal -\/ u points 3rd dimension -\/ wavenumber. \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:,\+:), pointer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a87193fdf3d03e3964a2f905cd8a04cf8}{vstkb}} =$>$ NULL()
+\begin{DoxyCompactList}\small\item\em Stokes Drift spectrum, meridional \mbox{[}m s-\/1\mbox{]} Horizontal -\/ v points 3rd dimension -\/ wavenumber. \end{DoxyCompactList}\item 
+integer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ada9aece351183cf33b08db99d38e70da}{num\+\_\+stk\+\_\+bands}}
+\begin{DoxyCompactList}\small\item\em Number of Stokes drift bands passed through the coupler. \end{DoxyCompactList}\item 
+integer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_af3729df30c9abe16f41320110314e06e}{xtype}}
+\begin{DoxyCompactList}\small\item\em The type of the exchange -\/ REGRID, REDIST or DIRECT. \end{DoxyCompactList}\item 
+type(coupler\+\_\+2d\+\_\+bc\+\_\+type) \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a5c7a7cd10b97a4493c7f1524c80702b0}{fluxes}}
+\begin{DoxyCompactList}\small\item\em A structure that may contain an array of named fields used for passive tracer fluxes. \end{DoxyCompactList}\item 
+integer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_aaac89db0e108ab15546e1e7d9d6ee411}{wind\+\_\+stagger}} = -\/999
+\begin{DoxyCompactList}\small\item\em A flag indicating the spatial discretization of wind stresses. This flag may be set by the flux-\/exchange code, based on what the sea-\/ice model is providing. Otherwise, the value from the surface\+\_\+forcing\+\_\+\+CS is used. \end{DoxyCompactList}\item 
+integer \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a31186516f6ebe1873ff7f03ee9701651}{ice\+\_\+ncat}}
+\begin{DoxyCompactList}\small\item\em Number of ice categories coming from coupler (1 =\texorpdfstring{$>$}{>} not using separate categories) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Structure corresponding to forcing, but with the elements, units, and conventions that exactly conform to the use for MOM-\/based coupled models. 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a7d0c897eaeb6413888438f3dbb2bf92c}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a7d0c897eaeb6413888438f3dbb2bf92c} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!afracr@{afracr}}
+\index{afracr@{afracr}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{afracr}{afracr}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::afracr =$>$NULL()}
+
+
+
+Fractional atmosphere coverage wrt ocean \mbox{[}1\mbox{]}. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a0d492c8c001f939da98f3671f02139bc}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a0d492c8c001f939da98f3671f02139bc} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!area\_berg@{area\_berg}}
+\index{area\_berg@{area\_berg}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{area\_berg}{area\_berg}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::area\+\_\+berg =$>$NULL()}
+
+
+
+area covered by icebergs\mbox{[}m2 m-\/2\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a2fd660029631992426af88496ced0ae4}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a2fd660029631992426af88496ced0ae4} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!atm\_bc\_flux@{atm\_bc\_flux}}
+\index{atm\_bc\_flux@{atm\_bc\_flux}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{atm\_bc\_flux}{atm\_bc\_flux}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::atm\+\_\+bc\+\_\+flux =$>$NULL()}
+
+
+
+Black carbon flux from atmosphere \mbox{[}kg m-\/2 s-\/1\mbox{]}. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ac8e9df565babdf7467026e1964a8ce34}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ac8e9df565babdf7467026e1964a8ce34} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!atm\_co2\_diag@{atm\_co2\_diag}}
+\index{atm\_co2\_diag@{atm\_co2\_diag}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{atm\_co2\_diag}{atm\_co2\_diag}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::atm\+\_\+co2\+\_\+diag =$>$NULL()}
+
+
+
+Diagnostic atmospheric co2 concentration \mbox{[}ppm\mbox{]}. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a48c861a1bfd5448a0499ecc13cbc2622}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a48c861a1bfd5448a0499ecc13cbc2622} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!atm\_co2\_prog@{atm\_co2\_prog}}
+\index{atm\_co2\_prog@{atm\_co2\_prog}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{atm\_co2\_prog}{atm\_co2\_prog}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::atm\+\_\+co2\+\_\+prog =$>$NULL()}
+
+
+
+Prognostic atmospheric co2 concentration \mbox{[}ppm\mbox{]}. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a8322f1f2a3363b6d723f1d0add4ce014}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a8322f1f2a3363b6d723f1d0add4ce014} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!atm\_coarse\_dust\_flux@{atm\_coarse\_dust\_flux}}
+\index{atm\_coarse\_dust\_flux@{atm\_coarse\_dust\_flux}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{atm\_coarse\_dust\_flux}{atm\_coarse\_dust\_flux}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::atm\+\_\+coarse\+\_\+dust\+\_\+flux =$>$NULL()}
+
+
+
+Coarse dust flux from atmosphere \mbox{[}kg m-\/2 s-\/1\mbox{]}. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a8076a4dc57cbe023a85d9bb4c923aab7}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a8076a4dc57cbe023a85d9bb4c923aab7} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!atm\_fine\_dust\_flux@{atm\_fine\_dust\_flux}}
+\index{atm\_fine\_dust\_flux@{atm\_fine\_dust\_flux}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{atm\_fine\_dust\_flux}{atm\_fine\_dust\_flux}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::atm\+\_\+fine\+\_\+dust\+\_\+flux =$>$NULL()}
+
+
+
+Fine dust flux from atmosphere \mbox{[}kg m-\/2 s-\/1\mbox{]}. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a5c7a7cd10b97a4493c7f1524c80702b0}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a5c7a7cd10b97a4493c7f1524c80702b0} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!fluxes@{fluxes}}
+\index{fluxes@{fluxes}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{fluxes}{fluxes}}
+{\footnotesize\ttfamily type(coupler\+\_\+2d\+\_\+bc\+\_\+type) mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::fluxes}
+
+
+
+A structure that may contain an array of named fields used for passive tracer fluxes. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a7333fd9ff57252d43459c74e87e0021d}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a7333fd9ff57252d43459c74e87e0021d} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!fprec@{fprec}}
+\index{fprec@{fprec}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{fprec}{fprec}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::fprec =$>$NULL()}
+
+
+
+mass flux of frozen precip \mbox{[}km m-\/2 s-\/1\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ae61e993be8c7699b3072f744058689ee}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ae61e993be8c7699b3072f744058689ee} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!frunoff@{frunoff}}
+\index{frunoff@{frunoff}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{frunoff}{frunoff}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::frunoff =$>$NULL()}
+
+
+
+ice runoff \mbox{[}km m-\/2 s-\/1\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_af14aedfe80a9a326644b4adcb7c4523f}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_af14aedfe80a9a326644b4adcb7c4523f} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!frunoff\_glc@{frunoff\_glc}}
+\index{frunoff\_glc@{frunoff\_glc}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{frunoff\_glc}{frunoff\_glc}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::frunoff\+\_\+glc =$>$NULL()}
+
+
+
+frozen glc runoff via rof \mbox{[}km m-\/2 s-\/1\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a0baed7dece1885efe53471dfb1976fe7}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a0baed7dece1885efe53471dfb1976fe7} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!hcond@{hcond}}
+\index{hcond@{hcond}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{hcond}{hcond}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::hcond =$>$NULL()}
+
+
+
+heat content from condensation \mbox{[}W m-\/2\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a5a04b53a263c78514d74e892ace88121}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a5a04b53a263c78514d74e892ace88121} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!hevap@{hevap}}
+\index{hevap@{hevap}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{hevap}{hevap}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::hevap =$>$NULL()}
+
+
+
+heat content from evaporation \mbox{[}W m-\/2\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a28b819a34b85729b03648ae71432280b}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a28b819a34b85729b03648ae71432280b} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!hrain@{hrain}}
+\index{hrain@{hrain}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{hrain}{hrain}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::hrain =$>$NULL()}
+
+
+
+heat content from liquid precipitation \mbox{[}W m-\/2\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ab8c4a39049927172330602a260c19453}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ab8c4a39049927172330602a260c19453} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!hrofi@{hrofi}}
+\index{hrofi@{hrofi}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{hrofi}{hrofi}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::hrofi =$>$NULL()}
+
+
+
+heat content from frozen runoff \mbox{[}W m-\/2\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a227f92b0f9823d2962c60e096e8ee2dc}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a227f92b0f9823d2962c60e096e8ee2dc} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!hrofi\_glc@{hrofi\_glc}}
+\index{hrofi\_glc@{hrofi\_glc}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{hrofi\_glc}{hrofi\_glc}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::hrofi\+\_\+glc =$>$NULL()}
+
+
+
+heat content from frozen glc runoff \mbox{[}W m-\/2\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ae887cc9fa652e596a45695208a27963c}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ae887cc9fa652e596a45695208a27963c} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!hrofl@{hrofl}}
+\index{hrofl@{hrofl}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{hrofl}{hrofl}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::hrofl =$>$NULL()}
+
+
+
+heat content from liquid runoff \mbox{[}W m-\/2\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a0ed640793be5941b889961a4b18967ee}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a0ed640793be5941b889961a4b18967ee} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!hrofl\_glc@{hrofl\_glc}}
+\index{hrofl\_glc@{hrofl\_glc}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{hrofl\_glc}{hrofl\_glc}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::hrofl\+\_\+glc =$>$NULL()}
+
+
+
+heat content from liquid glc runoff \mbox{[}W m-\/2\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a9c41c8f2f5030f740e80edf70e4540db}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a9c41c8f2f5030f740e80edf70e4540db} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!hsnow@{hsnow}}
+\index{hsnow@{hsnow}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{hsnow}{hsnow}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::hsnow =$>$NULL()}
+
+
+
+heat content from frozen precipitation \mbox{[}W m-\/2\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a446dbf31f4fb3667df2ddcf35b4f4fb0}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a446dbf31f4fb3667df2ddcf35b4f4fb0} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!ice\_fraction@{ice\_fraction}}
+\index{ice\_fraction@{ice\_fraction}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{ice\_fraction}{ice\_fraction}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::ice\+\_\+fraction =$>$NULL()}
+
+
+
+fractional ice area \mbox{[}1\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a31186516f6ebe1873ff7f03ee9701651}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a31186516f6ebe1873ff7f03ee9701651} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!ice\_ncat@{ice\_ncat}}
+\index{ice\_ncat@{ice\_ncat}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{ice\_ncat}{ice\_ncat}}
+{\footnotesize\ttfamily integer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::ice\+\_\+ncat}
+
+
+
+Number of ice categories coming from coupler (1 =\texorpdfstring{$>$}{>} not using separate categories) 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a27511fc63173d3a0e852e77bb2257c52}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a27511fc63173d3a0e852e77bb2257c52} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!ice\_rigidity@{ice\_rigidity}}
+\index{ice\_rigidity@{ice\_rigidity}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{ice\_rigidity}{ice\_rigidity}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::ice\+\_\+rigidity =$>$NULL()}
+
+
+
+rigidity of the sea ice, sea-\/ice and ice-\/shelves, expressed as a coefficient for divergence damping, as determined outside of the ocean model in \mbox{[}m3 s-\/1\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_afaf76adad204b81242963fa3151c9830}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_afaf76adad204b81242963fa3151c9830} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!ifrac\_n@{ifrac\_n}}
+\index{ifrac\_n@{ifrac\_n}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{ifrac\_n}{ifrac\_n}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::ifrac\+\_\+n =$>$NULL()}
+
+
+
+Ice fraction per category \mbox{[}1\mbox{]}. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ac955e1225eb09ed129e757fab04829c9}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ac955e1225eb09ed129e757fab04829c9} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!lamult@{lamult}}
+\index{lamult@{lamult}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{lamult}{lamult}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::lamult =$>$ NULL()}
+
+
+
+Langmuir enhancement factor \mbox{[}1\mbox{]}. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_aa3dcac71694e618edfe5624eca0f9a33}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_aa3dcac71694e618edfe5624eca0f9a33} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!lprec@{lprec}}
+\index{lprec@{lprec}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{lprec}{lprec}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::lprec =$>$NULL()}
+
+
+
+mass flux of liquid precip \mbox{[}km m-\/2 s-\/1\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a4a01c640d6013e5a171987ea41109e1c}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a4a01c640d6013e5a171987ea41109e1c} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!lrunoff@{lrunoff}}
+\index{lrunoff@{lrunoff}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{lrunoff}{lrunoff}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::lrunoff =$>$NULL()}
+
+
+
+liquid runoff \mbox{[}km m-\/2 s-\/1\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a4e7b3fd3337089a0a617060eae4d6ec1}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a4e7b3fd3337089a0a617060eae4d6ec1} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!lrunoff\_glc@{lrunoff\_glc}}
+\index{lrunoff\_glc@{lrunoff\_glc}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{lrunoff\_glc}{lrunoff\_glc}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::lrunoff\+\_\+glc =$>$NULL()}
+
+
+
+liquid glc runoff via rof \mbox{[}km m-\/2 s-\/1\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a2835c675eede40164b6efe76c33b67e6}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a2835c675eede40164b6efe76c33b67e6} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!lw\_flux@{lw\_flux}}
+\index{lw\_flux@{lw\_flux}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{lw\_flux}{lw\_flux}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::lw\+\_\+flux =$>$NULL()}
+
+
+
+long wave radiation \mbox{[}W m-\/2\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_af5dc0d106b3989077628335b5a9fe7ea}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_af5dc0d106b3989077628335b5a9fe7ea} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!mass\_berg@{mass\_berg}}
+\index{mass\_berg@{mass\_berg}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{mass\_berg}{mass\_berg}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::mass\+\_\+berg =$>$NULL()}
+
+
+
+mass of icebergs(kg m-\/2) 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ae434750b48e93c7fc2c48f6cc444c1cc}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ae434750b48e93c7fc2c48f6cc444c1cc} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!mi@{mi}}
+\index{mi@{mi}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{mi}{mi}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::mi =$>$NULL()}
+
+
+
+mass of ice \mbox{[}km m-\/2\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ac5d0847f3d732498de9e4ee09bddc0a1}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ac5d0847f3d732498de9e4ee09bddc0a1} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!nhx\_dep@{nhx\_dep}}
+\index{nhx\_dep@{nhx\_dep}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{nhx\_dep}{nhx\_dep}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::nhx\+\_\+dep =$>$NULL()}
+
+
+
+Nitrogen deposition \mbox{[}kg m-\/2 s-\/1\mbox{]}. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a18b6e64a9ce716bbf967bea77ba2098e}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a18b6e64a9ce716bbf967bea77ba2098e} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!noy\_dep@{noy\_dep}}
+\index{noy\_dep@{noy\_dep}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{noy\_dep}{noy\_dep}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::noy\+\_\+dep =$>$NULL()}
+
+
+
+Nitrogen deposition \mbox{[}kg m-\/2 s-\/1\mbox{]}. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ada9aece351183cf33b08db99d38e70da}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ada9aece351183cf33b08db99d38e70da} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!num\_stk\_bands@{num\_stk\_bands}}
+\index{num\_stk\_bands@{num\_stk\_bands}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{num\_stk\_bands}{num\_stk\_bands}}
+{\footnotesize\ttfamily integer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::num\+\_\+stk\+\_\+bands}
+
+
+
+Number of Stokes drift bands passed through the coupler. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ab91d410f7e61001eb155bbc54219515a}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ab91d410f7e61001eb155bbc54219515a} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!p@{p}}
+\index{p@{p}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{p}{p}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::p =$>$NULL()}
+
+
+
+pressure of overlying ice and atmosphere on ocean surface \mbox{[}Pa\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a1c39e42963cf6e017cc281f18f1889c2}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a1c39e42963cf6e017cc281f18f1889c2} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!q\_flux@{q\_flux}}
+\index{q\_flux@{q\_flux}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{q\_flux}{q\_flux}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::q\+\_\+flux =$>$NULL()}
+
+
+
+specific humidity flux \mbox{[}km m-\/2 s-\/1\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_abfc7e0ef67147ca76ed064d6e2f0ae5c}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_abfc7e0ef67147ca76ed064d6e2f0ae5c} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!salt\_flux@{salt\_flux}}
+\index{salt\_flux@{salt\_flux}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{salt\_flux}{salt\_flux}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::salt\+\_\+flux =$>$NULL()}
+
+
+
+salt flux \mbox{[}km m-\/2 s-\/1\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a4ee1c89b32a7b9573d0adbce3e670b55}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a4ee1c89b32a7b9573d0adbce3e670b55} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!seaice\_bc\_flux@{seaice\_bc\_flux}}
+\index{seaice\_bc\_flux@{seaice\_bc\_flux}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{seaice\_bc\_flux}{seaice\_bc\_flux}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::seaice\+\_\+bc\+\_\+flux =$>$NULL()}
+
+
+
+Black carbon flux from seaice \mbox{[}kg m-\/2 s-\/1\mbox{]}. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ab72afe12ae4ec0c5693a1ff74cec460a}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ab72afe12ae4ec0c5693a1ff74cec460a} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!seaice\_dust\_flux@{seaice\_dust\_flux}}
+\index{seaice\_dust\_flux@{seaice\_dust\_flux}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{seaice\_dust\_flux}{seaice\_dust\_flux}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::seaice\+\_\+dust\+\_\+flux =$>$NULL()}
+
+
+
+Dust flux from seaice \mbox{[}kg m-\/2 s-\/1\mbox{]}. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a1146f1f89f3007d2c1b5e4ae44a4d7b6}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a1146f1f89f3007d2c1b5e4ae44a4d7b6} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!seaice\_melt@{seaice\_melt}}
+\index{seaice\_melt@{seaice\_melt}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{seaice\_melt}{seaice\_melt}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::seaice\+\_\+melt =$>$NULL()}
+
+
+
+water flux due to sea ice and snow melting \mbox{[}km m-\/2 s-\/1\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ad0c1ef1bfd566fb47d287442ff38d400}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ad0c1ef1bfd566fb47d287442ff38d400} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!seaice\_melt\_heat@{seaice\_melt\_heat}}
+\index{seaice\_melt\_heat@{seaice\_melt\_heat}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{seaice\_melt\_heat}{seaice\_melt\_heat}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::seaice\+\_\+melt\+\_\+heat =$>$NULL()}
+
+
+
+sea ice and snow melt heat flux \mbox{[}W m-\/2\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a99d5fe9e06a6661d3452ad70ce2f321c}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a99d5fe9e06a6661d3452ad70ce2f321c} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!stk\_wavenumbers@{stk\_wavenumbers}}
+\index{stk\_wavenumbers@{stk\_wavenumbers}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{stk\_wavenumbers}{stk\_wavenumbers}}
+{\footnotesize\ttfamily real, dimension(\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::stk\+\_\+wavenumbers =$>$ NULL()}
+
+
+
+The central wave number of Stokes bands \mbox{[}rad/m\mbox{]}. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a4351bb9df10c2c6a6d0328439bb33119}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a4351bb9df10c2c6a6d0328439bb33119} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!sw\_flux\_nir\_dif@{sw\_flux\_nir\_dif}}
+\index{sw\_flux\_nir\_dif@{sw\_flux\_nir\_dif}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{sw\_flux\_nir\_dif}{sw\_flux\_nir\_dif}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::sw\+\_\+flux\+\_\+nir\+\_\+dif =$>$NULL()}
+
+
+
+diffuse Near Infra\+Red sw radiation \mbox{[}W m-\/2\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_abd90bca5605902843386b7dfe92c970b}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_abd90bca5605902843386b7dfe92c970b} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!sw\_flux\_nir\_dir@{sw\_flux\_nir\_dir}}
+\index{sw\_flux\_nir\_dir@{sw\_flux\_nir\_dir}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{sw\_flux\_nir\_dir}{sw\_flux\_nir\_dir}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::sw\+\_\+flux\+\_\+nir\+\_\+dir =$>$NULL()}
+
+
+
+direct Near Infra\+Red sw radiation \mbox{[}W m-\/2\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a7addd1f14bf0bff3fdb8423213f811ab}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a7addd1f14bf0bff3fdb8423213f811ab} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!sw\_flux\_vis\_dif@{sw\_flux\_vis\_dif}}
+\index{sw\_flux\_vis\_dif@{sw\_flux\_vis\_dif}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{sw\_flux\_vis\_dif}{sw\_flux\_vis\_dif}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::sw\+\_\+flux\+\_\+vis\+\_\+dif =$>$NULL()}
+
+
+
+diffuse visible sw radiation \mbox{[}W m-\/2\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a424ac2b628add38dcca250d7919eed83}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a424ac2b628add38dcca250d7919eed83} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!sw\_flux\_vis\_dir@{sw\_flux\_vis\_dir}}
+\index{sw\_flux\_vis\_dir@{sw\_flux\_vis\_dir}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{sw\_flux\_vis\_dir}{sw\_flux\_vis\_dir}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::sw\+\_\+flux\+\_\+vis\+\_\+dir =$>$NULL()}
+
+
+
+direct visible sw radiation \mbox{[}W m-\/2\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a3c76b03125842520578bd6e7be82704e}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a3c76b03125842520578bd6e7be82704e} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!swnet\_afracr@{swnet\_afracr}}
+\index{swnet\_afracr@{swnet\_afracr}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{swnet\_afracr}{swnet\_afracr}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::swnet\+\_\+afracr =$>$NULL()}
+
+
+
+Net shortwave radiation times atmosphere fraction positive =\texorpdfstring{$>$}{>} into the ocean \mbox{[}W m-\/2\mbox{]}. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a84b4323d8175b9fadb77a16577c65520}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a84b4323d8175b9fadb77a16577c65520} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!swpen\_ifrac\_n@{swpen\_ifrac\_n}}
+\index{swpen\_ifrac\_n@{swpen\_ifrac\_n}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{swpen\_ifrac\_n}{swpen\_ifrac\_n}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::swpen\+\_\+ifrac\+\_\+n =$>$NULL()}
+
+
+
+Net shortwave radiation penetrating into ice and ocean times ice fraction for thickness positive =\texorpdfstring{$>$}{>} into the ocean \mbox{[}W m-\/2\mbox{]}. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ac7a5ccabef4f1d40e361d8bd09577872}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ac7a5ccabef4f1d40e361d8bd09577872} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!t\_flux@{t\_flux}}
+\index{t\_flux@{t\_flux}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{t\_flux}{t\_flux}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::t\+\_\+flux =$>$NULL()}
+
+
+
+sensible heat flux \mbox{[}W m-\/2\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a4dc34d78bf4e7a08a19aa8a00635321c}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a4dc34d78bf4e7a08a19aa8a00635321c} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!u10\_sqr@{u10\_sqr}}
+\index{u10\_sqr@{u10\_sqr}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{u10\_sqr}{u10\_sqr}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::u10\+\_\+sqr =$>$NULL()}
+
+
+
+wind speed squared at 10m \mbox{[}m2 s-\/2\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a26e2d76c204a6e5a13083831406ccbb8}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a26e2d76c204a6e5a13083831406ccbb8} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!u\_flux@{u\_flux}}
+\index{u\_flux@{u\_flux}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{u\_flux}{u\_flux}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::u\+\_\+flux =$>$NULL()}
+
+
+
+i-\/direction wind stress \mbox{[}Pa\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ab95a209f3578b781299246aac1bcf892}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_ab95a209f3578b781299246aac1bcf892} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!ustar\_berg@{ustar\_berg}}
+\index{ustar\_berg@{ustar\_berg}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{ustar\_berg}{ustar\_berg}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::ustar\+\_\+berg =$>$NULL()}
+
+
+
+frictional velocity beneath icebergs \mbox{[}m s-\/1\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a8f336f73db309263413bcf091b1c5a7e}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a8f336f73db309263413bcf091b1c5a7e} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!ustkb@{ustkb}}
+\index{ustkb@{ustkb}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{ustkb}{ustkb}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::ustkb =$>$ NULL()}
+
+
+
+Stokes Drift spectrum, zonal \mbox{[}m s-\/1\mbox{]} Horizontal -\/ u points 3rd dimension -\/ wavenumber. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a37f5bda100760bcf1173a165cf5a0514}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a37f5bda100760bcf1173a165cf5a0514} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!v\_flux@{v\_flux}}
+\index{v\_flux@{v\_flux}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{v\_flux}{v\_flux}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::v\+\_\+flux =$>$NULL()}
+
+
+
+j-\/direction wind stress \mbox{[}Pa\mbox{]} 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a87193fdf3d03e3964a2f905cd8a04cf8}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_a87193fdf3d03e3964a2f905cd8a04cf8} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!vstkb@{vstkb}}
+\index{vstkb@{vstkb}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{vstkb}{vstkb}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:,\+:), pointer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::vstkb =$>$ NULL()}
+
+
+
+Stokes Drift spectrum, meridional \mbox{[}m s-\/1\mbox{]} Horizontal -\/ v points 3rd dimension -\/ wavenumber. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_aaac89db0e108ab15546e1e7d9d6ee411}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_aaac89db0e108ab15546e1e7d9d6ee411} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!wind\_stagger@{wind\_stagger}}
+\index{wind\_stagger@{wind\_stagger}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{wind\_stagger}{wind\_stagger}}
+{\footnotesize\ttfamily integer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::wind\+\_\+stagger = -\/999}
+
+
+
+A flag indicating the spatial discretization of wind stresses. This flag may be set by the flux-\/exchange code, based on what the sea-\/ice model is providing. Otherwise, the value from the surface\+\_\+forcing\+\_\+\+CS is used. 
+
+\Hypertarget{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_af3729df30c9abe16f41320110314e06e}\label{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type_af3729df30c9abe16f41320110314e06e} 
+\index{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}!xtype@{xtype}}
+\index{xtype@{xtype}!mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type@{mom\_surface\_forcing\_nuopc::ice\_ocean\_boundary\_type}}
+\doxysubsubsection{\texorpdfstring{xtype}{xtype}}
+{\footnotesize\ttfamily integer mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type\+::xtype}
+
+
+
+The type of the exchange -\/ REGRID, REDIST or DIRECT. 
+
+
+
+The documentation for this type was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/work/noaa/nems/dworthen/ufs\+\_\+dw/\+MOM6-\/interface/\+MOM6/config\+\_\+src/drivers/nuopc\+\_\+cap/\mbox{\hyperlink{mom__surface__forcing__nuopc_8F90}{mom\+\_\+surface\+\_\+forcing\+\_\+nuopc.\+F90}}\end{DoxyCompactItemize}

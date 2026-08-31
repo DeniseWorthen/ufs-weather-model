@@ -1,0 +1,35 @@
+\doxysection{/work/noaa/nems/dworthen/ufs\+\_\+dw/\+MOM6-\/interface/unit-\/tests/nc\+\_\+fixture\+\_\+mod.F90 File Reference}
+\hypertarget{nc__fixture__mod_8F90}{}\label{nc__fixture__mod_8F90}\index{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/unit-\/tests/nc\_fixture\_mod.F90@{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/unit-\/tests/nc\_fixture\_mod.F90}}
+\doxysubsubsection*{Modules}
+\begin{DoxyCompactItemize}
+\item 
+module \mbox{\hyperlink{namespacenc__fixture__mod}{nc\+\_\+fixture\+\_\+mod}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+subroutine \mbox{\hyperlink{namespacenc__fixture__mod_a33163f82ef2f3c15497085369acfe643}{nc\+\_\+fixture\+\_\+mod\+::create\+\_\+schema}} (fname, createsize\+\_\+out)
+\begin{DoxyCompactList}\small\item\em Create a fresh file with the schema defined but zero records written. nlen=0. Includes an extra "{}pad"{} variable that does NOT use the unlimited "{}time"{} dim -- see write\+\_\+padding for why. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacenc__fixture__mod_a33fb11a600ad64847155775b1fcc71ae}{nc\+\_\+fixture\+\_\+mod\+::write\+\_\+record}} (fname, time\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Extend the unlimited dim by writing record 1\textquotesingle{}s time-\/coordinate value. nlen\+: 0 -\/\texorpdfstring{$>$}{>} 1. Does NOT write the bulk data variable. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacenc__fixture__mod_afe19d49dcceb26ddd76443b510d2f39f}{nc\+\_\+fixture\+\_\+mod\+::write\+\_\+bulk\+\_\+data}} (fname, fill\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Write the bulk "{}data"{} variable for record 1. Grows fsize. Requires write\+\_\+record to have been called first (record 1 must already exist). \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacenc__fixture__mod_a3ea7e4875a4cb18ab8d534d251b35285}{nc\+\_\+fixture\+\_\+mod\+::write\+\_\+padding}} (fname, fill\+\_\+value)
+\begin{DoxyCompactList}\small\item\em Write the "{}pad"{} variable -- deliberately NOT tied to the unlimited "{}time"{} dim. This models the confirmed real DATM behavior\+: the bulk payload is already fully on disk (fsize \texorpdfstring{$\sim$}{\string~}final) BEFORE nlen ever advances from 0. We can\textquotesingle{}t reproduce that using a variable that actually shares "{}time"{} (writing any such variable immediately advances nlen, per the earlier reproducer) -- so this is a deliberate stand-\/in that reproduces the observable nlen/fsize progression without replicating the real file\textquotesingle{}s internal variable structure. file\+\_\+is\+\_\+complete/get\+\_\+file\+\_\+state only look at nlen and fsize, so that\textquotesingle{}s sufficient for what\textquotesingle{}s under test. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacenc__fixture__mod_ab85b0768f6b4e68415050083c7960e9a}{nc\+\_\+fixture\+\_\+mod\+::make\+\_\+datm\+\_\+incomplete}} (fname)
+\begin{DoxyCompactList}\small\item\em DATM incomplete\+: confirmed against real production output -- the bulk payload is already fully written (fsize \texorpdfstring{$\sim$}{\string~}final) while nlen=0. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacenc__fixture__mod_a0a9a3536d648f3c26b36ca143bdb43c4}{nc\+\_\+fixture\+\_\+mod\+::make\+\_\+datm\+\_\+complete}} (fname)
+\begin{DoxyCompactList}\small\item\em DATM complete\+: confirmed against real production output -- differs from incomplete ONLY by the record/timestamp write (nlen 0-\/\texorpdfstring{$>$}{>}1, fsize grows by exactly one real\texorpdfstring{$\ast$}{*}8). The bulk payload was already present. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacenc__fixture__mod_a93bc72eff1df153d9999613099227964}{nc\+\_\+fixture\+\_\+mod\+::make\+\_\+atm\+\_\+incomplete}} (fname, createsize\+\_\+out)
+\item 
+subroutine \mbox{\hyperlink{namespacenc__fixture__mod_aaef8977c70f696bed84aaaa874b59e0f}{nc\+\_\+fixture\+\_\+mod\+::make\+\_\+atm\+\_\+complete}} (fname, createsize\+\_\+out)
+\item 
+subroutine \mbox{\hyperlink{namespacenc__fixture__mod_a7ac05ec01ccf9c85a21ee8ecbb38394d}{nc\+\_\+fixture\+\_\+mod\+::nf90\+\_\+err}} (ierr, context)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+integer, parameter \mbox{\hyperlink{namespacenc__fixture__mod_a6144befa81ddbde91b266c92d4b1b9c3}{nc\+\_\+fixture\+\_\+mod\+::fixture\+\_\+nx}} = 200
+\item 
+integer, parameter \mbox{\hyperlink{namespacenc__fixture__mod_aca30621fd4abfa61dc964073cd30394c}{nc\+\_\+fixture\+\_\+mod\+::fixture\+\_\+pad\+\_\+n}} = 100000
+\end{DoxyCompactItemize}

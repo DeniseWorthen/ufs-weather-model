@@ -1,0 +1,44 @@
+\doxysection{/work/noaa/nems/dworthen/ufs\+\_\+dw/\+MOM6-\/interface/\+MOM6/config\+\_\+src/drivers/nuopc\+\_\+cap/mom\+\_\+ocean\+\_\+model\+\_\+nuopc.F90 File Reference}
+\hypertarget{mom__ocean__model__nuopc_8F90}{}\label{mom__ocean__model__nuopc_8F90}\index{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/MOM6/config\_src/drivers/nuopc\_cap/mom\_ocean\_model\_nuopc.F90@{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/MOM6/config\_src/drivers/nuopc\_cap/mom\_ocean\_model\_nuopc.F90}}
+{\ttfamily \#include $<$MOM\+\_\+memory.\+h$>$}\newline
+\doxysubsubsection*{Data Types}
+\begin{DoxyCompactItemize}
+\item 
+type \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__public__type}{mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+public\+\_\+type}}
+\begin{DoxyCompactList}\small\item\em This type is used for communication with other components via the FMS coupler. The element names and types can be changed only with great deliberation, hence the persistnce of things like the cutsy element name "{}avg\+\_\+kount"{}. \end{DoxyCompactList}\item 
+type \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__state__type}{mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+state\+\_\+type}}
+\begin{DoxyCompactList}\small\item\em The \doxylink{structmom__ocean__model__nuopc_1_1ocean__state__type}{ocean\+\_\+state\+\_\+type} contains all information about the state of the ocean, with a format that is private so it can be readily changed without disrupting other coupled components. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Modules}
+\begin{DoxyCompactItemize}
+\item 
+module \mbox{\hyperlink{namespacemom__ocean__model__nuopc}{mom\+\_\+ocean\+\_\+model\+\_\+nuopc}}
+\begin{DoxyCompactList}\small\item\em Top-\/level module for the MOM6 ocean model in coupled mode. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+subroutine, public \mbox{\hyperlink{namespacemom__ocean__model__nuopc_aa87719e54ca68cf3db55518f87eb1a6b}{mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+model\+\_\+init}} (ocean\+\_\+sfc, os, time\+\_\+init, time\+\_\+in, gas\+\_\+fields\+\_\+ocn, input\+\_\+restart\+\_\+file, inst\+\_\+index)
+\begin{DoxyCompactList}\small\item\em ocean\+\_\+model\+\_\+init initializes the ocean model, including registering fields for restarts and reading restart files if appropriate. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemom__ocean__model__nuopc_ae9ec71b9745b2d578f3a4447dc6955f0}{mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::update\+\_\+ocean\+\_\+model}} (ice\+\_\+ocean\+\_\+boundary, os, ocean\+\_\+sfc, time\+\_\+start\+\_\+update, ocean\+\_\+coupling\+\_\+time\+\_\+step, cesm\+\_\+coupled, update\+\_\+dyn, update\+\_\+thermo, ocn\+\_\+fluxes\+\_\+used)
+\begin{DoxyCompactList}\small\item\em update\+\_\+ocean\+\_\+model uses the forcing in Ice\+\_\+ocean\+\_\+boundary to advance the ocean model\textquotesingle{}s state from the input value of Ocean\+\_\+state (which must be for time time\+\_\+start\+\_\+update) for a time interval of Ocean\+\_\+coupling\+\_\+time\+\_\+step, returning the publicly visible ocean surface properties in Ocean\+\_\+sfc and storing the new ocean properties in Ocean\+\_\+state. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemom__ocean__model__nuopc_aed39064d13c4eb475836c439008cb5a7}{mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+model\+\_\+restart}} (os, timestamp, restartname, stoch\+\_\+restartname, num\+\_\+rest\+\_\+files)
+\begin{DoxyCompactList}\small\item\em This subroutine writes out the ocean model restart file. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemom__ocean__model__nuopc_ade8b5e8092fa05799273f21c4c71a88d}{mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+model\+\_\+end}} (ocean\+\_\+sfc, ocean\+\_\+state, time, write\+\_\+restart)
+\begin{DoxyCompactList}\small\item\em ocean\+\_\+model\+\_\+end terminates the model run, saving the ocean state in a restart and deallocating any data associated with the ocean. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemom__ocean__model__nuopc_a822ed178a4347574f84581aef6e75ac2}{mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+model\+\_\+save\+\_\+restart}} (os, time, directory, filename\+\_\+suffix)
+\begin{DoxyCompactList}\small\item\em ocean\+\_\+model\+\_\+save\+\_\+restart causes restart files associated with the ocean to be written out. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemom__ocean__model__nuopc_a70fe76346487909f4c7be3918c0ef5eb}{mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+model\+\_\+init\+\_\+sfc}} (os, ocean\+\_\+sfc)
+\begin{DoxyCompactList}\small\item\em This subroutine extracts the surface properties from the ocean\textquotesingle{}s internal state and stores them in the ocean type returned to the calling ice model. It has to be separate from the ocean\+\_\+initialization call because the coupler module allocates the space for some of these variables. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemom__ocean__model__nuopc_a332472e14659f2823bcaf998014d9bd7}{mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+model\+\_\+flux\+\_\+init}} (os, verbosity)
+\begin{DoxyCompactList}\small\item\em ocean\+\_\+model\+\_\+flux\+\_\+init is used to initialize properties of the air-\/sea fluxes as determined by various run-\/time parameters. It can be called from non-\/ocean PEs, or PEs that have not yet been initialzed, and it can safely be called multiple times. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemom__ocean__model__nuopc_a4a1015e97fc4c8d6084e62c3cfb1c119}{mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::query\+\_\+ocean\+\_\+state}} (os, use\+\_\+waves, numwavebands, wavenumbers, unscale, wave\+\_\+method, use\+\_\+marbl)
+\begin{DoxyCompactList}\small\item\em This interface allows certain properties that are stored in the \doxylink{structmom__ocean__model__nuopc_1_1ocean__state__type}{ocean\+\_\+state\+\_\+type} to be obtained. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemom__ocean__model__nuopc_aad6bc868b4996f7296c3436fb08d55ac}{mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+stock\+\_\+pe}} (os, index, value, time\+\_\+index)
+\begin{DoxyCompactList}\small\item\em Ocean\+\_\+stock\+\_\+pe -\/ returns the integrated stocks of heat, water, etc. for conservation checks. Because of the way FMS is coded, only the root PE has the integrated amount, while all other PEs get 0. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemom__ocean__model__nuopc_a4af434e17421199b27df37742ecbca97}{mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+public\+\_\+type\+\_\+chksum}} (id, timestep, ocn)
+\begin{DoxyCompactList}\small\item\em Write out checksums for fields from the ocean surface state. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemom__ocean__model__nuopc_aca5d98b98789a98cc94858e99e2f869c}{mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::get\+\_\+ocean\+\_\+grid}} (os, gridp)
+\item 
+real function, public \mbox{\hyperlink{namespacemom__ocean__model__nuopc_a0d4ecb8b2d0276dcdf75c9f7bc1641ee}{mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::get\+\_\+eps\+\_\+omesh}} (os)
+\begin{DoxyCompactList}\small\item\em Returns eps\+\_\+omesh read from param file. \end{DoxyCompactList}\item 
+logical function, public \mbox{\hyperlink{namespacemom__ocean__model__nuopc_a727c9a03ebb6ff129c81c51007b22b35}{mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::stoch\+\_\+restart\+\_\+needed}} (os)
+\begin{DoxyCompactList}\small\item\em Returns true if a stochastic restart file is needed. \end{DoxyCompactList}\end{DoxyCompactItemize}

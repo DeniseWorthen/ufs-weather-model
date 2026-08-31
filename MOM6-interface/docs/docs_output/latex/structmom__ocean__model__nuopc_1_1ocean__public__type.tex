@@ -1,0 +1,249 @@
+\doxysection{mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+public\+\_\+type Type Reference}
+\hypertarget{structmom__ocean__model__nuopc_1_1ocean__public__type}{}\label{structmom__ocean__model__nuopc_1_1ocean__public__type}\index{mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}}
+
+
+This type is used for communication with other components via the FMS coupler. The element names and types can be changed only with great deliberation, hence the persistnce of things like the cutsy element name "{}avg\+\_\+kount"{}.  
+
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+type(domain2d) \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__public__type_a1840b2f06d262d515a5f006f098301c3}{domain}}
+\begin{DoxyCompactList}\small\item\em The domain for the surface fields. \end{DoxyCompactList}\item 
+logical \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__public__type_af4f8adff63649c6f0f0edebb03e810a1}{is\+\_\+ocean\+\_\+pe}}
+\begin{DoxyCompactList}\small\item\em .true. on processors that run the ocean model. \end{DoxyCompactList}\item 
+character(len=32) \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__public__type_ad9d5087dd4d2fdfd2654cb285818c896}{instance\+\_\+name}} = \textquotesingle{}\textquotesingle{}
+\begin{DoxyCompactList}\small\item\em A name that can be used to identify this instance of an ocean model, for example in ensembles when writing messages. \end{DoxyCompactList}\item 
+integer, dimension(\+:), pointer \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__public__type_aac424aa31497d6ab5dbf2bac5fd2c09e}{pelist}} =$>$ NULL()
+\begin{DoxyCompactList}\small\item\em The list of ocean PEs. \end{DoxyCompactList}\item 
+logical, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__public__type_abcab7b3c7857e6cff288366e679a718e}{maskmap}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em A pointer to an array indicating which logical processors are actually used for the ocean code. The other logical processors would be all land points and are not assigned to actual processors. This need not be assigned if all logical processors are used. \end{DoxyCompactList}\item 
+integer \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__public__type_ab7fcecb1efa3fac0cb23ccdd60a892e1}{stagger}} = -\/999
+\begin{DoxyCompactList}\small\item\em The staggering relative to the tracer points points of the two velocity components. Valid entries include AGRID, BGRID\+\_\+\+NE, CGRID\+\_\+\+NE, BGRID\+\_\+\+SW, and CGRID\+\_\+\+SW, corresponding to the community-\/standard Arakawa notation. (These are named integers taken from mpp\+\_\+parameter\+\_\+mod.) Following MOM5, stagger is BGRID\+\_\+\+NE by default when the ocean is initialized, but here it is set to -\/999 so that a global max across ocean and non-\/ocean processors can be used to determine its value. \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__public__type_aae2841d83e0359c601d8df879036672a}{t\+\_\+surf}} =$>$ NULL()
+\begin{DoxyCompactList}\small\item\em SST on t-\/cell (degrees Kelvin) \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__public__type_a7d699efd318cefff989d5daa3b80d8ad}{s\+\_\+surf}} =$>$ NULL()
+\begin{DoxyCompactList}\small\item\em SSS on t-\/cell (psu) \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__public__type_a7a907ab12271b2e9e5570ef10b0a9356}{u\+\_\+surf}} =$>$ NULL()
+\begin{DoxyCompactList}\small\item\em i-\/velocity at the locations indicated by stagger, m/s. \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__public__type_a1bc458508e4a170383a0f7ea45a94f8d}{v\+\_\+surf}} =$>$ NULL()
+\begin{DoxyCompactList}\small\item\em j-\/velocity at the locations indicated by stagger, m/s. \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__public__type_a34a4420868849167e2ae5be4477628b7}{sea\+\_\+lev}} =$>$ NULL()
+\begin{DoxyCompactList}\small\item\em Sea level in m after correction for surface pressure,. \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__public__type_aa3468cf4fb89fa76514c95cd33e786f8}{frazil}} =$>$NULL()
+\begin{DoxyCompactList}\small\item\em Accumulated heating (in Joules/m\texorpdfstring{$^\wedge$}{\string^}2) from frazil. \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__public__type_a5863e40470ed5bf6f1f436cd080968a5}{melt\+\_\+potential}} =$>$ NULL()
+\begin{DoxyCompactList}\small\item\em Instantaneous heat used to melt sea ice (in J/m\texorpdfstring{$^\wedge$}{\string^}2) \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__public__type_a9e1277236d0dd110e744a5a5e9d1d8dd}{area}} =$>$ NULL()
+\begin{DoxyCompactList}\small\item\em cell area of the ocean surface, in m2. \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__public__type_a70a2d81a8bfcd99861f136b4d5cb5b74}{obld}} =$>$ NULL()
+\begin{DoxyCompactList}\small\item\em Ocean boundary layer depth, in m. \end{DoxyCompactList}\item 
+real, dimension(\+:,\+:), pointer \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__public__type_aa1309702b4e798690bee63f2355434d2}{fco2\+\_\+ocn}} =$>$ NULL()
+\begin{DoxyCompactList}\small\item\em Ocean CO2 flux, in kg CO2/m\texorpdfstring{$^\wedge$}{\string^}2/s. \end{DoxyCompactList}\item 
+type(coupler\+\_\+2d\+\_\+bc\+\_\+type) \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__public__type_a145515b6292d7c5de1438a5750e274ae}{fields}}
+\begin{DoxyCompactList}\small\item\em A structure that may contain named arrays of tracer-\/related surface fields. \end{DoxyCompactList}\item 
+integer \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__public__type_a9ae47a3dc9386062e66e6608506fb4d7}{avg\+\_\+kount}}
+\begin{DoxyCompactList}\small\item\em A count of contributions to running sums, used externally by the FMS coupler for accumulating averages of this type. \end{DoxyCompactList}\item 
+integer, dimension(2) \mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__public__type_a36e2ce00d357a0bac5b1cce624c82a81}{axes}} = 0
+\begin{DoxyCompactList}\small\item\em Axis numbers that are available for I/O using this surface data. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This type is used for communication with other components via the FMS coupler. The element names and types can be changed only with great deliberation, hence the persistnce of things like the cutsy element name "{}avg\+\_\+kount"{}. 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__public__type_a9e1277236d0dd110e744a5a5e9d1d8dd}\label{structmom__ocean__model__nuopc_1_1ocean__public__type_a9e1277236d0dd110e744a5a5e9d1d8dd} 
+\index{mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}!area@{area}}
+\index{area@{area}!mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}}
+\doxysubsubsection{\texorpdfstring{area}{area}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+public\+\_\+type\+::area =$>$ NULL()}
+
+
+
+cell area of the ocean surface, in m2. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__public__type_a9ae47a3dc9386062e66e6608506fb4d7}\label{structmom__ocean__model__nuopc_1_1ocean__public__type_a9ae47a3dc9386062e66e6608506fb4d7} 
+\index{mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}!avg\_kount@{avg\_kount}}
+\index{avg\_kount@{avg\_kount}!mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}}
+\doxysubsubsection{\texorpdfstring{avg\_kount}{avg\_kount}}
+{\footnotesize\ttfamily integer mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+public\+\_\+type\+::avg\+\_\+kount}
+
+
+
+A count of contributions to running sums, used externally by the FMS coupler for accumulating averages of this type. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__public__type_a36e2ce00d357a0bac5b1cce624c82a81}\label{structmom__ocean__model__nuopc_1_1ocean__public__type_a36e2ce00d357a0bac5b1cce624c82a81} 
+\index{mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}!axes@{axes}}
+\index{axes@{axes}!mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}}
+\doxysubsubsection{\texorpdfstring{axes}{axes}}
+{\footnotesize\ttfamily integer, dimension(2) mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+public\+\_\+type\+::axes = 0}
+
+
+
+Axis numbers that are available for I/O using this surface data. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__public__type_a1840b2f06d262d515a5f006f098301c3}\label{structmom__ocean__model__nuopc_1_1ocean__public__type_a1840b2f06d262d515a5f006f098301c3} 
+\index{mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}!domain@{domain}}
+\index{domain@{domain}!mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}}
+\doxysubsubsection{\texorpdfstring{domain}{domain}}
+{\footnotesize\ttfamily type(domain2d) mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+public\+\_\+type\+::domain}
+
+
+
+The domain for the surface fields. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__public__type_aa1309702b4e798690bee63f2355434d2}\label{structmom__ocean__model__nuopc_1_1ocean__public__type_aa1309702b4e798690bee63f2355434d2} 
+\index{mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}!fco2\_ocn@{fco2\_ocn}}
+\index{fco2\_ocn@{fco2\_ocn}!mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}}
+\doxysubsubsection{\texorpdfstring{fco2\_ocn}{fco2\_ocn}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+public\+\_\+type\+::fco2\+\_\+ocn =$>$ NULL()}
+
+
+
+Ocean CO2 flux, in kg CO2/m\texorpdfstring{$^\wedge$}{\string^}2/s. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__public__type_a145515b6292d7c5de1438a5750e274ae}\label{structmom__ocean__model__nuopc_1_1ocean__public__type_a145515b6292d7c5de1438a5750e274ae} 
+\index{mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}!fields@{fields}}
+\index{fields@{fields}!mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}}
+\doxysubsubsection{\texorpdfstring{fields}{fields}}
+{\footnotesize\ttfamily type(coupler\+\_\+2d\+\_\+bc\+\_\+type) mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+public\+\_\+type\+::fields}
+
+
+
+A structure that may contain named arrays of tracer-\/related surface fields. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__public__type_aa3468cf4fb89fa76514c95cd33e786f8}\label{structmom__ocean__model__nuopc_1_1ocean__public__type_aa3468cf4fb89fa76514c95cd33e786f8} 
+\index{mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}!frazil@{frazil}}
+\index{frazil@{frazil}!mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}}
+\doxysubsubsection{\texorpdfstring{frazil}{frazil}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+public\+\_\+type\+::frazil =$>$NULL()}
+
+
+
+Accumulated heating (in Joules/m\texorpdfstring{$^\wedge$}{\string^}2) from frazil. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__public__type_ad9d5087dd4d2fdfd2654cb285818c896}\label{structmom__ocean__model__nuopc_1_1ocean__public__type_ad9d5087dd4d2fdfd2654cb285818c896} 
+\index{mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}!instance\_name@{instance\_name}}
+\index{instance\_name@{instance\_name}!mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}}
+\doxysubsubsection{\texorpdfstring{instance\_name}{instance\_name}}
+{\footnotesize\ttfamily character(len=32) mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+public\+\_\+type\+::instance\+\_\+name = \textquotesingle{}\textquotesingle{}}
+
+
+
+A name that can be used to identify this instance of an ocean model, for example in ensembles when writing messages. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__public__type_af4f8adff63649c6f0f0edebb03e810a1}\label{structmom__ocean__model__nuopc_1_1ocean__public__type_af4f8adff63649c6f0f0edebb03e810a1} 
+\index{mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}!is\_ocean\_pe@{is\_ocean\_pe}}
+\index{is\_ocean\_pe@{is\_ocean\_pe}!mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}}
+\doxysubsubsection{\texorpdfstring{is\_ocean\_pe}{is\_ocean\_pe}}
+{\footnotesize\ttfamily logical mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+public\+\_\+type\+::is\+\_\+ocean\+\_\+pe}
+
+
+
+.true. on processors that run the ocean model. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__public__type_abcab7b3c7857e6cff288366e679a718e}\label{structmom__ocean__model__nuopc_1_1ocean__public__type_abcab7b3c7857e6cff288366e679a718e} 
+\index{mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}!maskmap@{maskmap}}
+\index{maskmap@{maskmap}!mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}}
+\doxysubsubsection{\texorpdfstring{maskmap}{maskmap}}
+{\footnotesize\ttfamily logical, dimension(\+:,\+:), pointer mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+public\+\_\+type\+::maskmap =$>$NULL()}
+
+
+
+A pointer to an array indicating which logical processors are actually used for the ocean code. The other logical processors would be all land points and are not assigned to actual processors. This need not be assigned if all logical processors are used. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__public__type_a5863e40470ed5bf6f1f436cd080968a5}\label{structmom__ocean__model__nuopc_1_1ocean__public__type_a5863e40470ed5bf6f1f436cd080968a5} 
+\index{mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}!melt\_potential@{melt\_potential}}
+\index{melt\_potential@{melt\_potential}!mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}}
+\doxysubsubsection{\texorpdfstring{melt\_potential}{melt\_potential}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+public\+\_\+type\+::melt\+\_\+potential =$>$ NULL()}
+
+
+
+Instantaneous heat used to melt sea ice (in J/m\texorpdfstring{$^\wedge$}{\string^}2) 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__public__type_a70a2d81a8bfcd99861f136b4d5cb5b74}\label{structmom__ocean__model__nuopc_1_1ocean__public__type_a70a2d81a8bfcd99861f136b4d5cb5b74} 
+\index{mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}!obld@{obld}}
+\index{obld@{obld}!mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}}
+\doxysubsubsection{\texorpdfstring{obld}{obld}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+public\+\_\+type\+::obld =$>$ NULL()}
+
+
+
+Ocean boundary layer depth, in m. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__public__type_aac424aa31497d6ab5dbf2bac5fd2c09e}\label{structmom__ocean__model__nuopc_1_1ocean__public__type_aac424aa31497d6ab5dbf2bac5fd2c09e} 
+\index{mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}!pelist@{pelist}}
+\index{pelist@{pelist}!mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}}
+\doxysubsubsection{\texorpdfstring{pelist}{pelist}}
+{\footnotesize\ttfamily integer, dimension(\+:), pointer mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+public\+\_\+type\+::pelist =$>$ NULL()}
+
+
+
+The list of ocean PEs. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__public__type_a7d699efd318cefff989d5daa3b80d8ad}\label{structmom__ocean__model__nuopc_1_1ocean__public__type_a7d699efd318cefff989d5daa3b80d8ad} 
+\index{mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}!s\_surf@{s\_surf}}
+\index{s\_surf@{s\_surf}!mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}}
+\doxysubsubsection{\texorpdfstring{s\_surf}{s\_surf}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+public\+\_\+type\+::s\+\_\+surf =$>$ NULL()}
+
+
+
+SSS on t-\/cell (psu) 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__public__type_a34a4420868849167e2ae5be4477628b7}\label{structmom__ocean__model__nuopc_1_1ocean__public__type_a34a4420868849167e2ae5be4477628b7} 
+\index{mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}!sea\_lev@{sea\_lev}}
+\index{sea\_lev@{sea\_lev}!mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}}
+\doxysubsubsection{\texorpdfstring{sea\_lev}{sea\_lev}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+public\+\_\+type\+::sea\+\_\+lev =$>$ NULL()}
+
+
+
+Sea level in m after correction for surface pressure,. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__public__type_ab7fcecb1efa3fac0cb23ccdd60a892e1}\label{structmom__ocean__model__nuopc_1_1ocean__public__type_ab7fcecb1efa3fac0cb23ccdd60a892e1} 
+\index{mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}!stagger@{stagger}}
+\index{stagger@{stagger}!mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}}
+\doxysubsubsection{\texorpdfstring{stagger}{stagger}}
+{\footnotesize\ttfamily integer mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+public\+\_\+type\+::stagger = -\/999}
+
+
+
+The staggering relative to the tracer points points of the two velocity components. Valid entries include AGRID, BGRID\+\_\+\+NE, CGRID\+\_\+\+NE, BGRID\+\_\+\+SW, and CGRID\+\_\+\+SW, corresponding to the community-\/standard Arakawa notation. (These are named integers taken from mpp\+\_\+parameter\+\_\+mod.) Following MOM5, stagger is BGRID\+\_\+\+NE by default when the ocean is initialized, but here it is set to -\/999 so that a global max across ocean and non-\/ocean processors can be used to determine its value. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__public__type_aae2841d83e0359c601d8df879036672a}\label{structmom__ocean__model__nuopc_1_1ocean__public__type_aae2841d83e0359c601d8df879036672a} 
+\index{mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}!t\_surf@{t\_surf}}
+\index{t\_surf@{t\_surf}!mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}}
+\doxysubsubsection{\texorpdfstring{t\_surf}{t\_surf}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+public\+\_\+type\+::t\+\_\+surf =$>$ NULL()}
+
+
+
+SST on t-\/cell (degrees Kelvin) 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__public__type_a7a907ab12271b2e9e5570ef10b0a9356}\label{structmom__ocean__model__nuopc_1_1ocean__public__type_a7a907ab12271b2e9e5570ef10b0a9356} 
+\index{mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}!u\_surf@{u\_surf}}
+\index{u\_surf@{u\_surf}!mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}}
+\doxysubsubsection{\texorpdfstring{u\_surf}{u\_surf}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+public\+\_\+type\+::u\+\_\+surf =$>$ NULL()}
+
+
+
+i-\/velocity at the locations indicated by stagger, m/s. 
+
+\Hypertarget{structmom__ocean__model__nuopc_1_1ocean__public__type_a1bc458508e4a170383a0f7ea45a94f8d}\label{structmom__ocean__model__nuopc_1_1ocean__public__type_a1bc458508e4a170383a0f7ea45a94f8d} 
+\index{mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}!v\_surf@{v\_surf}}
+\index{v\_surf@{v\_surf}!mom\_ocean\_model\_nuopc::ocean\_public\_type@{mom\_ocean\_model\_nuopc::ocean\_public\_type}}
+\doxysubsubsection{\texorpdfstring{v\_surf}{v\_surf}}
+{\footnotesize\ttfamily real, dimension(\+:,\+:), pointer mom\+\_\+ocean\+\_\+model\+\_\+nuopc\+::ocean\+\_\+public\+\_\+type\+::v\+\_\+surf =$>$ NULL()}
+
+
+
+j-\/velocity at the locations indicated by stagger, m/s. 
+
+
+
+The documentation for this type was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/work/noaa/nems/dworthen/ufs\+\_\+dw/\+MOM6-\/interface/\+MOM6/config\+\_\+src/drivers/nuopc\+\_\+cap/\mbox{\hyperlink{mom__ocean__model__nuopc_8F90}{mom\+\_\+ocean\+\_\+model\+\_\+nuopc.\+F90}}\end{DoxyCompactItemize}

@@ -1,0 +1,34 @@
+\doxysection{/work/noaa/nems/dworthen/ufs\+\_\+dw/\+MOM6-\/interface/\+MOM6/config\+\_\+src/drivers/nuopc\+\_\+cap/mom\+\_\+surface\+\_\+forcing\+\_\+nuopc.F90 File Reference}
+\hypertarget{mom__surface__forcing__nuopc_8F90}{}\label{mom__surface__forcing__nuopc_8F90}\index{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/MOM6/config\_src/drivers/nuopc\_cap/mom\_surface\_forcing\_nuopc.F90@{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/MOM6/config\_src/drivers/nuopc\_cap/mom\_surface\_forcing\_nuopc.F90}}
+{\ttfamily \#include $<$MOM\+\_\+memory.\+h$>$}\newline
+{\ttfamily \#include "{}version\+\_\+variable.\+h"{}}\newline
+\doxysubsubsection*{Data Types}
+\begin{DoxyCompactItemize}
+\item 
+type \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1surface__forcing__cs}{mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+cs}}
+\begin{DoxyCompactList}\small\item\em Contains pointers to the forcing fields which may be used to drive MOM. All fluxes are positive downward. \end{DoxyCompactList}\item 
+type \mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type}{mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocean\+\_\+boundary\+\_\+type}}
+\begin{DoxyCompactList}\small\item\em Structure corresponding to forcing, but with the elements, units, and conventions that exactly conform to the use for MOM-\/based coupled models. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Modules}
+\begin{DoxyCompactItemize}
+\item 
+module \mbox{\hyperlink{namespacemom__surface__forcing__nuopc}{mom\+\_\+surface\+\_\+forcing\+\_\+nuopc}}
+\begin{DoxyCompactList}\small\item\em Converts the input ESMF data (import data) to a MOM-\/specific data type (surface\+\_\+forcing\+\_\+\+CS). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+subroutine, public \mbox{\hyperlink{namespacemom__surface__forcing__nuopc_a5c7c4d7f636f278d1f62bc43a8317cda}{mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::convert\+\_\+iob\+\_\+to\+\_\+fluxes}} (iob, fluxes, index\+\_\+bounds, time, valid\+\_\+time, g, us, cs, sfc\+\_\+state, restore\+\_\+salt, restore\+\_\+temp)
+\begin{DoxyCompactList}\small\item\em This subroutine translates the Ice\+\_\+ocean\+\_\+boundary\+\_\+type into a MOM thermodynamic forcing type, including changes of units, sign conventions, and putting the fields into arrays with MOM-\/standard halos. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemom__surface__forcing__nuopc_a153f219d021fa0fdfad037ae88e622cf}{mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::convert\+\_\+iob\+\_\+to\+\_\+forces}} (iob, forces, index\+\_\+bounds, time, g, us, cs)
+\begin{DoxyCompactList}\small\item\em This subroutine translates the Ice\+\_\+ocean\+\_\+boundary\+\_\+type into a MOM mechanical forcing type, including changes of units, sign conventions, and putting the fields into arrays with MOM-\/standard halos. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemom__surface__forcing__nuopc_a04bfd900aecd5954f10a8e0a71e45aaa}{mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::forcing\+\_\+save\+\_\+restart}} (cs, g, time, directory, time\+\_\+stamped, filename\+\_\+suffix)
+\begin{DoxyCompactList}\small\item\em Save any restart files associated with the surface forcing. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemom__surface__forcing__nuopc_af357d7a32e070717711a2c2474f25f2a}{mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::surface\+\_\+forcing\+\_\+init}} (time, g, us, param\+\_\+file, diag, cs, restore\+\_\+salt, restore\+\_\+temp, use\+\_\+waves)
+\begin{DoxyCompactList}\small\item\em Initialize the surface forcing, including setting parameters and allocating permanent memory. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemom__surface__forcing__nuopc_a8ce655dc8d45735c02d1d28d644ab6fd}{mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::ice\+\_\+ocn\+\_\+bnd\+\_\+type\+\_\+chksum}} (id, timestep, iobt)
+\begin{DoxyCompactList}\small\item\em Write out a set of messages with checksums of the fields in an ice\+\_\+ocen\+\_\+boundary type. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+integer \mbox{\hyperlink{namespacemom__surface__forcing__nuopc_a5a83070390f9af78e2e20cc75ebf278c}{mom\+\_\+surface\+\_\+forcing\+\_\+nuopc\+::id\+\_\+clock\+\_\+forcing}}
+\end{DoxyCompactItemize}

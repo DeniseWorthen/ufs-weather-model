@@ -1,0 +1,370 @@
+\doxysection{mom\+\_\+outputlog\+\_\+methods Module Reference}
+\hypertarget{namespacemom__outputlog__methods}{}\label{namespacemom__outputlog__methods}\index{mom\_outputlog\_methods@{mom\_outputlog\_methods}}
+
+
+This module contains a set of subroutines that are required by the UFS outputlog feature.  
+
+
+\doxysubsubsection*{Data Types}
+\begin{DoxyCompactItemize}
+\item 
+type \mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__config__type}{outputlog\+\_\+config\+\_\+type}}
+\item 
+type \mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__modeltime__type}{outputlog\+\_\+modeltime\+\_\+type}}
+\item 
+type \mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__state__type}{outputlog\+\_\+state\+\_\+type}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+subroutine, public \mbox{\hyperlink{namespacemom__outputlog__methods_a01160bef8095af4012645fc9f9557d35}{readnml}} (fname, cf, debug, errmsg, rc)
+\begin{DoxyCompactList}\small\item\em Read nml options to configure output logging. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemom__outputlog__methods_ac6f6531dd449d24f188a521c5cdf2e19}{get\+\_\+ring\+\_\+state}} (state\+\_\+n, comm, isroot, rootpe, rc)
+\begin{DoxyCompactList}\small\item\em Get the state of the netcdf output file at ring time. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemom__outputlog__methods_ad2ea9c0e9a4d3312567183e418a0a1b9}{get\+\_\+file\+\_\+state}} (comm, isroot, rootpe, fname, nlen, fsize, rc)
+\begin{DoxyCompactList}\small\item\em Retrieve the unlimited dimension length and file size, broadcasting to all PEs. \end{DoxyCompactList}\item 
+logical function, public \mbox{\hyperlink{namespacemom__outputlog__methods_acbdd7e351aad6dadb869fcb45be9aba2}{file\+\_\+is\+\_\+complete}} (comm, isroot, rootpe, fname, chk4size, createsize, rc)
+\begin{DoxyCompactList}\small\item\em Determine if the netcdf output file is complete. \end{DoxyCompactList}\item 
+logical function, dimension(size(validfreqs)), public \mbox{\hyperlink{namespacemom__outputlog__methods_ae9a73a9bbd24f701409dec36860d8cda}{setrequest}} (validfreqs, requested\+\_\+fh, errmsg, ierr)
+\begin{DoxyCompactList}\small\item\em Validate requested output frequencies from namelist entries. \end{DoxyCompactList}\item 
+character(len=7) function, dimension(size(validfreqs)), public \mbox{\hyperlink{namespacemom__outputlog__methods_a8aef7363b9c3db9f50680550aa424142}{settype}} (validfreqs, requested, nml\+\_\+fh, nml\+\_\+type, errmsg, ierr)
+\begin{DoxyCompactList}\small\item\em Determine output reduction type for each requested frequency. \end{DoxyCompactList}\item 
+character(len=13) function, dimension(size(validfreqs)), public \mbox{\hyperlink{namespacemom__outputlog__methods_a3c75154a7a43034d43a8dde6fe204f41}{setprefix}} (validfreqs, requested, nml\+\_\+fh, nml\+\_\+fnameprefix, errmsg, ierr)
+\begin{DoxyCompactList}\small\item\em Determine filename prefixes for each requested frequency. \end{DoxyCompactList}\item 
+integer function, public \mbox{\hyperlink{namespacemom__outputlog__methods_aeff774f15f9390e0ac12a67cb9486287}{set\+\_\+toffset}} (hour, freq)
+\begin{DoxyCompactList}\small\item\em Compute the alarm-\/alignment toffset. \end{DoxyCompactList}\item 
+integer function, public \mbox{\hyperlink{namespacemom__outputlog__methods_a51f57cf746e9703610f26557ed391566}{get\+\_\+unlimited\+\_\+len}} (fname)
+\begin{DoxyCompactList}\small\item\em Return the length of the unlimited dimension. \end{DoxyCompactList}\item 
+character(len=16) function, public \mbox{\hyperlink{namespacemom__outputlog__methods_a0c43720239c99353a3a5ca45ba75bb79}{get\+\_\+timestr}} (mytime, rc)
+\begin{DoxyCompactList}\small\item\em Convenience function to return a 16-\/character time string. \end{DoxyCompactList}\item 
+character(len=40) function, public \mbox{\hyperlink{namespacemom__outputlog__methods_a99e5b2d37e927c2db6b5fb70794221ef}{get\+\_\+importexport}} (currtime, nexttime, rc)
+\begin{DoxyCompactList}\small\item\em Convenience function to return import/export timestring. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemom__outputlog__methods_a3b83217fa83bdd92e116221f1d0fa2a7}{debug\+\_\+info}} (tag, fname, chkflag, filesize, timestring)
+\begin{DoxyCompactList}\small\item\em Write debug info to stdout, only called on root pe. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{namespacemom__outputlog__methods_ae7a85eece307db186de5fa9de7276299}{nf90\+\_\+err}} (ierr, string)
+\begin{DoxyCompactList}\small\item\em Handle netcdf errors. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+character(len= \texorpdfstring{$\ast$}{*}), parameter \mbox{\hyperlink{namespacemom__outputlog__methods_a743fed927ae81b3028b61387b6fc1871}{u\+\_\+file\+\_\+u}} = \+\_\+\+\_\+\+FILE\+\_\+\+\_\+
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This module contains a set of subroutines that are required by the UFS outputlog feature. 
+
+\doxysubsection{Function/\+Subroutine Documentation}
+\Hypertarget{namespacemom__outputlog__methods_a3b83217fa83bdd92e116221f1d0fa2a7}\label{namespacemom__outputlog__methods_a3b83217fa83bdd92e116221f1d0fa2a7} 
+\index{mom\_outputlog\_methods@{mom\_outputlog\_methods}!debug\_info@{debug\_info}}
+\index{debug\_info@{debug\_info}!mom\_outputlog\_methods@{mom\_outputlog\_methods}}
+\doxysubsubsection{\texorpdfstring{debug\_info()}{debug\_info()}}
+{\footnotesize\ttfamily subroutine, public mom\+\_\+outputlog\+\_\+methods\+::debug\+\_\+info (\begin{DoxyParamCaption}\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{tag,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{fname,  }\item[{logical, intent(in)}]{chkflag,  }\item[{integer, intent(in)}]{filesize,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{timestring }\end{DoxyParamCaption})}
+
+
+
+Write debug info to stdout, only called on root pe. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em tag} & an information tag \\
+\hline
+\mbox{\texttt{ in}}  & {\em fname} & the filename to check \\
+\hline
+\mbox{\texttt{ in}}  & {\em filesize} & the filesize at creation time \\
+\hline
+\mbox{\texttt{ in}}  & {\em chkflag} & logical flag for checking next Advance \\
+\hline
+\mbox{\texttt{ in}}  & {\em timestring} & a timestring \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacemom__outputlog__methods_acbdd7e351aad6dadb869fcb45be9aba2}\label{namespacemom__outputlog__methods_acbdd7e351aad6dadb869fcb45be9aba2} 
+\index{mom\_outputlog\_methods@{mom\_outputlog\_methods}!file\_is\_complete@{file\_is\_complete}}
+\index{file\_is\_complete@{file\_is\_complete}!mom\_outputlog\_methods@{mom\_outputlog\_methods}}
+\doxysubsubsection{\texorpdfstring{file\_is\_complete()}{file\_is\_complete()}}
+{\footnotesize\ttfamily logical function, public mom\+\_\+outputlog\+\_\+methods\+::file\+\_\+is\+\_\+complete (\begin{DoxyParamCaption}\item[{type(mpi\+\_\+comm), intent(in)}]{comm,  }\item[{logical, intent(in)}]{isroot,  }\item[{integer, intent(in)}]{rootpe,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{fname,  }\item[{logical, intent(in)}]{chk4size,  }\item[{integer, intent(in)}]{createsize,  }\item[{integer, intent(out)}]{rc }\end{DoxyParamCaption})}
+
+
+
+Determine if the netcdf output file is complete. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em comm} & the MPI communicator \\
+\hline
+\mbox{\texttt{ in}}  & {\em isroot} & logical flag for root PE \\
+\hline
+\mbox{\texttt{ in}}  & {\em rootpe} & root rank in communicator \\
+\hline
+\mbox{\texttt{ in}}  & {\em fname} & the file name \\
+\hline
+\mbox{\texttt{ in}}  & {\em chk4size} & logical flag for check method in use \\
+\hline
+\mbox{\texttt{ in}}  & {\em createsize} & the filesize at creation \\
+\hline
+\mbox{\texttt{ out}}  & {\em rc} & return code \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+logical flag, true if the file is complete 
+\end{DoxyReturn}
+\Hypertarget{namespacemom__outputlog__methods_ad2ea9c0e9a4d3312567183e418a0a1b9}\label{namespacemom__outputlog__methods_ad2ea9c0e9a4d3312567183e418a0a1b9} 
+\index{mom\_outputlog\_methods@{mom\_outputlog\_methods}!get\_file\_state@{get\_file\_state}}
+\index{get\_file\_state@{get\_file\_state}!mom\_outputlog\_methods@{mom\_outputlog\_methods}}
+\doxysubsubsection{\texorpdfstring{get\_file\_state()}{get\_file\_state()}}
+{\footnotesize\ttfamily subroutine, public mom\+\_\+outputlog\+\_\+methods\+::get\+\_\+file\+\_\+state (\begin{DoxyParamCaption}\item[{type(mpi\+\_\+comm), intent(in)}]{comm,  }\item[{logical, intent(in)}]{isroot,  }\item[{integer, intent(in)}]{rootpe,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{fname,  }\item[{integer, intent(out), optional}]{nlen,  }\item[{integer, intent(out), optional}]{fsize,  }\item[{integer, intent(out)}]{rc }\end{DoxyParamCaption})}
+
+
+
+Retrieve the unlimited dimension length and file size, broadcasting to all PEs. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em comm} & the MPI communicator \\
+\hline
+\mbox{\texttt{ in}}  & {\em isroot} & logical flag for root PE \\
+\hline
+\mbox{\texttt{ in}}  & {\em rootpe} & root rank in communicator \\
+\hline
+\mbox{\texttt{ in}}  & {\em fname} & the file name \\
+\hline
+\mbox{\texttt{ out}}  & {\em nlen} & optional, the length of the unlimited dimension \\
+\hline
+\mbox{\texttt{ out}}  & {\em fsize} & optional, the file size in bytes \\
+\hline
+\mbox{\texttt{ out}}  & {\em rc} & return code \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacemom__outputlog__methods_a99e5b2d37e927c2db6b5fb70794221ef}\label{namespacemom__outputlog__methods_a99e5b2d37e927c2db6b5fb70794221ef} 
+\index{mom\_outputlog\_methods@{mom\_outputlog\_methods}!get\_importexport@{get\_importexport}}
+\index{get\_importexport@{get\_importexport}!mom\_outputlog\_methods@{mom\_outputlog\_methods}}
+\doxysubsubsection{\texorpdfstring{get\_importexport()}{get\_importexport()}}
+{\footnotesize\ttfamily character(len=40) function, public mom\+\_\+outputlog\+\_\+methods\+::get\+\_\+importexport (\begin{DoxyParamCaption}\item[{type(esmf\+\_\+time), intent(in)}]{currtime,  }\item[{type(esmf\+\_\+time), intent(in)}]{nexttime,  }\item[{integer, intent(out)}]{rc }\end{DoxyParamCaption})}
+
+
+
+Convenience function to return import/export timestring. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em curr\+Time} & an ESMF\+\_\+\+Time object \\
+\hline
+\mbox{\texttt{ in}}  & {\em next\+Time} & an ESMF\+\_\+\+Time object \\
+\hline
+\mbox{\texttt{ out}}  & {\em rc} & return code \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+40-\/character string 
+\end{DoxyReturn}
+\Hypertarget{namespacemom__outputlog__methods_ac6f6531dd449d24f188a521c5cdf2e19}\label{namespacemom__outputlog__methods_ac6f6531dd449d24f188a521c5cdf2e19} 
+\index{mom\_outputlog\_methods@{mom\_outputlog\_methods}!get\_ring\_state@{get\_ring\_state}}
+\index{get\_ring\_state@{get\_ring\_state}!mom\_outputlog\_methods@{mom\_outputlog\_methods}}
+\doxysubsubsection{\texorpdfstring{get\_ring\_state()}{get\_ring\_state()}}
+{\footnotesize\ttfamily subroutine, public mom\+\_\+outputlog\+\_\+methods\+::get\+\_\+ring\+\_\+state (\begin{DoxyParamCaption}\item[{type(\mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__state__type}{outputlog\+\_\+state\+\_\+type}}), intent(inout)}]{state\+\_\+n,  }\item[{type(mpi\+\_\+comm), intent(in)}]{comm,  }\item[{logical, intent(in)}]{isroot,  }\item[{integer, intent(in)}]{rootpe,  }\item[{integer, intent(out)}]{rc }\end{DoxyParamCaption})}
+
+
+
+Get the state of the netcdf output file at ring time. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em state\+\_\+n} & this frequency\textquotesingle{}s state -- mutated here \\
+\hline
+\mbox{\texttt{ in}}  & {\em comm} & MPI communicator \\
+\hline
+\mbox{\texttt{ in}}  & {\em isroot} & .true. on the root PE \\
+\hline
+\mbox{\texttt{ in}}  & {\em rootpe} & the root PE\textquotesingle{}s rank \\
+\hline
+\mbox{\texttt{ out}}  & {\em rc} & return code \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacemom__outputlog__methods_a0c43720239c99353a3a5ca45ba75bb79}\label{namespacemom__outputlog__methods_a0c43720239c99353a3a5ca45ba75bb79} 
+\index{mom\_outputlog\_methods@{mom\_outputlog\_methods}!get\_timestr@{get\_timestr}}
+\index{get\_timestr@{get\_timestr}!mom\_outputlog\_methods@{mom\_outputlog\_methods}}
+\doxysubsubsection{\texorpdfstring{get\_timestr()}{get\_timestr()}}
+{\footnotesize\ttfamily character(len=16) function, public mom\+\_\+outputlog\+\_\+methods\+::get\+\_\+timestr (\begin{DoxyParamCaption}\item[{type(esmf\+\_\+time), intent(in)}]{mytime,  }\item[{integer, intent(out)}]{rc }\end{DoxyParamCaption})}
+
+
+
+Convenience function to return a 16-\/character time string. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em My\+Time} & an ESMF\+\_\+\+Time object \\
+\hline
+\mbox{\texttt{ out}}  & {\em rc} & return code \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+16-\/character formatted time string (YYYY\+\_\+\+MM\+\_\+\+DD\+\_\+\+HH\+\_\+\+MM) 
+\end{DoxyReturn}
+\Hypertarget{namespacemom__outputlog__methods_a51f57cf746e9703610f26557ed391566}\label{namespacemom__outputlog__methods_a51f57cf746e9703610f26557ed391566} 
+\index{mom\_outputlog\_methods@{mom\_outputlog\_methods}!get\_unlimited\_len@{get\_unlimited\_len}}
+\index{get\_unlimited\_len@{get\_unlimited\_len}!mom\_outputlog\_methods@{mom\_outputlog\_methods}}
+\doxysubsubsection{\texorpdfstring{get\_unlimited\_len()}{get\_unlimited\_len()}}
+{\footnotesize\ttfamily integer function, public mom\+\_\+outputlog\+\_\+methods\+::get\+\_\+unlimited\+\_\+len (\begin{DoxyParamCaption}\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{fname }\end{DoxyParamCaption})}
+
+
+
+Return the length of the unlimited dimension. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em fname} & the file name \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+unlimited dimension length 
+\end{DoxyReturn}
+\Hypertarget{namespacemom__outputlog__methods_ae7a85eece307db186de5fa9de7276299}\label{namespacemom__outputlog__methods_ae7a85eece307db186de5fa9de7276299} 
+\index{mom\_outputlog\_methods@{mom\_outputlog\_methods}!nf90\_err@{nf90\_err}}
+\index{nf90\_err@{nf90\_err}!mom\_outputlog\_methods@{mom\_outputlog\_methods}}
+\doxysubsubsection{\texorpdfstring{nf90\_err()}{nf90\_err()}}
+{\footnotesize\ttfamily subroutine, public mom\+\_\+outputlog\+\_\+methods\+::nf90\+\_\+err (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{ierr,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{string }\end{DoxyParamCaption})}
+
+
+
+Handle netcdf errors. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ierr} & the error code \\
+\hline
+\mbox{\texttt{ in}}  & {\em string} & the error message \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacemom__outputlog__methods_a01160bef8095af4012645fc9f9557d35}\label{namespacemom__outputlog__methods_a01160bef8095af4012645fc9f9557d35} 
+\index{mom\_outputlog\_methods@{mom\_outputlog\_methods}!readnml@{readnml}}
+\index{readnml@{readnml}!mom\_outputlog\_methods@{mom\_outputlog\_methods}}
+\doxysubsubsection{\texorpdfstring{readnml()}{readnml()}}
+{\footnotesize\ttfamily subroutine, public mom\+\_\+outputlog\+\_\+methods\+::readnml (\begin{DoxyParamCaption}\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{fname,  }\item[{type(\mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__config__type}{outputlog\+\_\+config\+\_\+type}}), dimension(\+:), intent(inout)}]{cf,  }\item[{logical, intent(out)}]{debug,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(out)}]{errmsg,  }\item[{integer, intent(out)}]{rc }\end{DoxyParamCaption})}
+
+
+
+Read nml options to configure output logging. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em fname} & input namelist file \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em cf} & outputlog configuration \\
+\hline
+\mbox{\texttt{ out}}  & {\em debug} & logical flag to enable debug output \\
+\hline
+\mbox{\texttt{ out}}  & {\em errmsg} & error message \\
+\hline
+\mbox{\texttt{ out}}  & {\em rc} & return code \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacemom__outputlog__methods_aeff774f15f9390e0ac12a67cb9486287}\label{namespacemom__outputlog__methods_aeff774f15f9390e0ac12a67cb9486287} 
+\index{mom\_outputlog\_methods@{mom\_outputlog\_methods}!set\_toffset@{set\_toffset}}
+\index{set\_toffset@{set\_toffset}!mom\_outputlog\_methods@{mom\_outputlog\_methods}}
+\doxysubsubsection{\texorpdfstring{set\_toffset()}{set\_toffset()}}
+{\footnotesize\ttfamily integer function, public mom\+\_\+outputlog\+\_\+methods\+::set\+\_\+toffset (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{hour,  }\item[{integer, intent(in)}]{freq }\end{DoxyParamCaption})}
+
+
+
+Compute the alarm-\/alignment toffset. 
+
+The time offset in hours (toffset) required to ensure that an output-\/frequency alarm rings on that frequency\textquotesingle{}s own nominal grid, regardless of the actual (eg restart or IAU-\/shifted) start hour.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em hour} & the model\textquotesingle{}s actual start hour (0-\/23) \\
+\hline
+\mbox{\texttt{ in}}  & {\em freq} & the output frequency, in hours \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the alignment offset, in hours 
+\end{DoxyReturn}
+\Hypertarget{namespacemom__outputlog__methods_a3c75154a7a43034d43a8dde6fe204f41}\label{namespacemom__outputlog__methods_a3c75154a7a43034d43a8dde6fe204f41} 
+\index{mom\_outputlog\_methods@{mom\_outputlog\_methods}!setprefix@{setprefix}}
+\index{setprefix@{setprefix}!mom\_outputlog\_methods@{mom\_outputlog\_methods}}
+\doxysubsubsection{\texorpdfstring{setprefix()}{setprefix()}}
+{\footnotesize\ttfamily character(len=13) function, dimension(size(validfreqs)), public mom\+\_\+outputlog\+\_\+methods\+::setprefix (\begin{DoxyParamCaption}\item[{integer, dimension(\+:), intent(in)}]{validfreqs,  }\item[{logical, dimension(\+:), intent(in)}]{requested,  }\item[{integer, dimension(\+:), intent(in)}]{nml\+\_\+fh,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), dimension(\+:), intent(in)}]{nml\+\_\+fnameprefix,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(out)}]{errmsg,  }\item[{integer, intent(out)}]{ierr }\end{DoxyParamCaption})}
+
+
+
+Determine filename prefixes for each requested frequency. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em validfreqs} & supported output frequencies (hours) \\
+\hline
+\mbox{\texttt{ in}}  & {\em requested} & logical flags for active output frequencies \\
+\hline
+\mbox{\texttt{ in}}  & {\em nml\+\_\+fh} & requested frequencies read from namelist \\
+\hline
+\mbox{\texttt{ in}}  & {\em nml\+\_\+fnameprefix} & requested filename prefixes from namelist \\
+\hline
+\mbox{\texttt{ out}}  & {\em errmsg} & error message \\
+\hline
+\mbox{\texttt{ out}}  & {\em ierr} & return code \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+filename prefixes by supported frequency slot 
+\end{DoxyReturn}
+\Hypertarget{namespacemom__outputlog__methods_ae9a73a9bbd24f701409dec36860d8cda}\label{namespacemom__outputlog__methods_ae9a73a9bbd24f701409dec36860d8cda} 
+\index{mom\_outputlog\_methods@{mom\_outputlog\_methods}!setrequest@{setrequest}}
+\index{setrequest@{setrequest}!mom\_outputlog\_methods@{mom\_outputlog\_methods}}
+\doxysubsubsection{\texorpdfstring{setrequest()}{setrequest()}}
+{\footnotesize\ttfamily logical function, dimension(size(validfreqs)), public mom\+\_\+outputlog\+\_\+methods\+::setrequest (\begin{DoxyParamCaption}\item[{integer, dimension(\+:), intent(in)}]{validfreqs,  }\item[{integer, dimension(\+:), intent(in)}]{requested\+\_\+fh,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(out)}]{errmsg,  }\item[{integer, intent(out)}]{ierr }\end{DoxyParamCaption})}
+
+
+
+Validate requested output frequencies from namelist entries. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em validfreqs} & supported output frequencies (hours) \\
+\hline
+\mbox{\texttt{ in}}  & {\em requested\+\_\+fh} & requested frequencies read from namelist \\
+\hline
+\mbox{\texttt{ out}}  & {\em errmsg} & error message \\
+\hline
+\mbox{\texttt{ out}}  & {\em ierr} & return code \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+logical flags indicating requested valid frequencies 
+\end{DoxyReturn}
+\Hypertarget{namespacemom__outputlog__methods_a8aef7363b9c3db9f50680550aa424142}\label{namespacemom__outputlog__methods_a8aef7363b9c3db9f50680550aa424142} 
+\index{mom\_outputlog\_methods@{mom\_outputlog\_methods}!settype@{settype}}
+\index{settype@{settype}!mom\_outputlog\_methods@{mom\_outputlog\_methods}}
+\doxysubsubsection{\texorpdfstring{settype()}{settype()}}
+{\footnotesize\ttfamily character(len=7) function, dimension(size(validfreqs)), public mom\+\_\+outputlog\+\_\+methods\+::settype (\begin{DoxyParamCaption}\item[{integer, dimension(\+:), intent(in)}]{validfreqs,  }\item[{logical, dimension(\+:), intent(in)}]{requested,  }\item[{integer, dimension(\+:), intent(in)}]{nml\+\_\+fh,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), dimension(\+:), intent(in)}]{nml\+\_\+type,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(out)}]{errmsg,  }\item[{integer, intent(out)}]{ierr }\end{DoxyParamCaption})}
+
+
+
+Determine output reduction type for each requested frequency. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em validfreqs} & supported output frequencies (hours) \\
+\hline
+\mbox{\texttt{ in}}  & {\em requested} & logical flags for active output frequencies \\
+\hline
+\mbox{\texttt{ in}}  & {\em nml\+\_\+fh} & requested frequencies read from namelist \\
+\hline
+\mbox{\texttt{ in}}  & {\em nml\+\_\+type} & requested output reduction types from namelist \\
+\hline
+\mbox{\texttt{ out}}  & {\em errmsg} & error message \\
+\hline
+\mbox{\texttt{ out}}  & {\em ierr} & return code \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+output reduction type by supported frequency slot 
+\end{DoxyReturn}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacemom__outputlog__methods_a743fed927ae81b3028b61387b6fc1871}\label{namespacemom__outputlog__methods_a743fed927ae81b3028b61387b6fc1871} 
+\index{mom\_outputlog\_methods@{mom\_outputlog\_methods}!u\_file\_u@{u\_file\_u}}
+\index{u\_file\_u@{u\_file\_u}!mom\_outputlog\_methods@{mom\_outputlog\_methods}}
+\doxysubsubsection{\texorpdfstring{u\_file\_u}{u\_file\_u}}
+{\footnotesize\ttfamily character(len=\texorpdfstring{$\ast$}{*}), parameter mom\+\_\+outputlog\+\_\+methods\+::u\+\_\+file\+\_\+u = \+\_\+\+\_\+\+FILE\+\_\+\+\_\+}
+

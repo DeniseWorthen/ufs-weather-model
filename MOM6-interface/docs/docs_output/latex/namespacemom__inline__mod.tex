@@ -1,0 +1,60 @@
+\doxysection{mom\+\_\+inline\+\_\+mod Module Reference}
+\hypertarget{namespacemom__inline__mod}{}\label{namespacemom__inline__mod}\index{mom\_inline\_mod@{mom\_inline\_mod}}
+
+
+This module contains a set of subroutines that enables inline CDEPS capability.  
+
+
+\doxysubsubsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+subroutine, public \mbox{\hyperlink{namespacemom__inline__mod_ad0b69bbbc1618edda0b3747c6e28079c}{mom\+\_\+inline\+\_\+init}} (gcomp, model\+\_\+clock, model\+\_\+mesh, mytask, rc)
+\item 
+subroutine, public \mbox{\hyperlink{namespacemom__inline__mod_a723b15fb2810e34058e48cfc2551e674}{mom\+\_\+inline\+\_\+run}} (clock, ocean\+\_\+public, ocean\+\_\+grid, ice\+\_\+ocean\+\_\+boundary, dbug, rc)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This module contains a set of subroutines that enables inline CDEPS capability. 
+
+\doxysubsection{Function/\+Subroutine Documentation}
+\Hypertarget{namespacemom__inline__mod_ad0b69bbbc1618edda0b3747c6e28079c}\label{namespacemom__inline__mod_ad0b69bbbc1618edda0b3747c6e28079c} 
+\index{mom\_inline\_mod@{mom\_inline\_mod}!mom\_inline\_init@{mom\_inline\_init}}
+\index{mom\_inline\_init@{mom\_inline\_init}!mom\_inline\_mod@{mom\_inline\_mod}}
+\doxysubsubsection{\texorpdfstring{mom\_inline\_init()}{mom\_inline\_init()}}
+{\footnotesize\ttfamily subroutine, public mom\+\_\+inline\+\_\+mod\+::mom\+\_\+inline\+\_\+init (\begin{DoxyParamCaption}\item[{type(esmf\+\_\+gridcomp), intent(in)}]{gcomp,  }\item[{type(esmf\+\_\+clock), intent(in)}]{model\+\_\+clock,  }\item[{type(esmf\+\_\+mesh), intent(in)}]{model\+\_\+mesh,  }\item[{integer, intent(in)}]{mytask,  }\item[{integer, intent(out)}]{rc }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em gcomp} & ESMF\+\_\+\+Grid\+Comp object\\
+\hline
+\mbox{\texttt{ in}}  & {\em model\+\_\+clock} & ESMF\+\_\+\+Clock object\\
+\hline
+\mbox{\texttt{ in}}  & {\em model\+\_\+mesh} & ESMF mesh\\
+\hline
+\mbox{\texttt{ in}}  & {\em mytask} & the current task\\
+\hline
+\mbox{\texttt{ out}}  & {\em rc} & Return code \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacemom__inline__mod_a723b15fb2810e34058e48cfc2551e674}\label{namespacemom__inline__mod_a723b15fb2810e34058e48cfc2551e674} 
+\index{mom\_inline\_mod@{mom\_inline\_mod}!mom\_inline\_run@{mom\_inline\_run}}
+\index{mom\_inline\_run@{mom\_inline\_run}!mom\_inline\_mod@{mom\_inline\_mod}}
+\doxysubsubsection{\texorpdfstring{mom\_inline\_run()}{mom\_inline\_run()}}
+{\footnotesize\ttfamily subroutine, public mom\+\_\+inline\+\_\+mod\+::mom\+\_\+inline\+\_\+run (\begin{DoxyParamCaption}\item[{type(esmf\+\_\+clock), intent(in)}]{clock,  }\item[{type(\mbox{\hyperlink{structmom__ocean__model__nuopc_1_1ocean__public__type}{ocean\+\_\+public\+\_\+type}}), intent(in)}]{ocean\+\_\+public,  }\item[{type(ocean\+\_\+grid\+\_\+type), intent(in)}]{ocean\+\_\+grid,  }\item[{type(\mbox{\hyperlink{structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type}{ice\+\_\+ocean\+\_\+boundary\+\_\+type}}), intent(inout)}]{ice\+\_\+ocean\+\_\+boundary,  }\item[{integer, intent(in)}]{dbug,  }\item[{integer, intent(out)}]{rc }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em clock} & ESMF\+\_\+\+Clock object\\
+\hline
+\mbox{\texttt{ in}}  & {\em ocean\+\_\+public} & Ocean surface state\\
+\hline
+\mbox{\texttt{ in}}  & {\em ocean\+\_\+grid} & Ocean model grid\\
+\hline
+\mbox{\texttt{ in,out}}  & {\em ice\+\_\+ocean\+\_\+boundary} & Ocean boundary forcing\\
+\hline
+\mbox{\texttt{ in}}  & {\em dbug} & Integer debug flag\\
+\hline
+\mbox{\texttt{ out}}  & {\em rc} & Return code \\
+\hline
+\end{DoxyParams}
