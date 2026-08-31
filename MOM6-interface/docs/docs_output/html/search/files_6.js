@@ -9,6 +9,5 @@ var searchData=
   ['test_5foutputlog_5ffreqn_2ef90_6',['test_outputlog_freqn.F90',['../test__outputlog__freqn_8F90.html',1,'']]],
   ['test_5foutputlog_5freadnml_2ef90_7',['test_outputlog_readnml.F90',['../test__outputlog__readnml_8F90.html',1,'']]],
   ['test_5frestart_5fpairing_2ef90_8',['test_restart_pairing.F90',['../test__restart__pairing_8F90.html',1,'']]],
-  ['test_5futils_2ef90_9',['test_utils.F90',['../test__utils_8F90.html',1,'']]],
-  ['time_5futils_2ef90_10',['time_utils.F90',['../time__utils_8F90.html',1,'']]]
+  ['test_5futils_2ef90_9',['test_utils.F90',['../test__utils_8F90.html',1,'']]]
 ];

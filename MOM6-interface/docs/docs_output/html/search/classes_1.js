@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['esmf2fms_5ftime_0',['esmf2fms_time',['../interfacetime__utils__mod_1_1esmf2fms__time.html',1,'time_utils_mod']]]
+  ['outputlog_5fconfig_5ftype_0',['outputlog_config_type',['../structmom__outputlog__methods_1_1outputlog__config__type.html',1,'mom_outputlog_methods']]],
+  ['outputlog_5fmodeltime_5ftype_1',['outputlog_modeltime_type',['../structmom__outputlog__methods_1_1outputlog__modeltime__type.html',1,'mom_outputlog_methods']]],
+  ['outputlog_5fstate_5ftype_2',['outputlog_state_type',['../structmom__outputlog__methods_1_1outputlog__state__type.html',1,'mom_outputlog_methods']]]
 ];

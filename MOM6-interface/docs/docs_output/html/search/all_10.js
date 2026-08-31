@@ -1,20 +1,6 @@
 var searchData=
 [
-  ['read_5fgust_5f2d_0',['read_gust_2d',['../structmom__surface__forcing__nuopc_1_1surface__forcing__cs.html#a490938375abe7a80ed6863b0943907b7',1,'mom_surface_forcing_nuopc::surface_forcing_cs']]],
-  ['read_5ftideamp_1',['read_tideamp',['../structmom__surface__forcing__nuopc_1_1surface__forcing__cs.html#abee737cb2cdc45421142ab0511c46eb6',1,'mom_surface_forcing_nuopc::surface_forcing_cs']]],
-  ['readnml_2',['readnml',['../namespacemom__outputlog__methods.html#a01160bef8095af4012645fc9f9557d35',1,'mom_outputlog_methods']]],
-  ['requested_3',['requested',['../structmom__outputlog__methods_1_1outputlog__config__type.html#a279ec8d513fd507766127549d2d8042f',1,'mom_outputlog_methods::outputlog_config_type']]],
-  ['restart_5fcontrol_4',['restart_control',['../structmom__ocean__model__nuopc_1_1ocean__state__type.html#aa4c0d85ac89045ae1ce1ae54bb882bc1',1,'mom_ocean_model_nuopc::ocean_state_type']]],
-  ['restart_5fcsp_5',['restart_csp',['../structmom__surface__forcing__nuopc_1_1surface__forcing__cs.html#a8e59f7619c8adcd020066a619039bdb1',1,'mom_surface_forcing_nuopc::surface_forcing_cs']]],
-  ['restore_5fsalinity_6',['restore_salinity',['../structmom__ocean__model__nuopc_1_1ocean__state__type.html#acb98e5a871dbab5a23fcb3de13ca9a68',1,'mom_ocean_model_nuopc::ocean_state_type']]],
-  ['restore_5ftemp_7',['restore_temp',['../structmom__ocean__model__nuopc_1_1ocean__state__type.html#a0e885693e75e4d9573cfb13497c7df5c',1,'mom_ocean_model_nuopc::ocean_state_type']]],
-  ['rho0_8',['rho0',['../structmom__surface__forcing__nuopc_1_1surface__forcing__cs.html#a6050543c14452ee475885619a24cc30f',1,'mom_surface_forcing_nuopc::surface_forcing_cs']]],
-  ['rigid_5fsea_5fice_9',['rigid_sea_ice',['../structmom__surface__forcing__nuopc_1_1surface__forcing__cs.html#a71eb72375b5e1763e6c5f7585f644cc5',1,'mom_surface_forcing_nuopc::surface_forcing_cs']]],
-  ['rigid_5fsea_5fice_5fmass_10',['rigid_sea_ice_mass',['../structmom__surface__forcing__nuopc_1_1surface__forcing__cs.html#ad1a02a13e64f80b97d38b7bd58e8dc25',1,'mom_surface_forcing_nuopc::surface_forcing_cs']]],
-  ['ringing_11',['ringing',['../structmom__outputlog__methods_1_1outputlog__state__type.html#a30cd4ce3e9271028482ebe0f72702551',1,'mom_outputlog_methods::outputlog_state_type']]],
-  ['rotations_12',['Vector Rotations',['../nuopc_cap.html#VectorRotations',1,'']]],
-  ['run_13',['Run',['../nuopc_cap.html#Run',1,'']]],
-  ['run_5fcase_14',['run_case',['../cadence_8F90.html#a333803872689b43caf5e704b6cabbdfa',1,'run_case(test, freq, start_hour, runhours, timereduce, restart_hours, fh_atfilecompletion, expected_lastrestart_hours, nmatches):&#160;cadence.F90'],['../test__restart__pairing_8F90.html#ad10f1eb2528af523c332873e4a7bd848',1,'run_case(test, freq, start_hour, runhours, restart_freq, is_passing, failmsg):&#160;test_restart_pairing.F90'],['../test__outputlog__freqn_8F90.html#a3157ed1a1a774892cfb1e549f6df11c7',1,'run_case(test, freq, start_hour, ring_hours, ring_ticks, expected_completions, is_passing, timereduce, use_filesize):&#160;test_outputlog_freqn.F90'],['../test__driver__lstop_8F90.html#a6982bc91b7051620d5e54cff236441a2',1,'run_case(test, freq, start_hour, runhours, timereduce, use_filesize, nfiles, completions):&#160;test_driver_lstop.F90'],['../test__driver2_8F90.html#a1ed6e3c69847ad43be9bc1d7a50d3e2a',1,'run_case(test, freq, start_hour, runhours, timereduce, use_filesize, nfiles, completions):&#160;test_driver2.F90'],['../test__driver_8F90.html#a1ed6e3c69847ad43be9bc1d7a50d3e2a',1,'run_case(test, freq, start_hour, runhours, timereduce, use_filesize, nfiles, completions):&#160;test_driver.F90'],['../save_8driver2_8F90.html#a1ed6e3c69847ad43be9bc1d7a50d3e2a',1,'run_case(test, freq, start_hour, runhours, timereduce, use_filesize, nfiles, completions):&#160;save.driver2.F90'],['../new_8pairing_8F90.html#a0cb90fbb441ab7e851b907f335da3a8d',1,'run_case(test, freq, start_hour, runhours, restart_hours, is_passing, failmsg):&#160;new.pairing.F90']]],
-  ['run_5flstop_5fcase_15',['run_lstop_case',['../test__outputlog__finalize_8F90.html#a56f7c2d23cc3470b784bdc60f23987eb',1,'test_outputlog_finalize.F90']]],
-  ['runtime_20configuration_16',['Runtime Configuration',['../nuopc_cap.html#RuntimeConfiguration',1,'']]]
+  ['u_5ffile_5fu_0',['u_file_u',['../namespacemom__outputlog__methods.html#a743fed927ae81b3028b61387b6fc1871',1,'mom_outputlog_methods']]],
+  ['underlying_20model_20interfaces_1',['Underlying Model Interfaces',['../nuopc_cap.html#UnderlyingModelInterfaces',1,'']]],
+  ['use_5ffilesize_2',['use_filesize',['../structmom__outputlog__methods_1_1outputlog__state__type.html#ac59dabb6f456e85e9532ec6b15df2004',1,'mom_outputlog_methods::outputlog_state_type']]]
 ];
