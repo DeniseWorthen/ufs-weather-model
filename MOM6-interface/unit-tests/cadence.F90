@@ -1,42 +1,5 @@
 !> Restart/history cadence-pairing test
 !!
-!! Restart cadence and history-completion cadence are fully independent --
-!! verifying that pairing works correctly across genuinely different,
-!! unrelated schedules is a critical property of the outputlog feature.
-!!
-!! This test does NOT call track_freqn or outputlog_restart:
-!!   - track_freqn's own role in this pairing is a single, unconditional
-!!     assignment (state_n%time_lastrestart = lastrestart) with no logic
-!!     of its own to get wrong -- already exercised by test_driver2.F90.
-!!   - outputlog_restart's allDone logic delegates entirely to
-!!     get_file_state, already tested in test_outputlog_completion.F90.
-!!     Verifying it correctly tracks a VARYING number of restart parts
-!!     (real restarts split across multiple files, count depending on
-!!     domain size) is a distinct concern, belonging to a separate,
-!!     not-yet-built restart-LOGGING test -- not this one.
-!!
-!! What's left, once those two are factored out, is exactly what this file
-!! tests directly: does "lastrestart = the most recent restart_hours(:)
-!! entry reached, as of a given completion instant" hold correctly, using
-!! a real ESMF_Clock exactly the way production's own nextTime advances
-!! (30-minute ticks), rather than an abstract counter.
-!!
-!! completion_minutes(:) MUST match state_n%time_logfile exactly (per the
-!! feature owner): currTime at the modelAdvance where a completion is
-!! actually detected -- for the regular path that's typically ring+0.5h
-!! (the confirmed one-tick FMS lag), NOT the ring's own whole hour; for
-!! plain-finalize/lstop it's the model's final currTime/prevring, which IS
-!! a whole hour. Restarts are always written to reflect currTime at the
-!! end of their own modelAdvance too -- the same basis, which is exactly
-!! why log_restart_fh uses currTime rather than nextTime for either path.
-!! Minute-level precision (not whole hours) is required to represent this
-!! correctly; a whole-hour-only comparison would silently give the right
-!! answer only by coincidence, for cases where no restart happens to fall
-!! inside a completion's half-hour lag window.
-!!
-!! No fixture files, no cf_n/state_n, no track_freqn -- pure clock/time
-!! comparison, matching the actual scope of what needs verifying here.
-!!
 !> @date 08-28-2026
 program test_restart_history_cadence
 
@@ -100,19 +63,19 @@ program test_restart_history_cadence
   call assert_equal(nmatches, expected, testname, assertrc, assertmsg)
   call addresult(cadencetests, assertrc, trim(assertmsg), '')
 
-  ! !------------------
-  ! nt = nt + 1
-  ! write(testname,'(A,I2.2,A)')'test ',nt,' starthour=9, runhours=36, restart freq=3 '
-  ! expected = 6  ! 6 file completions, 6 matching lastrestarts
+  !------------------
+  nt = nt + 1
+  write(testname,'(A,I2.2,A)')'test ',nt,' starthour=9, runhours=33, restart freq=3 '
+  expected = 6  ! 6 file completions, 6 matching lastrestarts
 
-  ! call run_case(trim(testname), freq=6, start_hour=9, runhours=36, &
-  !      restart_hours             =[15,18,21,24,27,30,33,36,39],    &
-  !      fh_atfilecompletion       =[12,18,24,30,36,36],             &
-  !      expected_lastrestart_hours=[ 0,15,15,30,30,30],             &
-  !      nmatches=nmatches)
+  call run_case(trim(testname), freq=6, start_hour=9, runhours=33, &
+       restart_hours             =[3],                             &
+       fh_atfilecompletion       =[12,18,24,30,36,36],             &
+       expected_lastrestart_hours=[18,24,21,27,36,36],             &
+       nmatches=nmatches)
 
-  ! call assert_equal(nmatches, expected, testname, assertrc, assertmsg)
-  ! call addresult(cadencetests, assertrc, trim(assertmsg), '')
+  call assert_equal(nmatches, expected, testname, assertrc, assertmsg)
+  call addresult(cadencetests, assertrc, trim(assertmsg), '')
 
   ! ------------------
   ! Test results

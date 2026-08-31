@@ -1,0 +1,17 @@
+# docs/Doxyfile.in
+
+PROJECT_NAME           = "MOM6 NUOPC Cap & Unit Tests"
+
+INPUT                  = @CMAKE_CURRENT_SOURCE_DIR@/../docs \
+                         @CMAKE_CURRENT_SOURCE_DIR@/../unit-tests \
+                         @CMAKE_CURRENT_SOURCE_DIR@/../MOM6/config_src/drivers/nuopc_cap
+
+IMAGE_PATH             = @CMAKE_CURRENT_SOURCE_DIR@/../docs/images
+
+USE_MDFILE_AS_MAINPAGE = @CMAKE_CURRENT_SOURCE_DIR@/../docs/feature_guide.md
+
+OUTPUT_DIRECTORY       = @CMAKE_CURRENT_BINARY_DIR@/docs_output
+
+OPTIMIZE_FOR_FORTRAN   = YES
+EXTRACT_ALL            = YES
+RECURSIVE              = YES

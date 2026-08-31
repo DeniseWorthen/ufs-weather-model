@@ -15,7 +15,7 @@ module nc_fixture_mod
   use netcdf
   implicit none
 
-  integer, parameter :: fixture_nx = 200      ! bulk "data" variable spatial size (ATM payload)
+  integer, parameter :: fixture_nx = 200       ! bulk "data" variable spatial size (ATM payload)
   integer, parameter :: fixture_pad_n = 100000 ! padding variable size -- models the DATM case's
                                                  ! already-written bulk payload that does NOT share
                                                  ! the unlimited "time" dim (see write_padding below)

@@ -118,10 +118,10 @@ add_mom6_unit_test(test_driver
    EXTRA_LIBS mom6_test_utils nc_fixture_mod outputlog_test_helpers NetCDF::NetCDF_Fortran MPI::MPI_Fortran
    USE_MPI)
 
-add_mom6_unit_test(test_restart_pairing
+add_mom6_unit_test(test_pairing
    CTEST_NAME MOM6_Outputlog_RestartPairing
-   SOURCES test_restart_pairing.F90
-   EXTRA_LIBS mom6_test_utils nc_fixture_mod outputlog_test_helpers NetCDF::NetCDF_Fortran MPI::MPI_Fortran
+   SOURCES cadence.F90
+   EXTRA_LIBS mom6_test_utils outputlog_test_helpers NetCDF::NetCDF_Fortran MPI::MPI_Fortran
    USE_MPI)
 
 #add_mom6_unit_test(test_driver_lstop
@@ -129,3 +129,22 @@ add_mom6_unit_test(test_restart_pairing
 #   SOURCES test_driver_lstop.F90
 #   EXTRA_LIBS mom6_test_utils nc_fixture_mod NetCDF::NetCDF_Fortran MPI::MPI_Fortran
 #   USE_MPI)
+
+if(POLICY CMP0144)
+    cmake_policy(SET CMP0144 NEW)
+endif()
+
+find_package(Doxygen)
+
+if(DOXYGEN_FOUND)
+    set(DOXYGEN_IN ${CMAKE_CURRENT_SOURCE_DIR}/../docs/Doxyfile.in)
+    set(DOXYGEN_OUT ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
+
+    configure_file(${DOXYGEN_IN} ${DOXYGEN_OUT} @ONLY)
+
+    add_custom_target(feature_docs
+        COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUT}
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+        COMMENT "Generating NUOPC cap and unit-test documentation"
+        VERBATIM)
+endif()
