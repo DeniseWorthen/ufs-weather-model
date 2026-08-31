@@ -86,8 +86,203 @@ Functions/Subroutines</h2></td></tr>
 <tr class="separator:a42d4d0b626aa7ea0abe174cd844fa0fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3865c2d504211b0a7cc2f73592b8967f" id="r_a3865c2d504211b0a7cc2f73592b8967f"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__outputlog__completion_8F90.html#a3865c2d504211b0a7cc2f73592b8967f">check_datm_incomplete</a> ()</td></tr>
 <tr class="separator:a3865c2d504211b0a7cc2f73592b8967f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a49a7ff186ad5996df0166defe539e5" id="r_a2a49a7ff186ad5996df0166defe539e5"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__outputlog__completion_8F90.html#a2a49a7ff186ad5996df0166defe539e5">check_datm_complete</a> ()</td></tr>
+<tr class="separator:a2a49a7ff186ad5996df0166defe539e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a195a889672a3a01a1165eec94dca8b5d" id="r_a195a889672a3a01a1165eec94dca8b5d"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__outputlog__completion_8F90.html#a195a889672a3a01a1165eec94dca8b5d">check_atm_incomplete</a> ()</td></tr>
+<tr class="separator:a195a889672a3a01a1165eec94dca8b5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44e7a2f75519915652138cd6ee9cb27f" id="r_a44e7a2f75519915652138cd6ee9cb27f"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__outputlog__completion_8F90.html#a44e7a2f75519915652138cd6ee9cb27f">check_atm_complete</a> ()</td></tr>
+<tr class="separator:a44e7a2f75519915652138cd6ee9cb27f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8cdf077cb2ee615cd914ce82d195cad" id="r_ac8cdf077cb2ee615cd914ce82d195cad"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__outputlog__completion_8F90.html#ac8cdf077cb2ee615cd914ce82d195cad">check_file_does_not_exist</a> ()</td></tr>
+<tr class="memdesc:ac8cdf077cb2ee615cd914ce82d195cad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Edge case: get_file_state/file_is_complete asked about a file that was never created. get_file_state's isroot-only inquire() leaves nlen/fsize at nf90_fill_int when the file doesn't exist &ndash; confirm that propagates correctly and that file_is_complete treats it as incomplete either way.  <br /></td></tr>
+<tr class="separator:ac8cdf077cb2ee615cd914ce82d195cad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a556852a78e1ef9c397eced40873df9aa" id="r_a556852a78e1ef9c397eced40873df9aa"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__outputlog__completion_8F90.html#a556852a78e1ef9c397eced40873df9aa">assert_true</a> (condition, msg)</td></tr>
+<tr class="separator:a556852a78e1ef9c397eced40873df9aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee9c06a3f605e65f0cf5b6077489be2e" id="r_aee9c06a3f605e65f0cf5b6077489be2e"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__outputlog__completion_8F90.html#aee9c06a3f605e65f0cf5b6077489be2e">assert_false</a> (condition, msg)</td></tr>
+<tr class="separator:aee9c06a3f605e65f0cf5b6077489be2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14edc783d8b2742530c46b6e7eed4ae1" id="r_a14edc783d8b2742530c46b6e7eed4ae1"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__outputlog__completion_8F90.html#a14edc783d8b2742530c46b6e7eed4ae1">assert_equal</a> (expected, actual, msg)</td></tr>
+<tr class="separator:a14edc783d8b2742530c46b6e7eed4ae1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function/Subroutine Documentation</h2>
+<a id="a14edc783d8b2742530c46b6e7eed4ae1" name="a14edc783d8b2742530c46b6e7eed4ae1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14edc783d8b2742530c46b6e7eed4ae1">&#9670;&#160;</a></span>assert_equal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine test_outputlog_completion::assert_equal </td>
+          <td>(</td>
+          <td class="paramtype">integer, intent(in)&#160;</td>
+          <td class="paramname"><em>expected</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer, intent(in)&#160;</td>
+          <td class="paramname"><em>actual</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">character(len=*), intent(in)&#160;</td>
+          <td class="paramname"><em>msg</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aee9c06a3f605e65f0cf5b6077489be2e" name="aee9c06a3f605e65f0cf5b6077489be2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee9c06a3f605e65f0cf5b6077489be2e">&#9670;&#160;</a></span>assert_false()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine test_outputlog_completion::assert_false </td>
+          <td>(</td>
+          <td class="paramtype">logical, intent(in)&#160;</td>
+          <td class="paramname"><em>condition</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">character(len=*), intent(in)&#160;</td>
+          <td class="paramname"><em>msg</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a556852a78e1ef9c397eced40873df9aa" name="a556852a78e1ef9c397eced40873df9aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a556852a78e1ef9c397eced40873df9aa">&#9670;&#160;</a></span>assert_true()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine test_outputlog_completion::assert_true </td>
+          <td>(</td>
+          <td class="paramtype">logical, intent(in)&#160;</td>
+          <td class="paramname"><em>condition</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">character(len=*), intent(in)&#160;</td>
+          <td class="paramname"><em>msg</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a44e7a2f75519915652138cd6ee9cb27f" name="a44e7a2f75519915652138cd6ee9cb27f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44e7a2f75519915652138cd6ee9cb27f">&#9670;&#160;</a></span>check_atm_complete()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine test_outputlog_completion::check_atm_complete</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a195a889672a3a01a1165eec94dca8b5d" name="a195a889672a3a01a1165eec94dca8b5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a195a889672a3a01a1165eec94dca8b5d">&#9670;&#160;</a></span>check_atm_incomplete()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine test_outputlog_completion::check_atm_incomplete</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2a49a7ff186ad5996df0166defe539e5" name="a2a49a7ff186ad5996df0166defe539e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a49a7ff186ad5996df0166defe539e5">&#9670;&#160;</a></span>check_datm_complete()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine test_outputlog_completion::check_datm_complete</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a3865c2d504211b0a7cc2f73592b8967f" name="a3865c2d504211b0a7cc2f73592b8967f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3865c2d504211b0a7cc2f73592b8967f">&#9670;&#160;</a></span>check_datm_incomplete()</h2>
 
@@ -99,6 +294,30 @@ Functions/Subroutines</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac8cdf077cb2ee615cd914ce82d195cad" name="ac8cdf077cb2ee615cd914ce82d195cad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8cdf077cb2ee615cd914ce82d195cad">&#9670;&#160;</a></span>check_file_does_not_exist()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine test_outputlog_completion::check_file_does_not_exist</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Edge case: get_file_state/file_is_complete asked about a file that was never created. get_file_state's isroot-only inquire() leaves nlen/fsize at nf90_fill_int when the file doesn't exist &ndash; confirm that propagates correctly and that file_is_complete treats it as incomplete either way. </p>
 
 </div>
 </div>

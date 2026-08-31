@@ -1,5 +1,14 @@
 \doxysection{/work/noaa/nems/dworthen/ufs\+\_\+dw/\+MOM6-\/interface/\+MOM6/config\+\_\+src/drivers/nuopc\+\_\+cap/mom\+\_\+cap.F90 File Reference}
 \hypertarget{mom__cap_8F90}{}\label{mom__cap_8F90}\index{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/MOM6/config\_src/drivers/nuopc\_cap/mom\_cap.F90@{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/MOM6/config\_src/drivers/nuopc\_cap/mom\_cap.F90}}
+\doxysubsubsection*{Data Types}
+\begin{DoxyCompactItemize}
+\item 
+type \mbox{\hyperlink{structmom__cap__mod_1_1ocean__internalstate__type}{mom\+\_\+cap\+\_\+mod\+::ocean\+\_\+internalstate\+\_\+type}}
+\begin{DoxyCompactList}\small\item\em Internal state type with pointers to three types defined by MOM. \end{DoxyCompactList}\item 
+type \mbox{\hyperlink{structmom__cap__mod_1_1ocean__internalstate__wrapper}{mom\+\_\+cap\+\_\+mod\+::ocean\+\_\+internalstate\+\_\+wrapper}}
+\begin{DoxyCompactList}\small\item\em Wrapper-\/derived type required to associate an internal state instance with the ESMF/\+NUOPC component. \end{DoxyCompactList}\item 
+type \mbox{\hyperlink{structmom__cap__mod_1_1fld__list__type}{mom\+\_\+cap\+\_\+mod\+::fld\+\_\+list\+\_\+type}}
+\begin{DoxyCompactList}\small\item\em Contains field information. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Modules}
 \begin{DoxyCompactItemize}
 \item 
@@ -9,9 +18,106 @@ module \mbox{\hyperlink{namespacemom__cap__mod}{mom\+\_\+cap\+\_\+mod}}
 \begin{DoxyCompactItemize}
 \item 
 subroutine, public \mbox{\hyperlink{namespacemom__cap__mod_ae0439afc4c901d9850515768bdaaed09}{mom\+\_\+cap\+\_\+mod\+::setservices}} (gcomp, rc)
-\begin{DoxyCompactList}\small\item\em NUOPC Set\+Service method is the only public entry point. Set\+Services registers all of the user-\/provided subroutines in the module with the NUOPC layer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em NUOPC Set\+Service method is the only public entry point. Set\+Services registers all of the user-\/provided subroutines in the module with the NUOPC layer. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacemom__cap__mod_a3f945772f833a0eb55af0991919337e5}{mom\+\_\+cap\+\_\+mod\+::initializep0}} (gcomp, importstate, exportstate, clock, rc)
+\begin{DoxyCompactList}\small\item\em First initialize subroutine called by NUOPC. The purpose is to set which version of the Initialize Phase Definition (IPD) to use. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacemom__cap__mod_a062004198a3dc21f240e7858d528b4fb}{mom\+\_\+cap\+\_\+mod\+::initializeadvertise}} (gcomp, importstate, exportstate, clock, rc)
+\begin{DoxyCompactList}\small\item\em Called by NUOPC to advertise import and export fields. "{}\+Advertise"{} simply means that the standard names of all import and export fields are supplied. The NUOPC layer uses these to match fields between components in the coupled system. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacemom__cap__mod_a772aaa2e35d505484723dcebc5027e66}{mom\+\_\+cap\+\_\+mod\+::initializerealize}} (gcomp, importstate, exportstate, clock, rc)
+\begin{DoxyCompactList}\small\item\em Called by NUOPC to realize import and export fields. "{}\+Realizing"{} a field means that its grid has been defined and an ESMF\+\_\+\+Field object has been created and put into the import or export State. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacemom__cap__mod_acadf328859aac6eb57b5c508f3f73b61}{mom\+\_\+cap\+\_\+mod\+::datainitialize}} (gcomp, rc)
+\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacemom__cap__mod_aecd83368409a9c059ca3313e25391a0b}{mom\+\_\+cap\+\_\+mod\+::modeladvance}} (gcomp, rc)
+\begin{DoxyCompactList}\small\item\em Called by NUOPC to advance the model a single timestep. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacemom__cap__mod_a5ac6a66c943ef7933973ed155a81dd91}{mom\+\_\+cap\+\_\+mod\+::modelsetrunclock}} (gcomp, rc)
+\item 
+subroutine \mbox{\hyperlink{namespacemom__cap__mod_a9b7799c15a6eeadc1d286ce4d37163e6}{mom\+\_\+cap\+\_\+mod\+::ocean\+\_\+model\+\_\+finalize}} (gcomp, rc)
+\begin{DoxyCompactList}\small\item\em Called by NUOPC at the end of the run to clean up. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacemom__cap__mod_aee8bf289ec5f309c4e9b7c0ed9cda04f}{mom\+\_\+cap\+\_\+mod\+::state\+\_\+setscalar}} (value, scalar\+\_\+id, state, mytask, scalar\+\_\+name, scalar\+\_\+count, rc)
+\begin{DoxyCompactList}\small\item\em Set scalar data from state for a particula name. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacemom__cap__mod_aff05ba33d3acc5d6018feecdbd88e094}{mom\+\_\+cap\+\_\+mod\+::mom\+\_\+realizefields}} (state, nfields, field\+\_\+defs, tag, ice\+\_\+ocean\+\_\+boundary, grid, mesh, rc)
+\begin{DoxyCompactList}\small\item\em Realize the import and export fields using either a grid or a mesh. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{mom__cap_8F90_a5fb5cf93f9c582256b6835d768a42e60}{setscalarfield}} (field, rc)
+\item 
+subroutine \mbox{\hyperlink{namespacemom__cap__mod_a33b2a56839dfa97a8262c68ba30f6f04}{mom\+\_\+cap\+\_\+mod\+::fld\+\_\+list\+\_\+add}} (num, fldlist, stdname, transferoffer, shortname, ungridded\+\_\+lbound, ungridded\+\_\+ubound)
+\begin{DoxyCompactList}\small\item\em Set up list of field information. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacemom__cap__mod_a21809d24a85da674b0f71ec068490049}{mom\+\_\+cap\+\_\+mod\+::shr\+\_\+log\+\_\+setlogunit}} (nunit)
+\end{DoxyCompactItemize}
 \doxysubsubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
 integer, parameter \mbox{\hyperlink{namespacemom__cap__mod_a0ed5e7e790ddbb9f8d7152264ca28d0f}{mom\+\_\+cap\+\_\+mod\+::fldsmax}} = 100
+\item 
+integer \mbox{\hyperlink{namespacemom__cap__mod_a49361c7b41259416fa2c6b08a6bac193}{mom\+\_\+cap\+\_\+mod\+::fldstoocn\+\_\+num}} = 0
+\item 
+type(\mbox{\hyperlink{structmom__cap__mod_1_1fld__list__type}{fld\+\_\+list\+\_\+type}}), dimension(\mbox{\hyperlink{namespacemom__cap__mod_a0ed5e7e790ddbb9f8d7152264ca28d0f}{fldsmax}}) \mbox{\hyperlink{namespacemom__cap__mod_a5f0c52bdc4d9687b0c2f882a9ecc202b}{mom\+\_\+cap\+\_\+mod\+::fldstoocn}}
+\item 
+integer \mbox{\hyperlink{namespacemom__cap__mod_ad948593abdb8da7fa79b69505913dc95}{mom\+\_\+cap\+\_\+mod\+::fldsfrocn\+\_\+num}} = 0
+\item 
+type(\mbox{\hyperlink{structmom__cap__mod_1_1fld__list__type}{fld\+\_\+list\+\_\+type}}), dimension(\mbox{\hyperlink{namespacemom__cap__mod_a0ed5e7e790ddbb9f8d7152264ca28d0f}{fldsmax}}) \mbox{\hyperlink{namespacemom__cap__mod_aee3e3b3a693970aa5f79b3ba8ca97d35}{mom\+\_\+cap\+\_\+mod\+::fldsfrocn}}
+\item 
+integer \mbox{\hyperlink{namespacemom__cap__mod_a970c6a1cb8beccf8ea72b4dd392c1418}{mom\+\_\+cap\+\_\+mod\+::dbug}} = 0
+\item 
+integer \mbox{\hyperlink{namespacemom__cap__mod_a2c76d05cdca9c737e6a460df1bfadbbd}{mom\+\_\+cap\+\_\+mod\+::import\+\_\+slice}} = 1
+\item 
+integer \mbox{\hyperlink{namespacemom__cap__mod_aa08ee7a9fc2f2a7e374db32013526765}{mom\+\_\+cap\+\_\+mod\+::export\+\_\+slice}} = 1
+\item 
+character(len=256) \mbox{\hyperlink{namespacemom__cap__mod_ac0eecd812f3619a4648e2f9386b58fe3}{mom\+\_\+cap\+\_\+mod\+::tmpstr}}
+\item 
+logical \mbox{\hyperlink{namespacemom__cap__mod_a87f074f197c71e76f3ceb5265c12ea42}{mom\+\_\+cap\+\_\+mod\+::write\+\_\+diagnostics}} = .false.
+\item 
+logical \mbox{\hyperlink{namespacemom__cap__mod_a6df1d28111df6b48514eb3fa8b8a0806}{mom\+\_\+cap\+\_\+mod\+::overwrite\+\_\+timeslice}} = .false.
+\item 
+logical \mbox{\hyperlink{namespacemom__cap__mod_a161c35594bd3e9aee09ff2adff7b331e}{mom\+\_\+cap\+\_\+mod\+::write\+\_\+runtimelog}} = .false.
+\item 
+character(len=32) \mbox{\hyperlink{namespacemom__cap__mod_ad56cefdfe78b6f64cfbf67b65eae6e7e}{mom\+\_\+cap\+\_\+mod\+::runtype}}
+\begin{DoxyCompactList}\small\item\em run type \end{DoxyCompactList}\item 
+logical \mbox{\hyperlink{namespacemom__cap__mod_ad4760bc5e6def07188f5fb61e09a2de1}{mom\+\_\+cap\+\_\+mod\+::profile\+\_\+memory}} = .true.
+\item 
+logical \mbox{\hyperlink{namespacemom__cap__mod_a2007af76dfd1960bd6162c3bdd2b0ed1}{mom\+\_\+cap\+\_\+mod\+::grid\+\_\+attach\+\_\+area}} = .false.
+\item 
+logical \mbox{\hyperlink{namespacemom__cap__mod_a7deb6bf08d4de5a92bd46a155a575b97}{mom\+\_\+cap\+\_\+mod\+::use\+\_\+coldstart}} = .true.
+\item 
+logical \mbox{\hyperlink{namespacemom__cap__mod_a1a6ff416c7149cdcdab3b3148930fbfc}{mom\+\_\+cap\+\_\+mod\+::use\+\_\+mommesh}} = .true.
+\item 
+logical \mbox{\hyperlink{namespacemom__cap__mod_abd56213117ea1a3931ae9d380832557e}{mom\+\_\+cap\+\_\+mod\+::set\+\_\+missing\+\_\+stks\+\_\+to\+\_\+zero}} = .false.
+\item 
+logical \mbox{\hyperlink{namespacemom__cap__mod_ad3c19c43434afed11076e3a36985f986}{mom\+\_\+cap\+\_\+mod\+::restart\+\_\+eor}} = .false.
+\item 
+logical \mbox{\hyperlink{namespacemom__cap__mod_a58e64beed30fca9ca44046a7ec53a39b}{mom\+\_\+cap\+\_\+mod\+::use\+\_\+cdeps\+\_\+inline}} = .false.
+\item 
+character(len=128) \mbox{\hyperlink{namespacemom__cap__mod_ac2e1656025fcc390497d059868d547aa}{mom\+\_\+cap\+\_\+mod\+::scalar\+\_\+field\+\_\+name}} = \textquotesingle{}\textquotesingle{}
+\item 
+integer \mbox{\hyperlink{namespacemom__cap__mod_aa34836ca41b881b490713afae1ce5b82}{mom\+\_\+cap\+\_\+mod\+::scalar\+\_\+field\+\_\+count}} = 0
+\item 
+integer \mbox{\hyperlink{namespacemom__cap__mod_ac69f1371ebbd90dfc117e54846cc90bb}{mom\+\_\+cap\+\_\+mod\+::scalar\+\_\+field\+\_\+idx\+\_\+grid\+\_\+nx}} = 0
+\item 
+integer \mbox{\hyperlink{namespacemom__cap__mod_ae36725fbbb9270b498c860196e9f0374}{mom\+\_\+cap\+\_\+mod\+::scalar\+\_\+field\+\_\+idx\+\_\+grid\+\_\+ny}} = 0
+\item 
+character(len= \texorpdfstring{$\ast$}{*}), parameter \mbox{\hyperlink{namespacemom__cap__mod_abcd81cf01660d4994dec787589d47616}{mom\+\_\+cap\+\_\+mod\+::u\+\_\+file\+\_\+u}} = \+\_\+\+\_\+\+FILE\+\_\+\+\_\+
+\item 
+logical \mbox{\hyperlink{namespacemom__cap__mod_a9ccb6bc098362e5ea43c44ed67b0be91}{mom\+\_\+cap\+\_\+mod\+::cesm\+\_\+coupled}} = .false.
+\item 
+type(esmf\+\_\+geomtype\+\_\+flag) \mbox{\hyperlink{namespacemom__cap__mod_a2af2a851cf395c0e9bc914c5ca06e5b0}{mom\+\_\+cap\+\_\+mod\+::geomtype}}
+\item 
+type(is\+\_\+restart\+\_\+fh\+\_\+type) \mbox{\hyperlink{namespacemom__cap__mod_abf7bf7614b618cf9b9a5ec9d1c58fe42}{mom\+\_\+cap\+\_\+mod\+::restartfh\+\_\+info}}
+\item 
+character(len=8) \mbox{\hyperlink{namespacemom__cap__mod_ae9a05eeac6bcd279edde9afb127af1da}{mom\+\_\+cap\+\_\+mod\+::restart\+\_\+mode}} = \textquotesingle{}alarms\textquotesingle{}
+\item 
+character(len=16) \mbox{\hyperlink{namespacemom__cap__mod_a7533a7727c0d30f169ccfbb9554b3bc3}{mom\+\_\+cap\+\_\+mod\+::inst\+\_\+suffix}} = \textquotesingle{}\textquotesingle{}
+\item 
+logical \mbox{\hyperlink{namespacemom__cap__mod_af347e9cdbece72b48ff6bd7383191ddc}{mom\+\_\+cap\+\_\+mod\+::pointer\+\_\+date}} = .true.
+\item 
+real(8) \mbox{\hyperlink{namespacemom__cap__mod_a723adda3d40b23bf02e338cef8a5e467}{mom\+\_\+cap\+\_\+mod\+::timere}}
+\item 
+integer \mbox{\hyperlink{namespacemom__cap__mod_ab4b34224065632ab5e73102188c07343}{mom\+\_\+cap\+\_\+mod\+::localpet}} = -\/1
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Function/\+Subroutine Documentation}
+\Hypertarget{mom__cap_8F90_a5fb5cf93f9c582256b6835d768a42e60}\label{mom__cap_8F90_a5fb5cf93f9c582256b6835d768a42e60} 
+\index{mom\_cap.F90@{mom\_cap.F90}!setscalarfield@{setscalarfield}}
+\index{setscalarfield@{setscalarfield}!mom\_cap.F90@{mom\_cap.F90}}
+\doxysubsubsection{\texorpdfstring{setscalarfield()}{setscalarfield()}}
+{\footnotesize\ttfamily subroutine mom\+\_\+realizefields\+::setscalarfield (\begin{DoxyParamCaption}\item[{type(esmf\+\_\+field), intent(inout)}]{field,  }\item[{integer, intent(inout)}]{rc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+

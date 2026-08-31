@@ -87,6 +87,9 @@ Functions/Subroutines</h2></td></tr>
 <tr class="memitem:ad10f1eb2528af523c332873e4a7bd848" id="r_ad10f1eb2528af523c332873e4a7bd848"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__restart__pairing_8F90.html#ad10f1eb2528af523c332873e4a7bd848">run_case</a> (test, freq, start_hour, runhours, restart_freq, is_passing, failmsg)</td></tr>
 <tr class="memdesc:ad10f1eb2528af523c332873e4a7bd848"><td class="mdescLeft">&#160;</td><td class="mdescRight">Drives track_freqn through one run, with a real ESMF clock/alarm and realistic FMS-lag history fixtures (matching test_freqn's own structure), while independently driving lastrestart per restart_freq (no lag &ndash; restarts are complete the instant their own hour arrives). At every real completion, asserts state_ntime_lastrestart against an externally-derived expected value.  <br /></td></tr>
 <tr class="separator:ad10f1eb2528af523c332873e4a7bd848"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a126bca32ebfd666f9dade0195aa4c8cc" id="r_a126bca32ebfd666f9dade0195aa4c8cc"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__restart__pairing_8F90.html#a126bca32ebfd666f9dade0195aa4c8cc">verify_completion</a> ()</td></tr>
+<tr class="memdesc:a126bca32ebfd666f9dade0195aa4c8cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called once per real completion: verifies state_ntime_lastrestart against the externally-derived expected value for this completion. Does NOT call log_restart_fh or check its output &ndash; track_freqn itself never calls it (that happens in outputlog_run, which this test doesn't exercise), so doing so here would only confirm log_restart_fh formats whatever we hand it correctly, not anything about track_freqn's own behavior.  <br /></td></tr>
+<tr class="separator:a126bca32ebfd666f9dade0195aa4c8cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function/Subroutine Documentation</h2>
 <a id="ad10f1eb2528af523c332873e4a7bd848" name="ad10f1eb2528af523c332873e4a7bd848"></a>
@@ -168,6 +171,30 @@ Functions/Subroutines</h2></td></tr>
 <p>Deliberately does NOT call or verify log_restart_fh: track_freqn itself never calls it (that only happens in outputlog_run, which this test doesn't exercise &ndash; see the accompanying discussion on why outputlog_run is treated as an accepted, unplanned gap for now), so doing so here would only confirm log_restart_fh formats whatever we hand it correctly, not anything about track_freqn's own behavior.</p>
 <p>Case 1 only (freq=6, start=6, restart_freq=15, runhours=36) &ndash; case 2 (freq=24, start=0, restart_freq=15, runhours=50) still needs its own diagram confirmed before being added.</p>
 <dl class="section date"><dt>Date</dt><dd>08-28-2026 </dd></dl>
+
+</div>
+</div>
+<a id="a126bca32ebfd666f9dade0195aa4c8cc" name="a126bca32ebfd666f9dade0195aa4c8cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a126bca32ebfd666f9dade0195aa4c8cc">&#9670;&#160;</a></span>verify_completion()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine run_case::verify_completion</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called once per real completion: verifies state_ntime_lastrestart against the externally-derived expected value for this completion. Does NOT call log_restart_fh or check its output &ndash; track_freqn itself never calls it (that happens in outputlog_run, which this test doesn't exercise), so doing so here would only confirm log_restart_fh formats whatever we hand it correctly, not anything about track_freqn's own behavior. </p>
 
 </div>
 </div>

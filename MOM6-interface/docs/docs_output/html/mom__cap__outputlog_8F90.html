@@ -75,7 +75,8 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Modules</a> &#124;
-<a href="#func-members">Functions/Subroutines</a>  </div>
+<a href="#func-members">Functions/Subroutines</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">mom_cap_outputlog.F90 File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -94,12 +95,45 @@ Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a63c992951482449c83f6bd9c7de49626" id="r_a63c992951482449c83f6bd9c7de49626"><td class="memItemLeft" align="right" valign="top">subroutine, public&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#a63c992951482449c83f6bd9c7de49626">mom_cap_outputlog::outputlog_run</a> (mclock, atstoptime, rc)</td></tr>
 <tr class="memdesc:a63c992951482449c83f6bd9c7de49626"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper for logging output at single frequency.  <br /></td></tr>
 <tr class="separator:a63c992951482449c83f6bd9c7de49626"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf152af2b5ff79377f77ac979555bbac" id="r_abf152af2b5ff79377f77ac979555bbac"><td class="memItemLeft" align="right" valign="top">subroutine, public&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#abf152af2b5ff79377f77ac979555bbac">mom_cap_outputlog::track_freqn</a> (mtime, cf_n, state_n, comm, isroot, rootpe, outputdir, lastrestart, debug_onroot, lstop, rc)</td></tr>
+<tr class="memitem:abf152af2b5ff79377f77ac979555bbac" id="r_abf152af2b5ff79377f77ac979555bbac"><td class="memItemLeft" align="right" valign="top">subroutine, public&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#abf152af2b5ff79377f77ac979555bbac">mom_cap_outputlog::track_freqn</a> (mtime, cf_n, state_n, comm, isroot, rootpe, <a class="el" href="namespacemom__cap__outputlog.html#ad845115e7fc26077fee28418fd50a67a">outputdir</a>, <a class="el" href="namespacemom__cap__outputlog.html#ab6710c7fd3664719466c5003c2a43278">lastrestart</a>, <a class="el" href="namespacemom__cap__outputlog.html#ac1d5119536f4bb3762cf13f6f6b6c029">debug_onroot</a>, lstop, rc)</td></tr>
 <tr class="memdesc:abf152af2b5ff79377f77ac979555bbac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Track and log file state at single output-frequency alarm.  <br /></td></tr>
 <tr class="separator:abf152af2b5ff79377f77ac979555bbac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af85f24b5e98f54d3ac8497288891c97d" id="r_af85f24b5e98f54d3ac8497288891c97d"><td class="memItemLeft" align="right" valign="top">subroutine, public&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#af85f24b5e98f54d3ac8497288891c97d">mom_cap_outputlog::outputlog_restart</a> (mclock, num_rest_files, rc)</td></tr>
 <tr class="memdesc:af85f24b5e98f54d3ac8497288891c97d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check all restart files to determine if output has been completed.  <br /></td></tr>
 <tr class="separator:af85f24b5e98f54d3ac8497288891c97d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a0e356492086e39c2bd19be826b9354a0" id="r_a0e356492086e39c2bd19be826b9354a0"><td class="memItemLeft" align="right" valign="top">integer, parameter&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#a0e356492086e39c2bd19be826b9354a0">mom_cap_outputlog::n_freq</a> = 4</td></tr>
+<tr class="separator:a0e356492086e39c2bd19be826b9354a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4ea6d5a8480721a9c8191e8d72745bd" id="r_ac4ea6d5a8480721a9c8191e8d72745bd"><td class="memItemLeft" align="right" valign="top">integer, dimension(<a class="el" href="namespacemom__cap__outputlog.html#a0e356492086e39c2bd19be826b9354a0">n_freq</a>), parameter&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#ac4ea6d5a8480721a9c8191e8d72745bd">mom_cap_outputlog::freq</a> = (/1, 3, 6, 24/)</td></tr>
+<tr class="separator:ac4ea6d5a8480721a9c8191e8d72745bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e0f7ab6efbb7e2a40f5eea90f7fa018" id="r_a1e0f7ab6efbb7e2a40f5eea90f7fa018"><td class="memItemLeft" align="right" valign="top">type(<a class="el" href="structmom__outputlog__methods_1_1outputlog__config__type.html">outputlog_config_type</a>), dimension(<a class="el" href="namespacemom__cap__outputlog.html#a0e356492086e39c2bd19be826b9354a0">n_freq</a>)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#a1e0f7ab6efbb7e2a40f5eea90f7fa018">mom_cap_outputlog::cf</a></td></tr>
+<tr class="separator:a1e0f7ab6efbb7e2a40f5eea90f7fa018"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86d1f659c76da888f41c943475f0dbc2" id="r_a86d1f659c76da888f41c943475f0dbc2"><td class="memItemLeft" align="right" valign="top">type(<a class="el" href="structmom__outputlog__methods_1_1outputlog__state__type.html">outputlog_state_type</a>), dimension(<a class="el" href="namespacemom__cap__outputlog.html#a0e356492086e39c2bd19be826b9354a0">n_freq</a>)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#a86d1f659c76da888f41c943475f0dbc2">mom_cap_outputlog::state</a></td></tr>
+<tr class="separator:a86d1f659c76da888f41c943475f0dbc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76fb35c8098769b537bd0bad77e82eda" id="r_a76fb35c8098769b537bd0bad77e82eda"><td class="memItemLeft" align="right" valign="top">type(<a class="el" href="structmom__outputlog__methods_1_1outputlog__modeltime__type.html">outputlog_modeltime_type</a>)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#a76fb35c8098769b537bd0bad77e82eda">mom_cap_outputlog::modeltime</a></td></tr>
+<tr class="separator:a76fb35c8098769b537bd0bad77e82eda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b49f7e0d0d4508119010fcce92592d2" id="r_a4b49f7e0d0d4508119010fcce92592d2"><td class="memItemLeft" align="right" valign="top">type(esmf_vm)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#a4b49f7e0d0d4508119010fcce92592d2">mom_cap_outputlog::vm</a></td></tr>
+<tr class="separator:a4b49f7e0d0d4508119010fcce92592d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6710c7fd3664719466c5003c2a43278" id="r_ab6710c7fd3664719466c5003c2a43278"><td class="memItemLeft" align="right" valign="top">type(esmf_time)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#ab6710c7fd3664719466c5003c2a43278">mom_cap_outputlog::lastrestart</a></td></tr>
+<tr class="separator:ab6710c7fd3664719466c5003c2a43278"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac63679bf3975761315a17781ce6a4e1b" id="r_ac63679bf3975761315a17781ce6a4e1b"><td class="memItemLeft" align="right" valign="top">type(mpi_comm)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#ac63679bf3975761315a17781ce6a4e1b">mom_cap_outputlog::mpicomm</a></td></tr>
+<tr class="separator:ac63679bf3975761315a17781ce6a4e1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4aa380c29aace54850ec4b9965b3bc33" id="r_a4aa380c29aace54850ec4b9965b3bc33"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#a4aa380c29aace54850ec4b9965b3bc33">mom_cap_outputlog::toffset</a></td></tr>
+<tr class="separator:a4aa380c29aace54850ec4b9965b3bc33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace10dd5da2eab29be760a93aab825589" id="r_ace10dd5da2eab29be760a93aab825589"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#ace10dd5da2eab29be760a93aab825589">mom_cap_outputlog::nfiles</a></td></tr>
+<tr class="separator:ace10dd5da2eab29be760a93aab825589"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1d5119536f4bb3762cf13f6f6b6c029" id="r_ac1d5119536f4bb3762cf13f6f6b6c029"><td class="memItemLeft" align="right" valign="top">logical&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#ac1d5119536f4bb3762cf13f6f6b6c029">mom_cap_outputlog::debug_onroot</a></td></tr>
+<tr class="separator:ac1d5119536f4bb3762cf13f6f6b6c029"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0480a093179e02032d33361dd9769fd" id="r_ac0480a093179e02032d33361dd9769fd"><td class="memItemLeft" align="right" valign="top">character(len=256)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#ac0480a093179e02032d33361dd9769fd">mom_cap_outputlog::restartdir</a></td></tr>
+<tr class="separator:ac0480a093179e02032d33361dd9769fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad845115e7fc26077fee28418fd50a67a" id="r_ad845115e7fc26077fee28418fd50a67a"><td class="memItemLeft" align="right" valign="top">character(len=256)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#ad845115e7fc26077fee28418fd50a67a">mom_cap_outputlog::outputdir</a></td></tr>
+<tr class="separator:ad845115e7fc26077fee28418fd50a67a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26de413f515e4563b3de6ab10585ea45" id="r_a26de413f515e4563b3de6ab10585ea45"><td class="memItemLeft" align="right" valign="top">character(len=256)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#a26de413f515e4563b3de6ab10585ea45">mom_cap_outputlog::errmsg</a></td></tr>
+<tr class="separator:a26de413f515e4563b3de6ab10585ea45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9813ad21e5c7ee0542be1387c38d2f1f" id="r_a9813ad21e5c7ee0542be1387c38d2f1f"><td class="memItemLeft" align="right" valign="top">character(len= *), parameter&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#a9813ad21e5c7ee0542be1387c38d2f1f">mom_cap_outputlog::u_file_u</a> = __FILE__</td></tr>
+<tr class="separator:a9813ad21e5c7ee0542be1387c38d2f1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

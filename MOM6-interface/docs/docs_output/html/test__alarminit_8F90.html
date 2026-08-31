@@ -87,6 +87,12 @@ Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a7bf9edbebc78f81e0ae204accfeac511" id="r_a7bf9edbebc78f81e0ae204accfeac511"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__alarminit_8F90.html#a7bf9edbebc78f81e0ae204accfeac511">find_ring_time</a> (freq, start_hour, ringtime, starttime, toffset, ierr, errmsg, dt)</td></tr>
 <tr class="memdesc:a7bf9edbebc78f81e0ae204accfeac511"><td class="mdescLeft">&#160;</td><td class="mdescRight">Steps the clock forward (small dt, checked every step) until the given alarm actually rings, or gives up after max_steps. Pure mechanics only &ndash; no assertions, no notion of "correct." Shared by run_case (structural primary+secondary checks) and any literal-value test (direct comparison against a hand-verified expected time), so the ring-detection logic itself only exists in one place. Also returns startTime and toffset, since both run_case's checks and a literal test's own comparison need them (startTime to build an expected ESMF_Time; toffset only for run_case's regression check).  <br /></td></tr>
 <tr class="separator:a7bf9edbebc78f81e0ae204accfeac511"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f5d4ab980860a00ba8b17edd37e2b7c" id="r_a2f5d4ab980860a00ba8b17edd37e2b7c"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__alarminit_8F90.html#a2f5d4ab980860a00ba8b17edd37e2b7c">run_case</a> (freq, start_hour, ierr, errmsg, dt)</td></tr>
+<tr class="memdesc:a2f5d4ab980860a00ba8b17edd37e2b7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs one freq/start_hour case end to end and reports a SINGLE result: ierr==0 means the alarm rang in time AND both the primary (structural) and secondary (regression) checks passed; any other outcome sets ierr/=0 with errmsg describing specifically what failed. Callers never need to assemble their own pass/fail expression &ndash; every call site reduces to <code>call run_case(...); is_passing = (ierr==0)</code> (or /=0 for the one case that's expected to time out).  <br /></td></tr>
+<tr class="separator:a2f5d4ab980860a00ba8b17edd37e2b7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3169125274f1241b00290deac0cf5b1a" id="r_a3169125274f1241b00290deac0cf5b1a"><td class="memItemLeft" align="right" valign="top">integer function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__alarminit_8F90.html#a3169125274f1241b00290deac0cf5b1a">predicted_ring_offset</a> (freq, toffset)</td></tr>
+<tr class="memdesc:a3169125274f1241b00290deac0cf5b1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Independent re-derivation of AlarmInit's rewind-then-advance loop, for the regression check only. Returns the UNWRAPPED elapsed-hours offset from startTime (not an hour-of-day) so the caller can build a proper ESMF_TimeInterval and compare full ESMF_Time objects &ndash; preserves day precision, unlike returning a modulo-24 hour value would.  <br /></td></tr>
+<tr class="separator:a3169125274f1241b00290deac0cf5b1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function/Subroutine Documentation</h2>
 <a id="a7bf9edbebc78f81e0ae204accfeac511" name="a7bf9edbebc78f81e0ae204accfeac511"></a>
@@ -152,6 +158,100 @@ Functions/Subroutines</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Steps the clock forward (small dt, checked every step) until the given alarm actually rings, or gives up after max_steps. Pure mechanics only &ndash; no assertions, no notion of "correct." Shared by run_case (structural primary+secondary checks) and any literal-value test (direct comparison against a hand-verified expected time), so the ring-detection logic itself only exists in one place. Also returns startTime and toffset, since both run_case's checks and a literal test's own comparison need them (startTime to build an expected ESMF_Time; toffset only for run_case's regression check). </p>
+
+</div>
+</div>
+<a id="a3169125274f1241b00290deac0cf5b1a" name="a3169125274f1241b00290deac0cf5b1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3169125274f1241b00290deac0cf5b1a">&#9670;&#160;</a></span>predicted_ring_offset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">integer function test_alarminit::predicted_ring_offset </td>
+          <td>(</td>
+          <td class="paramtype">integer, intent(in)&#160;</td>
+          <td class="paramname"><em>freq</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer, intent(in)&#160;</td>
+          <td class="paramname"><em>toffset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Independent re-derivation of AlarmInit's rewind-then-advance loop, for the regression check only. Returns the UNWRAPPED elapsed-hours offset from startTime (not an hour-of-day) so the caller can build a proper ESMF_TimeInterval and compare full ESMF_Time objects &ndash; preserves day precision, unlike returning a modulo-24 hour value would. </p>
+
+</div>
+</div>
+<a id="a2f5d4ab980860a00ba8b17edd37e2b7c" name="a2f5d4ab980860a00ba8b17edd37e2b7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f5d4ab980860a00ba8b17edd37e2b7c">&#9670;&#160;</a></span>run_case()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine test_alarminit::run_case </td>
+          <td>(</td>
+          <td class="paramtype">integer, intent(in)&#160;</td>
+          <td class="paramname"><em>freq</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer, intent(in)&#160;</td>
+          <td class="paramname"><em>start_hour</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer, intent(out)&#160;</td>
+          <td class="paramname"><em>ierr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">character(len=*), intent(out)&#160;</td>
+          <td class="paramname"><em>errmsg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer, intent(in), optional&#160;</td>
+          <td class="paramname"><em>dt</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Runs one freq/start_hour case end to end and reports a SINGLE result: ierr==0 means the alarm rang in time AND both the primary (structural) and secondary (regression) checks passed; any other outcome sets ierr/=0 with errmsg describing specifically what failed. Callers never need to assemble their own pass/fail expression &ndash; every call site reduces to <code>call run_case(...); is_passing = (ierr==0)</code> (or /=0 for the one case that's expected to time out). </p>
 
 </div>
 </div>

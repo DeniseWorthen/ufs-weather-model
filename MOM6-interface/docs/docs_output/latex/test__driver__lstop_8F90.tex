@@ -6,7 +6,9 @@
 program \mbox{\hyperlink{test__driver__lstop_8F90_aed2e564032bc16e4f7209d220d0a0d71}{test\+\_\+driver\+\_\+lstop}}
 \begin{DoxyCompactList}\small\item\em Narrow orchestration test for the outputlog\+\_\+freqn machinery. \end{DoxyCompactList}\item 
 subroutine \mbox{\hyperlink{test__driver__lstop_8F90_a6982bc91b7051620d5e54cff236441a2}{run\+\_\+case}} (test, freq, start\+\_\+hour, runhours, timereduce, use\+\_\+filesize, nfiles, completions)
-\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{test__driver__lstop_8F90_ad25da779a203c91093b7760531948ce4}{setup\+\_\+case}} (start\+\_\+hour, runhours, freq, l\+\_\+nfiles, l\+\_\+timereduce, modelclock, cf\+\_\+n, state\+\_\+n, rc)
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Function/\+Subroutine Documentation}
@@ -19,6 +21,12 @@ subroutine \mbox{\hyperlink{test__driver__lstop_8F90_a6982bc91b7051620d5e54cff23
 
 
 TODO. 
+
+\Hypertarget{test__driver__lstop_8F90_ad25da779a203c91093b7760531948ce4}\label{test__driver__lstop_8F90_ad25da779a203c91093b7760531948ce4} 
+\index{test\_driver\_lstop.F90@{test\_driver\_lstop.F90}!setup\_case@{setup\_case}}
+\index{setup\_case@{setup\_case}!test\_driver\_lstop.F90@{test\_driver\_lstop.F90}}
+\doxysubsubsection{\texorpdfstring{setup\_case()}{setup\_case()}}
+{\footnotesize\ttfamily subroutine test\+\_\+driver\+\_\+lstop\+::setup\+\_\+case (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{start\+\_\+hour,  }\item[{integer, intent(in)}]{runhours,  }\item[{integer, intent(in)}]{freq,  }\item[{integer, intent(in)}]{l\+\_\+nfiles,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{l\+\_\+timereduce,  }\item[{type(esmf\+\_\+clock), intent(out)}]{modelclock,  }\item[{type(\mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__config__type}{outputlog\+\_\+config\+\_\+type}}), intent(out)}]{cf\+\_\+n,  }\item[{type(\mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__state__type}{outputlog\+\_\+state\+\_\+type}}), intent(out)}]{state\+\_\+n,  }\item[{integer, intent(out)}]{rc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 \Hypertarget{test__driver__lstop_8F90_aed2e564032bc16e4f7209d220d0a0d71}\label{test__driver__lstop_8F90_aed2e564032bc16e4f7209d220d0a0d71} 
 \index{test\_driver\_lstop.F90@{test\_driver\_lstop.F90}!test\_driver\_lstop@{test\_driver\_lstop}}

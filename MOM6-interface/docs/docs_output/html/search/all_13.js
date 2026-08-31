@@ -1,25 +1,8 @@
 var searchData=
 [
-  ['u10_5fsqr_0',['u10_sqr',['../structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type.html#a4dc34d78bf4e7a08a19aa8a00635321c',1,'mom_surface_forcing_nuopc::ice_ocean_boundary_type']]],
-  ['u_5ffile_5fu_1',['u_file_u',['../namespacemom__outputlog__methods.html#a743fed927ae81b3028b61387b6fc1871',1,'mom_outputlog_methods']]],
-  ['u_5fflux_2',['u_flux',['../structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type.html#a26e2d76c204a6e5a13083831406ccbb8',1,'mom_surface_forcing_nuopc::ice_ocean_boundary_type']]],
-  ['u_5fsurf_3',['u_surf',['../structmom__ocean__model__nuopc_1_1ocean__public__type.html#a7a907ab12271b2e9e5570ef10b0a9356',1,'mom_ocean_model_nuopc::ocean_public_type']]],
-  ['underlying_20model_20interfaces_4',['Underlying Model Interfaces',['../nuopc_cap.html#UnderlyingModelInterfaces',1,'']]],
-  ['update_5focean_5fmodel_5',['update_ocean_model',['../namespacemom__ocean__model__nuopc.html#ae9ec71b9745b2d578f3a4447dc6955f0',1,'mom_ocean_model_nuopc']]],
-  ['urf_5fcs_6',['urf_cs',['../structmom__surface__forcing__nuopc_1_1surface__forcing__cs.html#adaa3271efaad7677c8778b70de2a02cd',1,'mom_surface_forcing_nuopc::surface_forcing_cs']]],
-  ['us_7',['us',['../structmom__ocean__model__nuopc_1_1ocean__state__type.html#ad7d18dffb0dfb9bfe0a8a86b9d370326',1,'mom_ocean_model_nuopc::ocean_state_type']]],
-  ['use_5fcfc_8',['use_cfc',['../structmom__surface__forcing__nuopc_1_1surface__forcing__cs.html#a41d5b45bd8ed619fd47cc9512e86c069',1,'mom_surface_forcing_nuopc::surface_forcing_cs']]],
-  ['use_5ffilesize_9',['use_filesize',['../structmom__outputlog__methods_1_1outputlog__state__type.html#ac59dabb6f456e85e9532ec6b15df2004',1,'mom_outputlog_methods::outputlog_state_type']]],
-  ['use_5fice_5fshelf_10',['use_ice_shelf',['../structmom__ocean__model__nuopc_1_1ocean__state__type.html#a31b1eae5f59a7de9f6ec515933dd4101',1,'mom_ocean_model_nuopc::ocean_state_type']]],
-  ['use_5flimited_5fp_5fssh_11',['use_limited_p_ssh',['../structmom__surface__forcing__nuopc_1_1surface__forcing__cs.html#ae185a599a76fd9f39cdf438077ed453f',1,'mom_surface_forcing_nuopc::surface_forcing_cs']]],
-  ['use_5fmarbl_12',['use_marbl',['../structmom__ocean__model__nuopc_1_1ocean__state__type.html#a11a8ef99f3c3bafeba1006d0ac95586f',1,'mom_ocean_model_nuopc::ocean_state_type']]],
-  ['use_5fmarbl_5ftracers_13',['use_marbl_tracers',['../structmom__surface__forcing__nuopc_1_1surface__forcing__cs.html#ab7fbbd1da6d02b03da572291b9782fd9',1,'mom_surface_forcing_nuopc::surface_forcing_cs']]],
-  ['use_5fnet_5ffw_5fadjustment_5fsign_5fbug_14',['use_net_fw_adjustment_sign_bug',['../structmom__surface__forcing__nuopc_1_1surface__forcing__cs.html#a856df9d2fbfaab789b54b37ab527883e',1,'mom_surface_forcing_nuopc::surface_forcing_cs']]],
-  ['use_5ftemperature_15',['use_temperature',['../structmom__surface__forcing__nuopc_1_1surface__forcing__cs.html#a710ee7ba697526aaa7ff0179ae82161e',1,'mom_surface_forcing_nuopc::surface_forcing_cs']]],
-  ['use_5fwaves_16',['use_waves',['../structmom__ocean__model__nuopc_1_1ocean__state__type.html#a766381ebbc4c7a0e09f28ff980f4b1bf',1,'mom_ocean_model_nuopc::ocean_state_type']]],
-  ['ustar_5fberg_17',['ustar_berg',['../structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type.html#ab95a209f3578b781299246aac1bcf892',1,'mom_surface_forcing_nuopc::ice_ocean_boundary_type']]],
-  ['ustar_5fgustless_5fbug_18',['ustar_gustless_bug',['../structmom__surface__forcing__nuopc_1_1surface__forcing__cs.html#a95e41a4e480874c45f3e3f43d238174e',1,'mom_surface_forcing_nuopc::surface_forcing_cs']]],
-  ['ustar_5ftidal_19',['ustar_tidal',['../structmom__surface__forcing__nuopc_1_1surface__forcing__cs.html#a94974c5219c7ea552eb05fdbf83eb75f',1,'mom_surface_forcing_nuopc::surface_forcing_cs']]],
-  ['ustkb_20',['ustkb',['../structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type.html#a8f336f73db309263413bcf091b1c5a7e',1,'mom_surface_forcing_nuopc::ice_ocean_boundary_type']]],
-  ['utide_21',['utide',['../structmom__surface__forcing__nuopc_1_1surface__forcing__cs.html#a93eea86437cf846f9317a546446df058',1,'mom_surface_forcing_nuopc::surface_forcing_cs']]]
+  ['write_5fbulk_5fdata_0',['write_bulk_data',['../namespacenc__fixture__mod.html#afe19d49dcceb26ddd76443b510d2f39f',1,'nc_fixture_mod']]],
+  ['write_5fdiagnostics_1',['write_diagnostics',['../namespacemom__cap__mod.html#a87f074f197c71e76f3ceb5265c12ea42',1,'mom_cap_mod']]],
+  ['write_5fpadding_2',['write_padding',['../namespacenc__fixture__mod.html#a3ea7e4875a4cb18ab8d534d251b35285',1,'nc_fixture_mod']]],
+  ['write_5frecord_3',['write_record',['../namespacenc__fixture__mod.html#a33fb11a600ad64847155775b1fcc71ae',1,'nc_fixture_mod']]],
+  ['write_5fruntimelog_4',['write_runtimelog',['../namespacemom__cap__mod.html#a161c35594bd3e9aee09ff2adff7b331e',1,'mom_cap_mod']]]
 ];

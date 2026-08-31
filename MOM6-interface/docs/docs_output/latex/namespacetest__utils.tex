@@ -7,27 +7,151 @@ interface \mbox{\hyperlink{interfacetest__utils_1_1addresult}{addresult}}
 \item 
 interface \mbox{\hyperlink{interfacetest__utils_1_1assert__equal}{assert\+\_\+equal}}
 \item 
+type \mbox{\hyperlink{structtest__utils_1_1msg__type}{msg\+\_\+type}}
+\item 
 type \mbox{\hyperlink{structtest__utils_1_1testsummary}{testsummary}}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Functions/\+Subroutines}
 \begin{DoxyCompactItemize}
 \item 
+subroutine \mbox{\hyperlink{namespacetest__utils_a5cde06c2992d68a039f375924f8b5654}{init\+\_\+summary}} (this, maxtests)
+\item 
+subroutine \mbox{\hyperlink{namespacetest__utils_a59ea1620613078a6c2e45df80da3f43d}{add\+\_\+test\+\_\+result}} (summary, passed, message, errormsg)
+\item 
+subroutine \mbox{\hyperlink{namespacetest__utils_a6effc4f29f19ff54c3733d062a2af1b4}{grow\+\_\+if\+\_\+needed}} (summary)
+\begin{DoxyCompactList}\small\item\em Grows teststatus/testmessage/errmessage to fit summarycount, doubling capacity (or matching count exactly if that\textquotesingle{}s larger) rather than a fixed maxtests -- add\+\_\+test\+\_\+result can never write out of bounds, and init(maxtests) becomes just an optional initial-\/capacity hint rather than a hard, easy-\/to-\/forget-\/to-\/update limit. Safe to call whether or not init() was ever called (an unallocated array is treated as size 0). \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacetest__utils_aaf2593ef3264cd38d5f22f5fe65b1821}{assert\+\_\+logical}} (actual, expected, msg, rc, returnmsg)
+\item 
+subroutine \mbox{\hyperlink{namespacetest__utils_abb1dfe8c7460aac7b22885195f3f631d}{assert\+\_\+int\+\_\+scalar}} (actual, expected, msg, rc, returnmsg)
+\item 
+subroutine \mbox{\hyperlink{namespacetest__utils_a482cd1763251653fe07617c948bbf740}{assert\+\_\+real\+\_\+scalar}} (actual, expected, tol, msg, rc, returnmsg)
+\item 
+subroutine \mbox{\hyperlink{namespacetest__utils_a6e79afc74f0e5a6fbea2aeb6cca9bdec}{assert\+\_\+double\+\_\+scalar}} (actual, expected, tol, msg, rc, returnmsg)
+\item 
+subroutine \mbox{\hyperlink{namespacetest__utils_a72547f2aaf32d76452251c30e1b313e9}{assert\+\_\+double\+\_\+1d}} (actual, expected, tol, msg, rc, returnmsg)
+\item 
 character(len=4) function, public \mbox{\hyperlink{namespacetest__utils_a20d93fb56e43810b7fb18af42c72a0f2}{itoa}} (i)
 \item 
 subroutine, public \mbox{\hyperlink{namespacetest__utils_a0e0e987ef3b5f5dcfd49780156131c2a}{esmf\+\_\+err}} (rc, subname, context)
 \end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+integer, parameter \mbox{\hyperlink{namespacetest__utils_a8100e06bdb60a83d7b370885c5f2c167}{real\+\_\+kind}} = selected\+\_\+real\+\_\+kind( 6)
+\begin{DoxyCompactList}\small\item\em 4 byte real \end{DoxyCompactList}\item 
+integer, parameter \mbox{\hyperlink{namespacetest__utils_ab04388abbfa7667ba5a7a01e45e776a2}{dbl\+\_\+kind}} = selected\+\_\+real\+\_\+kind(12)
+\begin{DoxyCompactList}\small\item\em 8 byte real \end{DoxyCompactList}\item 
+integer, parameter \mbox{\hyperlink{namespacetest__utils_ac675c9fe740321737aea9eeb4a7a87ba}{int\+\_\+kind}} = selected\+\_\+int\+\_\+kind ( 6)
+\begin{DoxyCompactList}\small\item\em 4 byte integer \end{DoxyCompactList}\item 
+integer, parameter \mbox{\hyperlink{namespacetest__utils_a2789334e59bc11103ee4151b569e0a36}{int8\+\_\+kind}} = selected\+\_\+int\+\_\+kind (13)
+\begin{DoxyCompactList}\small\item\em 8 byte integer \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Function/\+Subroutine Documentation}
+\Hypertarget{namespacetest__utils_a59ea1620613078a6c2e45df80da3f43d}\label{namespacetest__utils_a59ea1620613078a6c2e45df80da3f43d} 
+\index{test\_utils@{test\_utils}!add\_test\_result@{add\_test\_result}}
+\index{add\_test\_result@{add\_test\_result}!test\_utils@{test\_utils}}
+\doxysubsubsection{\texorpdfstring{add\_test\_result()}{add\_test\_result()}}
+{\footnotesize\ttfamily subroutine test\+\_\+utils\+::add\+\_\+test\+\_\+result (\begin{DoxyParamCaption}\item[{type(\mbox{\hyperlink{structtest__utils_1_1testsummary}{testsummary}}), intent(inout)}]{summary,  }\item[{logical, intent(in)}]{passed,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{message,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{errormsg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacetest__utils_a72547f2aaf32d76452251c30e1b313e9}\label{namespacetest__utils_a72547f2aaf32d76452251c30e1b313e9} 
+\index{test\_utils@{test\_utils}!assert\_double\_1d@{assert\_double\_1d}}
+\index{assert\_double\_1d@{assert\_double\_1d}!test\_utils@{test\_utils}}
+\doxysubsubsection{\texorpdfstring{assert\_double\_1d()}{assert\_double\_1d()}}
+{\footnotesize\ttfamily subroutine test\+\_\+utils\+::assert\+\_\+double\+\_\+1d (\begin{DoxyParamCaption}\item[{real(\mbox{\hyperlink{namespacetest__utils_ab04388abbfa7667ba5a7a01e45e776a2}{dbl\+\_\+kind}}), dimension(\+:), intent(in)}]{actual,  }\item[{real(\mbox{\hyperlink{namespacetest__utils_ab04388abbfa7667ba5a7a01e45e776a2}{dbl\+\_\+kind}}), dimension(\+:), intent(in)}]{expected,  }\item[{real(\mbox{\hyperlink{namespacetest__utils_ab04388abbfa7667ba5a7a01e45e776a2}{dbl\+\_\+kind}}), intent(in)}]{tol,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{msg,  }\item[{logical, intent(out)}]{rc,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(out)}]{returnmsg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacetest__utils_a6e79afc74f0e5a6fbea2aeb6cca9bdec}\label{namespacetest__utils_a6e79afc74f0e5a6fbea2aeb6cca9bdec} 
+\index{test\_utils@{test\_utils}!assert\_double\_scalar@{assert\_double\_scalar}}
+\index{assert\_double\_scalar@{assert\_double\_scalar}!test\_utils@{test\_utils}}
+\doxysubsubsection{\texorpdfstring{assert\_double\_scalar()}{assert\_double\_scalar()}}
+{\footnotesize\ttfamily subroutine test\+\_\+utils\+::assert\+\_\+double\+\_\+scalar (\begin{DoxyParamCaption}\item[{real(\mbox{\hyperlink{namespacetest__utils_ab04388abbfa7667ba5a7a01e45e776a2}{dbl\+\_\+kind}}), intent(in)}]{actual,  }\item[{real(\mbox{\hyperlink{namespacetest__utils_ab04388abbfa7667ba5a7a01e45e776a2}{dbl\+\_\+kind}}), intent(in)}]{expected,  }\item[{real(\mbox{\hyperlink{namespacetest__utils_ab04388abbfa7667ba5a7a01e45e776a2}{dbl\+\_\+kind}}), intent(in)}]{tol,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{msg,  }\item[{logical, intent(out)}]{rc,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(out)}]{returnmsg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacetest__utils_abb1dfe8c7460aac7b22885195f3f631d}\label{namespacetest__utils_abb1dfe8c7460aac7b22885195f3f631d} 
+\index{test\_utils@{test\_utils}!assert\_int\_scalar@{assert\_int\_scalar}}
+\index{assert\_int\_scalar@{assert\_int\_scalar}!test\_utils@{test\_utils}}
+\doxysubsubsection{\texorpdfstring{assert\_int\_scalar()}{assert\_int\_scalar()}}
+{\footnotesize\ttfamily subroutine test\+\_\+utils\+::assert\+\_\+int\+\_\+scalar (\begin{DoxyParamCaption}\item[{integer(\mbox{\hyperlink{namespacetest__utils_ac675c9fe740321737aea9eeb4a7a87ba}{int\+\_\+kind}}), intent(in)}]{actual,  }\item[{integer(\mbox{\hyperlink{namespacetest__utils_ac675c9fe740321737aea9eeb4a7a87ba}{int\+\_\+kind}}), intent(in)}]{expected,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{msg,  }\item[{logical, intent(out)}]{rc,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(out)}]{returnmsg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacetest__utils_aaf2593ef3264cd38d5f22f5fe65b1821}\label{namespacetest__utils_aaf2593ef3264cd38d5f22f5fe65b1821} 
+\index{test\_utils@{test\_utils}!assert\_logical@{assert\_logical}}
+\index{assert\_logical@{assert\_logical}!test\_utils@{test\_utils}}
+\doxysubsubsection{\texorpdfstring{assert\_logical()}{assert\_logical()}}
+{\footnotesize\ttfamily subroutine test\+\_\+utils\+::assert\+\_\+logical (\begin{DoxyParamCaption}\item[{logical, intent(in)}]{actual,  }\item[{logical, intent(in)}]{expected,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{msg,  }\item[{logical, intent(out)}]{rc,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(out)}]{returnmsg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacetest__utils_a482cd1763251653fe07617c948bbf740}\label{namespacetest__utils_a482cd1763251653fe07617c948bbf740} 
+\index{test\_utils@{test\_utils}!assert\_real\_scalar@{assert\_real\_scalar}}
+\index{assert\_real\_scalar@{assert\_real\_scalar}!test\_utils@{test\_utils}}
+\doxysubsubsection{\texorpdfstring{assert\_real\_scalar()}{assert\_real\_scalar()}}
+{\footnotesize\ttfamily subroutine test\+\_\+utils\+::assert\+\_\+real\+\_\+scalar (\begin{DoxyParamCaption}\item[{real(\mbox{\hyperlink{namespacetest__utils_a8100e06bdb60a83d7b370885c5f2c167}{real\+\_\+kind}}), intent(in)}]{actual,  }\item[{real(\mbox{\hyperlink{namespacetest__utils_a8100e06bdb60a83d7b370885c5f2c167}{real\+\_\+kind}}), intent(in)}]{expected,  }\item[{real(\mbox{\hyperlink{namespacetest__utils_a8100e06bdb60a83d7b370885c5f2c167}{real\+\_\+kind}}), intent(in)}]{tol,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{msg,  }\item[{logical, intent(out)}]{rc,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(out)}]{returnmsg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
 \Hypertarget{namespacetest__utils_a0e0e987ef3b5f5dcfd49780156131c2a}\label{namespacetest__utils_a0e0e987ef3b5f5dcfd49780156131c2a} 
 \index{test\_utils@{test\_utils}!esmf\_err@{esmf\_err}}
 \index{esmf\_err@{esmf\_err}!test\_utils@{test\_utils}}
 \doxysubsubsection{\texorpdfstring{esmf\_err()}{esmf\_err()}}
 {\footnotesize\ttfamily subroutine, public test\+\_\+utils\+::esmf\+\_\+err (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{rc,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{subname,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{context }\end{DoxyParamCaption})}
 
+\Hypertarget{namespacetest__utils_a6effc4f29f19ff54c3733d062a2af1b4}\label{namespacetest__utils_a6effc4f29f19ff54c3733d062a2af1b4} 
+\index{test\_utils@{test\_utils}!grow\_if\_needed@{grow\_if\_needed}}
+\index{grow\_if\_needed@{grow\_if\_needed}!test\_utils@{test\_utils}}
+\doxysubsubsection{\texorpdfstring{grow\_if\_needed()}{grow\_if\_needed()}}
+{\footnotesize\ttfamily subroutine test\+\_\+utils\+::grow\+\_\+if\+\_\+needed (\begin{DoxyParamCaption}\item[{type(\mbox{\hyperlink{structtest__utils_1_1testsummary}{testsummary}}), intent(inout)}]{summary }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Grows teststatus/testmessage/errmessage to fit summarycount, doubling capacity (or matching count exactly if that\textquotesingle{}s larger) rather than a fixed maxtests -- add\+\_\+test\+\_\+result can never write out of bounds, and init(maxtests) becomes just an optional initial-\/capacity hint rather than a hard, easy-\/to-\/forget-\/to-\/update limit. Safe to call whether or not init() was ever called (an unallocated array is treated as size 0). 
+
+\Hypertarget{namespacetest__utils_a5cde06c2992d68a039f375924f8b5654}\label{namespacetest__utils_a5cde06c2992d68a039f375924f8b5654} 
+\index{test\_utils@{test\_utils}!init\_summary@{init\_summary}}
+\index{init\_summary@{init\_summary}!test\_utils@{test\_utils}}
+\doxysubsubsection{\texorpdfstring{init\_summary()}{init\_summary()}}
+{\footnotesize\ttfamily subroutine test\+\_\+utils\+::init\+\_\+summary (\begin{DoxyParamCaption}\item[{class(\mbox{\hyperlink{structtest__utils_1_1testsummary}{testsummary}}), intent(inout)}]{this,  }\item[{integer, intent(in)}]{maxtests }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
 \Hypertarget{namespacetest__utils_a20d93fb56e43810b7fb18af42c72a0f2}\label{namespacetest__utils_a20d93fb56e43810b7fb18af42c72a0f2} 
 \index{test\_utils@{test\_utils}!itoa@{itoa}}
 \index{itoa@{itoa}!test\_utils@{test\_utils}}
 \doxysubsubsection{\texorpdfstring{itoa()}{itoa()}}
 {\footnotesize\ttfamily character(len=4) function, public test\+\_\+utils\+::itoa (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{i }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacetest__utils_ab04388abbfa7667ba5a7a01e45e776a2}\label{namespacetest__utils_ab04388abbfa7667ba5a7a01e45e776a2} 
+\index{test\_utils@{test\_utils}!dbl\_kind@{dbl\_kind}}
+\index{dbl\_kind@{dbl\_kind}!test\_utils@{test\_utils}}
+\doxysubsubsection{\texorpdfstring{dbl\_kind}{dbl\_kind}}
+{\footnotesize\ttfamily integer, parameter test\+\_\+utils\+::dbl\+\_\+kind = selected\+\_\+real\+\_\+kind(12)\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+8 byte real 
+
+\Hypertarget{namespacetest__utils_a2789334e59bc11103ee4151b569e0a36}\label{namespacetest__utils_a2789334e59bc11103ee4151b569e0a36} 
+\index{test\_utils@{test\_utils}!int8\_kind@{int8\_kind}}
+\index{int8\_kind@{int8\_kind}!test\_utils@{test\_utils}}
+\doxysubsubsection{\texorpdfstring{int8\_kind}{int8\_kind}}
+{\footnotesize\ttfamily integer, parameter test\+\_\+utils\+::int8\+\_\+kind = selected\+\_\+int\+\_\+kind (13)\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+8 byte integer 
+
+\Hypertarget{namespacetest__utils_ac675c9fe740321737aea9eeb4a7a87ba}\label{namespacetest__utils_ac675c9fe740321737aea9eeb4a7a87ba} 
+\index{test\_utils@{test\_utils}!int\_kind@{int\_kind}}
+\index{int\_kind@{int\_kind}!test\_utils@{test\_utils}}
+\doxysubsubsection{\texorpdfstring{int\_kind}{int\_kind}}
+{\footnotesize\ttfamily integer, parameter test\+\_\+utils\+::int\+\_\+kind = selected\+\_\+int\+\_\+kind ( 6)\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+4 byte integer 
+
+\Hypertarget{namespacetest__utils_a8100e06bdb60a83d7b370885c5f2c167}\label{namespacetest__utils_a8100e06bdb60a83d7b370885c5f2c167} 
+\index{test\_utils@{test\_utils}!real\_kind@{real\_kind}}
+\index{real\_kind@{real\_kind}!test\_utils@{test\_utils}}
+\doxysubsubsection{\texorpdfstring{real\_kind}{real\_kind}}
+{\footnotesize\ttfamily integer, parameter test\+\_\+utils\+::real\+\_\+kind = selected\+\_\+real\+\_\+kind( 6)\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+4 byte real 
 

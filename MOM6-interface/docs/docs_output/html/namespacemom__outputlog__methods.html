@@ -106,6 +106,9 @@ Functions/Subroutines</h2></td></tr>
 <tr class="memitem:ae9a73a9bbd24f701409dec36860d8cda" id="r_ae9a73a9bbd24f701409dec36860d8cda"><td class="memItemLeft" align="right" valign="top">logical function, dimension(size(validfreqs)), public&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__outputlog__methods.html#ae9a73a9bbd24f701409dec36860d8cda">setrequest</a> (validfreqs, requested_fh, errmsg, ierr)</td></tr>
 <tr class="memdesc:ae9a73a9bbd24f701409dec36860d8cda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validate requested output frequencies from namelist entries.  <br /></td></tr>
 <tr class="separator:ae9a73a9bbd24f701409dec36860d8cda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc6f1c4671b9882ce05d2f9dbef5d0c0" id="r_abc6f1c4671b9882ce05d2f9dbef5d0c0"><td class="memItemLeft" align="right" valign="top">integer function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__outputlog__methods.html#abc6f1c4671b9882ce05d2f9dbef5d0c0">find_nml_slot</a> (nml_fh, target_freq)</td></tr>
+<tr class="memdesc:abc6f1c4671b9882ce05d2f9dbef5d0c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function to locate index of namelist provided frequency in array of valid frequencies.  <br /></td></tr>
+<tr class="separator:abc6f1c4671b9882ce05d2f9dbef5d0c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8aef7363b9c3db9f50680550aa424142" id="r_a8aef7363b9c3db9f50680550aa424142"><td class="memItemLeft" align="right" valign="top">character(len=7) function, dimension(size(validfreqs)), public&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__outputlog__methods.html#a8aef7363b9c3db9f50680550aa424142">settype</a> (validfreqs, requested, nml_fh, nml_type, errmsg, ierr)</td></tr>
 <tr class="memdesc:a8aef7363b9c3db9f50680550aa424142"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine output reduction type for each requested frequency.  <br /></td></tr>
 <tr class="separator:a8aef7363b9c3db9f50680550aa424142"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -267,6 +270,45 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>logical flag, true if the file is complete </dd></dl>
+
+</div>
+</div>
+<a id="abc6f1c4671b9882ce05d2f9dbef5d0c0" name="abc6f1c4671b9882ce05d2f9dbef5d0c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc6f1c4671b9882ce05d2f9dbef5d0c0">&#9670;&#160;</a></span>find_nml_slot()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">integer function mom_outputlog_methods::find_nml_slot </td>
+          <td>(</td>
+          <td class="paramtype">integer, dimension(:), intent(in)&#160;</td>
+          <td class="paramname"><em>nml_fh</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer, intent(in)&#160;</td>
+          <td class="paramname"><em>target_freq</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Helper function to locate index of namelist provided frequency in array of valid frequencies. </p>
+<p>param[in] nml_fh namelist freq list param[in] target_freq desired frequency value </p><dl class="section return"><dt>Returns</dt><dd>m index association </dd></dl>
 
 </div>
 </div>

@@ -6,10 +6,20 @@
 program \mbox{\hyperlink{save_8driver2_8F90_ace6497b24c8efebdc38efbc575a345b9}{test\+\_\+driver}}
 \begin{DoxyCompactList}\small\item\em Narrow orchestration test for the outputlog\+\_\+freqn machinery. \end{DoxyCompactList}\item 
 subroutine \mbox{\hyperlink{save_8driver2_8F90_a1ed6e3c69847ad43be9bc1d7a50d3e2a}{run\+\_\+case}} (test, freq, start\+\_\+hour, runhours, timereduce, use\+\_\+filesize, nfiles, completions)
-\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{save_8driver2_8F90_a633794bfea35f13fb77a64bbcaf538db}{setup\+\_\+case}} (start\+\_\+hour, runhours, freq, l\+\_\+nfiles, l\+\_\+timereduce, modelclock, cf\+\_\+n, state\+\_\+n, rc)
+\item 
+subroutine \mbox{\hyperlink{save_8driver2_8F90_a39ba02c9a8811522cab091164a06ea1c}{handlefiles}} (isroot, fname, use\+\_\+filesize, mode)
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Function/\+Subroutine Documentation}
+\Hypertarget{save_8driver2_8F90_a39ba02c9a8811522cab091164a06ea1c}\label{save_8driver2_8F90_a39ba02c9a8811522cab091164a06ea1c} 
+\index{save.driver2.F90@{save.driver2.F90}!handlefiles@{handlefiles}}
+\index{handlefiles@{handlefiles}!save.driver2.F90@{save.driver2.F90}}
+\doxysubsubsection{\texorpdfstring{handlefiles()}{handlefiles()}}
+{\footnotesize\ttfamily subroutine test\+\_\+driver\+::handlefiles (\begin{DoxyParamCaption}\item[{logical, intent(in)}]{isroot,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{fname,  }\item[{logical, intent(in)}]{use\+\_\+filesize,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{mode }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
 \Hypertarget{save_8driver2_8F90_a1ed6e3c69847ad43be9bc1d7a50d3e2a}\label{save_8driver2_8F90_a1ed6e3c69847ad43be9bc1d7a50d3e2a} 
 \index{save.driver2.F90@{save.driver2.F90}!run\_case@{run\_case}}
 \index{run\_case@{run\_case}!save.driver2.F90@{save.driver2.F90}}
@@ -19,6 +29,12 @@ subroutine \mbox{\hyperlink{save_8driver2_8F90_a1ed6e3c69847ad43be9bc1d7a50d3e2a
 
 
 TODO. 
+
+\Hypertarget{save_8driver2_8F90_a633794bfea35f13fb77a64bbcaf538db}\label{save_8driver2_8F90_a633794bfea35f13fb77a64bbcaf538db} 
+\index{save.driver2.F90@{save.driver2.F90}!setup\_case@{setup\_case}}
+\index{setup\_case@{setup\_case}!save.driver2.F90@{save.driver2.F90}}
+\doxysubsubsection{\texorpdfstring{setup\_case()}{setup\_case()}}
+{\footnotesize\ttfamily subroutine test\+\_\+driver\+::setup\+\_\+case (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{start\+\_\+hour,  }\item[{integer, intent(in)}]{runhours,  }\item[{integer, intent(in)}]{freq,  }\item[{integer, intent(in)}]{l\+\_\+nfiles,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{l\+\_\+timereduce,  }\item[{type(esmf\+\_\+clock), intent(out)}]{modelclock,  }\item[{type(\mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__config__type}{outputlog\+\_\+config\+\_\+type}}), intent(out)}]{cf\+\_\+n,  }\item[{type(\mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__state__type}{outputlog\+\_\+state\+\_\+type}}), intent(out)}]{state\+\_\+n,  }\item[{integer, intent(out)}]{rc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 \Hypertarget{save_8driver2_8F90_ace6497b24c8efebdc38efbc575a345b9}\label{save_8driver2_8F90_ace6497b24c8efebdc38efbc575a345b9} 
 \index{save.driver2.F90@{save.driver2.F90}!test\_driver@{test\_driver}}

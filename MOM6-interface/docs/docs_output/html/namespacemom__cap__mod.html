@@ -80,20 +80,671 @@ $(function() {
 <p>This module contains a set of subroutines that are required by NUOPC.  
 <a href="namespacemom__cap__mod.html#details">More...</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Data Types</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">type &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmom__cap__mod_1_1fld__list__type.html">fld_list_type</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains field information.  <a href="structmom__cap__mod_1_1fld__list__type.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">type &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmom__cap__mod_1_1ocean__internalstate__type.html">ocean_internalstate_type</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal state type with pointers to three types defined by MOM.  <a href="structmom__cap__mod_1_1ocean__internalstate__type.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">type &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmom__cap__mod_1_1ocean__internalstate__wrapper.html">ocean_internalstate_wrapper</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper-derived type required to associate an internal state instance with the ESMF/NUOPC component.  <a href="structmom__cap__mod_1_1ocean__internalstate__wrapper.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:ae0439afc4c901d9850515768bdaaed09" id="r_ae0439afc4c901d9850515768bdaaed09"><td class="memItemLeft" align="right" valign="top">subroutine, public&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#ae0439afc4c901d9850515768bdaaed09">setservices</a> (gcomp, rc)</td></tr>
 <tr class="memdesc:ae0439afc4c901d9850515768bdaaed09"><td class="mdescLeft">&#160;</td><td class="mdescRight">NUOPC SetService method is the only public entry point. SetServices registers all of the user-provided subroutines in the module with the NUOPC layer.  <br /></td></tr>
 <tr class="separator:ae0439afc4c901d9850515768bdaaed09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f945772f833a0eb55af0991919337e5" id="r_a3f945772f833a0eb55af0991919337e5"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a3f945772f833a0eb55af0991919337e5">initializep0</a> (gcomp, importstate, exportstate, clock, rc)</td></tr>
+<tr class="memdesc:a3f945772f833a0eb55af0991919337e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">First initialize subroutine called by NUOPC. The purpose is to set which version of the Initialize Phase Definition (IPD) to use.  <br /></td></tr>
+<tr class="separator:a3f945772f833a0eb55af0991919337e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a062004198a3dc21f240e7858d528b4fb" id="r_a062004198a3dc21f240e7858d528b4fb"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a062004198a3dc21f240e7858d528b4fb">initializeadvertise</a> (gcomp, importstate, exportstate, clock, rc)</td></tr>
+<tr class="memdesc:a062004198a3dc21f240e7858d528b4fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by NUOPC to advertise import and export fields. "Advertise" simply means that the standard names of all import and export fields are supplied. The NUOPC layer uses these to match fields between components in the coupled system.  <br /></td></tr>
+<tr class="separator:a062004198a3dc21f240e7858d528b4fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a772aaa2e35d505484723dcebc5027e66" id="r_a772aaa2e35d505484723dcebc5027e66"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a772aaa2e35d505484723dcebc5027e66">initializerealize</a> (gcomp, importstate, exportstate, clock, rc)</td></tr>
+<tr class="memdesc:a772aaa2e35d505484723dcebc5027e66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by NUOPC to realize import and export fields. "Realizing" a field means that its grid has been defined and an ESMF_Field object has been created and put into the import or export State.  <br /></td></tr>
+<tr class="separator:a772aaa2e35d505484723dcebc5027e66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acadf328859aac6eb57b5c508f3f73b61" id="r_acadf328859aac6eb57b5c508f3f73b61"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#acadf328859aac6eb57b5c508f3f73b61">datainitialize</a> (gcomp, rc)</td></tr>
+<tr class="memdesc:acadf328859aac6eb57b5c508f3f73b61"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO.  <br /></td></tr>
+<tr class="separator:acadf328859aac6eb57b5c508f3f73b61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecd83368409a9c059ca3313e25391a0b" id="r_aecd83368409a9c059ca3313e25391a0b"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#aecd83368409a9c059ca3313e25391a0b">modeladvance</a> (gcomp, rc)</td></tr>
+<tr class="memdesc:aecd83368409a9c059ca3313e25391a0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by NUOPC to advance the model a single timestep.  <br /></td></tr>
+<tr class="separator:aecd83368409a9c059ca3313e25391a0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ac6a66c943ef7933973ed155a81dd91" id="r_a5ac6a66c943ef7933973ed155a81dd91"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a5ac6a66c943ef7933973ed155a81dd91">modelsetrunclock</a> (gcomp, rc)</td></tr>
+<tr class="separator:a5ac6a66c943ef7933973ed155a81dd91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b7799c15a6eeadc1d286ce4d37163e6" id="r_a9b7799c15a6eeadc1d286ce4d37163e6"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a9b7799c15a6eeadc1d286ce4d37163e6">ocean_model_finalize</a> (gcomp, rc)</td></tr>
+<tr class="memdesc:a9b7799c15a6eeadc1d286ce4d37163e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by NUOPC at the end of the run to clean up.  <br /></td></tr>
+<tr class="separator:a9b7799c15a6eeadc1d286ce4d37163e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee8bf289ec5f309c4e9b7c0ed9cda04f" id="r_aee8bf289ec5f309c4e9b7c0ed9cda04f"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#aee8bf289ec5f309c4e9b7c0ed9cda04f">state_setscalar</a> (value, scalar_id, state, mytask, scalar_name, scalar_count, rc)</td></tr>
+<tr class="memdesc:aee8bf289ec5f309c4e9b7c0ed9cda04f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set scalar data from state for a particula name.  <br /></td></tr>
+<tr class="separator:aee8bf289ec5f309c4e9b7c0ed9cda04f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff05ba33d3acc5d6018feecdbd88e094" id="r_aff05ba33d3acc5d6018feecdbd88e094"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#aff05ba33d3acc5d6018feecdbd88e094">mom_realizefields</a> (state, nfields, field_defs, tag, ice_ocean_boundary, grid, mesh, rc)</td></tr>
+<tr class="memdesc:aff05ba33d3acc5d6018feecdbd88e094"><td class="mdescLeft">&#160;</td><td class="mdescRight">Realize the import and export fields using either a grid or a mesh.  <br /></td></tr>
+<tr class="separator:aff05ba33d3acc5d6018feecdbd88e094"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33b2a56839dfa97a8262c68ba30f6f04" id="r_a33b2a56839dfa97a8262c68ba30f6f04"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a33b2a56839dfa97a8262c68ba30f6f04">fld_list_add</a> (num, fldlist, stdname, transferoffer, shortname, ungridded_lbound, ungridded_ubound)</td></tr>
+<tr class="memdesc:a33b2a56839dfa97a8262c68ba30f6f04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set up list of field information.  <br /></td></tr>
+<tr class="separator:a33b2a56839dfa97a8262c68ba30f6f04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21809d24a85da674b0f71ec068490049" id="r_a21809d24a85da674b0f71ec068490049"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a21809d24a85da674b0f71ec068490049">shr_log_setlogunit</a> (nunit)</td></tr>
+<tr class="separator:a21809d24a85da674b0f71ec068490049"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:a0ed5e7e790ddbb9f8d7152264ca28d0f" id="r_a0ed5e7e790ddbb9f8d7152264ca28d0f"><td class="memItemLeft" align="right" valign="top">integer, parameter&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a0ed5e7e790ddbb9f8d7152264ca28d0f">fldsmax</a> = 100</td></tr>
 <tr class="separator:a0ed5e7e790ddbb9f8d7152264ca28d0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49361c7b41259416fa2c6b08a6bac193" id="r_a49361c7b41259416fa2c6b08a6bac193"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a49361c7b41259416fa2c6b08a6bac193">fldstoocn_num</a> = 0</td></tr>
+<tr class="separator:a49361c7b41259416fa2c6b08a6bac193"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f0c52bdc4d9687b0c2f882a9ecc202b" id="r_a5f0c52bdc4d9687b0c2f882a9ecc202b"><td class="memItemLeft" align="right" valign="top">type(<a class="el" href="structmom__cap__mod_1_1fld__list__type.html">fld_list_type</a>), dimension(<a class="el" href="namespacemom__cap__mod.html#a0ed5e7e790ddbb9f8d7152264ca28d0f">fldsmax</a>)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a5f0c52bdc4d9687b0c2f882a9ecc202b">fldstoocn</a></td></tr>
+<tr class="separator:a5f0c52bdc4d9687b0c2f882a9ecc202b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad948593abdb8da7fa79b69505913dc95" id="r_ad948593abdb8da7fa79b69505913dc95"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#ad948593abdb8da7fa79b69505913dc95">fldsfrocn_num</a> = 0</td></tr>
+<tr class="separator:ad948593abdb8da7fa79b69505913dc95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee3e3b3a693970aa5f79b3ba8ca97d35" id="r_aee3e3b3a693970aa5f79b3ba8ca97d35"><td class="memItemLeft" align="right" valign="top">type(<a class="el" href="structmom__cap__mod_1_1fld__list__type.html">fld_list_type</a>), dimension(<a class="el" href="namespacemom__cap__mod.html#a0ed5e7e790ddbb9f8d7152264ca28d0f">fldsmax</a>)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#aee3e3b3a693970aa5f79b3ba8ca97d35">fldsfrocn</a></td></tr>
+<tr class="separator:aee3e3b3a693970aa5f79b3ba8ca97d35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a970c6a1cb8beccf8ea72b4dd392c1418" id="r_a970c6a1cb8beccf8ea72b4dd392c1418"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a970c6a1cb8beccf8ea72b4dd392c1418">dbug</a> = 0</td></tr>
+<tr class="separator:a970c6a1cb8beccf8ea72b4dd392c1418"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c76d05cdca9c737e6a460df1bfadbbd" id="r_a2c76d05cdca9c737e6a460df1bfadbbd"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a2c76d05cdca9c737e6a460df1bfadbbd">import_slice</a> = 1</td></tr>
+<tr class="separator:a2c76d05cdca9c737e6a460df1bfadbbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa08ee7a9fc2f2a7e374db32013526765" id="r_aa08ee7a9fc2f2a7e374db32013526765"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#aa08ee7a9fc2f2a7e374db32013526765">export_slice</a> = 1</td></tr>
+<tr class="separator:aa08ee7a9fc2f2a7e374db32013526765"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0eecd812f3619a4648e2f9386b58fe3" id="r_ac0eecd812f3619a4648e2f9386b58fe3"><td class="memItemLeft" align="right" valign="top">character(len=256)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#ac0eecd812f3619a4648e2f9386b58fe3">tmpstr</a></td></tr>
+<tr class="separator:ac0eecd812f3619a4648e2f9386b58fe3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87f074f197c71e76f3ceb5265c12ea42" id="r_a87f074f197c71e76f3ceb5265c12ea42"><td class="memItemLeft" align="right" valign="top">logical&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a87f074f197c71e76f3ceb5265c12ea42">write_diagnostics</a> = .false.</td></tr>
+<tr class="separator:a87f074f197c71e76f3ceb5265c12ea42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6df1d28111df6b48514eb3fa8b8a0806" id="r_a6df1d28111df6b48514eb3fa8b8a0806"><td class="memItemLeft" align="right" valign="top">logical&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a6df1d28111df6b48514eb3fa8b8a0806">overwrite_timeslice</a> = .false.</td></tr>
+<tr class="separator:a6df1d28111df6b48514eb3fa8b8a0806"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a161c35594bd3e9aee09ff2adff7b331e" id="r_a161c35594bd3e9aee09ff2adff7b331e"><td class="memItemLeft" align="right" valign="top">logical&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a161c35594bd3e9aee09ff2adff7b331e">write_runtimelog</a> = .false.</td></tr>
+<tr class="separator:a161c35594bd3e9aee09ff2adff7b331e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad56cefdfe78b6f64cfbf67b65eae6e7e" id="r_ad56cefdfe78b6f64cfbf67b65eae6e7e"><td class="memItemLeft" align="right" valign="top">character(len=32)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#ad56cefdfe78b6f64cfbf67b65eae6e7e">runtype</a></td></tr>
+<tr class="memdesc:ad56cefdfe78b6f64cfbf67b65eae6e7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">run type  <br /></td></tr>
+<tr class="separator:ad56cefdfe78b6f64cfbf67b65eae6e7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4760bc5e6def07188f5fb61e09a2de1" id="r_ad4760bc5e6def07188f5fb61e09a2de1"><td class="memItemLeft" align="right" valign="top">logical&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#ad4760bc5e6def07188f5fb61e09a2de1">profile_memory</a> = .true.</td></tr>
+<tr class="separator:ad4760bc5e6def07188f5fb61e09a2de1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2007af76dfd1960bd6162c3bdd2b0ed1" id="r_a2007af76dfd1960bd6162c3bdd2b0ed1"><td class="memItemLeft" align="right" valign="top">logical&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a2007af76dfd1960bd6162c3bdd2b0ed1">grid_attach_area</a> = .false.</td></tr>
+<tr class="separator:a2007af76dfd1960bd6162c3bdd2b0ed1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7deb6bf08d4de5a92bd46a155a575b97" id="r_a7deb6bf08d4de5a92bd46a155a575b97"><td class="memItemLeft" align="right" valign="top">logical&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a7deb6bf08d4de5a92bd46a155a575b97">use_coldstart</a> = .true.</td></tr>
+<tr class="separator:a7deb6bf08d4de5a92bd46a155a575b97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a6ff416c7149cdcdab3b3148930fbfc" id="r_a1a6ff416c7149cdcdab3b3148930fbfc"><td class="memItemLeft" align="right" valign="top">logical&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a1a6ff416c7149cdcdab3b3148930fbfc">use_mommesh</a> = .true.</td></tr>
+<tr class="separator:a1a6ff416c7149cdcdab3b3148930fbfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd56213117ea1a3931ae9d380832557e" id="r_abd56213117ea1a3931ae9d380832557e"><td class="memItemLeft" align="right" valign="top">logical&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#abd56213117ea1a3931ae9d380832557e">set_missing_stks_to_zero</a> = .false.</td></tr>
+<tr class="separator:abd56213117ea1a3931ae9d380832557e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3c19c43434afed11076e3a36985f986" id="r_ad3c19c43434afed11076e3a36985f986"><td class="memItemLeft" align="right" valign="top">logical&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#ad3c19c43434afed11076e3a36985f986">restart_eor</a> = .false.</td></tr>
+<tr class="separator:ad3c19c43434afed11076e3a36985f986"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58e64beed30fca9ca44046a7ec53a39b" id="r_a58e64beed30fca9ca44046a7ec53a39b"><td class="memItemLeft" align="right" valign="top">logical&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a58e64beed30fca9ca44046a7ec53a39b">use_cdeps_inline</a> = .false.</td></tr>
+<tr class="separator:a58e64beed30fca9ca44046a7ec53a39b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2e1656025fcc390497d059868d547aa" id="r_ac2e1656025fcc390497d059868d547aa"><td class="memItemLeft" align="right" valign="top">character(len=128)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#ac2e1656025fcc390497d059868d547aa">scalar_field_name</a> = ''</td></tr>
+<tr class="separator:ac2e1656025fcc390497d059868d547aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa34836ca41b881b490713afae1ce5b82" id="r_aa34836ca41b881b490713afae1ce5b82"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#aa34836ca41b881b490713afae1ce5b82">scalar_field_count</a> = 0</td></tr>
+<tr class="separator:aa34836ca41b881b490713afae1ce5b82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac69f1371ebbd90dfc117e54846cc90bb" id="r_ac69f1371ebbd90dfc117e54846cc90bb"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#ac69f1371ebbd90dfc117e54846cc90bb">scalar_field_idx_grid_nx</a> = 0</td></tr>
+<tr class="separator:ac69f1371ebbd90dfc117e54846cc90bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae36725fbbb9270b498c860196e9f0374" id="r_ae36725fbbb9270b498c860196e9f0374"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#ae36725fbbb9270b498c860196e9f0374">scalar_field_idx_grid_ny</a> = 0</td></tr>
+<tr class="separator:ae36725fbbb9270b498c860196e9f0374"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abcd81cf01660d4994dec787589d47616" id="r_abcd81cf01660d4994dec787589d47616"><td class="memItemLeft" align="right" valign="top">character(len= *), parameter&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#abcd81cf01660d4994dec787589d47616">u_file_u</a> = __FILE__</td></tr>
+<tr class="separator:abcd81cf01660d4994dec787589d47616"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ccb6bc098362e5ea43c44ed67b0be91" id="r_a9ccb6bc098362e5ea43c44ed67b0be91"><td class="memItemLeft" align="right" valign="top">logical&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a9ccb6bc098362e5ea43c44ed67b0be91">cesm_coupled</a> = .false.</td></tr>
+<tr class="separator:a9ccb6bc098362e5ea43c44ed67b0be91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2af2a851cf395c0e9bc914c5ca06e5b0" id="r_a2af2a851cf395c0e9bc914c5ca06e5b0"><td class="memItemLeft" align="right" valign="top">type(esmf_geomtype_flag)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a2af2a851cf395c0e9bc914c5ca06e5b0">geomtype</a></td></tr>
+<tr class="separator:a2af2a851cf395c0e9bc914c5ca06e5b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf7bf7614b618cf9b9a5ec9d1c58fe42" id="r_abf7bf7614b618cf9b9a5ec9d1c58fe42"><td class="memItemLeft" align="right" valign="top">type(is_restart_fh_type)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#abf7bf7614b618cf9b9a5ec9d1c58fe42">restartfh_info</a></td></tr>
+<tr class="separator:abf7bf7614b618cf9b9a5ec9d1c58fe42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9a05eeac6bcd279edde9afb127af1da" id="r_ae9a05eeac6bcd279edde9afb127af1da"><td class="memItemLeft" align="right" valign="top">character(len=8)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#ae9a05eeac6bcd279edde9afb127af1da">restart_mode</a> = 'alarms'</td></tr>
+<tr class="separator:ae9a05eeac6bcd279edde9afb127af1da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7533a7727c0d30f169ccfbb9554b3bc3" id="r_a7533a7727c0d30f169ccfbb9554b3bc3"><td class="memItemLeft" align="right" valign="top">character(len=16)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a7533a7727c0d30f169ccfbb9554b3bc3">inst_suffix</a> = ''</td></tr>
+<tr class="separator:a7533a7727c0d30f169ccfbb9554b3bc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af347e9cdbece72b48ff6bd7383191ddc" id="r_af347e9cdbece72b48ff6bd7383191ddc"><td class="memItemLeft" align="right" valign="top">logical&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#af347e9cdbece72b48ff6bd7383191ddc">pointer_date</a> = .true.</td></tr>
+<tr class="separator:af347e9cdbece72b48ff6bd7383191ddc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a723adda3d40b23bf02e338cef8a5e467" id="r_a723adda3d40b23bf02e338cef8a5e467"><td class="memItemLeft" align="right" valign="top">real(8)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a723adda3d40b23bf02e338cef8a5e467">timere</a></td></tr>
+<tr class="separator:a723adda3d40b23bf02e338cef8a5e467"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4b34224065632ab5e73102188c07343" id="r_ab4b34224065632ab5e73102188c07343"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#ab4b34224065632ab5e73102188c07343">localpet</a> = -1</td></tr>
+<tr class="separator:ab4b34224065632ab5e73102188c07343"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This module contains a set of subroutines that are required by NUOPC. </p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
+<a id="acadf328859aac6eb57b5c508f3f73b61" name="acadf328859aac6eb57b5c508f3f73b61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acadf328859aac6eb57b5c508f3f73b61">&#9670;&#160;</a></span>datainitialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine mom_cap_mod::datainitialize </td>
+          <td>(</td>
+          <td class="paramtype">type(esmf_gridcomp)&#160;</td>
+          <td class="paramname"><em>gcomp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer, intent(out)&#160;</td>
+          <td class="paramname"><em>rc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>TODO. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir"></td><td class="paramname">gcomp</td><td>an ESMF_GridComp object </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">rc</td><td>return code </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">gcomp</td><td>ESMF_GridComp object </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">rc</td><td>return code </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a33b2a56839dfa97a8262c68ba30f6f04" name="a33b2a56839dfa97a8262c68ba30f6f04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33b2a56839dfa97a8262c68ba30f6f04">&#9670;&#160;</a></span>fld_list_add()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine mom_cap_mod::fld_list_add </td>
+          <td>(</td>
+          <td class="paramtype">integer, intent(inout)&#160;</td>
+          <td class="paramname"><em>num</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">type(<a class="el" href="structmom__cap__mod_1_1fld__list__type.html">fld_list_type</a>), dimension(:), intent(inout)&#160;</td>
+          <td class="paramname"><em>fldlist</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">character(len=*), intent(in)&#160;</td>
+          <td class="paramname"><em>stdname</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">character(len=*), intent(in)&#160;</td>
+          <td class="paramname"><em>transferoffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">character(len=*), intent(in), optional&#160;</td>
+          <td class="paramname"><em>shortname</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer, intent(in), optional&#160;</td>
+          <td class="paramname"><em>ungridded_lbound</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer, intent(in), optional&#160;</td>
+          <td class="paramname"><em>ungridded_ubound</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set up list of field information. </p>
+
+</div>
+</div>
+<a id="a062004198a3dc21f240e7858d528b4fb" name="a062004198a3dc21f240e7858d528b4fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a062004198a3dc21f240e7858d528b4fb">&#9670;&#160;</a></span>initializeadvertise()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine mom_cap_mod::initializeadvertise </td>
+          <td>(</td>
+          <td class="paramtype">type(esmf_gridcomp)&#160;</td>
+          <td class="paramname"><em>gcomp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">type(esmf_state)&#160;</td>
+          <td class="paramname"><em>importstate</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">type(esmf_state)&#160;</td>
+          <td class="paramname"><em>exportstate</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">type(esmf_clock)&#160;</td>
+          <td class="paramname"><em>clock</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer, intent(out)&#160;</td>
+          <td class="paramname"><em>rc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called by NUOPC to advertise import and export fields. "Advertise" simply means that the standard names of all import and export fields are supplied. The NUOPC layer uses these to match fields between components in the coupled system. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir"></td><td class="paramname">gcomp</td><td>an ESMF_GridComp object </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">importState</td><td>an ESMF_State object for import fields </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">exportState</td><td>an ESMF_State object for export fields </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">clock</td><td>an ESMF_Clock object </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">rc</td><td>return code </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">gcomp</td><td>ESMF_GridComp object </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">exportstate</td><td>ESMF_State object for import/export fields </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">clock</td><td>ESMF_Clock object </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">rc</td><td>return code </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a3f945772f833a0eb55af0991919337e5" name="a3f945772f833a0eb55af0991919337e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f945772f833a0eb55af0991919337e5">&#9670;&#160;</a></span>initializep0()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine mom_cap_mod::initializep0 </td>
+          <td>(</td>
+          <td class="paramtype">type(esmf_gridcomp)&#160;</td>
+          <td class="paramname"><em>gcomp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">type(esmf_state)&#160;</td>
+          <td class="paramname"><em>importstate</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">type(esmf_state)&#160;</td>
+          <td class="paramname"><em>exportstate</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">type(esmf_clock)&#160;</td>
+          <td class="paramname"><em>clock</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer, intent(out)&#160;</td>
+          <td class="paramname"><em>rc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>First initialize subroutine called by NUOPC. The purpose is to set which version of the Initialize Phase Definition (IPD) to use. </p>
+<p>For this MOM cap, we are using IPDv01.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir"></td><td class="paramname">gcomp</td><td>an ESMF_GridComp object </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">importState</td><td>an ESMF_State object for import fields </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">exportState</td><td>an ESMF_State object for export fields </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">clock</td><td>an ESMF_Clock object </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">rc</td><td>return code </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">gcomp</td><td>ESMF_GridComp object </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">exportstate</td><td>ESMF_State object for import/export fields </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">clock</td><td>ESMF_Clock object </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">rc</td><td>return code </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a772aaa2e35d505484723dcebc5027e66" name="a772aaa2e35d505484723dcebc5027e66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a772aaa2e35d505484723dcebc5027e66">&#9670;&#160;</a></span>initializerealize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine mom_cap_mod::initializerealize </td>
+          <td>(</td>
+          <td class="paramtype">type(esmf_gridcomp)&#160;</td>
+          <td class="paramname"><em>gcomp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">type(esmf_state)&#160;</td>
+          <td class="paramname"><em>importstate</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">type(esmf_state)&#160;</td>
+          <td class="paramname"><em>exportstate</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">type(esmf_clock)&#160;</td>
+          <td class="paramname"><em>clock</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer, intent(out)&#160;</td>
+          <td class="paramname"><em>rc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called by NUOPC to realize import and export fields. "Realizing" a field means that its grid has been defined and an ESMF_Field object has been created and put into the import or export State. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir"></td><td class="paramname">gcomp</td><td>an ESMF_GridComp object </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">importState</td><td>an ESMF_State object for import fields </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">exportState</td><td>an ESMF_State object for export fields </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">clock</td><td>an ESMF_Clock object </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">rc</td><td>return code </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">gcomp</td><td>ESMF_GridComp object </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">exportstate</td><td>ESMF_State object for import/export fields </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">clock</td><td>ESMF_Clock object </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">rc</td><td>return code </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aecd83368409a9c059ca3313e25391a0b" name="aecd83368409a9c059ca3313e25391a0b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecd83368409a9c059ca3313e25391a0b">&#9670;&#160;</a></span>modeladvance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine mom_cap_mod::modeladvance </td>
+          <td>(</td>
+          <td class="paramtype">type(esmf_gridcomp)&#160;</td>
+          <td class="paramname"><em>gcomp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer, intent(out)&#160;</td>
+          <td class="paramname"><em>rc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called by NUOPC to advance the model a single timestep. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir"></td><td class="paramname">gcomp</td><td>an ESMF_GridComp object </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">rc</td><td>return code </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">gcomp</td><td>ESMF_GridComp object </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">rc</td><td>return code </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5ac6a66c943ef7933973ed155a81dd91" name="a5ac6a66c943ef7933973ed155a81dd91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ac6a66c943ef7933973ed155a81dd91">&#9670;&#160;</a></span>modelsetrunclock()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine mom_cap_mod::modelsetrunclock </td>
+          <td>(</td>
+          <td class="paramtype">type(esmf_gridcomp)&#160;</td>
+          <td class="paramname"><em>gcomp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer, intent(out)&#160;</td>
+          <td class="paramname"><em>rc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aff05ba33d3acc5d6018feecdbd88e094" name="aff05ba33d3acc5d6018feecdbd88e094"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff05ba33d3acc5d6018feecdbd88e094">&#9670;&#160;</a></span>mom_realizefields()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine mom_cap_mod::mom_realizefields </td>
+          <td>(</td>
+          <td class="paramtype">type(esmf_state), intent(inout)&#160;</td>
+          <td class="paramname"><em>state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer, intent(in)&#160;</td>
+          <td class="paramname"><em>nfields</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">type(<a class="el" href="structmom__cap__mod_1_1fld__list__type.html">fld_list_type</a>), dimension(:), intent(inout)&#160;</td>
+          <td class="paramname"><em>field_defs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">character(len=*), intent(in)&#160;</td>
+          <td class="paramname"><em>tag</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">type(ice_ocean_boundary_type), intent(inout), optional&#160;</td>
+          <td class="paramname"><em>ice_ocean_boundary</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">type(esmf_grid), intent(in), optional&#160;</td>
+          <td class="paramname"><em>grid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">type(esmf_mesh), intent(in), optional&#160;</td>
+          <td class="paramname"><em>mesh</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer, intent(inout)&#160;</td>
+          <td class="paramname"><em>rc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Realize the import and export fields using either a grid or a mesh. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">state</td><td>ESMF_State object for import/export fields. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">nfields</td><td>Number of fields. </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">field_defs</td><td>Structure with field's information. </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">ice_ocean_boundary</td><td>May need to nullify atm_co2 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">tag</td><td>Import or export. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">grid</td><td>ESMF grid. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">mesh</td><td>ESMF mesh. </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">rc</td><td>Return code. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9b7799c15a6eeadc1d286ce4d37163e6" name="a9b7799c15a6eeadc1d286ce4d37163e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b7799c15a6eeadc1d286ce4d37163e6">&#9670;&#160;</a></span>ocean_model_finalize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine mom_cap_mod::ocean_model_finalize </td>
+          <td>(</td>
+          <td class="paramtype">type(esmf_gridcomp)&#160;</td>
+          <td class="paramname"><em>gcomp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer, intent(out)&#160;</td>
+          <td class="paramname"><em>rc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called by NUOPC at the end of the run to clean up. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir"></td><td class="paramname">gcomp</td><td>an ESMF_GridComp object </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">rc</td><td>return code </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">gcomp</td><td>ESMF_GridComp object </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">rc</td><td>return code </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ae0439afc4c901d9850515768bdaaed09" name="ae0439afc4c901d9850515768bdaaed09"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae0439afc4c901d9850515768bdaaed09">&#9670;&#160;</a></span>setservices()</h2>
 
@@ -133,7 +784,217 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a21809d24a85da674b0f71ec068490049" name="a21809d24a85da674b0f71ec068490049"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21809d24a85da674b0f71ec068490049">&#9670;&#160;</a></span>shr_log_setlogunit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine mom_cap_mod::shr_log_setlogunit </td>
+          <td>(</td>
+          <td class="paramtype">integer, intent(in)&#160;</td>
+          <td class="paramname"><em>nunit</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aee8bf289ec5f309c4e9b7c0ed9cda04f" name="aee8bf289ec5f309c4e9b7c0ed9cda04f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee8bf289ec5f309c4e9b7c0ed9cda04f">&#9670;&#160;</a></span>state_setscalar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine mom_cap_mod::state_setscalar </td>
+          <td>(</td>
+          <td class="paramtype">real(esmf_kind_r8), intent(in)&#160;</td>
+          <td class="paramname"><em>value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer, intent(in)&#160;</td>
+          <td class="paramname"><em>scalar_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">type(esmf_state), intent(inout)&#160;</td>
+          <td class="paramname"><em>state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer, intent(in)&#160;</td>
+          <td class="paramname"><em>mytask</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">character(len=*), intent(in)&#160;</td>
+          <td class="paramname"><em>scalar_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer, intent(in)&#160;</td>
+          <td class="paramname"><em>scalar_count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer, intent(inout)&#160;</td>
+          <td class="paramname"><em>rc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set scalar data from state for a particula name. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">rc</td><td>return code </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <h2 class="groupheader">Variable Documentation</h2>
+<a id="a9ccb6bc098362e5ea43c44ed67b0be91" name="a9ccb6bc098362e5ea43c44ed67b0be91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ccb6bc098362e5ea43c44ed67b0be91">&#9670;&#160;</a></span>cesm_coupled</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">logical mom_cap_mod::cesm_coupled = .false.</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a970c6a1cb8beccf8ea72b4dd392c1418" name="a970c6a1cb8beccf8ea72b4dd392c1418"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a970c6a1cb8beccf8ea72b4dd392c1418">&#9670;&#160;</a></span>dbug</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">integer mom_cap_mod::dbug = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa08ee7a9fc2f2a7e374db32013526765" name="aa08ee7a9fc2f2a7e374db32013526765"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa08ee7a9fc2f2a7e374db32013526765">&#9670;&#160;</a></span>export_slice</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">integer mom_cap_mod::export_slice = 1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aee3e3b3a693970aa5f79b3ba8ca97d35" name="aee3e3b3a693970aa5f79b3ba8ca97d35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee3e3b3a693970aa5f79b3ba8ca97d35">&#9670;&#160;</a></span>fldsfrocn</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">type (<a class="el" href="structmom__cap__mod_1_1fld__list__type.html">fld_list_type</a>), dimension(<a class="el" href="namespacemom__cap__mod.html#a0ed5e7e790ddbb9f8d7152264ca28d0f">fldsmax</a>) mom_cap_mod::fldsfrocn</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad948593abdb8da7fa79b69505913dc95" name="ad948593abdb8da7fa79b69505913dc95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad948593abdb8da7fa79b69505913dc95">&#9670;&#160;</a></span>fldsfrocn_num</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">integer mom_cap_mod::fldsfrocn_num = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a0ed5e7e790ddbb9f8d7152264ca28d0f" name="a0ed5e7e790ddbb9f8d7152264ca28d0f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0ed5e7e790ddbb9f8d7152264ca28d0f">&#9670;&#160;</a></span>fldsmax</h2>
 
@@ -144,6 +1005,602 @@ Variables</h2></td></tr>
           <td class="memname">integer, parameter mom_cap_mod::fldsmax = 100</td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5f0c52bdc4d9687b0c2f882a9ecc202b" name="a5f0c52bdc4d9687b0c2f882a9ecc202b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f0c52bdc4d9687b0c2f882a9ecc202b">&#9670;&#160;</a></span>fldstoocn</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">type (<a class="el" href="structmom__cap__mod_1_1fld__list__type.html">fld_list_type</a>), dimension(<a class="el" href="namespacemom__cap__mod.html#a0ed5e7e790ddbb9f8d7152264ca28d0f">fldsmax</a>) mom_cap_mod::fldstoocn</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a49361c7b41259416fa2c6b08a6bac193" name="a49361c7b41259416fa2c6b08a6bac193"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49361c7b41259416fa2c6b08a6bac193">&#9670;&#160;</a></span>fldstoocn_num</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">integer mom_cap_mod::fldstoocn_num = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2af2a851cf395c0e9bc914c5ca06e5b0" name="a2af2a851cf395c0e9bc914c5ca06e5b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2af2a851cf395c0e9bc914c5ca06e5b0">&#9670;&#160;</a></span>geomtype</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">type(esmf_geomtype_flag) mom_cap_mod::geomtype</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2007af76dfd1960bd6162c3bdd2b0ed1" name="a2007af76dfd1960bd6162c3bdd2b0ed1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2007af76dfd1960bd6162c3bdd2b0ed1">&#9670;&#160;</a></span>grid_attach_area</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">logical mom_cap_mod::grid_attach_area = .false.</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2c76d05cdca9c737e6a460df1bfadbbd" name="a2c76d05cdca9c737e6a460df1bfadbbd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c76d05cdca9c737e6a460df1bfadbbd">&#9670;&#160;</a></span>import_slice</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">integer mom_cap_mod::import_slice = 1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7533a7727c0d30f169ccfbb9554b3bc3" name="a7533a7727c0d30f169ccfbb9554b3bc3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7533a7727c0d30f169ccfbb9554b3bc3">&#9670;&#160;</a></span>inst_suffix</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">character(len=16) mom_cap_mod::inst_suffix = ''</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab4b34224065632ab5e73102188c07343" name="ab4b34224065632ab5e73102188c07343"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4b34224065632ab5e73102188c07343">&#9670;&#160;</a></span>localpet</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">integer mom_cap_mod::localpet = -1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6df1d28111df6b48514eb3fa8b8a0806" name="a6df1d28111df6b48514eb3fa8b8a0806"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6df1d28111df6b48514eb3fa8b8a0806">&#9670;&#160;</a></span>overwrite_timeslice</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">logical mom_cap_mod::overwrite_timeslice = .false.</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af347e9cdbece72b48ff6bd7383191ddc" name="af347e9cdbece72b48ff6bd7383191ddc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af347e9cdbece72b48ff6bd7383191ddc">&#9670;&#160;</a></span>pointer_date</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">logical mom_cap_mod::pointer_date = .true.</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad4760bc5e6def07188f5fb61e09a2de1" name="ad4760bc5e6def07188f5fb61e09a2de1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4760bc5e6def07188f5fb61e09a2de1">&#9670;&#160;</a></span>profile_memory</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">logical mom_cap_mod::profile_memory = .true.</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad3c19c43434afed11076e3a36985f986" name="ad3c19c43434afed11076e3a36985f986"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3c19c43434afed11076e3a36985f986">&#9670;&#160;</a></span>restart_eor</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">logical mom_cap_mod::restart_eor = .false.</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae9a05eeac6bcd279edde9afb127af1da" name="ae9a05eeac6bcd279edde9afb127af1da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9a05eeac6bcd279edde9afb127af1da">&#9670;&#160;</a></span>restart_mode</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">character(len=8) mom_cap_mod::restart_mode = 'alarms'</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abf7bf7614b618cf9b9a5ec9d1c58fe42" name="abf7bf7614b618cf9b9a5ec9d1c58fe42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf7bf7614b618cf9b9a5ec9d1c58fe42">&#9670;&#160;</a></span>restartfh_info</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">type(is_restart_fh_type) mom_cap_mod::restartfh_info</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad56cefdfe78b6f64cfbf67b65eae6e7e" name="ad56cefdfe78b6f64cfbf67b65eae6e7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad56cefdfe78b6f64cfbf67b65eae6e7e">&#9670;&#160;</a></span>runtype</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">character(len=32) mom_cap_mod::runtype</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>run type </p>
+
+</div>
+</div>
+<a id="aa34836ca41b881b490713afae1ce5b82" name="aa34836ca41b881b490713afae1ce5b82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa34836ca41b881b490713afae1ce5b82">&#9670;&#160;</a></span>scalar_field_count</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">integer mom_cap_mod::scalar_field_count = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac69f1371ebbd90dfc117e54846cc90bb" name="ac69f1371ebbd90dfc117e54846cc90bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac69f1371ebbd90dfc117e54846cc90bb">&#9670;&#160;</a></span>scalar_field_idx_grid_nx</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">integer mom_cap_mod::scalar_field_idx_grid_nx = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae36725fbbb9270b498c860196e9f0374" name="ae36725fbbb9270b498c860196e9f0374"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae36725fbbb9270b498c860196e9f0374">&#9670;&#160;</a></span>scalar_field_idx_grid_ny</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">integer mom_cap_mod::scalar_field_idx_grid_ny = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac2e1656025fcc390497d059868d547aa" name="ac2e1656025fcc390497d059868d547aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2e1656025fcc390497d059868d547aa">&#9670;&#160;</a></span>scalar_field_name</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">character(len=128) mom_cap_mod::scalar_field_name = ''</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abd56213117ea1a3931ae9d380832557e" name="abd56213117ea1a3931ae9d380832557e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd56213117ea1a3931ae9d380832557e">&#9670;&#160;</a></span>set_missing_stks_to_zero</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">logical mom_cap_mod::set_missing_stks_to_zero = .false.</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a723adda3d40b23bf02e338cef8a5e467" name="a723adda3d40b23bf02e338cef8a5e467"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a723adda3d40b23bf02e338cef8a5e467">&#9670;&#160;</a></span>timere</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">real(8) mom_cap_mod::timere</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac0eecd812f3619a4648e2f9386b58fe3" name="ac0eecd812f3619a4648e2f9386b58fe3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0eecd812f3619a4648e2f9386b58fe3">&#9670;&#160;</a></span>tmpstr</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">character(len=256) mom_cap_mod::tmpstr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abcd81cf01660d4994dec787589d47616" name="abcd81cf01660d4994dec787589d47616"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abcd81cf01660d4994dec787589d47616">&#9670;&#160;</a></span>u_file_u</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">character(len=*), parameter mom_cap_mod::u_file_u = __FILE__</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a58e64beed30fca9ca44046a7ec53a39b" name="a58e64beed30fca9ca44046a7ec53a39b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58e64beed30fca9ca44046a7ec53a39b">&#9670;&#160;</a></span>use_cdeps_inline</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">logical mom_cap_mod::use_cdeps_inline = .false.</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7deb6bf08d4de5a92bd46a155a575b97" name="a7deb6bf08d4de5a92bd46a155a575b97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7deb6bf08d4de5a92bd46a155a575b97">&#9670;&#160;</a></span>use_coldstart</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">logical mom_cap_mod::use_coldstart = .true.</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1a6ff416c7149cdcdab3b3148930fbfc" name="a1a6ff416c7149cdcdab3b3148930fbfc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a6ff416c7149cdcdab3b3148930fbfc">&#9670;&#160;</a></span>use_mommesh</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">logical mom_cap_mod::use_mommesh = .true.</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a87f074f197c71e76f3ceb5265c12ea42" name="a87f074f197c71e76f3ceb5265c12ea42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87f074f197c71e76f3ceb5265c12ea42">&#9670;&#160;</a></span>write_diagnostics</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">logical mom_cap_mod::write_diagnostics = .false.</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a161c35594bd3e9aee09ff2adff7b331e" name="a161c35594bd3e9aee09ff2adff7b331e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a161c35594bd3e9aee09ff2adff7b331e">&#9670;&#160;</a></span>write_runtimelog</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">logical mom_cap_mod::write_runtimelog = .false.</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>

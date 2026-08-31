@@ -6,10 +6,22 @@
 program \mbox{\hyperlink{test__outputlog__freqn_8F90_a8a499721783fa02a2e5b7a4855adddb5}{test\+\_\+outputlog\+\_\+freqn}}
 \begin{DoxyCompactList}\small\item\em Narrow orchestration test for the outputlog\+\_\+freqn machinery. \end{DoxyCompactList}\item 
 subroutine \mbox{\hyperlink{test__outputlog__freqn_8F90_a3157ed1a1a774892cfb1e549f6df11c7}{run\+\_\+case}} (test, freq, start\+\_\+hour, ring\+\_\+hours, ring\+\_\+ticks, expected\+\_\+completions, is\+\_\+passing, timereduce, use\+\_\+filesize)
-\begin{DoxyCompactList}\small\item\em Drives get\+\_\+ring\+\_\+state/check\+\_\+file\+\_\+completion through a sequence of abstract "{}hours"{} (no real clock advances -- this is just an integer counter, matched against ring\+\_\+hours(\+:) to decide when a ring "{}happens"{}). ring\+\_\+ticks(i) controls when ring\+\_\+hours(i)\textquotesingle{}s fixture completes\+: a positive N schedules the fixture\textquotesingle{}s completing write N hours after that ring; -\/1 means never. Counts how many completions are reported and compares to expected\+\_\+completions. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Drives get\+\_\+ring\+\_\+state/check\+\_\+file\+\_\+completion through a sequence of abstract "{}hours"{} (no real clock advances -- this is just an integer counter, matched against ring\+\_\+hours(\+:) to decide when a ring "{}happens"{}). ring\+\_\+ticks(i) controls when ring\+\_\+hours(i)\textquotesingle{}s fixture completes\+: a positive N schedules the fixture\textquotesingle{}s completing write N hours after that ring; -\/1 means never. Counts how many completions are reported and compares to expected\+\_\+completions. \end{DoxyCompactList}\item 
+integer function \mbox{\hyperlink{test__outputlog__freqn_8F90_ac4c0283fe1799cefc1c9b34f747666ce}{findloc\+\_\+int}} (arr, target)
+\begin{DoxyCompactList}\small\item\em Index of target in arr, or 0 if not present -- plain integer lookup, no ESMF/production logic involved. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Function/\+Subroutine Documentation}
+\Hypertarget{test__outputlog__freqn_8F90_ac4c0283fe1799cefc1c9b34f747666ce}\label{test__outputlog__freqn_8F90_ac4c0283fe1799cefc1c9b34f747666ce} 
+\index{test\_outputlog\_freqn.F90@{test\_outputlog\_freqn.F90}!findloc\_int@{findloc\_int}}
+\index{findloc\_int@{findloc\_int}!test\_outputlog\_freqn.F90@{test\_outputlog\_freqn.F90}}
+\doxysubsubsection{\texorpdfstring{findloc\_int()}{findloc\_int()}}
+{\footnotesize\ttfamily integer function test\+\_\+outputlog\+\_\+freqn\+::findloc\+\_\+int (\begin{DoxyParamCaption}\item[{integer, dimension(\+:), intent(in)}]{arr,  }\item[{integer, intent(in)}]{target }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Index of target in arr, or 0 if not present -- plain integer lookup, no ESMF/production logic involved. 
+
 \Hypertarget{test__outputlog__freqn_8F90_a3157ed1a1a774892cfb1e549f6df11c7}\label{test__outputlog__freqn_8F90_a3157ed1a1a774892cfb1e549f6df11c7} 
 \index{test\_outputlog\_freqn.F90@{test\_outputlog\_freqn.F90}!run\_case@{run\_case}}
 \index{run\_case@{run\_case}!test\_outputlog\_freqn.F90@{test\_outputlog\_freqn.F90}}

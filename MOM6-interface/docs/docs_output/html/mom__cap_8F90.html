@@ -82,6 +82,18 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Data Types</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">type &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmom__cap__mod_1_1ocean__internalstate__type.html">mom_cap_mod::ocean_internalstate_type</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal state type with pointers to three types defined by MOM.  <a href="structmom__cap__mod_1_1ocean__internalstate__type.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">type &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmom__cap__mod_1_1ocean__internalstate__wrapper.html">mom_cap_mod::ocean_internalstate_wrapper</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper-derived type required to associate an internal state instance with the ESMF/NUOPC component.  <a href="structmom__cap__mod_1_1ocean__internalstate__wrapper.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">type &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmom__cap__mod_1_1fld__list__type.html">mom_cap_mod::fld_list_type</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains field information.  <a href="structmom__cap__mod_1_1fld__list__type.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Modules</h2></td></tr>
 <tr class="memitem:namespacemom__cap__mod" id="r_namespacemom__cap__mod"><td class="memItemLeft" align="right" valign="top">module &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html">mom_cap_mod</a></td></tr>
@@ -93,12 +105,147 @@ Functions/Subroutines</h2></td></tr>
 <tr class="memitem:ae0439afc4c901d9850515768bdaaed09" id="r_ae0439afc4c901d9850515768bdaaed09"><td class="memItemLeft" align="right" valign="top">subroutine, public&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#ae0439afc4c901d9850515768bdaaed09">mom_cap_mod::setservices</a> (gcomp, rc)</td></tr>
 <tr class="memdesc:ae0439afc4c901d9850515768bdaaed09"><td class="mdescLeft">&#160;</td><td class="mdescRight">NUOPC SetService method is the only public entry point. SetServices registers all of the user-provided subroutines in the module with the NUOPC layer.  <br /></td></tr>
 <tr class="separator:ae0439afc4c901d9850515768bdaaed09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f945772f833a0eb55af0991919337e5" id="r_a3f945772f833a0eb55af0991919337e5"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a3f945772f833a0eb55af0991919337e5">mom_cap_mod::initializep0</a> (gcomp, importstate, exportstate, clock, rc)</td></tr>
+<tr class="memdesc:a3f945772f833a0eb55af0991919337e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">First initialize subroutine called by NUOPC. The purpose is to set which version of the Initialize Phase Definition (IPD) to use.  <br /></td></tr>
+<tr class="separator:a3f945772f833a0eb55af0991919337e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a062004198a3dc21f240e7858d528b4fb" id="r_a062004198a3dc21f240e7858d528b4fb"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a062004198a3dc21f240e7858d528b4fb">mom_cap_mod::initializeadvertise</a> (gcomp, importstate, exportstate, clock, rc)</td></tr>
+<tr class="memdesc:a062004198a3dc21f240e7858d528b4fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by NUOPC to advertise import and export fields. "Advertise" simply means that the standard names of all import and export fields are supplied. The NUOPC layer uses these to match fields between components in the coupled system.  <br /></td></tr>
+<tr class="separator:a062004198a3dc21f240e7858d528b4fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a772aaa2e35d505484723dcebc5027e66" id="r_a772aaa2e35d505484723dcebc5027e66"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a772aaa2e35d505484723dcebc5027e66">mom_cap_mod::initializerealize</a> (gcomp, importstate, exportstate, clock, rc)</td></tr>
+<tr class="memdesc:a772aaa2e35d505484723dcebc5027e66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by NUOPC to realize import and export fields. "Realizing" a field means that its grid has been defined and an ESMF_Field object has been created and put into the import or export State.  <br /></td></tr>
+<tr class="separator:a772aaa2e35d505484723dcebc5027e66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acadf328859aac6eb57b5c508f3f73b61" id="r_acadf328859aac6eb57b5c508f3f73b61"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#acadf328859aac6eb57b5c508f3f73b61">mom_cap_mod::datainitialize</a> (gcomp, rc)</td></tr>
+<tr class="memdesc:acadf328859aac6eb57b5c508f3f73b61"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO.  <br /></td></tr>
+<tr class="separator:acadf328859aac6eb57b5c508f3f73b61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecd83368409a9c059ca3313e25391a0b" id="r_aecd83368409a9c059ca3313e25391a0b"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#aecd83368409a9c059ca3313e25391a0b">mom_cap_mod::modeladvance</a> (gcomp, rc)</td></tr>
+<tr class="memdesc:aecd83368409a9c059ca3313e25391a0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by NUOPC to advance the model a single timestep.  <br /></td></tr>
+<tr class="separator:aecd83368409a9c059ca3313e25391a0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ac6a66c943ef7933973ed155a81dd91" id="r_a5ac6a66c943ef7933973ed155a81dd91"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a5ac6a66c943ef7933973ed155a81dd91">mom_cap_mod::modelsetrunclock</a> (gcomp, rc)</td></tr>
+<tr class="separator:a5ac6a66c943ef7933973ed155a81dd91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b7799c15a6eeadc1d286ce4d37163e6" id="r_a9b7799c15a6eeadc1d286ce4d37163e6"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a9b7799c15a6eeadc1d286ce4d37163e6">mom_cap_mod::ocean_model_finalize</a> (gcomp, rc)</td></tr>
+<tr class="memdesc:a9b7799c15a6eeadc1d286ce4d37163e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by NUOPC at the end of the run to clean up.  <br /></td></tr>
+<tr class="separator:a9b7799c15a6eeadc1d286ce4d37163e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee8bf289ec5f309c4e9b7c0ed9cda04f" id="r_aee8bf289ec5f309c4e9b7c0ed9cda04f"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#aee8bf289ec5f309c4e9b7c0ed9cda04f">mom_cap_mod::state_setscalar</a> (value, scalar_id, state, mytask, scalar_name, scalar_count, rc)</td></tr>
+<tr class="memdesc:aee8bf289ec5f309c4e9b7c0ed9cda04f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set scalar data from state for a particula name.  <br /></td></tr>
+<tr class="separator:aee8bf289ec5f309c4e9b7c0ed9cda04f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff05ba33d3acc5d6018feecdbd88e094" id="r_aff05ba33d3acc5d6018feecdbd88e094"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#aff05ba33d3acc5d6018feecdbd88e094">mom_cap_mod::mom_realizefields</a> (state, nfields, field_defs, tag, ice_ocean_boundary, grid, mesh, rc)</td></tr>
+<tr class="memdesc:aff05ba33d3acc5d6018feecdbd88e094"><td class="mdescLeft">&#160;</td><td class="mdescRight">Realize the import and export fields using either a grid or a mesh.  <br /></td></tr>
+<tr class="separator:aff05ba33d3acc5d6018feecdbd88e094"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fb5cf93f9c582256b6835d768a42e60" id="r_a5fb5cf93f9c582256b6835d768a42e60"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mom__cap_8F90.html#a5fb5cf93f9c582256b6835d768a42e60">setscalarfield</a> (field, rc)</td></tr>
+<tr class="separator:a5fb5cf93f9c582256b6835d768a42e60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33b2a56839dfa97a8262c68ba30f6f04" id="r_a33b2a56839dfa97a8262c68ba30f6f04"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a33b2a56839dfa97a8262c68ba30f6f04">mom_cap_mod::fld_list_add</a> (num, fldlist, stdname, transferoffer, shortname, ungridded_lbound, ungridded_ubound)</td></tr>
+<tr class="memdesc:a33b2a56839dfa97a8262c68ba30f6f04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set up list of field information.  <br /></td></tr>
+<tr class="separator:a33b2a56839dfa97a8262c68ba30f6f04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21809d24a85da674b0f71ec068490049" id="r_a21809d24a85da674b0f71ec068490049"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a21809d24a85da674b0f71ec068490049">mom_cap_mod::shr_log_setlogunit</a> (nunit)</td></tr>
+<tr class="separator:a21809d24a85da674b0f71ec068490049"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:a0ed5e7e790ddbb9f8d7152264ca28d0f" id="r_a0ed5e7e790ddbb9f8d7152264ca28d0f"><td class="memItemLeft" align="right" valign="top">integer, parameter&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a0ed5e7e790ddbb9f8d7152264ca28d0f">mom_cap_mod::fldsmax</a> = 100</td></tr>
 <tr class="separator:a0ed5e7e790ddbb9f8d7152264ca28d0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49361c7b41259416fa2c6b08a6bac193" id="r_a49361c7b41259416fa2c6b08a6bac193"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a49361c7b41259416fa2c6b08a6bac193">mom_cap_mod::fldstoocn_num</a> = 0</td></tr>
+<tr class="separator:a49361c7b41259416fa2c6b08a6bac193"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f0c52bdc4d9687b0c2f882a9ecc202b" id="r_a5f0c52bdc4d9687b0c2f882a9ecc202b"><td class="memItemLeft" align="right" valign="top">type(<a class="el" href="structmom__cap__mod_1_1fld__list__type.html">fld_list_type</a>), dimension(<a class="el" href="namespacemom__cap__mod.html#a0ed5e7e790ddbb9f8d7152264ca28d0f">fldsmax</a>)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a5f0c52bdc4d9687b0c2f882a9ecc202b">mom_cap_mod::fldstoocn</a></td></tr>
+<tr class="separator:a5f0c52bdc4d9687b0c2f882a9ecc202b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad948593abdb8da7fa79b69505913dc95" id="r_ad948593abdb8da7fa79b69505913dc95"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#ad948593abdb8da7fa79b69505913dc95">mom_cap_mod::fldsfrocn_num</a> = 0</td></tr>
+<tr class="separator:ad948593abdb8da7fa79b69505913dc95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee3e3b3a693970aa5f79b3ba8ca97d35" id="r_aee3e3b3a693970aa5f79b3ba8ca97d35"><td class="memItemLeft" align="right" valign="top">type(<a class="el" href="structmom__cap__mod_1_1fld__list__type.html">fld_list_type</a>), dimension(<a class="el" href="namespacemom__cap__mod.html#a0ed5e7e790ddbb9f8d7152264ca28d0f">fldsmax</a>)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#aee3e3b3a693970aa5f79b3ba8ca97d35">mom_cap_mod::fldsfrocn</a></td></tr>
+<tr class="separator:aee3e3b3a693970aa5f79b3ba8ca97d35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a970c6a1cb8beccf8ea72b4dd392c1418" id="r_a970c6a1cb8beccf8ea72b4dd392c1418"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a970c6a1cb8beccf8ea72b4dd392c1418">mom_cap_mod::dbug</a> = 0</td></tr>
+<tr class="separator:a970c6a1cb8beccf8ea72b4dd392c1418"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c76d05cdca9c737e6a460df1bfadbbd" id="r_a2c76d05cdca9c737e6a460df1bfadbbd"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a2c76d05cdca9c737e6a460df1bfadbbd">mom_cap_mod::import_slice</a> = 1</td></tr>
+<tr class="separator:a2c76d05cdca9c737e6a460df1bfadbbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa08ee7a9fc2f2a7e374db32013526765" id="r_aa08ee7a9fc2f2a7e374db32013526765"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#aa08ee7a9fc2f2a7e374db32013526765">mom_cap_mod::export_slice</a> = 1</td></tr>
+<tr class="separator:aa08ee7a9fc2f2a7e374db32013526765"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0eecd812f3619a4648e2f9386b58fe3" id="r_ac0eecd812f3619a4648e2f9386b58fe3"><td class="memItemLeft" align="right" valign="top">character(len=256)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#ac0eecd812f3619a4648e2f9386b58fe3">mom_cap_mod::tmpstr</a></td></tr>
+<tr class="separator:ac0eecd812f3619a4648e2f9386b58fe3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87f074f197c71e76f3ceb5265c12ea42" id="r_a87f074f197c71e76f3ceb5265c12ea42"><td class="memItemLeft" align="right" valign="top">logical&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a87f074f197c71e76f3ceb5265c12ea42">mom_cap_mod::write_diagnostics</a> = .false.</td></tr>
+<tr class="separator:a87f074f197c71e76f3ceb5265c12ea42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6df1d28111df6b48514eb3fa8b8a0806" id="r_a6df1d28111df6b48514eb3fa8b8a0806"><td class="memItemLeft" align="right" valign="top">logical&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a6df1d28111df6b48514eb3fa8b8a0806">mom_cap_mod::overwrite_timeslice</a> = .false.</td></tr>
+<tr class="separator:a6df1d28111df6b48514eb3fa8b8a0806"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a161c35594bd3e9aee09ff2adff7b331e" id="r_a161c35594bd3e9aee09ff2adff7b331e"><td class="memItemLeft" align="right" valign="top">logical&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a161c35594bd3e9aee09ff2adff7b331e">mom_cap_mod::write_runtimelog</a> = .false.</td></tr>
+<tr class="separator:a161c35594bd3e9aee09ff2adff7b331e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad56cefdfe78b6f64cfbf67b65eae6e7e" id="r_ad56cefdfe78b6f64cfbf67b65eae6e7e"><td class="memItemLeft" align="right" valign="top">character(len=32)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#ad56cefdfe78b6f64cfbf67b65eae6e7e">mom_cap_mod::runtype</a></td></tr>
+<tr class="memdesc:ad56cefdfe78b6f64cfbf67b65eae6e7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">run type  <br /></td></tr>
+<tr class="separator:ad56cefdfe78b6f64cfbf67b65eae6e7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4760bc5e6def07188f5fb61e09a2de1" id="r_ad4760bc5e6def07188f5fb61e09a2de1"><td class="memItemLeft" align="right" valign="top">logical&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#ad4760bc5e6def07188f5fb61e09a2de1">mom_cap_mod::profile_memory</a> = .true.</td></tr>
+<tr class="separator:ad4760bc5e6def07188f5fb61e09a2de1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2007af76dfd1960bd6162c3bdd2b0ed1" id="r_a2007af76dfd1960bd6162c3bdd2b0ed1"><td class="memItemLeft" align="right" valign="top">logical&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a2007af76dfd1960bd6162c3bdd2b0ed1">mom_cap_mod::grid_attach_area</a> = .false.</td></tr>
+<tr class="separator:a2007af76dfd1960bd6162c3bdd2b0ed1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7deb6bf08d4de5a92bd46a155a575b97" id="r_a7deb6bf08d4de5a92bd46a155a575b97"><td class="memItemLeft" align="right" valign="top">logical&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a7deb6bf08d4de5a92bd46a155a575b97">mom_cap_mod::use_coldstart</a> = .true.</td></tr>
+<tr class="separator:a7deb6bf08d4de5a92bd46a155a575b97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a6ff416c7149cdcdab3b3148930fbfc" id="r_a1a6ff416c7149cdcdab3b3148930fbfc"><td class="memItemLeft" align="right" valign="top">logical&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a1a6ff416c7149cdcdab3b3148930fbfc">mom_cap_mod::use_mommesh</a> = .true.</td></tr>
+<tr class="separator:a1a6ff416c7149cdcdab3b3148930fbfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd56213117ea1a3931ae9d380832557e" id="r_abd56213117ea1a3931ae9d380832557e"><td class="memItemLeft" align="right" valign="top">logical&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#abd56213117ea1a3931ae9d380832557e">mom_cap_mod::set_missing_stks_to_zero</a> = .false.</td></tr>
+<tr class="separator:abd56213117ea1a3931ae9d380832557e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3c19c43434afed11076e3a36985f986" id="r_ad3c19c43434afed11076e3a36985f986"><td class="memItemLeft" align="right" valign="top">logical&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#ad3c19c43434afed11076e3a36985f986">mom_cap_mod::restart_eor</a> = .false.</td></tr>
+<tr class="separator:ad3c19c43434afed11076e3a36985f986"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58e64beed30fca9ca44046a7ec53a39b" id="r_a58e64beed30fca9ca44046a7ec53a39b"><td class="memItemLeft" align="right" valign="top">logical&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a58e64beed30fca9ca44046a7ec53a39b">mom_cap_mod::use_cdeps_inline</a> = .false.</td></tr>
+<tr class="separator:a58e64beed30fca9ca44046a7ec53a39b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2e1656025fcc390497d059868d547aa" id="r_ac2e1656025fcc390497d059868d547aa"><td class="memItemLeft" align="right" valign="top">character(len=128)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#ac2e1656025fcc390497d059868d547aa">mom_cap_mod::scalar_field_name</a> = ''</td></tr>
+<tr class="separator:ac2e1656025fcc390497d059868d547aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa34836ca41b881b490713afae1ce5b82" id="r_aa34836ca41b881b490713afae1ce5b82"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#aa34836ca41b881b490713afae1ce5b82">mom_cap_mod::scalar_field_count</a> = 0</td></tr>
+<tr class="separator:aa34836ca41b881b490713afae1ce5b82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac69f1371ebbd90dfc117e54846cc90bb" id="r_ac69f1371ebbd90dfc117e54846cc90bb"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#ac69f1371ebbd90dfc117e54846cc90bb">mom_cap_mod::scalar_field_idx_grid_nx</a> = 0</td></tr>
+<tr class="separator:ac69f1371ebbd90dfc117e54846cc90bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae36725fbbb9270b498c860196e9f0374" id="r_ae36725fbbb9270b498c860196e9f0374"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#ae36725fbbb9270b498c860196e9f0374">mom_cap_mod::scalar_field_idx_grid_ny</a> = 0</td></tr>
+<tr class="separator:ae36725fbbb9270b498c860196e9f0374"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abcd81cf01660d4994dec787589d47616" id="r_abcd81cf01660d4994dec787589d47616"><td class="memItemLeft" align="right" valign="top">character(len= *), parameter&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#abcd81cf01660d4994dec787589d47616">mom_cap_mod::u_file_u</a> = __FILE__</td></tr>
+<tr class="separator:abcd81cf01660d4994dec787589d47616"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ccb6bc098362e5ea43c44ed67b0be91" id="r_a9ccb6bc098362e5ea43c44ed67b0be91"><td class="memItemLeft" align="right" valign="top">logical&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a9ccb6bc098362e5ea43c44ed67b0be91">mom_cap_mod::cesm_coupled</a> = .false.</td></tr>
+<tr class="separator:a9ccb6bc098362e5ea43c44ed67b0be91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2af2a851cf395c0e9bc914c5ca06e5b0" id="r_a2af2a851cf395c0e9bc914c5ca06e5b0"><td class="memItemLeft" align="right" valign="top">type(esmf_geomtype_flag)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a2af2a851cf395c0e9bc914c5ca06e5b0">mom_cap_mod::geomtype</a></td></tr>
+<tr class="separator:a2af2a851cf395c0e9bc914c5ca06e5b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf7bf7614b618cf9b9a5ec9d1c58fe42" id="r_abf7bf7614b618cf9b9a5ec9d1c58fe42"><td class="memItemLeft" align="right" valign="top">type(is_restart_fh_type)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#abf7bf7614b618cf9b9a5ec9d1c58fe42">mom_cap_mod::restartfh_info</a></td></tr>
+<tr class="separator:abf7bf7614b618cf9b9a5ec9d1c58fe42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9a05eeac6bcd279edde9afb127af1da" id="r_ae9a05eeac6bcd279edde9afb127af1da"><td class="memItemLeft" align="right" valign="top">character(len=8)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#ae9a05eeac6bcd279edde9afb127af1da">mom_cap_mod::restart_mode</a> = 'alarms'</td></tr>
+<tr class="separator:ae9a05eeac6bcd279edde9afb127af1da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7533a7727c0d30f169ccfbb9554b3bc3" id="r_a7533a7727c0d30f169ccfbb9554b3bc3"><td class="memItemLeft" align="right" valign="top">character(len=16)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a7533a7727c0d30f169ccfbb9554b3bc3">mom_cap_mod::inst_suffix</a> = ''</td></tr>
+<tr class="separator:a7533a7727c0d30f169ccfbb9554b3bc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af347e9cdbece72b48ff6bd7383191ddc" id="r_af347e9cdbece72b48ff6bd7383191ddc"><td class="memItemLeft" align="right" valign="top">logical&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#af347e9cdbece72b48ff6bd7383191ddc">mom_cap_mod::pointer_date</a> = .true.</td></tr>
+<tr class="separator:af347e9cdbece72b48ff6bd7383191ddc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a723adda3d40b23bf02e338cef8a5e467" id="r_a723adda3d40b23bf02e338cef8a5e467"><td class="memItemLeft" align="right" valign="top">real(8)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#a723adda3d40b23bf02e338cef8a5e467">mom_cap_mod::timere</a></td></tr>
+<tr class="separator:a723adda3d40b23bf02e338cef8a5e467"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4b34224065632ab5e73102188c07343" id="r_ab4b34224065632ab5e73102188c07343"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__mod.html#ab4b34224065632ab5e73102188c07343">mom_cap_mod::localpet</a> = -1</td></tr>
+<tr class="separator:ab4b34224065632ab5e73102188c07343"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Function/Subroutine Documentation</h2>
+<a id="a5fb5cf93f9c582256b6835d768a42e60" name="a5fb5cf93f9c582256b6835d768a42e60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5fb5cf93f9c582256b6835d768a42e60">&#9670;&#160;</a></span>setscalarfield()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine mom_realizefields::setscalarfield </td>
+          <td>(</td>
+          <td class="paramtype">type(esmf_field), intent(inout)&#160;</td>
+          <td class="paramname"><em>field</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer, intent(inout)&#160;</td>
+          <td class="paramname"><em>rc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

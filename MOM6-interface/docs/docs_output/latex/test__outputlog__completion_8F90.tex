@@ -6,15 +6,75 @@
 program \mbox{\hyperlink{test__outputlog__completion_8F90_a42d4d0b626aa7ea0abe174cd844fa0fd}{test\+\_\+outputlog\+\_\+completion}}
 \begin{DoxyCompactList}\small\item\em Test code for the outputlog file-\/completion contract. \end{DoxyCompactList}\item 
 subroutine \mbox{\hyperlink{test__outputlog__completion_8F90_a3865c2d504211b0a7cc2f73592b8967f}{check\+\_\+datm\+\_\+incomplete}} ()
+\item 
+subroutine \mbox{\hyperlink{test__outputlog__completion_8F90_a2a49a7ff186ad5996df0166defe539e5}{check\+\_\+datm\+\_\+complete}} ()
+\item 
+subroutine \mbox{\hyperlink{test__outputlog__completion_8F90_a195a889672a3a01a1165eec94dca8b5d}{check\+\_\+atm\+\_\+incomplete}} ()
+\item 
+subroutine \mbox{\hyperlink{test__outputlog__completion_8F90_a44e7a2f75519915652138cd6ee9cb27f}{check\+\_\+atm\+\_\+complete}} ()
+\item 
+subroutine \mbox{\hyperlink{test__outputlog__completion_8F90_ac8cdf077cb2ee615cd914ce82d195cad}{check\+\_\+file\+\_\+does\+\_\+not\+\_\+exist}} ()
+\begin{DoxyCompactList}\small\item\em Edge case\+: get\+\_\+file\+\_\+state/file\+\_\+is\+\_\+complete asked about a file that was never created. get\+\_\+file\+\_\+state\textquotesingle{}s isroot-\/only inquire() leaves nlen/fsize at nf90\+\_\+fill\+\_\+int when the file doesn\textquotesingle{}t exist -- confirm that propagates correctly and that file\+\_\+is\+\_\+complete treats it as incomplete either way. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{test__outputlog__completion_8F90_a556852a78e1ef9c397eced40873df9aa}{assert\+\_\+true}} (condition, msg)
+\item 
+subroutine \mbox{\hyperlink{test__outputlog__completion_8F90_aee9c06a3f605e65f0cf5b6077489be2e}{assert\+\_\+false}} (condition, msg)
+\item 
+subroutine \mbox{\hyperlink{test__outputlog__completion_8F90_a14edc783d8b2742530c46b6e7eed4ae1}{assert\+\_\+equal}} (expected, actual, msg)
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Function/\+Subroutine Documentation}
+\Hypertarget{test__outputlog__completion_8F90_a14edc783d8b2742530c46b6e7eed4ae1}\label{test__outputlog__completion_8F90_a14edc783d8b2742530c46b6e7eed4ae1} 
+\index{test\_outputlog\_completion.F90@{test\_outputlog\_completion.F90}!assert\_equal@{assert\_equal}}
+\index{assert\_equal@{assert\_equal}!test\_outputlog\_completion.F90@{test\_outputlog\_completion.F90}}
+\doxysubsubsection{\texorpdfstring{assert\_equal()}{assert\_equal()}}
+{\footnotesize\ttfamily subroutine test\+\_\+outputlog\+\_\+completion\+::assert\+\_\+equal (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{expected,  }\item[{integer, intent(in)}]{actual,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{test__outputlog__completion_8F90_aee9c06a3f605e65f0cf5b6077489be2e}\label{test__outputlog__completion_8F90_aee9c06a3f605e65f0cf5b6077489be2e} 
+\index{test\_outputlog\_completion.F90@{test\_outputlog\_completion.F90}!assert\_false@{assert\_false}}
+\index{assert\_false@{assert\_false}!test\_outputlog\_completion.F90@{test\_outputlog\_completion.F90}}
+\doxysubsubsection{\texorpdfstring{assert\_false()}{assert\_false()}}
+{\footnotesize\ttfamily subroutine test\+\_\+outputlog\+\_\+completion\+::assert\+\_\+false (\begin{DoxyParamCaption}\item[{logical, intent(in)}]{condition,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{test__outputlog__completion_8F90_a556852a78e1ef9c397eced40873df9aa}\label{test__outputlog__completion_8F90_a556852a78e1ef9c397eced40873df9aa} 
+\index{test\_outputlog\_completion.F90@{test\_outputlog\_completion.F90}!assert\_true@{assert\_true}}
+\index{assert\_true@{assert\_true}!test\_outputlog\_completion.F90@{test\_outputlog\_completion.F90}}
+\doxysubsubsection{\texorpdfstring{assert\_true()}{assert\_true()}}
+{\footnotesize\ttfamily subroutine test\+\_\+outputlog\+\_\+completion\+::assert\+\_\+true (\begin{DoxyParamCaption}\item[{logical, intent(in)}]{condition,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{test__outputlog__completion_8F90_a44e7a2f75519915652138cd6ee9cb27f}\label{test__outputlog__completion_8F90_a44e7a2f75519915652138cd6ee9cb27f} 
+\index{test\_outputlog\_completion.F90@{test\_outputlog\_completion.F90}!check\_atm\_complete@{check\_atm\_complete}}
+\index{check\_atm\_complete@{check\_atm\_complete}!test\_outputlog\_completion.F90@{test\_outputlog\_completion.F90}}
+\doxysubsubsection{\texorpdfstring{check\_atm\_complete()}{check\_atm\_complete()}}
+{\footnotesize\ttfamily subroutine test\+\_\+outputlog\+\_\+completion\+::check\+\_\+atm\+\_\+complete\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{test__outputlog__completion_8F90_a195a889672a3a01a1165eec94dca8b5d}\label{test__outputlog__completion_8F90_a195a889672a3a01a1165eec94dca8b5d} 
+\index{test\_outputlog\_completion.F90@{test\_outputlog\_completion.F90}!check\_atm\_incomplete@{check\_atm\_incomplete}}
+\index{check\_atm\_incomplete@{check\_atm\_incomplete}!test\_outputlog\_completion.F90@{test\_outputlog\_completion.F90}}
+\doxysubsubsection{\texorpdfstring{check\_atm\_incomplete()}{check\_atm\_incomplete()}}
+{\footnotesize\ttfamily subroutine test\+\_\+outputlog\+\_\+completion\+::check\+\_\+atm\+\_\+incomplete\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{test__outputlog__completion_8F90_a2a49a7ff186ad5996df0166defe539e5}\label{test__outputlog__completion_8F90_a2a49a7ff186ad5996df0166defe539e5} 
+\index{test\_outputlog\_completion.F90@{test\_outputlog\_completion.F90}!check\_datm\_complete@{check\_datm\_complete}}
+\index{check\_datm\_complete@{check\_datm\_complete}!test\_outputlog\_completion.F90@{test\_outputlog\_completion.F90}}
+\doxysubsubsection{\texorpdfstring{check\_datm\_complete()}{check\_datm\_complete()}}
+{\footnotesize\ttfamily subroutine test\+\_\+outputlog\+\_\+completion\+::check\+\_\+datm\+\_\+complete\hspace{0.3cm}{\ttfamily [private]}}
+
 \Hypertarget{test__outputlog__completion_8F90_a3865c2d504211b0a7cc2f73592b8967f}\label{test__outputlog__completion_8F90_a3865c2d504211b0a7cc2f73592b8967f} 
 \index{test\_outputlog\_completion.F90@{test\_outputlog\_completion.F90}!check\_datm\_incomplete@{check\_datm\_incomplete}}
 \index{check\_datm\_incomplete@{check\_datm\_incomplete}!test\_outputlog\_completion.F90@{test\_outputlog\_completion.F90}}
 \doxysubsubsection{\texorpdfstring{check\_datm\_incomplete()}{check\_datm\_incomplete()}}
 {\footnotesize\ttfamily subroutine test\+\_\+outputlog\+\_\+completion\+::check\+\_\+datm\+\_\+incomplete}
+
+\Hypertarget{test__outputlog__completion_8F90_ac8cdf077cb2ee615cd914ce82d195cad}\label{test__outputlog__completion_8F90_ac8cdf077cb2ee615cd914ce82d195cad} 
+\index{test\_outputlog\_completion.F90@{test\_outputlog\_completion.F90}!check\_file\_does\_not\_exist@{check\_file\_does\_not\_exist}}
+\index{check\_file\_does\_not\_exist@{check\_file\_does\_not\_exist}!test\_outputlog\_completion.F90@{test\_outputlog\_completion.F90}}
+\doxysubsubsection{\texorpdfstring{check\_file\_does\_not\_exist()}{check\_file\_does\_not\_exist()}}
+{\footnotesize\ttfamily subroutine test\+\_\+outputlog\+\_\+completion\+::check\+\_\+file\+\_\+does\+\_\+not\+\_\+exist\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Edge case\+: get\+\_\+file\+\_\+state/file\+\_\+is\+\_\+complete asked about a file that was never created. get\+\_\+file\+\_\+state\textquotesingle{}s isroot-\/only inquire() leaves nlen/fsize at nf90\+\_\+fill\+\_\+int when the file doesn\textquotesingle{}t exist -- confirm that propagates correctly and that file\+\_\+is\+\_\+complete treats it as incomplete either way. 
 
 \Hypertarget{test__outputlog__completion_8F90_a42d4d0b626aa7ea0abe174cd844fa0fd}\label{test__outputlog__completion_8F90_a42d4d0b626aa7ea0abe174cd844fa0fd} 
 \index{test\_outputlog\_completion.F90@{test\_outputlog\_completion.F90}!test\_outputlog\_completion@{test\_outputlog\_completion}}

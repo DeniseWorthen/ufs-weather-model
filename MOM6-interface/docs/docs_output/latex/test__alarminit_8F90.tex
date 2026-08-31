@@ -6,7 +6,11 @@
 program \mbox{\hyperlink{test__alarminit_8F90_a2a844ddee965b100f6087d4ea3fbf1c5}{test\+\_\+alarminit}}
 \begin{DoxyCompactList}\small\item\em Test code for outputlog Alarm Initialization. \end{DoxyCompactList}\item 
 subroutine \mbox{\hyperlink{test__alarminit_8F90_a7bf9edbebc78f81e0ae204accfeac511}{find\+\_\+ring\+\_\+time}} (freq, start\+\_\+hour, ringtime, starttime, toffset, ierr, errmsg, dt)
-\begin{DoxyCompactList}\small\item\em Steps the clock forward (small dt, checked every step) until the given alarm actually rings, or gives up after max\+\_\+steps. Pure mechanics only -- no assertions, no notion of "{}correct."{} Shared by run\+\_\+case (structural primary+secondary checks) and any literal-\/value test (direct comparison against a hand-\/verified expected time), so the ring-\/detection logic itself only exists in one place. Also returns start\+Time and toffset, since both run\+\_\+case\textquotesingle{}s checks and a literal test\textquotesingle{}s own comparison need them (start\+Time to build an expected ESMF\+\_\+\+Time; toffset only for run\+\_\+case\textquotesingle{}s regression check). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Steps the clock forward (small dt, checked every step) until the given alarm actually rings, or gives up after max\+\_\+steps. Pure mechanics only -- no assertions, no notion of "{}correct."{} Shared by run\+\_\+case (structural primary+secondary checks) and any literal-\/value test (direct comparison against a hand-\/verified expected time), so the ring-\/detection logic itself only exists in one place. Also returns start\+Time and toffset, since both run\+\_\+case\textquotesingle{}s checks and a literal test\textquotesingle{}s own comparison need them (start\+Time to build an expected ESMF\+\_\+\+Time; toffset only for run\+\_\+case\textquotesingle{}s regression check). \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{test__alarminit_8F90_a2f5d4ab980860a00ba8b17edd37e2b7c}{run\+\_\+case}} (freq, start\+\_\+hour, ierr, errmsg, dt)
+\begin{DoxyCompactList}\small\item\em Runs one freq/start\+\_\+hour case end to end and reports a SINGLE result\+: ierr==0 means the alarm rang in time AND both the primary (structural) and secondary (regression) checks passed; any other outcome sets ierr/=0 with errmsg describing specifically what failed. Callers never need to assemble their own pass/fail expression -- every call site reduces to {\ttfamily call run\+\_\+case(...); is\+\_\+passing = (ierr==0)} (or /=0 for the one case that\textquotesingle{}s expected to time out). \end{DoxyCompactList}\item 
+integer function \mbox{\hyperlink{test__alarminit_8F90_a3169125274f1241b00290deac0cf5b1a}{predicted\+\_\+ring\+\_\+offset}} (freq, toffset)
+\begin{DoxyCompactList}\small\item\em Independent re-\/derivation of Alarm\+Init\textquotesingle{}s rewind-\/then-\/advance loop, for the regression check only. Returns the UNWRAPPED elapsed-\/hours offset from start\+Time (not an hour-\/of-\/day) so the caller can build a proper ESMF\+\_\+\+Time\+Interval and compare full ESMF\+\_\+\+Time objects -- preserves day precision, unlike returning a modulo-\/24 hour value would. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Function/\+Subroutine Documentation}
@@ -19,6 +23,26 @@ subroutine \mbox{\hyperlink{test__alarminit_8F90_a7bf9edbebc78f81e0ae204accfeac5
 
 
 Steps the clock forward (small dt, checked every step) until the given alarm actually rings, or gives up after max\+\_\+steps. Pure mechanics only -- no assertions, no notion of "{}correct."{} Shared by run\+\_\+case (structural primary+secondary checks) and any literal-\/value test (direct comparison against a hand-\/verified expected time), so the ring-\/detection logic itself only exists in one place. Also returns start\+Time and toffset, since both run\+\_\+case\textquotesingle{}s checks and a literal test\textquotesingle{}s own comparison need them (start\+Time to build an expected ESMF\+\_\+\+Time; toffset only for run\+\_\+case\textquotesingle{}s regression check). 
+
+\Hypertarget{test__alarminit_8F90_a3169125274f1241b00290deac0cf5b1a}\label{test__alarminit_8F90_a3169125274f1241b00290deac0cf5b1a} 
+\index{test\_alarminit.F90@{test\_alarminit.F90}!predicted\_ring\_offset@{predicted\_ring\_offset}}
+\index{predicted\_ring\_offset@{predicted\_ring\_offset}!test\_alarminit.F90@{test\_alarminit.F90}}
+\doxysubsubsection{\texorpdfstring{predicted\_ring\_offset()}{predicted\_ring\_offset()}}
+{\footnotesize\ttfamily integer function test\+\_\+alarminit\+::predicted\+\_\+ring\+\_\+offset (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{freq,  }\item[{integer, intent(in)}]{toffset }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Independent re-\/derivation of Alarm\+Init\textquotesingle{}s rewind-\/then-\/advance loop, for the regression check only. Returns the UNWRAPPED elapsed-\/hours offset from start\+Time (not an hour-\/of-\/day) so the caller can build a proper ESMF\+\_\+\+Time\+Interval and compare full ESMF\+\_\+\+Time objects -- preserves day precision, unlike returning a modulo-\/24 hour value would. 
+
+\Hypertarget{test__alarminit_8F90_a2f5d4ab980860a00ba8b17edd37e2b7c}\label{test__alarminit_8F90_a2f5d4ab980860a00ba8b17edd37e2b7c} 
+\index{test\_alarminit.F90@{test\_alarminit.F90}!run\_case@{run\_case}}
+\index{run\_case@{run\_case}!test\_alarminit.F90@{test\_alarminit.F90}}
+\doxysubsubsection{\texorpdfstring{run\_case()}{run\_case()}}
+{\footnotesize\ttfamily subroutine test\+\_\+alarminit\+::run\+\_\+case (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{freq,  }\item[{integer, intent(in)}]{start\+\_\+hour,  }\item[{integer, intent(out)}]{ierr,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(out)}]{errmsg,  }\item[{integer, intent(in), optional}]{dt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Runs one freq/start\+\_\+hour case end to end and reports a SINGLE result\+: ierr==0 means the alarm rang in time AND both the primary (structural) and secondary (regression) checks passed; any other outcome sets ierr/=0 with errmsg describing specifically what failed. Callers never need to assemble their own pass/fail expression -- every call site reduces to {\ttfamily call run\+\_\+case(...); is\+\_\+passing = (ierr==0)} (or /=0 for the one case that\textquotesingle{}s expected to time out). 
 
 \Hypertarget{test__alarminit_8F90_a2a844ddee965b100f6087d4ea3fbf1c5}\label{test__alarminit_8F90_a2a844ddee965b100f6087d4ea3fbf1c5} 
 \index{test\_alarminit.F90@{test\_alarminit.F90}!test\_alarminit@{test\_alarminit}}

@@ -87,8 +87,49 @@ Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a3157ed1a1a774892cfb1e549f6df11c7" id="r_a3157ed1a1a774892cfb1e549f6df11c7"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__outputlog__freqn_8F90.html#a3157ed1a1a774892cfb1e549f6df11c7">run_case</a> (test, freq, start_hour, ring_hours, ring_ticks, expected_completions, is_passing, timereduce, use_filesize)</td></tr>
 <tr class="memdesc:a3157ed1a1a774892cfb1e549f6df11c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Drives get_ring_state/check_file_completion through a sequence of abstract "hours" (no real clock advances &ndash; this is just an integer counter, matched against ring_hours(:) to decide when a ring "happens"). ring_ticks(i) controls when ring_hours(i)'s fixture completes: a positive N schedules the fixture's completing write N hours after that ring; -1 means never. Counts how many completions are reported and compares to expected_completions.  <br /></td></tr>
 <tr class="separator:a3157ed1a1a774892cfb1e549f6df11c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4c0283fe1799cefc1c9b34f747666ce" id="r_ac4c0283fe1799cefc1c9b34f747666ce"><td class="memItemLeft" align="right" valign="top">integer function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__outputlog__freqn_8F90.html#ac4c0283fe1799cefc1c9b34f747666ce">findloc_int</a> (arr, target)</td></tr>
+<tr class="memdesc:ac4c0283fe1799cefc1c9b34f747666ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index of target in arr, or 0 if not present &ndash; plain integer lookup, no ESMF/production logic involved.  <br /></td></tr>
+<tr class="separator:ac4c0283fe1799cefc1c9b34f747666ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function/Subroutine Documentation</h2>
+<a id="ac4c0283fe1799cefc1c9b34f747666ce" name="ac4c0283fe1799cefc1c9b34f747666ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4c0283fe1799cefc1c9b34f747666ce">&#9670;&#160;</a></span>findloc_int()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">integer function test_outputlog_freqn::findloc_int </td>
+          <td>(</td>
+          <td class="paramtype">integer, dimension(:), intent(in)&#160;</td>
+          <td class="paramname"><em>arr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer, intent(in)&#160;</td>
+          <td class="paramname"><em>target</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Index of target in arr, or 0 if not present &ndash; plain integer lookup, no ESMF/production logic involved. </p>
+
+</div>
+</div>
 <a id="a3157ed1a1a774892cfb1e549f6df11c7" name="a3157ed1a1a774892cfb1e549f6df11c7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3157ed1a1a774892cfb1e549f6df11c7">&#9670;&#160;</a></span>run_case()</h2>
 

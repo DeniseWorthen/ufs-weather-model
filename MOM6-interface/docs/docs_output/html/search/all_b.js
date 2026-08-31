@@ -1,14 +1,13 @@
 var searchData=
 [
-  ['o_0',['I/O',['../nuopc_cap.html#IO',1,'']]],
-  ['opt_5fn_1',['opt_n',['../structmom__outputlog__methods_1_1outputlog__config__type.html#af5d5cdb87ef2ba682f23f881f76837a2',1,'mom_outputlog_methods::outputlog_config_type']]],
-  ['outputlog_5fconfig_5ftype_2',['outputlog_config_type',['../structmom__outputlog__methods_1_1outputlog__config__type.html',1,'mom_outputlog_methods']]],
-  ['outputlog_5finit_3',['outputlog_init',['../namespacemom__cap__outputlog.html#a772944ef6621c112cfb36b604ba5f75e',1,'mom_cap_outputlog']]],
-  ['outputlog_5fmodeltime_5ftype_4',['outputlog_modeltime_type',['../structmom__outputlog__methods_1_1outputlog__modeltime__type.html',1,'mom_outputlog_methods']]],
-  ['outputlog_5frestart_5',['outputlog_restart',['../namespacemom__cap__outputlog.html#af85f24b5e98f54d3ac8497288891c97d',1,'mom_cap_outputlog']]],
-  ['outputlog_5frun_6',['outputlog_run',['../namespacemom__cap__outputlog.html#a63c992951482449c83f6bd9c7de49626',1,'mom_cap_outputlog']]],
-  ['outputlog_5fstate_5ftype_7',['outputlog_state_type',['../structmom__outputlog__methods_1_1outputlog__state__type.html',1,'mom_outputlog_methods']]],
-  ['outputlog_5ftest_5fhelpers_8',['outputlog_test_helpers',['../namespaceoutputlog__test__helpers.html',1,'']]],
-  ['outputlog_5ftest_5fhelpers_2ef90_9',['outputlog_test_helpers.F90',['../outputlog__test__helpers_8F90.html',1,'']]],
-  ['overview_10',['Overview',['../nuopc_cap.html#Overview',1,'']]]
+  ['n_5ffreq_0',['n_freq',['../namespacemom__cap__outputlog.html#a0e356492086e39c2bd19be826b9354a0',1,'mom_cap_outputlog']]],
+  ['nc_5ffixture_5fmod_1',['nc_fixture_mod',['../namespacenc__fixture__mod.html',1,'']]],
+  ['nc_5ffixture_5fmod_2ef90_2',['nc_fixture_mod.F90',['../nc__fixture__mod_8F90.html',1,'']]],
+  ['new_2epairing_2ef90_3',['new.pairing.F90',['../new_8pairing_8F90.html',1,'']]],
+  ['nexttime_4',['nexttime',['../structmom__outputlog__methods_1_1outputlog__modeltime__type.html#a18ea54608deb7399457dde13c8214579',1,'mom_outputlog_methods::outputlog_modeltime_type']]],
+  ['nf90_5ferr_5',['nf90_err',['../namespacenc__fixture__mod.html#a7ac05ec01ccf9c85a21ee8ecbb38394d',1,'nc_fixture_mod::nf90_err()'],['../namespacemom__outputlog__methods.html#ae7a85eece307db186de5fa9de7276299',1,'mom_outputlog_methods::nf90_err()']]],
+  ['nfail_6',['nfail',['../structtest__utils_1_1testsummary.html#a09419a9e38420cbf2afde8e44efa955e',1,'test_utils::testsummary']]],
+  ['nfiles_7',['nfiles',['../namespacemom__cap__outputlog.html#ace10dd5da2eab29be760a93aab825589',1,'mom_cap_outputlog']]],
+  ['npass_8',['npass',['../structtest__utils_1_1testsummary.html#acd0ab292e49d84d91c4777dd26e62920',1,'test_utils::testsummary']]],
+  ['nuopc_20cap_9',['NUOPC Cap',['../nuopc_cap.html',1,'']]]
 ];

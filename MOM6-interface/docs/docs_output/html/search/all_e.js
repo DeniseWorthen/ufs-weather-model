@@ -1,12 +1,17 @@
 var searchData=
 [
-  ['save_2edriver2_2ef90_0',['save.driver2.F90',['../save_8driver2_8F90.html',1,'']]],
-  ['set_5ftoffset_1',['set_toffset',['../namespacemom__outputlog__methods.html#aeff774f15f9390e0ac12a67cb9486287',1,'mom_outputlog_methods']]],
-  ['setprefix_2',['setprefix',['../namespacemom__outputlog__methods.html#a3c75154a7a43034d43a8dde6fe204f41',1,'mom_outputlog_methods']]],
-  ['setrequest_3',['setrequest',['../namespacemom__outputlog__methods.html#ae9a73a9bbd24f701409dec36860d8cda',1,'mom_outputlog_methods']]],
-  ['setservices_4',['setservices',['../namespacemom__cap__mod.html#ae0439afc4c901d9850515768bdaaed09',1,'mom_cap_mod']]],
-  ['settype_5',['settype',['../namespacemom__outputlog__methods.html#a8aef7363b9c3db9f50680550aa424142',1,'mom_outputlog_methods']]],
-  ['setup_5fcase_6',['setup_case',['../namespaceoutputlog__test__helpers.html#aa686e4425f339e09909cc3cd9ad29e7c',1,'outputlog_test_helpers']]],
-  ['starttime_7',['starttime',['../structmom__outputlog__methods_1_1outputlog__modeltime__type.html#ab7e7ce30f39797ad6388c11d78140086',1,'mom_outputlog_methods::outputlog_modeltime_type']]],
-  ['subroutines_8',['Cap Subroutines',['../nuopc_cap.html#CapSubroutines',1,'']]]
+  ['readnml_0',['readnml',['../namespacemom__outputlog__methods.html#a01160bef8095af4012645fc9f9557d35',1,'mom_outputlog_methods']]],
+  ['real_5fkind_1',['real_kind',['../namespacetest__utils.html#a8100e06bdb60a83d7b370885c5f2c167',1,'test_utils']]],
+  ['requested_2',['requested',['../structmom__outputlog__methods_1_1outputlog__config__type.html#a279ec8d513fd507766127549d2d8042f',1,'mom_outputlog_methods::outputlog_config_type']]],
+  ['restart_5feor_3',['restart_eor',['../namespacemom__cap__mod.html#ad3c19c43434afed11076e3a36985f986',1,'mom_cap_mod']]],
+  ['restart_5fmode_4',['restart_mode',['../namespacemom__cap__mod.html#ae9a05eeac6bcd279edde9afb127af1da',1,'mom_cap_mod']]],
+  ['restartdir_5',['restartdir',['../namespacemom__cap__outputlog.html#ac0480a093179e02032d33361dd9769fd',1,'mom_cap_outputlog']]],
+  ['restartfh_5finfo_6',['restartfh_info',['../namespacemom__cap__mod.html#abf7bf7614b618cf9b9a5ec9d1c58fe42',1,'mom_cap_mod']]],
+  ['ringing_7',['ringing',['../structmom__outputlog__methods_1_1outputlog__state__type.html#a30cd4ce3e9271028482ebe0f72702551',1,'mom_outputlog_methods::outputlog_state_type']]],
+  ['rotations_8',['Vector Rotations',['../nuopc_cap.html#VectorRotations',1,'']]],
+  ['run_9',['Run',['../nuopc_cap.html#Run',1,'']]],
+  ['run_5fcase_10',['run_case',['../test__alarminit_8F90.html#a2f5d4ab980860a00ba8b17edd37e2b7c',1,'run_case(freq, start_hour, ierr, errmsg, dt):&#160;test_alarminit.F90'],['../test__restart__pairing_8F90.html#ad10f1eb2528af523c332873e4a7bd848',1,'run_case(test, freq, start_hour, runhours, restart_freq, is_passing, failmsg):&#160;test_restart_pairing.F90'],['../test__outputlog__freqn_8F90.html#a3157ed1a1a774892cfb1e549f6df11c7',1,'run_case(test, freq, start_hour, ring_hours, ring_ticks, expected_completions, is_passing, timereduce, use_filesize):&#160;test_outputlog_freqn.F90'],['../test__driver__lstop_8F90.html#a6982bc91b7051620d5e54cff236441a2',1,'run_case(test, freq, start_hour, runhours, timereduce, use_filesize, nfiles, completions):&#160;test_driver_lstop.F90'],['../test__driver2_8F90.html#a1ed6e3c69847ad43be9bc1d7a50d3e2a',1,'run_case(test, freq, start_hour, runhours, timereduce, use_filesize, nfiles, completions):&#160;test_driver2.F90'],['../test__driver_8F90.html#a1ed6e3c69847ad43be9bc1d7a50d3e2a',1,'run_case(test, freq, start_hour, runhours, timereduce, use_filesize, nfiles, completions):&#160;test_driver.F90'],['../save_8driver2_8F90.html#a1ed6e3c69847ad43be9bc1d7a50d3e2a',1,'run_case(test, freq, start_hour, runhours, timereduce, use_filesize, nfiles, completions):&#160;save.driver2.F90'],['../new_8pairing_8F90.html#a0cb90fbb441ab7e851b907f335da3a8d',1,'run_case(test, freq, start_hour, runhours, restart_hours, is_passing, failmsg):&#160;new.pairing.F90'],['../cadence_8F90.html#a333803872689b43caf5e704b6cabbdfa',1,'run_case(test, freq, start_hour, runhours, timereduce, restart_hours, fh_atfilecompletion, expected_lastrestart_hours, nmatches):&#160;cadence.F90']]],
+  ['run_5flstop_5fcase_11',['run_lstop_case',['../test__outputlog__finalize_8F90.html#a56f7c2d23cc3470b784bdc60f23987eb',1,'test_outputlog_finalize.F90']]],
+  ['runtime_20configuration_12',['Runtime Configuration',['../nuopc_cap.html#RuntimeConfiguration',1,'']]],
+  ['runtype_13',['runtype',['../namespacemom__cap__mod.html#ad56cefdfe78b6f64cfbf67b65eae6e7e',1,'mom_cap_mod']]]
 ];

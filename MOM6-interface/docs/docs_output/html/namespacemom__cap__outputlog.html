@@ -70,7 +70,8 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions/Subroutines</a>  </div>
+<a href="#func-members">Functions/Subroutines</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">mom_cap_outputlog Module Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -86,12 +87,45 @@ Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a63c992951482449c83f6bd9c7de49626" id="r_a63c992951482449c83f6bd9c7de49626"><td class="memItemLeft" align="right" valign="top">subroutine, public&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#a63c992951482449c83f6bd9c7de49626">outputlog_run</a> (mclock, atstoptime, rc)</td></tr>
 <tr class="memdesc:a63c992951482449c83f6bd9c7de49626"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper for logging output at single frequency.  <br /></td></tr>
 <tr class="separator:a63c992951482449c83f6bd9c7de49626"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf152af2b5ff79377f77ac979555bbac" id="r_abf152af2b5ff79377f77ac979555bbac"><td class="memItemLeft" align="right" valign="top">subroutine, public&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#abf152af2b5ff79377f77ac979555bbac">track_freqn</a> (mtime, cf_n, state_n, comm, isroot, rootpe, outputdir, lastrestart, debug_onroot, lstop, rc)</td></tr>
+<tr class="memitem:abf152af2b5ff79377f77ac979555bbac" id="r_abf152af2b5ff79377f77ac979555bbac"><td class="memItemLeft" align="right" valign="top">subroutine, public&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#abf152af2b5ff79377f77ac979555bbac">track_freqn</a> (mtime, cf_n, state_n, comm, isroot, rootpe, <a class="el" href="namespacemom__cap__outputlog.html#ad845115e7fc26077fee28418fd50a67a">outputdir</a>, <a class="el" href="namespacemom__cap__outputlog.html#ab6710c7fd3664719466c5003c2a43278">lastrestart</a>, <a class="el" href="namespacemom__cap__outputlog.html#ac1d5119536f4bb3762cf13f6f6b6c029">debug_onroot</a>, lstop, rc)</td></tr>
 <tr class="memdesc:abf152af2b5ff79377f77ac979555bbac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Track and log file state at single output-frequency alarm.  <br /></td></tr>
 <tr class="separator:abf152af2b5ff79377f77ac979555bbac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af85f24b5e98f54d3ac8497288891c97d" id="r_af85f24b5e98f54d3ac8497288891c97d"><td class="memItemLeft" align="right" valign="top">subroutine, public&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#af85f24b5e98f54d3ac8497288891c97d">outputlog_restart</a> (mclock, num_rest_files, rc)</td></tr>
 <tr class="memdesc:af85f24b5e98f54d3ac8497288891c97d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check all restart files to determine if output has been completed.  <br /></td></tr>
 <tr class="separator:af85f24b5e98f54d3ac8497288891c97d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a0e356492086e39c2bd19be826b9354a0" id="r_a0e356492086e39c2bd19be826b9354a0"><td class="memItemLeft" align="right" valign="top">integer, parameter&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#a0e356492086e39c2bd19be826b9354a0">n_freq</a> = 4</td></tr>
+<tr class="separator:a0e356492086e39c2bd19be826b9354a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4ea6d5a8480721a9c8191e8d72745bd" id="r_ac4ea6d5a8480721a9c8191e8d72745bd"><td class="memItemLeft" align="right" valign="top">integer, dimension(<a class="el" href="namespacemom__cap__outputlog.html#a0e356492086e39c2bd19be826b9354a0">n_freq</a>), parameter&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#ac4ea6d5a8480721a9c8191e8d72745bd">freq</a> = (/1, 3, 6, 24/)</td></tr>
+<tr class="separator:ac4ea6d5a8480721a9c8191e8d72745bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e0f7ab6efbb7e2a40f5eea90f7fa018" id="r_a1e0f7ab6efbb7e2a40f5eea90f7fa018"><td class="memItemLeft" align="right" valign="top">type(<a class="el" href="structmom__outputlog__methods_1_1outputlog__config__type.html">outputlog_config_type</a>), dimension(<a class="el" href="namespacemom__cap__outputlog.html#a0e356492086e39c2bd19be826b9354a0">n_freq</a>)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#a1e0f7ab6efbb7e2a40f5eea90f7fa018">cf</a></td></tr>
+<tr class="separator:a1e0f7ab6efbb7e2a40f5eea90f7fa018"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86d1f659c76da888f41c943475f0dbc2" id="r_a86d1f659c76da888f41c943475f0dbc2"><td class="memItemLeft" align="right" valign="top">type(<a class="el" href="structmom__outputlog__methods_1_1outputlog__state__type.html">outputlog_state_type</a>), dimension(<a class="el" href="namespacemom__cap__outputlog.html#a0e356492086e39c2bd19be826b9354a0">n_freq</a>)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#a86d1f659c76da888f41c943475f0dbc2">state</a></td></tr>
+<tr class="separator:a86d1f659c76da888f41c943475f0dbc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76fb35c8098769b537bd0bad77e82eda" id="r_a76fb35c8098769b537bd0bad77e82eda"><td class="memItemLeft" align="right" valign="top">type(<a class="el" href="structmom__outputlog__methods_1_1outputlog__modeltime__type.html">outputlog_modeltime_type</a>)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#a76fb35c8098769b537bd0bad77e82eda">modeltime</a></td></tr>
+<tr class="separator:a76fb35c8098769b537bd0bad77e82eda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b49f7e0d0d4508119010fcce92592d2" id="r_a4b49f7e0d0d4508119010fcce92592d2"><td class="memItemLeft" align="right" valign="top">type(esmf_vm)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#a4b49f7e0d0d4508119010fcce92592d2">vm</a></td></tr>
+<tr class="separator:a4b49f7e0d0d4508119010fcce92592d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6710c7fd3664719466c5003c2a43278" id="r_ab6710c7fd3664719466c5003c2a43278"><td class="memItemLeft" align="right" valign="top">type(esmf_time)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#ab6710c7fd3664719466c5003c2a43278">lastrestart</a></td></tr>
+<tr class="separator:ab6710c7fd3664719466c5003c2a43278"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac63679bf3975761315a17781ce6a4e1b" id="r_ac63679bf3975761315a17781ce6a4e1b"><td class="memItemLeft" align="right" valign="top">type(mpi_comm)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#ac63679bf3975761315a17781ce6a4e1b">mpicomm</a></td></tr>
+<tr class="separator:ac63679bf3975761315a17781ce6a4e1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4aa380c29aace54850ec4b9965b3bc33" id="r_a4aa380c29aace54850ec4b9965b3bc33"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#a4aa380c29aace54850ec4b9965b3bc33">toffset</a></td></tr>
+<tr class="separator:a4aa380c29aace54850ec4b9965b3bc33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace10dd5da2eab29be760a93aab825589" id="r_ace10dd5da2eab29be760a93aab825589"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#ace10dd5da2eab29be760a93aab825589">nfiles</a></td></tr>
+<tr class="separator:ace10dd5da2eab29be760a93aab825589"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1d5119536f4bb3762cf13f6f6b6c029" id="r_ac1d5119536f4bb3762cf13f6f6b6c029"><td class="memItemLeft" align="right" valign="top">logical&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#ac1d5119536f4bb3762cf13f6f6b6c029">debug_onroot</a></td></tr>
+<tr class="separator:ac1d5119536f4bb3762cf13f6f6b6c029"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0480a093179e02032d33361dd9769fd" id="r_ac0480a093179e02032d33361dd9769fd"><td class="memItemLeft" align="right" valign="top">character(len=256)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#ac0480a093179e02032d33361dd9769fd">restartdir</a></td></tr>
+<tr class="separator:ac0480a093179e02032d33361dd9769fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad845115e7fc26077fee28418fd50a67a" id="r_ad845115e7fc26077fee28418fd50a67a"><td class="memItemLeft" align="right" valign="top">character(len=256)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#ad845115e7fc26077fee28418fd50a67a">outputdir</a></td></tr>
+<tr class="separator:ad845115e7fc26077fee28418fd50a67a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26de413f515e4563b3de6ab10585ea45" id="r_a26de413f515e4563b3de6ab10585ea45"><td class="memItemLeft" align="right" valign="top">character(len=256)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#a26de413f515e4563b3de6ab10585ea45">errmsg</a></td></tr>
+<tr class="separator:a26de413f515e4563b3de6ab10585ea45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9813ad21e5c7ee0542be1387c38d2f1f" id="r_a9813ad21e5c7ee0542be1387c38d2f1f"><td class="memItemLeft" align="right" valign="top">character(len= *), parameter&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#a9813ad21e5c7ee0542be1387c38d2f1f">u_file_u</a> = __FILE__</td></tr>
+<tr class="separator:a9813ad21e5c7ee0542be1387c38d2f1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This module contains a set of subroutines that check if MOM restart and history files have been written and closed. This file is specific to UWM operational requirements and configurations (eg specific output frequencies in hours) and may break if used outside the scope of intended use. This module is a stub when CESMCOUPLED is defined. </p>
@@ -135,7 +169,7 @@ Functions/Subroutines</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Initialize a set of Alarms at the allowed output frequencies. </p>
-<p><code>outputlog_init</code> is called from mom_cap::ModelSetRunClock </p>
+<p><code>outputlog_init</code> is called from MOM_cap_mod::ModelSetRunClock </p>
 
 </div>
 </div>
@@ -324,6 +358,337 @@ Functions/Subroutines</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a1e0f7ab6efbb7e2a40f5eea90f7fa018" name="a1e0f7ab6efbb7e2a40f5eea90f7fa018"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e0f7ab6efbb7e2a40f5eea90f7fa018">&#9670;&#160;</a></span>cf</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">type(<a class="el" href="structmom__outputlog__methods_1_1outputlog__config__type.html">outputlog_config_type</a>), dimension(<a class="el" href="namespacemom__cap__outputlog.html#a0e356492086e39c2bd19be826b9354a0">n_freq</a>) mom_cap_outputlog::cf</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac1d5119536f4bb3762cf13f6f6b6c029" name="ac1d5119536f4bb3762cf13f6f6b6c029"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1d5119536f4bb3762cf13f6f6b6c029">&#9670;&#160;</a></span>debug_onroot</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">logical mom_cap_outputlog::debug_onroot</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a26de413f515e4563b3de6ab10585ea45" name="a26de413f515e4563b3de6ab10585ea45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26de413f515e4563b3de6ab10585ea45">&#9670;&#160;</a></span>errmsg</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">character(len=256) mom_cap_outputlog::errmsg</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac4ea6d5a8480721a9c8191e8d72745bd" name="ac4ea6d5a8480721a9c8191e8d72745bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4ea6d5a8480721a9c8191e8d72745bd">&#9670;&#160;</a></span>freq</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">integer, dimension(<a class="el" href="namespacemom__cap__outputlog.html#a0e356492086e39c2bd19be826b9354a0">n_freq</a>), parameter mom_cap_outputlog::freq = (/1, 3, 6, 24/)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab6710c7fd3664719466c5003c2a43278" name="ab6710c7fd3664719466c5003c2a43278"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6710c7fd3664719466c5003c2a43278">&#9670;&#160;</a></span>lastrestart</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">type(esmf_time) mom_cap_outputlog::lastrestart</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a76fb35c8098769b537bd0bad77e82eda" name="a76fb35c8098769b537bd0bad77e82eda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76fb35c8098769b537bd0bad77e82eda">&#9670;&#160;</a></span>modeltime</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">type(<a class="el" href="structmom__outputlog__methods_1_1outputlog__modeltime__type.html">outputlog_modeltime_type</a>) mom_cap_outputlog::modeltime</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac63679bf3975761315a17781ce6a4e1b" name="ac63679bf3975761315a17781ce6a4e1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac63679bf3975761315a17781ce6a4e1b">&#9670;&#160;</a></span>mpicomm</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">type(mpi_comm) mom_cap_outputlog::mpicomm</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0e356492086e39c2bd19be826b9354a0" name="a0e356492086e39c2bd19be826b9354a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e356492086e39c2bd19be826b9354a0">&#9670;&#160;</a></span>n_freq</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">integer, parameter mom_cap_outputlog::n_freq = 4</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ace10dd5da2eab29be760a93aab825589" name="ace10dd5da2eab29be760a93aab825589"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace10dd5da2eab29be760a93aab825589">&#9670;&#160;</a></span>nfiles</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">integer mom_cap_outputlog::nfiles</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad845115e7fc26077fee28418fd50a67a" name="ad845115e7fc26077fee28418fd50a67a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad845115e7fc26077fee28418fd50a67a">&#9670;&#160;</a></span>outputdir</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">character(len=256) mom_cap_outputlog::outputdir</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac0480a093179e02032d33361dd9769fd" name="ac0480a093179e02032d33361dd9769fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0480a093179e02032d33361dd9769fd">&#9670;&#160;</a></span>restartdir</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">character(len=256) mom_cap_outputlog::restartdir</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a86d1f659c76da888f41c943475f0dbc2" name="a86d1f659c76da888f41c943475f0dbc2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86d1f659c76da888f41c943475f0dbc2">&#9670;&#160;</a></span>state</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">type(<a class="el" href="structmom__outputlog__methods_1_1outputlog__state__type.html">outputlog_state_type</a>), dimension(<a class="el" href="namespacemom__cap__outputlog.html#a0e356492086e39c2bd19be826b9354a0">n_freq</a>) mom_cap_outputlog::state</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4aa380c29aace54850ec4b9965b3bc33" name="a4aa380c29aace54850ec4b9965b3bc33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4aa380c29aace54850ec4b9965b3bc33">&#9670;&#160;</a></span>toffset</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">integer mom_cap_outputlog::toffset</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9813ad21e5c7ee0542be1387c38d2f1f" name="a9813ad21e5c7ee0542be1387c38d2f1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9813ad21e5c7ee0542be1387c38d2f1f">&#9670;&#160;</a></span>u_file_u</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">character(len=*), parameter mom_cap_outputlog::u_file_u = __FILE__</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4b49f7e0d0d4508119010fcce92592d2" name="a4b49f7e0d0d4508119010fcce92592d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b49f7e0d0d4508119010fcce92592d2">&#9670;&#160;</a></span>vm</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">type(esmf_vm) mom_cap_outputlog::vm</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

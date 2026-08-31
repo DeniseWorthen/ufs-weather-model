@@ -27,6 +27,8 @@ logical function, public \mbox{\hyperlink{namespacemom__outputlog__methods_acbdd
 \begin{DoxyCompactList}\small\item\em Determine if the netcdf output file is complete. \end{DoxyCompactList}\item 
 logical function, dimension(size(validfreqs)), public \mbox{\hyperlink{namespacemom__outputlog__methods_ae9a73a9bbd24f701409dec36860d8cda}{mom\+\_\+outputlog\+\_\+methods\+::setrequest}} (validfreqs, requested\+\_\+fh, errmsg, ierr)
 \begin{DoxyCompactList}\small\item\em Validate requested output frequencies from namelist entries. \end{DoxyCompactList}\item 
+integer function \mbox{\hyperlink{namespacemom__outputlog__methods_abc6f1c4671b9882ce05d2f9dbef5d0c0}{mom\+\_\+outputlog\+\_\+methods\+::find\+\_\+nml\+\_\+slot}} (nml\+\_\+fh, target\+\_\+freq)
+\begin{DoxyCompactList}\small\item\em Helper function to locate index of namelist provided frequency in array of valid frequencies. \end{DoxyCompactList}\item 
 character(len=7) function, dimension(size(validfreqs)), public \mbox{\hyperlink{namespacemom__outputlog__methods_a8aef7363b9c3db9f50680550aa424142}{mom\+\_\+outputlog\+\_\+methods\+::settype}} (validfreqs, requested, nml\+\_\+fh, nml\+\_\+type, errmsg, ierr)
 \begin{DoxyCompactList}\small\item\em Determine output reduction type for each requested frequency. \end{DoxyCompactList}\item 
 character(len=13) function, dimension(size(validfreqs)), public \mbox{\hyperlink{namespacemom__outputlog__methods_a3c75154a7a43034d43a8dde6fe204f41}{mom\+\_\+outputlog\+\_\+methods\+::setprefix}} (validfreqs, requested, nml\+\_\+fh, nml\+\_\+fnameprefix, errmsg, ierr)

@@ -1,26 +1,4 @@
 var searchData=
 [
-  ['s_5fsurf_0',['s_surf',['../structmom__ocean__model__nuopc_1_1ocean__public__type.html#a7d699efd318cefff989d5daa3b80d8ad',1,'mom_ocean_model_nuopc::ocean_public_type']]],
-  ['salt_5fflux_1',['salt_flux',['../structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type.html#abfc7e0ef67147ca76ed064d6e2f0ae5c',1,'mom_surface_forcing_nuopc::ice_ocean_boundary_type']]],
-  ['salt_5frestore_5fas_5fsflux_2',['salt_restore_as_sflux',['../structmom__surface__forcing__nuopc_1_1surface__forcing__cs.html#ae7917749fb9b389fb328f33c36f3ded5',1,'mom_surface_forcing_nuopc::surface_forcing_cs']]],
-  ['salt_5frestore_5ffile_3',['salt_restore_file',['../structmom__surface__forcing__nuopc_1_1surface__forcing__cs.html#a1f01a9da763b9b9cab25e3b562629c6b',1,'mom_surface_forcing_nuopc::surface_forcing_cs']]],
-  ['salt_5frestore_5fvar_5fname_4',['salt_restore_var_name',['../structmom__surface__forcing__nuopc_1_1surface__forcing__cs.html#ac533a0462834f8ce3070e434201a48c5',1,'mom_surface_forcing_nuopc::surface_forcing_cs']]],
-  ['sea_5flev_5',['sea_lev',['../structmom__ocean__model__nuopc_1_1ocean__public__type.html#a34a4420868849167e2ae5be4477628b7',1,'mom_ocean_model_nuopc::ocean_public_type']]],
-  ['seaice_5fbc_5fflux_6',['seaice_bc_flux',['../structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type.html#a4ee1c89b32a7b9573d0adbce3e670b55',1,'mom_surface_forcing_nuopc::ice_ocean_boundary_type']]],
-  ['seaice_5fdust_5fflux_7',['seaice_dust_flux',['../structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type.html#ab72afe12ae4ec0c5693a1ff74cec460a',1,'mom_surface_forcing_nuopc::ice_ocean_boundary_type']]],
-  ['seaice_5fmelt_8',['seaice_melt',['../structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type.html#a1146f1f89f3007d2c1b5e4ae44a4d7b6',1,'mom_surface_forcing_nuopc::ice_ocean_boundary_type']]],
-  ['seaice_5fmelt_5fheat_9',['seaice_melt_heat',['../structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type.html#ad0c1ef1bfd566fb47d287442ff38d400',1,'mom_surface_forcing_nuopc::ice_ocean_boundary_type']]],
-  ['sfc_5fstate_10',['sfc_state',['../structmom__ocean__model__nuopc_1_1ocean__state__type.html#a2e11c6c50720ab24ea06df9af2408dea',1,'mom_ocean_model_nuopc::ocean_state_type']]],
-  ['single_5fstep_5fcall_11',['single_step_call',['../structmom__ocean__model__nuopc_1_1ocean__state__type.html#aa1a288a3472f0c321efcb598eb5c107e',1,'mom_ocean_model_nuopc::ocean_state_type']]],
-  ['srestore_5fhandle_12',['srestore_handle',['../structmom__surface__forcing__nuopc_1_1surface__forcing__cs.html#a7875f6754a807ba82de01ab9d5923c27',1,'mom_surface_forcing_nuopc::surface_forcing_cs']]],
-  ['srestore_5fmask_13',['srestore_mask',['../structmom__surface__forcing__nuopc_1_1surface__forcing__cs.html#a5ab9d0bd3817027fad6eda511ff35076',1,'mom_surface_forcing_nuopc::surface_forcing_cs']]],
-  ['stagger_14',['stagger',['../structmom__ocean__model__nuopc_1_1ocean__public__type.html#ab7fcecb1efa3fac0cb23ccdd60a892e1',1,'mom_ocean_model_nuopc::ocean_public_type']]],
-  ['starttime_15',['starttime',['../structmom__outputlog__methods_1_1outputlog__modeltime__type.html#ab7e7ce30f39797ad6388c11d78140086',1,'mom_outputlog_methods::outputlog_modeltime_type']]],
-  ['stk_5fwavenumbers_16',['stk_wavenumbers',['../structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type.html#a99d5fe9e06a6661d3452ad70ce2f321c',1,'mom_surface_forcing_nuopc::ice_ocean_boundary_type']]],
-  ['sw_5fflux_5fnir_5fdif_17',['sw_flux_nir_dif',['../structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type.html#a4351bb9df10c2c6a6d0328439bb33119',1,'mom_surface_forcing_nuopc::ice_ocean_boundary_type']]],
-  ['sw_5fflux_5fnir_5fdir_18',['sw_flux_nir_dir',['../structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type.html#abd90bca5605902843386b7dfe92c970b',1,'mom_surface_forcing_nuopc::ice_ocean_boundary_type']]],
-  ['sw_5fflux_5fvis_5fdif_19',['sw_flux_vis_dif',['../structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type.html#a7addd1f14bf0bff3fdb8423213f811ab',1,'mom_surface_forcing_nuopc::ice_ocean_boundary_type']]],
-  ['sw_5fflux_5fvis_5fdir_20',['sw_flux_vis_dir',['../structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type.html#a424ac2b628add38dcca250d7919eed83',1,'mom_surface_forcing_nuopc::ice_ocean_boundary_type']]],
-  ['swnet_5fafracr_21',['swnet_afracr',['../structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type.html#a3c76b03125842520578bd6e7be82704e',1,'mom_surface_forcing_nuopc::ice_ocean_boundary_type']]],
-  ['swpen_5fifrac_5fn_22',['swpen_ifrac_n',['../structmom__surface__forcing__nuopc_1_1ice__ocean__boundary__type.html#a84b4323d8175b9fadb77a16577c65520',1,'mom_surface_forcing_nuopc::ice_ocean_boundary_type']]]
+  ['vm_0',['vm',['../namespacemom__cap__outputlog.html#a4b49f7e0d0d4508119010fcce92592d2',1,'mom_cap_outputlog']]]
 ];

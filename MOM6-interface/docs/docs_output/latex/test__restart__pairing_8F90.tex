@@ -6,7 +6,9 @@
 program \mbox{\hyperlink{test__restart__pairing_8F90_a11e320af958485ca6a59d3a2affd270e}{test\+\_\+restart\+\_\+pairing}}
 \begin{DoxyCompactList}\small\item\em Restart-\/pairing test for track\+\_\+freqn. \end{DoxyCompactList}\item 
 subroutine \mbox{\hyperlink{test__restart__pairing_8F90_ad10f1eb2528af523c332873e4a7bd848}{run\+\_\+case}} (test, freq, start\+\_\+hour, runhours, restart\+\_\+freq, is\+\_\+passing, failmsg)
-\begin{DoxyCompactList}\small\item\em Drives track\+\_\+freqn through one run, with a real ESMF clock/alarm and realistic FMS-\/lag history fixtures (matching test\+\_\+freqn\textquotesingle{}s own structure), while independently driving lastrestart per restart\+\_\+freq (no lag -- restarts are complete the instant their own hour arrives). At every real completion, asserts state\+\_\+ntime\+\_\+lastrestart against an externally-\/derived expected value. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Drives track\+\_\+freqn through one run, with a real ESMF clock/alarm and realistic FMS-\/lag history fixtures (matching test\+\_\+freqn\textquotesingle{}s own structure), while independently driving lastrestart per restart\+\_\+freq (no lag -- restarts are complete the instant their own hour arrives). At every real completion, asserts state\+\_\+ntime\+\_\+lastrestart against an externally-\/derived expected value. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{test__restart__pairing_8F90_a126bca32ebfd666f9dade0195aa4c8cc}{verify\+\_\+completion}} ()
+\begin{DoxyCompactList}\small\item\em Called once per real completion\+: verifies state\+\_\+ntime\+\_\+lastrestart against the externally-\/derived expected value for this completion. Does NOT call log\+\_\+restart\+\_\+fh or check its output -- track\+\_\+freqn itself never calls it (that happens in outputlog\+\_\+run, which this test doesn\textquotesingle{}t exercise), so doing so here would only confirm log\+\_\+restart\+\_\+fh formats whatever we hand it correctly, not anything about track\+\_\+freqn\textquotesingle{}s own behavior. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Function/\+Subroutine Documentation}
@@ -41,3 +43,13 @@ Case 1 only (freq=6, start=6, restart\+\_\+freq=15, runhours=36) -- case 2 (freq
 \begin{DoxyDate}{Date}
 08-\/28-\/2026 
 \end{DoxyDate}
+\Hypertarget{test__restart__pairing_8F90_a126bca32ebfd666f9dade0195aa4c8cc}\label{test__restart__pairing_8F90_a126bca32ebfd666f9dade0195aa4c8cc} 
+\index{test\_restart\_pairing.F90@{test\_restart\_pairing.F90}!verify\_completion@{verify\_completion}}
+\index{verify\_completion@{verify\_completion}!test\_restart\_pairing.F90@{test\_restart\_pairing.F90}}
+\doxysubsubsection{\texorpdfstring{verify\_completion()}{verify\_completion()}}
+{\footnotesize\ttfamily subroutine run\+\_\+case\+::verify\+\_\+completion\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Called once per real completion\+: verifies state\+\_\+ntime\+\_\+lastrestart against the externally-\/derived expected value for this completion. Does NOT call log\+\_\+restart\+\_\+fh or check its output -- track\+\_\+freqn itself never calls it (that happens in outputlog\+\_\+run, which this test doesn\textquotesingle{}t exercise), so doing so here would only confirm log\+\_\+restart\+\_\+fh formats whatever we hand it correctly, not anything about track\+\_\+freqn\textquotesingle{}s own behavior. 
+

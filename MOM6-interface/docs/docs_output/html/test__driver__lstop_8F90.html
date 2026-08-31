@@ -87,6 +87,8 @@ Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a6982bc91b7051620d5e54cff236441a2" id="r_a6982bc91b7051620d5e54cff236441a2"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__driver__lstop_8F90.html#a6982bc91b7051620d5e54cff236441a2">run_case</a> (test, freq, start_hour, runhours, timereduce, use_filesize, nfiles, completions)</td></tr>
 <tr class="memdesc:a6982bc91b7051620d5e54cff236441a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO.  <br /></td></tr>
 <tr class="separator:a6982bc91b7051620d5e54cff236441a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad25da779a203c91093b7760531948ce4" id="r_ad25da779a203c91093b7760531948ce4"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__driver__lstop_8F90.html#ad25da779a203c91093b7760531948ce4">setup_case</a> (start_hour, runhours, freq, l_nfiles, l_timereduce, modelclock, cf_n, state_n, rc)</td></tr>
+<tr class="separator:ad25da779a203c91093b7760531948ce4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function/Subroutine Documentation</h2>
 <a id="a6982bc91b7051620d5e54cff236441a2" name="a6982bc91b7051620d5e54cff236441a2"></a>
@@ -152,6 +154,84 @@ Functions/Subroutines</h2></td></tr>
 </div><div class="memdoc">
 
 <p>TODO. </p>
+
+</div>
+</div>
+<a id="ad25da779a203c91093b7760531948ce4" name="ad25da779a203c91093b7760531948ce4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad25da779a203c91093b7760531948ce4">&#9670;&#160;</a></span>setup_case()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine test_driver_lstop::setup_case </td>
+          <td>(</td>
+          <td class="paramtype">integer, intent(in)&#160;</td>
+          <td class="paramname"><em>start_hour</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer, intent(in)&#160;</td>
+          <td class="paramname"><em>runhours</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer, intent(in)&#160;</td>
+          <td class="paramname"><em>freq</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer, intent(in)&#160;</td>
+          <td class="paramname"><em>l_nfiles</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">character(len=*), intent(in)&#160;</td>
+          <td class="paramname"><em>l_timereduce</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">type(esmf_clock), intent(out)&#160;</td>
+          <td class="paramname"><em>modelclock</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">type(<a class="el" href="structmom__outputlog__methods_1_1outputlog__config__type.html">outputlog_config_type</a>), intent(out)&#160;</td>
+          <td class="paramname"><em>cf_n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">type(<a class="el" href="structmom__outputlog__methods_1_1outputlog__state__type.html">outputlog_state_type</a>), intent(out)&#160;</td>
+          <td class="paramname"><em>state_n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer, intent(out)&#160;</td>
+          <td class="paramname"><em>rc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

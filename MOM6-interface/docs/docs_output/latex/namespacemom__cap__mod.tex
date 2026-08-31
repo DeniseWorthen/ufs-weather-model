@@ -5,15 +5,110 @@
 This module contains a set of subroutines that are required by NUOPC.  
 
 
+\doxysubsubsection*{Data Types}
+\begin{DoxyCompactItemize}
+\item 
+type \mbox{\hyperlink{structmom__cap__mod_1_1fld__list__type}{fld\+\_\+list\+\_\+type}}
+\begin{DoxyCompactList}\small\item\em Contains field information. \end{DoxyCompactList}\item 
+type \mbox{\hyperlink{structmom__cap__mod_1_1ocean__internalstate__type}{ocean\+\_\+internalstate\+\_\+type}}
+\begin{DoxyCompactList}\small\item\em Internal state type with pointers to three types defined by MOM. \end{DoxyCompactList}\item 
+type \mbox{\hyperlink{structmom__cap__mod_1_1ocean__internalstate__wrapper}{ocean\+\_\+internalstate\+\_\+wrapper}}
+\begin{DoxyCompactList}\small\item\em Wrapper-\/derived type required to associate an internal state instance with the ESMF/\+NUOPC component. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Functions/\+Subroutines}
 \begin{DoxyCompactItemize}
 \item 
 subroutine, public \mbox{\hyperlink{namespacemom__cap__mod_ae0439afc4c901d9850515768bdaaed09}{setservices}} (gcomp, rc)
-\begin{DoxyCompactList}\small\item\em NUOPC Set\+Service method is the only public entry point. Set\+Services registers all of the user-\/provided subroutines in the module with the NUOPC layer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em NUOPC Set\+Service method is the only public entry point. Set\+Services registers all of the user-\/provided subroutines in the module with the NUOPC layer. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacemom__cap__mod_a3f945772f833a0eb55af0991919337e5}{initializep0}} (gcomp, importstate, exportstate, clock, rc)
+\begin{DoxyCompactList}\small\item\em First initialize subroutine called by NUOPC. The purpose is to set which version of the Initialize Phase Definition (IPD) to use. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacemom__cap__mod_a062004198a3dc21f240e7858d528b4fb}{initializeadvertise}} (gcomp, importstate, exportstate, clock, rc)
+\begin{DoxyCompactList}\small\item\em Called by NUOPC to advertise import and export fields. "{}\+Advertise"{} simply means that the standard names of all import and export fields are supplied. The NUOPC layer uses these to match fields between components in the coupled system. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacemom__cap__mod_a772aaa2e35d505484723dcebc5027e66}{initializerealize}} (gcomp, importstate, exportstate, clock, rc)
+\begin{DoxyCompactList}\small\item\em Called by NUOPC to realize import and export fields. "{}\+Realizing"{} a field means that its grid has been defined and an ESMF\+\_\+\+Field object has been created and put into the import or export State. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacemom__cap__mod_acadf328859aac6eb57b5c508f3f73b61}{datainitialize}} (gcomp, rc)
+\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacemom__cap__mod_aecd83368409a9c059ca3313e25391a0b}{modeladvance}} (gcomp, rc)
+\begin{DoxyCompactList}\small\item\em Called by NUOPC to advance the model a single timestep. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacemom__cap__mod_a5ac6a66c943ef7933973ed155a81dd91}{modelsetrunclock}} (gcomp, rc)
+\item 
+subroutine \mbox{\hyperlink{namespacemom__cap__mod_a9b7799c15a6eeadc1d286ce4d37163e6}{ocean\+\_\+model\+\_\+finalize}} (gcomp, rc)
+\begin{DoxyCompactList}\small\item\em Called by NUOPC at the end of the run to clean up. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacemom__cap__mod_aee8bf289ec5f309c4e9b7c0ed9cda04f}{state\+\_\+setscalar}} (value, scalar\+\_\+id, state, mytask, scalar\+\_\+name, scalar\+\_\+count, rc)
+\begin{DoxyCompactList}\small\item\em Set scalar data from state for a particula name. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacemom__cap__mod_aff05ba33d3acc5d6018feecdbd88e094}{mom\+\_\+realizefields}} (state, nfields, field\+\_\+defs, tag, ice\+\_\+ocean\+\_\+boundary, grid, mesh, rc)
+\begin{DoxyCompactList}\small\item\em Realize the import and export fields using either a grid or a mesh. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacemom__cap__mod_a33b2a56839dfa97a8262c68ba30f6f04}{fld\+\_\+list\+\_\+add}} (num, fldlist, stdname, transferoffer, shortname, ungridded\+\_\+lbound, ungridded\+\_\+ubound)
+\begin{DoxyCompactList}\small\item\em Set up list of field information. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{namespacemom__cap__mod_a21809d24a85da674b0f71ec068490049}{shr\+\_\+log\+\_\+setlogunit}} (nunit)
+\end{DoxyCompactItemize}
 \doxysubsubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
 integer, parameter \mbox{\hyperlink{namespacemom__cap__mod_a0ed5e7e790ddbb9f8d7152264ca28d0f}{fldsmax}} = 100
+\item 
+integer \mbox{\hyperlink{namespacemom__cap__mod_a49361c7b41259416fa2c6b08a6bac193}{fldstoocn\+\_\+num}} = 0
+\item 
+type(\mbox{\hyperlink{structmom__cap__mod_1_1fld__list__type}{fld\+\_\+list\+\_\+type}}), dimension(\mbox{\hyperlink{namespacemom__cap__mod_a0ed5e7e790ddbb9f8d7152264ca28d0f}{fldsmax}}) \mbox{\hyperlink{namespacemom__cap__mod_a5f0c52bdc4d9687b0c2f882a9ecc202b}{fldstoocn}}
+\item 
+integer \mbox{\hyperlink{namespacemom__cap__mod_ad948593abdb8da7fa79b69505913dc95}{fldsfrocn\+\_\+num}} = 0
+\item 
+type(\mbox{\hyperlink{structmom__cap__mod_1_1fld__list__type}{fld\+\_\+list\+\_\+type}}), dimension(\mbox{\hyperlink{namespacemom__cap__mod_a0ed5e7e790ddbb9f8d7152264ca28d0f}{fldsmax}}) \mbox{\hyperlink{namespacemom__cap__mod_aee3e3b3a693970aa5f79b3ba8ca97d35}{fldsfrocn}}
+\item 
+integer \mbox{\hyperlink{namespacemom__cap__mod_a970c6a1cb8beccf8ea72b4dd392c1418}{dbug}} = 0
+\item 
+integer \mbox{\hyperlink{namespacemom__cap__mod_a2c76d05cdca9c737e6a460df1bfadbbd}{import\+\_\+slice}} = 1
+\item 
+integer \mbox{\hyperlink{namespacemom__cap__mod_aa08ee7a9fc2f2a7e374db32013526765}{export\+\_\+slice}} = 1
+\item 
+character(len=256) \mbox{\hyperlink{namespacemom__cap__mod_ac0eecd812f3619a4648e2f9386b58fe3}{tmpstr}}
+\item 
+logical \mbox{\hyperlink{namespacemom__cap__mod_a87f074f197c71e76f3ceb5265c12ea42}{write\+\_\+diagnostics}} = .false.
+\item 
+logical \mbox{\hyperlink{namespacemom__cap__mod_a6df1d28111df6b48514eb3fa8b8a0806}{overwrite\+\_\+timeslice}} = .false.
+\item 
+logical \mbox{\hyperlink{namespacemom__cap__mod_a161c35594bd3e9aee09ff2adff7b331e}{write\+\_\+runtimelog}} = .false.
+\item 
+character(len=32) \mbox{\hyperlink{namespacemom__cap__mod_ad56cefdfe78b6f64cfbf67b65eae6e7e}{runtype}}
+\begin{DoxyCompactList}\small\item\em run type \end{DoxyCompactList}\item 
+logical \mbox{\hyperlink{namespacemom__cap__mod_ad4760bc5e6def07188f5fb61e09a2de1}{profile\+\_\+memory}} = .true.
+\item 
+logical \mbox{\hyperlink{namespacemom__cap__mod_a2007af76dfd1960bd6162c3bdd2b0ed1}{grid\+\_\+attach\+\_\+area}} = .false.
+\item 
+logical \mbox{\hyperlink{namespacemom__cap__mod_a7deb6bf08d4de5a92bd46a155a575b97}{use\+\_\+coldstart}} = .true.
+\item 
+logical \mbox{\hyperlink{namespacemom__cap__mod_a1a6ff416c7149cdcdab3b3148930fbfc}{use\+\_\+mommesh}} = .true.
+\item 
+logical \mbox{\hyperlink{namespacemom__cap__mod_abd56213117ea1a3931ae9d380832557e}{set\+\_\+missing\+\_\+stks\+\_\+to\+\_\+zero}} = .false.
+\item 
+logical \mbox{\hyperlink{namespacemom__cap__mod_ad3c19c43434afed11076e3a36985f986}{restart\+\_\+eor}} = .false.
+\item 
+logical \mbox{\hyperlink{namespacemom__cap__mod_a58e64beed30fca9ca44046a7ec53a39b}{use\+\_\+cdeps\+\_\+inline}} = .false.
+\item 
+character(len=128) \mbox{\hyperlink{namespacemom__cap__mod_ac2e1656025fcc390497d059868d547aa}{scalar\+\_\+field\+\_\+name}} = \textquotesingle{}\textquotesingle{}
+\item 
+integer \mbox{\hyperlink{namespacemom__cap__mod_aa34836ca41b881b490713afae1ce5b82}{scalar\+\_\+field\+\_\+count}} = 0
+\item 
+integer \mbox{\hyperlink{namespacemom__cap__mod_ac69f1371ebbd90dfc117e54846cc90bb}{scalar\+\_\+field\+\_\+idx\+\_\+grid\+\_\+nx}} = 0
+\item 
+integer \mbox{\hyperlink{namespacemom__cap__mod_ae36725fbbb9270b498c860196e9f0374}{scalar\+\_\+field\+\_\+idx\+\_\+grid\+\_\+ny}} = 0
+\item 
+character(len= \texorpdfstring{$\ast$}{*}), parameter \mbox{\hyperlink{namespacemom__cap__mod_abcd81cf01660d4994dec787589d47616}{u\+\_\+file\+\_\+u}} = \+\_\+\+\_\+\+FILE\+\_\+\+\_\+
+\item 
+logical \mbox{\hyperlink{namespacemom__cap__mod_a9ccb6bc098362e5ea43c44ed67b0be91}{cesm\+\_\+coupled}} = .false.
+\item 
+type(esmf\+\_\+geomtype\+\_\+flag) \mbox{\hyperlink{namespacemom__cap__mod_a2af2a851cf395c0e9bc914c5ca06e5b0}{geomtype}}
+\item 
+type(is\+\_\+restart\+\_\+fh\+\_\+type) \mbox{\hyperlink{namespacemom__cap__mod_abf7bf7614b618cf9b9a5ec9d1c58fe42}{restartfh\+\_\+info}}
+\item 
+character(len=8) \mbox{\hyperlink{namespacemom__cap__mod_ae9a05eeac6bcd279edde9afb127af1da}{restart\+\_\+mode}} = \textquotesingle{}alarms\textquotesingle{}
+\item 
+character(len=16) \mbox{\hyperlink{namespacemom__cap__mod_a7533a7727c0d30f169ccfbb9554b3bc3}{inst\+\_\+suffix}} = \textquotesingle{}\textquotesingle{}
+\item 
+logical \mbox{\hyperlink{namespacemom__cap__mod_af347e9cdbece72b48ff6bd7383191ddc}{pointer\+\_\+date}} = .true.
+\item 
+real(8) \mbox{\hyperlink{namespacemom__cap__mod_a723adda3d40b23bf02e338cef8a5e467}{timere}}
+\item 
+integer \mbox{\hyperlink{namespacemom__cap__mod_ab4b34224065632ab5e73102188c07343}{localpet}} = -\/1
 \end{DoxyCompactItemize}
 
 
@@ -21,6 +116,209 @@ integer, parameter \mbox{\hyperlink{namespacemom__cap__mod_a0ed5e7e790ddbb9f8d71
 This module contains a set of subroutines that are required by NUOPC. 
 
 \doxysubsection{Function/\+Subroutine Documentation}
+\Hypertarget{namespacemom__cap__mod_acadf328859aac6eb57b5c508f3f73b61}\label{namespacemom__cap__mod_acadf328859aac6eb57b5c508f3f73b61} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!datainitialize@{datainitialize}}
+\index{datainitialize@{datainitialize}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{datainitialize()}{datainitialize()}}
+{\footnotesize\ttfamily subroutine mom\+\_\+cap\+\_\+mod\+::datainitialize (\begin{DoxyParamCaption}\item[{type(esmf\+\_\+gridcomp)}]{gcomp,  }\item[{integer, intent(out)}]{rc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+TODO. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em gcomp} & an ESMF\+\_\+\+Grid\+Comp object \\
+\hline
+ & {\em rc} & return code \\
+\hline
+ & {\em gcomp} & ESMF\+\_\+\+Grid\+Comp object \\
+\hline
+\mbox{\texttt{ out}}  & {\em rc} & return code \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacemom__cap__mod_a33b2a56839dfa97a8262c68ba30f6f04}\label{namespacemom__cap__mod_a33b2a56839dfa97a8262c68ba30f6f04} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!fld\_list\_add@{fld\_list\_add}}
+\index{fld\_list\_add@{fld\_list\_add}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{fld\_list\_add()}{fld\_list\_add()}}
+{\footnotesize\ttfamily subroutine mom\+\_\+cap\+\_\+mod\+::fld\+\_\+list\+\_\+add (\begin{DoxyParamCaption}\item[{integer, intent(inout)}]{num,  }\item[{type(\mbox{\hyperlink{structmom__cap__mod_1_1fld__list__type}{fld\+\_\+list\+\_\+type}}), dimension(\+:), intent(inout)}]{fldlist,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{stdname,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{transferoffer,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in), optional}]{shortname,  }\item[{integer, intent(in), optional}]{ungridded\+\_\+lbound,  }\item[{integer, intent(in), optional}]{ungridded\+\_\+ubound }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Set up list of field information. 
+
+\Hypertarget{namespacemom__cap__mod_a062004198a3dc21f240e7858d528b4fb}\label{namespacemom__cap__mod_a062004198a3dc21f240e7858d528b4fb} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!initializeadvertise@{initializeadvertise}}
+\index{initializeadvertise@{initializeadvertise}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{initializeadvertise()}{initializeadvertise()}}
+{\footnotesize\ttfamily subroutine mom\+\_\+cap\+\_\+mod\+::initializeadvertise (\begin{DoxyParamCaption}\item[{type(esmf\+\_\+gridcomp)}]{gcomp,  }\item[{type(esmf\+\_\+state)}]{importstate,  }\item[{type(esmf\+\_\+state)}]{exportstate,  }\item[{type(esmf\+\_\+clock)}]{clock,  }\item[{integer, intent(out)}]{rc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Called by NUOPC to advertise import and export fields. "{}\+Advertise"{} simply means that the standard names of all import and export fields are supplied. The NUOPC layer uses these to match fields between components in the coupled system. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em gcomp} & an ESMF\+\_\+\+Grid\+Comp object \\
+\hline
+ & {\em import\+State} & an ESMF\+\_\+\+State object for import fields \\
+\hline
+ & {\em export\+State} & an ESMF\+\_\+\+State object for export fields \\
+\hline
+ & {\em clock} & an ESMF\+\_\+\+Clock object \\
+\hline
+ & {\em rc} & return code \\
+\hline
+ & {\em gcomp} & ESMF\+\_\+\+Grid\+Comp object \\
+\hline
+ & {\em exportstate} & ESMF\+\_\+\+State object for import/export fields \\
+\hline
+ & {\em clock} & ESMF\+\_\+\+Clock object \\
+\hline
+\mbox{\texttt{ out}}  & {\em rc} & return code \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacemom__cap__mod_a3f945772f833a0eb55af0991919337e5}\label{namespacemom__cap__mod_a3f945772f833a0eb55af0991919337e5} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!initializep0@{initializep0}}
+\index{initializep0@{initializep0}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{initializep0()}{initializep0()}}
+{\footnotesize\ttfamily subroutine mom\+\_\+cap\+\_\+mod\+::initializep0 (\begin{DoxyParamCaption}\item[{type(esmf\+\_\+gridcomp)}]{gcomp,  }\item[{type(esmf\+\_\+state)}]{importstate,  }\item[{type(esmf\+\_\+state)}]{exportstate,  }\item[{type(esmf\+\_\+clock)}]{clock,  }\item[{integer, intent(out)}]{rc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+First initialize subroutine called by NUOPC. The purpose is to set which version of the Initialize Phase Definition (IPD) to use. 
+
+For this MOM cap, we are using IPDv01.
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em gcomp} & an ESMF\+\_\+\+Grid\+Comp object \\
+\hline
+ & {\em import\+State} & an ESMF\+\_\+\+State object for import fields \\
+\hline
+ & {\em export\+State} & an ESMF\+\_\+\+State object for export fields \\
+\hline
+ & {\em clock} & an ESMF\+\_\+\+Clock object \\
+\hline
+ & {\em rc} & return code \\
+\hline
+ & {\em gcomp} & ESMF\+\_\+\+Grid\+Comp object \\
+\hline
+ & {\em exportstate} & ESMF\+\_\+\+State object for import/export fields \\
+\hline
+ & {\em clock} & ESMF\+\_\+\+Clock object \\
+\hline
+\mbox{\texttt{ out}}  & {\em rc} & return code \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacemom__cap__mod_a772aaa2e35d505484723dcebc5027e66}\label{namespacemom__cap__mod_a772aaa2e35d505484723dcebc5027e66} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!initializerealize@{initializerealize}}
+\index{initializerealize@{initializerealize}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{initializerealize()}{initializerealize()}}
+{\footnotesize\ttfamily subroutine mom\+\_\+cap\+\_\+mod\+::initializerealize (\begin{DoxyParamCaption}\item[{type(esmf\+\_\+gridcomp)}]{gcomp,  }\item[{type(esmf\+\_\+state)}]{importstate,  }\item[{type(esmf\+\_\+state)}]{exportstate,  }\item[{type(esmf\+\_\+clock)}]{clock,  }\item[{integer, intent(out)}]{rc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Called by NUOPC to realize import and export fields. "{}\+Realizing"{} a field means that its grid has been defined and an ESMF\+\_\+\+Field object has been created and put into the import or export State. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em gcomp} & an ESMF\+\_\+\+Grid\+Comp object \\
+\hline
+ & {\em import\+State} & an ESMF\+\_\+\+State object for import fields \\
+\hline
+ & {\em export\+State} & an ESMF\+\_\+\+State object for export fields \\
+\hline
+ & {\em clock} & an ESMF\+\_\+\+Clock object \\
+\hline
+ & {\em rc} & return code \\
+\hline
+ & {\em gcomp} & ESMF\+\_\+\+Grid\+Comp object \\
+\hline
+ & {\em exportstate} & ESMF\+\_\+\+State object for import/export fields \\
+\hline
+ & {\em clock} & ESMF\+\_\+\+Clock object \\
+\hline
+\mbox{\texttt{ out}}  & {\em rc} & return code \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacemom__cap__mod_aecd83368409a9c059ca3313e25391a0b}\label{namespacemom__cap__mod_aecd83368409a9c059ca3313e25391a0b} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!modeladvance@{modeladvance}}
+\index{modeladvance@{modeladvance}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{modeladvance()}{modeladvance()}}
+{\footnotesize\ttfamily subroutine mom\+\_\+cap\+\_\+mod\+::modeladvance (\begin{DoxyParamCaption}\item[{type(esmf\+\_\+gridcomp)}]{gcomp,  }\item[{integer, intent(out)}]{rc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Called by NUOPC to advance the model a single timestep. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em gcomp} & an ESMF\+\_\+\+Grid\+Comp object \\
+\hline
+ & {\em rc} & return code \\
+\hline
+ & {\em gcomp} & ESMF\+\_\+\+Grid\+Comp object \\
+\hline
+\mbox{\texttt{ out}}  & {\em rc} & return code \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacemom__cap__mod_a5ac6a66c943ef7933973ed155a81dd91}\label{namespacemom__cap__mod_a5ac6a66c943ef7933973ed155a81dd91} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!modelsetrunclock@{modelsetrunclock}}
+\index{modelsetrunclock@{modelsetrunclock}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{modelsetrunclock()}{modelsetrunclock()}}
+{\footnotesize\ttfamily subroutine mom\+\_\+cap\+\_\+mod\+::modelsetrunclock (\begin{DoxyParamCaption}\item[{type(esmf\+\_\+gridcomp)}]{gcomp,  }\item[{integer, intent(out)}]{rc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__mod_aff05ba33d3acc5d6018feecdbd88e094}\label{namespacemom__cap__mod_aff05ba33d3acc5d6018feecdbd88e094} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!mom\_realizefields@{mom\_realizefields}}
+\index{mom\_realizefields@{mom\_realizefields}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{mom\_realizefields()}{mom\_realizefields()}}
+{\footnotesize\ttfamily subroutine mom\+\_\+cap\+\_\+mod\+::mom\+\_\+realizefields (\begin{DoxyParamCaption}\item[{type(esmf\+\_\+state), intent(inout)}]{state,  }\item[{integer, intent(in)}]{nfields,  }\item[{type(\mbox{\hyperlink{structmom__cap__mod_1_1fld__list__type}{fld\+\_\+list\+\_\+type}}), dimension(\+:), intent(inout)}]{field\+\_\+defs,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{tag,  }\item[{type(ice\+\_\+ocean\+\_\+boundary\+\_\+type), intent(inout), optional}]{ice\+\_\+ocean\+\_\+boundary,  }\item[{type(esmf\+\_\+grid), intent(in), optional}]{grid,  }\item[{type(esmf\+\_\+mesh), intent(in), optional}]{mesh,  }\item[{integer, intent(inout)}]{rc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Realize the import and export fields using either a grid or a mesh. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em state} & ESMF\+\_\+\+State object for import/export fields. \\
+\hline
+\mbox{\texttt{ in}}  & {\em nfields} & Number of fields. \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em field\+\_\+defs} & Structure with field\textquotesingle{}s information. \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em ice\+\_\+ocean\+\_\+boundary} & May need to nullify atm\+\_\+co2 \\
+\hline
+\mbox{\texttt{ in}}  & {\em tag} & Import or export. \\
+\hline
+\mbox{\texttt{ in}}  & {\em grid} & ESMF grid. \\
+\hline
+\mbox{\texttt{ in}}  & {\em mesh} & ESMF mesh. \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em rc} & Return code. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacemom__cap__mod_a9b7799c15a6eeadc1d286ce4d37163e6}\label{namespacemom__cap__mod_a9b7799c15a6eeadc1d286ce4d37163e6} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!ocean\_model\_finalize@{ocean\_model\_finalize}}
+\index{ocean\_model\_finalize@{ocean\_model\_finalize}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{ocean\_model\_finalize()}{ocean\_model\_finalize()}}
+{\footnotesize\ttfamily subroutine mom\+\_\+cap\+\_\+mod\+::ocean\+\_\+model\+\_\+finalize (\begin{DoxyParamCaption}\item[{type(esmf\+\_\+gridcomp)}]{gcomp,  }\item[{integer, intent(out)}]{rc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Called by NUOPC at the end of the run to clean up. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em gcomp} & an ESMF\+\_\+\+Grid\+Comp object \\
+\hline
+ & {\em rc} & return code \\
+\hline
+ & {\em gcomp} & ESMF\+\_\+\+Grid\+Comp object \\
+\hline
+\mbox{\texttt{ out}}  & {\em rc} & return code \\
+\hline
+\end{DoxyParams}
 \Hypertarget{namespacemom__cap__mod_ae0439afc4c901d9850515768bdaaed09}\label{namespacemom__cap__mod_ae0439afc4c901d9850515768bdaaed09} 
 \index{mom\_cap\_mod@{mom\_cap\_mod}!setservices@{setservices}}
 \index{setservices@{setservices}!mom\_cap\_mod@{mom\_cap\_mod}}
@@ -42,12 +340,229 @@ NUOPC Set\+Service method is the only public entry point. Set\+Services register
 \mbox{\texttt{ out}}  & {\em rc} & return code \\
 \hline
 \end{DoxyParams}
+\Hypertarget{namespacemom__cap__mod_a21809d24a85da674b0f71ec068490049}\label{namespacemom__cap__mod_a21809d24a85da674b0f71ec068490049} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!shr\_log\_setlogunit@{shr\_log\_setlogunit}}
+\index{shr\_log\_setlogunit@{shr\_log\_setlogunit}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{shr\_log\_setlogunit()}{shr\_log\_setlogunit()}}
+{\footnotesize\ttfamily subroutine mom\+\_\+cap\+\_\+mod\+::shr\+\_\+log\+\_\+setlogunit (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{nunit }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__mod_aee8bf289ec5f309c4e9b7c0ed9cda04f}\label{namespacemom__cap__mod_aee8bf289ec5f309c4e9b7c0ed9cda04f} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!state\_setscalar@{state\_setscalar}}
+\index{state\_setscalar@{state\_setscalar}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{state\_setscalar()}{state\_setscalar()}}
+{\footnotesize\ttfamily subroutine mom\+\_\+cap\+\_\+mod\+::state\+\_\+setscalar (\begin{DoxyParamCaption}\item[{real(esmf\+\_\+kind\+\_\+r8), intent(in)}]{value,  }\item[{integer, intent(in)}]{scalar\+\_\+id,  }\item[{type(esmf\+\_\+state), intent(inout)}]{state,  }\item[{integer, intent(in)}]{mytask,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{scalar\+\_\+name,  }\item[{integer, intent(in)}]{scalar\+\_\+count,  }\item[{integer, intent(inout)}]{rc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Set scalar data from state for a particula name. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em rc} & return code \\
+\hline
+\end{DoxyParams}
 
 
 \doxysubsection{Variable Documentation}
+\Hypertarget{namespacemom__cap__mod_a9ccb6bc098362e5ea43c44ed67b0be91}\label{namespacemom__cap__mod_a9ccb6bc098362e5ea43c44ed67b0be91} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!cesm\_coupled@{cesm\_coupled}}
+\index{cesm\_coupled@{cesm\_coupled}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{cesm\_coupled}{cesm\_coupled}}
+{\footnotesize\ttfamily logical mom\+\_\+cap\+\_\+mod\+::cesm\+\_\+coupled = .false.\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__mod_a970c6a1cb8beccf8ea72b4dd392c1418}\label{namespacemom__cap__mod_a970c6a1cb8beccf8ea72b4dd392c1418} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!dbug@{dbug}}
+\index{dbug@{dbug}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{dbug}{dbug}}
+{\footnotesize\ttfamily integer mom\+\_\+cap\+\_\+mod\+::dbug = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__mod_aa08ee7a9fc2f2a7e374db32013526765}\label{namespacemom__cap__mod_aa08ee7a9fc2f2a7e374db32013526765} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!export\_slice@{export\_slice}}
+\index{export\_slice@{export\_slice}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{export\_slice}{export\_slice}}
+{\footnotesize\ttfamily integer mom\+\_\+cap\+\_\+mod\+::export\+\_\+slice = 1\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__mod_aee3e3b3a693970aa5f79b3ba8ca97d35}\label{namespacemom__cap__mod_aee3e3b3a693970aa5f79b3ba8ca97d35} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!fldsfrocn@{fldsfrocn}}
+\index{fldsfrocn@{fldsfrocn}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{fldsfrocn}{fldsfrocn}}
+{\footnotesize\ttfamily type (\mbox{\hyperlink{structmom__cap__mod_1_1fld__list__type}{fld\+\_\+list\+\_\+type}}), dimension(\mbox{\hyperlink{namespacemom__cap__mod_a0ed5e7e790ddbb9f8d7152264ca28d0f}{fldsmax}}) mom\+\_\+cap\+\_\+mod\+::fldsfrocn\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__mod_ad948593abdb8da7fa79b69505913dc95}\label{namespacemom__cap__mod_ad948593abdb8da7fa79b69505913dc95} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!fldsfrocn\_num@{fldsfrocn\_num}}
+\index{fldsfrocn\_num@{fldsfrocn\_num}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{fldsfrocn\_num}{fldsfrocn\_num}}
+{\footnotesize\ttfamily integer mom\+\_\+cap\+\_\+mod\+::fldsfrocn\+\_\+num = 0\hspace{0.3cm}{\ttfamily [private]}}
+
 \Hypertarget{namespacemom__cap__mod_a0ed5e7e790ddbb9f8d7152264ca28d0f}\label{namespacemom__cap__mod_a0ed5e7e790ddbb9f8d7152264ca28d0f} 
 \index{mom\_cap\_mod@{mom\_cap\_mod}!fldsmax@{fldsmax}}
 \index{fldsmax@{fldsmax}!mom\_cap\_mod@{mom\_cap\_mod}}
 \doxysubsubsection{\texorpdfstring{fldsmax}{fldsmax}}
 {\footnotesize\ttfamily integer, parameter mom\+\_\+cap\+\_\+mod\+::fldsmax = 100}
+
+\Hypertarget{namespacemom__cap__mod_a5f0c52bdc4d9687b0c2f882a9ecc202b}\label{namespacemom__cap__mod_a5f0c52bdc4d9687b0c2f882a9ecc202b} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!fldstoocn@{fldstoocn}}
+\index{fldstoocn@{fldstoocn}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{fldstoocn}{fldstoocn}}
+{\footnotesize\ttfamily type (\mbox{\hyperlink{structmom__cap__mod_1_1fld__list__type}{fld\+\_\+list\+\_\+type}}), dimension(\mbox{\hyperlink{namespacemom__cap__mod_a0ed5e7e790ddbb9f8d7152264ca28d0f}{fldsmax}}) mom\+\_\+cap\+\_\+mod\+::fldstoocn\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__mod_a49361c7b41259416fa2c6b08a6bac193}\label{namespacemom__cap__mod_a49361c7b41259416fa2c6b08a6bac193} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!fldstoocn\_num@{fldstoocn\_num}}
+\index{fldstoocn\_num@{fldstoocn\_num}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{fldstoocn\_num}{fldstoocn\_num}}
+{\footnotesize\ttfamily integer mom\+\_\+cap\+\_\+mod\+::fldstoocn\+\_\+num = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__mod_a2af2a851cf395c0e9bc914c5ca06e5b0}\label{namespacemom__cap__mod_a2af2a851cf395c0e9bc914c5ca06e5b0} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!geomtype@{geomtype}}
+\index{geomtype@{geomtype}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{geomtype}{geomtype}}
+{\footnotesize\ttfamily type(esmf\+\_\+geomtype\+\_\+flag) mom\+\_\+cap\+\_\+mod\+::geomtype\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__mod_a2007af76dfd1960bd6162c3bdd2b0ed1}\label{namespacemom__cap__mod_a2007af76dfd1960bd6162c3bdd2b0ed1} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!grid\_attach\_area@{grid\_attach\_area}}
+\index{grid\_attach\_area@{grid\_attach\_area}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{grid\_attach\_area}{grid\_attach\_area}}
+{\footnotesize\ttfamily logical mom\+\_\+cap\+\_\+mod\+::grid\+\_\+attach\+\_\+area = .false.\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__mod_a2c76d05cdca9c737e6a460df1bfadbbd}\label{namespacemom__cap__mod_a2c76d05cdca9c737e6a460df1bfadbbd} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!import\_slice@{import\_slice}}
+\index{import\_slice@{import\_slice}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{import\_slice}{import\_slice}}
+{\footnotesize\ttfamily integer mom\+\_\+cap\+\_\+mod\+::import\+\_\+slice = 1\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__mod_a7533a7727c0d30f169ccfbb9554b3bc3}\label{namespacemom__cap__mod_a7533a7727c0d30f169ccfbb9554b3bc3} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!inst\_suffix@{inst\_suffix}}
+\index{inst\_suffix@{inst\_suffix}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{inst\_suffix}{inst\_suffix}}
+{\footnotesize\ttfamily character(len=16) mom\+\_\+cap\+\_\+mod\+::inst\+\_\+suffix = \textquotesingle{}\textquotesingle{}\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__mod_ab4b34224065632ab5e73102188c07343}\label{namespacemom__cap__mod_ab4b34224065632ab5e73102188c07343} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!localpet@{localpet}}
+\index{localpet@{localpet}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{localpet}{localpet}}
+{\footnotesize\ttfamily integer mom\+\_\+cap\+\_\+mod\+::localpet = -\/1\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__mod_a6df1d28111df6b48514eb3fa8b8a0806}\label{namespacemom__cap__mod_a6df1d28111df6b48514eb3fa8b8a0806} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!overwrite\_timeslice@{overwrite\_timeslice}}
+\index{overwrite\_timeslice@{overwrite\_timeslice}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{overwrite\_timeslice}{overwrite\_timeslice}}
+{\footnotesize\ttfamily logical mom\+\_\+cap\+\_\+mod\+::overwrite\+\_\+timeslice = .false.\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__mod_af347e9cdbece72b48ff6bd7383191ddc}\label{namespacemom__cap__mod_af347e9cdbece72b48ff6bd7383191ddc} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!pointer\_date@{pointer\_date}}
+\index{pointer\_date@{pointer\_date}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{pointer\_date}{pointer\_date}}
+{\footnotesize\ttfamily logical mom\+\_\+cap\+\_\+mod\+::pointer\+\_\+date = .true.\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__mod_ad4760bc5e6def07188f5fb61e09a2de1}\label{namespacemom__cap__mod_ad4760bc5e6def07188f5fb61e09a2de1} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!profile\_memory@{profile\_memory}}
+\index{profile\_memory@{profile\_memory}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{profile\_memory}{profile\_memory}}
+{\footnotesize\ttfamily logical mom\+\_\+cap\+\_\+mod\+::profile\+\_\+memory = .true.\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__mod_ad3c19c43434afed11076e3a36985f986}\label{namespacemom__cap__mod_ad3c19c43434afed11076e3a36985f986} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!restart\_eor@{restart\_eor}}
+\index{restart\_eor@{restart\_eor}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{restart\_eor}{restart\_eor}}
+{\footnotesize\ttfamily logical mom\+\_\+cap\+\_\+mod\+::restart\+\_\+eor = .false.\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__mod_ae9a05eeac6bcd279edde9afb127af1da}\label{namespacemom__cap__mod_ae9a05eeac6bcd279edde9afb127af1da} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!restart\_mode@{restart\_mode}}
+\index{restart\_mode@{restart\_mode}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{restart\_mode}{restart\_mode}}
+{\footnotesize\ttfamily character(len=8) mom\+\_\+cap\+\_\+mod\+::restart\+\_\+mode = \textquotesingle{}alarms\textquotesingle{}\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__mod_abf7bf7614b618cf9b9a5ec9d1c58fe42}\label{namespacemom__cap__mod_abf7bf7614b618cf9b9a5ec9d1c58fe42} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!restartfh\_info@{restartfh\_info}}
+\index{restartfh\_info@{restartfh\_info}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{restartfh\_info}{restartfh\_info}}
+{\footnotesize\ttfamily type(is\+\_\+restart\+\_\+fh\+\_\+type) mom\+\_\+cap\+\_\+mod\+::restartfh\+\_\+info\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__mod_ad56cefdfe78b6f64cfbf67b65eae6e7e}\label{namespacemom__cap__mod_ad56cefdfe78b6f64cfbf67b65eae6e7e} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!runtype@{runtype}}
+\index{runtype@{runtype}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{runtype}{runtype}}
+{\footnotesize\ttfamily character(len=32) mom\+\_\+cap\+\_\+mod\+::runtype\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+run type 
+
+\Hypertarget{namespacemom__cap__mod_aa34836ca41b881b490713afae1ce5b82}\label{namespacemom__cap__mod_aa34836ca41b881b490713afae1ce5b82} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!scalar\_field\_count@{scalar\_field\_count}}
+\index{scalar\_field\_count@{scalar\_field\_count}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{scalar\_field\_count}{scalar\_field\_count}}
+{\footnotesize\ttfamily integer mom\+\_\+cap\+\_\+mod\+::scalar\+\_\+field\+\_\+count = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__mod_ac69f1371ebbd90dfc117e54846cc90bb}\label{namespacemom__cap__mod_ac69f1371ebbd90dfc117e54846cc90bb} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!scalar\_field\_idx\_grid\_nx@{scalar\_field\_idx\_grid\_nx}}
+\index{scalar\_field\_idx\_grid\_nx@{scalar\_field\_idx\_grid\_nx}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{scalar\_field\_idx\_grid\_nx}{scalar\_field\_idx\_grid\_nx}}
+{\footnotesize\ttfamily integer mom\+\_\+cap\+\_\+mod\+::scalar\+\_\+field\+\_\+idx\+\_\+grid\+\_\+nx = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__mod_ae36725fbbb9270b498c860196e9f0374}\label{namespacemom__cap__mod_ae36725fbbb9270b498c860196e9f0374} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!scalar\_field\_idx\_grid\_ny@{scalar\_field\_idx\_grid\_ny}}
+\index{scalar\_field\_idx\_grid\_ny@{scalar\_field\_idx\_grid\_ny}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{scalar\_field\_idx\_grid\_ny}{scalar\_field\_idx\_grid\_ny}}
+{\footnotesize\ttfamily integer mom\+\_\+cap\+\_\+mod\+::scalar\+\_\+field\+\_\+idx\+\_\+grid\+\_\+ny = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__mod_ac2e1656025fcc390497d059868d547aa}\label{namespacemom__cap__mod_ac2e1656025fcc390497d059868d547aa} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!scalar\_field\_name@{scalar\_field\_name}}
+\index{scalar\_field\_name@{scalar\_field\_name}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{scalar\_field\_name}{scalar\_field\_name}}
+{\footnotesize\ttfamily character(len=128) mom\+\_\+cap\+\_\+mod\+::scalar\+\_\+field\+\_\+name = \textquotesingle{}\textquotesingle{}\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__mod_abd56213117ea1a3931ae9d380832557e}\label{namespacemom__cap__mod_abd56213117ea1a3931ae9d380832557e} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!set\_missing\_stks\_to\_zero@{set\_missing\_stks\_to\_zero}}
+\index{set\_missing\_stks\_to\_zero@{set\_missing\_stks\_to\_zero}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{set\_missing\_stks\_to\_zero}{set\_missing\_stks\_to\_zero}}
+{\footnotesize\ttfamily logical mom\+\_\+cap\+\_\+mod\+::set\+\_\+missing\+\_\+stks\+\_\+to\+\_\+zero = .false.\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__mod_a723adda3d40b23bf02e338cef8a5e467}\label{namespacemom__cap__mod_a723adda3d40b23bf02e338cef8a5e467} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!timere@{timere}}
+\index{timere@{timere}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{timere}{timere}}
+{\footnotesize\ttfamily real(8) mom\+\_\+cap\+\_\+mod\+::timere\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__mod_ac0eecd812f3619a4648e2f9386b58fe3}\label{namespacemom__cap__mod_ac0eecd812f3619a4648e2f9386b58fe3} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!tmpstr@{tmpstr}}
+\index{tmpstr@{tmpstr}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{tmpstr}{tmpstr}}
+{\footnotesize\ttfamily character(len=256) mom\+\_\+cap\+\_\+mod\+::tmpstr\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__mod_abcd81cf01660d4994dec787589d47616}\label{namespacemom__cap__mod_abcd81cf01660d4994dec787589d47616} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!u\_file\_u@{u\_file\_u}}
+\index{u\_file\_u@{u\_file\_u}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{u\_file\_u}{u\_file\_u}}
+{\footnotesize\ttfamily character(len=\texorpdfstring{$\ast$}{*}), parameter mom\+\_\+cap\+\_\+mod\+::u\+\_\+file\+\_\+u = \+\_\+\+\_\+\+FILE\+\_\+\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__mod_a58e64beed30fca9ca44046a7ec53a39b}\label{namespacemom__cap__mod_a58e64beed30fca9ca44046a7ec53a39b} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!use\_cdeps\_inline@{use\_cdeps\_inline}}
+\index{use\_cdeps\_inline@{use\_cdeps\_inline}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{use\_cdeps\_inline}{use\_cdeps\_inline}}
+{\footnotesize\ttfamily logical mom\+\_\+cap\+\_\+mod\+::use\+\_\+cdeps\+\_\+inline = .false.\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__mod_a7deb6bf08d4de5a92bd46a155a575b97}\label{namespacemom__cap__mod_a7deb6bf08d4de5a92bd46a155a575b97} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!use\_coldstart@{use\_coldstart}}
+\index{use\_coldstart@{use\_coldstart}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{use\_coldstart}{use\_coldstart}}
+{\footnotesize\ttfamily logical mom\+\_\+cap\+\_\+mod\+::use\+\_\+coldstart = .true.\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__mod_a1a6ff416c7149cdcdab3b3148930fbfc}\label{namespacemom__cap__mod_a1a6ff416c7149cdcdab3b3148930fbfc} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!use\_mommesh@{use\_mommesh}}
+\index{use\_mommesh@{use\_mommesh}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{use\_mommesh}{use\_mommesh}}
+{\footnotesize\ttfamily logical mom\+\_\+cap\+\_\+mod\+::use\+\_\+mommesh = .true.\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__mod_a87f074f197c71e76f3ceb5265c12ea42}\label{namespacemom__cap__mod_a87f074f197c71e76f3ceb5265c12ea42} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!write\_diagnostics@{write\_diagnostics}}
+\index{write\_diagnostics@{write\_diagnostics}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{write\_diagnostics}{write\_diagnostics}}
+{\footnotesize\ttfamily logical mom\+\_\+cap\+\_\+mod\+::write\+\_\+diagnostics = .false.\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__mod_a161c35594bd3e9aee09ff2adff7b331e}\label{namespacemom__cap__mod_a161c35594bd3e9aee09ff2adff7b331e} 
+\index{mom\_cap\_mod@{mom\_cap\_mod}!write\_runtimelog@{write\_runtimelog}}
+\index{write\_runtimelog@{write\_runtimelog}!mom\_cap\_mod@{mom\_cap\_mod}}
+\doxysubsubsection{\texorpdfstring{write\_runtimelog}{write\_runtimelog}}
+{\footnotesize\ttfamily logical mom\+\_\+cap\+\_\+mod\+::write\+\_\+runtimelog = .false.\hspace{0.3cm}{\ttfamily [private]}}
 

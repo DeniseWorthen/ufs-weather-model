@@ -12,7 +12,40 @@ subroutine, public \mbox{\hyperlink{namespacemom__cap__outputlog_a772944ef6621c1
 \begin{DoxyCompactList}\small\item\em Initialize a set of Alarms at the allowed output frequencies. \end{DoxyCompactList}\item 
 subroutine, public \mbox{\hyperlink{namespacemom__cap__outputlog_a63c992951482449c83f6bd9c7de49626}{mom\+\_\+cap\+\_\+outputlog\+::outputlog\+\_\+run}} (mclock, atstoptime, rc)
 \begin{DoxyCompactList}\small\item\em Wrapper for logging output at single frequency. \end{DoxyCompactList}\item 
-subroutine, public \mbox{\hyperlink{namespacemom__cap__outputlog_abf152af2b5ff79377f77ac979555bbac}{mom\+\_\+cap\+\_\+outputlog\+::track\+\_\+freqn}} (mtime, cf\+\_\+n, state\+\_\+n, comm, isroot, rootpe, outputdir, lastrestart, debug\+\_\+onroot, lstop, rc)
+subroutine, public \mbox{\hyperlink{namespacemom__cap__outputlog_abf152af2b5ff79377f77ac979555bbac}{mom\+\_\+cap\+\_\+outputlog\+::track\+\_\+freqn}} (mtime, cf\+\_\+n, state\+\_\+n, comm, isroot, rootpe, \mbox{\hyperlink{namespacemom__cap__outputlog_ad845115e7fc26077fee28418fd50a67a}{outputdir}}, \mbox{\hyperlink{namespacemom__cap__outputlog_ab6710c7fd3664719466c5003c2a43278}{lastrestart}}, \mbox{\hyperlink{namespacemom__cap__outputlog_ac1d5119536f4bb3762cf13f6f6b6c029}{debug\+\_\+onroot}}, lstop, rc)
 \begin{DoxyCompactList}\small\item\em Track and log file state at single output-\/frequency alarm. \end{DoxyCompactList}\item 
 subroutine, public \mbox{\hyperlink{namespacemom__cap__outputlog_af85f24b5e98f54d3ac8497288891c97d}{mom\+\_\+cap\+\_\+outputlog\+::outputlog\+\_\+restart}} (mclock, num\+\_\+rest\+\_\+files, rc)
 \begin{DoxyCompactList}\small\item\em Check all restart files to determine if output has been completed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+integer, parameter \mbox{\hyperlink{namespacemom__cap__outputlog_a0e356492086e39c2bd19be826b9354a0}{mom\+\_\+cap\+\_\+outputlog\+::n\+\_\+freq}} = 4
+\item 
+integer, dimension(\mbox{\hyperlink{namespacemom__cap__outputlog_a0e356492086e39c2bd19be826b9354a0}{n\+\_\+freq}}), parameter \mbox{\hyperlink{namespacemom__cap__outputlog_ac4ea6d5a8480721a9c8191e8d72745bd}{mom\+\_\+cap\+\_\+outputlog\+::freq}} = (/1, 3, 6, 24/)
+\item 
+type(\mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__config__type}{outputlog\+\_\+config\+\_\+type}}), dimension(\mbox{\hyperlink{namespacemom__cap__outputlog_a0e356492086e39c2bd19be826b9354a0}{n\+\_\+freq}}) \mbox{\hyperlink{namespacemom__cap__outputlog_a1e0f7ab6efbb7e2a40f5eea90f7fa018}{mom\+\_\+cap\+\_\+outputlog\+::cf}}
+\item 
+type(\mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__state__type}{outputlog\+\_\+state\+\_\+type}}), dimension(\mbox{\hyperlink{namespacemom__cap__outputlog_a0e356492086e39c2bd19be826b9354a0}{n\+\_\+freq}}) \mbox{\hyperlink{namespacemom__cap__outputlog_a86d1f659c76da888f41c943475f0dbc2}{mom\+\_\+cap\+\_\+outputlog\+::state}}
+\item 
+type(\mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__modeltime__type}{outputlog\+\_\+modeltime\+\_\+type}}) \mbox{\hyperlink{namespacemom__cap__outputlog_a76fb35c8098769b537bd0bad77e82eda}{mom\+\_\+cap\+\_\+outputlog\+::modeltime}}
+\item 
+type(esmf\+\_\+vm) \mbox{\hyperlink{namespacemom__cap__outputlog_a4b49f7e0d0d4508119010fcce92592d2}{mom\+\_\+cap\+\_\+outputlog\+::vm}}
+\item 
+type(esmf\+\_\+time) \mbox{\hyperlink{namespacemom__cap__outputlog_ab6710c7fd3664719466c5003c2a43278}{mom\+\_\+cap\+\_\+outputlog\+::lastrestart}}
+\item 
+type(mpi\+\_\+comm) \mbox{\hyperlink{namespacemom__cap__outputlog_ac63679bf3975761315a17781ce6a4e1b}{mom\+\_\+cap\+\_\+outputlog\+::mpicomm}}
+\item 
+integer \mbox{\hyperlink{namespacemom__cap__outputlog_a4aa380c29aace54850ec4b9965b3bc33}{mom\+\_\+cap\+\_\+outputlog\+::toffset}}
+\item 
+integer \mbox{\hyperlink{namespacemom__cap__outputlog_ace10dd5da2eab29be760a93aab825589}{mom\+\_\+cap\+\_\+outputlog\+::nfiles}}
+\item 
+logical \mbox{\hyperlink{namespacemom__cap__outputlog_ac1d5119536f4bb3762cf13f6f6b6c029}{mom\+\_\+cap\+\_\+outputlog\+::debug\+\_\+onroot}}
+\item 
+character(len=256) \mbox{\hyperlink{namespacemom__cap__outputlog_ac0480a093179e02032d33361dd9769fd}{mom\+\_\+cap\+\_\+outputlog\+::restartdir}}
+\item 
+character(len=256) \mbox{\hyperlink{namespacemom__cap__outputlog_ad845115e7fc26077fee28418fd50a67a}{mom\+\_\+cap\+\_\+outputlog\+::outputdir}}
+\item 
+character(len=256) \mbox{\hyperlink{namespacemom__cap__outputlog_a26de413f515e4563b3de6ab10585ea45}{mom\+\_\+cap\+\_\+outputlog\+::errmsg}}
+\item 
+character(len= \texorpdfstring{$\ast$}{*}), parameter \mbox{\hyperlink{namespacemom__cap__outputlog_a9813ad21e5c7ee0542be1387c38d2f1f}{mom\+\_\+cap\+\_\+outputlog\+::u\+\_\+file\+\_\+u}} = \+\_\+\+\_\+\+FILE\+\_\+\+\_\+
+\end{DoxyCompactItemize}

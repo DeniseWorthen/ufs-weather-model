@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['starttime_0',['starttime',['../structmom__outputlog__methods_1_1outputlog__modeltime__type.html#ab7e7ce30f39797ad6388c11d78140086',1,'mom_outputlog_methods::outputlog_modeltime_type']]]
+  ['modeltime_0',['modeltime',['../namespacemom__cap__outputlog.html#a76fb35c8098769b537bd0bad77e82eda',1,'mom_cap_outputlog']]],
+  ['mpicomm_1',['mpicomm',['../namespacemom__cap__outputlog.html#ac63679bf3975761315a17781ce6a4e1b',1,'mom_cap_outputlog']]]
 ];

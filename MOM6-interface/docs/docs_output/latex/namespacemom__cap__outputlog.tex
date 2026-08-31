@@ -12,10 +12,43 @@ subroutine, public \mbox{\hyperlink{namespacemom__cap__outputlog_a772944ef6621c1
 \begin{DoxyCompactList}\small\item\em Initialize a set of Alarms at the allowed output frequencies. \end{DoxyCompactList}\item 
 subroutine, public \mbox{\hyperlink{namespacemom__cap__outputlog_a63c992951482449c83f6bd9c7de49626}{outputlog\+\_\+run}} (mclock, atstoptime, rc)
 \begin{DoxyCompactList}\small\item\em Wrapper for logging output at single frequency. \end{DoxyCompactList}\item 
-subroutine, public \mbox{\hyperlink{namespacemom__cap__outputlog_abf152af2b5ff79377f77ac979555bbac}{track\+\_\+freqn}} (mtime, cf\+\_\+n, state\+\_\+n, comm, isroot, rootpe, outputdir, lastrestart, debug\+\_\+onroot, lstop, rc)
+subroutine, public \mbox{\hyperlink{namespacemom__cap__outputlog_abf152af2b5ff79377f77ac979555bbac}{track\+\_\+freqn}} (mtime, cf\+\_\+n, state\+\_\+n, comm, isroot, rootpe, \mbox{\hyperlink{namespacemom__cap__outputlog_ad845115e7fc26077fee28418fd50a67a}{outputdir}}, \mbox{\hyperlink{namespacemom__cap__outputlog_ab6710c7fd3664719466c5003c2a43278}{lastrestart}}, \mbox{\hyperlink{namespacemom__cap__outputlog_ac1d5119536f4bb3762cf13f6f6b6c029}{debug\+\_\+onroot}}, lstop, rc)
 \begin{DoxyCompactList}\small\item\em Track and log file state at single output-\/frequency alarm. \end{DoxyCompactList}\item 
 subroutine, public \mbox{\hyperlink{namespacemom__cap__outputlog_af85f24b5e98f54d3ac8497288891c97d}{outputlog\+\_\+restart}} (mclock, num\+\_\+rest\+\_\+files, rc)
 \begin{DoxyCompactList}\small\item\em Check all restart files to determine if output has been completed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+integer, parameter \mbox{\hyperlink{namespacemom__cap__outputlog_a0e356492086e39c2bd19be826b9354a0}{n\+\_\+freq}} = 4
+\item 
+integer, dimension(\mbox{\hyperlink{namespacemom__cap__outputlog_a0e356492086e39c2bd19be826b9354a0}{n\+\_\+freq}}), parameter \mbox{\hyperlink{namespacemom__cap__outputlog_ac4ea6d5a8480721a9c8191e8d72745bd}{freq}} = (/1, 3, 6, 24/)
+\item 
+type(\mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__config__type}{outputlog\+\_\+config\+\_\+type}}), dimension(\mbox{\hyperlink{namespacemom__cap__outputlog_a0e356492086e39c2bd19be826b9354a0}{n\+\_\+freq}}) \mbox{\hyperlink{namespacemom__cap__outputlog_a1e0f7ab6efbb7e2a40f5eea90f7fa018}{cf}}
+\item 
+type(\mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__state__type}{outputlog\+\_\+state\+\_\+type}}), dimension(\mbox{\hyperlink{namespacemom__cap__outputlog_a0e356492086e39c2bd19be826b9354a0}{n\+\_\+freq}}) \mbox{\hyperlink{namespacemom__cap__outputlog_a86d1f659c76da888f41c943475f0dbc2}{state}}
+\item 
+type(\mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__modeltime__type}{outputlog\+\_\+modeltime\+\_\+type}}) \mbox{\hyperlink{namespacemom__cap__outputlog_a76fb35c8098769b537bd0bad77e82eda}{modeltime}}
+\item 
+type(esmf\+\_\+vm) \mbox{\hyperlink{namespacemom__cap__outputlog_a4b49f7e0d0d4508119010fcce92592d2}{vm}}
+\item 
+type(esmf\+\_\+time) \mbox{\hyperlink{namespacemom__cap__outputlog_ab6710c7fd3664719466c5003c2a43278}{lastrestart}}
+\item 
+type(mpi\+\_\+comm) \mbox{\hyperlink{namespacemom__cap__outputlog_ac63679bf3975761315a17781ce6a4e1b}{mpicomm}}
+\item 
+integer \mbox{\hyperlink{namespacemom__cap__outputlog_a4aa380c29aace54850ec4b9965b3bc33}{toffset}}
+\item 
+integer \mbox{\hyperlink{namespacemom__cap__outputlog_ace10dd5da2eab29be760a93aab825589}{nfiles}}
+\item 
+logical \mbox{\hyperlink{namespacemom__cap__outputlog_ac1d5119536f4bb3762cf13f6f6b6c029}{debug\+\_\+onroot}}
+\item 
+character(len=256) \mbox{\hyperlink{namespacemom__cap__outputlog_ac0480a093179e02032d33361dd9769fd}{restartdir}}
+\item 
+character(len=256) \mbox{\hyperlink{namespacemom__cap__outputlog_ad845115e7fc26077fee28418fd50a67a}{outputdir}}
+\item 
+character(len=256) \mbox{\hyperlink{namespacemom__cap__outputlog_a26de413f515e4563b3de6ab10585ea45}{errmsg}}
+\item 
+character(len= \texorpdfstring{$\ast$}{*}), parameter \mbox{\hyperlink{namespacemom__cap__outputlog_a9813ad21e5c7ee0542be1387c38d2f1f}{u\+\_\+file\+\_\+u}} = \+\_\+\+\_\+\+FILE\+\_\+\+\_\+
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -32,7 +65,7 @@ This module contains a set of subroutines that check if MOM restart and history 
 
 Initialize a set of Alarms at the allowed output frequencies. 
 
-{\ttfamily outputlog\+\_\+init} is called from mom\+\_\+cap\+::\+Model\+Set\+Run\+Clock \Hypertarget{namespacemom__cap__outputlog_af85f24b5e98f54d3ac8497288891c97d}\label{namespacemom__cap__outputlog_af85f24b5e98f54d3ac8497288891c97d} 
+{\ttfamily outputlog\+\_\+init} is called from MOM\+\_\+cap\+\_\+mod\+::\+Model\+Set\+Run\+Clock \Hypertarget{namespacemom__cap__outputlog_af85f24b5e98f54d3ac8497288891c97d}\label{namespacemom__cap__outputlog_af85f24b5e98f54d3ac8497288891c97d} 
 \index{mom\_cap\_outputlog@{mom\_cap\_outputlog}!outputlog\_restart@{outputlog\_restart}}
 \index{outputlog\_restart@{outputlog\_restart}!mom\_cap\_outputlog@{mom\_cap\_outputlog}}
 \doxysubsubsection{\texorpdfstring{outputlog\_restart()}{outputlog\_restart()}}
@@ -105,3 +138,96 @@ Track and log file state at single output-\/frequency alarm.
 \mbox{\texttt{ out}}  & {\em rc} & return code \\
 \hline
 \end{DoxyParams}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacemom__cap__outputlog_a1e0f7ab6efbb7e2a40f5eea90f7fa018}\label{namespacemom__cap__outputlog_a1e0f7ab6efbb7e2a40f5eea90f7fa018} 
+\index{mom\_cap\_outputlog@{mom\_cap\_outputlog}!cf@{cf}}
+\index{cf@{cf}!mom\_cap\_outputlog@{mom\_cap\_outputlog}}
+\doxysubsubsection{\texorpdfstring{cf}{cf}}
+{\footnotesize\ttfamily type(\mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__config__type}{outputlog\+\_\+config\+\_\+type}}), dimension(\mbox{\hyperlink{namespacemom__cap__outputlog_a0e356492086e39c2bd19be826b9354a0}{n\+\_\+freq}}) mom\+\_\+cap\+\_\+outputlog\+::cf\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__outputlog_ac1d5119536f4bb3762cf13f6f6b6c029}\label{namespacemom__cap__outputlog_ac1d5119536f4bb3762cf13f6f6b6c029} 
+\index{mom\_cap\_outputlog@{mom\_cap\_outputlog}!debug\_onroot@{debug\_onroot}}
+\index{debug\_onroot@{debug\_onroot}!mom\_cap\_outputlog@{mom\_cap\_outputlog}}
+\doxysubsubsection{\texorpdfstring{debug\_onroot}{debug\_onroot}}
+{\footnotesize\ttfamily logical mom\+\_\+cap\+\_\+outputlog\+::debug\+\_\+onroot\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__outputlog_a26de413f515e4563b3de6ab10585ea45}\label{namespacemom__cap__outputlog_a26de413f515e4563b3de6ab10585ea45} 
+\index{mom\_cap\_outputlog@{mom\_cap\_outputlog}!errmsg@{errmsg}}
+\index{errmsg@{errmsg}!mom\_cap\_outputlog@{mom\_cap\_outputlog}}
+\doxysubsubsection{\texorpdfstring{errmsg}{errmsg}}
+{\footnotesize\ttfamily character(len=256) mom\+\_\+cap\+\_\+outputlog\+::errmsg\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__outputlog_ac4ea6d5a8480721a9c8191e8d72745bd}\label{namespacemom__cap__outputlog_ac4ea6d5a8480721a9c8191e8d72745bd} 
+\index{mom\_cap\_outputlog@{mom\_cap\_outputlog}!freq@{freq}}
+\index{freq@{freq}!mom\_cap\_outputlog@{mom\_cap\_outputlog}}
+\doxysubsubsection{\texorpdfstring{freq}{freq}}
+{\footnotesize\ttfamily integer, dimension(\mbox{\hyperlink{namespacemom__cap__outputlog_a0e356492086e39c2bd19be826b9354a0}{n\+\_\+freq}}), parameter mom\+\_\+cap\+\_\+outputlog\+::freq = (/1, 3, 6, 24/)\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__outputlog_ab6710c7fd3664719466c5003c2a43278}\label{namespacemom__cap__outputlog_ab6710c7fd3664719466c5003c2a43278} 
+\index{mom\_cap\_outputlog@{mom\_cap\_outputlog}!lastrestart@{lastrestart}}
+\index{lastrestart@{lastrestart}!mom\_cap\_outputlog@{mom\_cap\_outputlog}}
+\doxysubsubsection{\texorpdfstring{lastrestart}{lastrestart}}
+{\footnotesize\ttfamily type(esmf\+\_\+time) mom\+\_\+cap\+\_\+outputlog\+::lastrestart\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__outputlog_a76fb35c8098769b537bd0bad77e82eda}\label{namespacemom__cap__outputlog_a76fb35c8098769b537bd0bad77e82eda} 
+\index{mom\_cap\_outputlog@{mom\_cap\_outputlog}!modeltime@{modeltime}}
+\index{modeltime@{modeltime}!mom\_cap\_outputlog@{mom\_cap\_outputlog}}
+\doxysubsubsection{\texorpdfstring{modeltime}{modeltime}}
+{\footnotesize\ttfamily type(\mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__modeltime__type}{outputlog\+\_\+modeltime\+\_\+type}}) mom\+\_\+cap\+\_\+outputlog\+::modeltime\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__outputlog_ac63679bf3975761315a17781ce6a4e1b}\label{namespacemom__cap__outputlog_ac63679bf3975761315a17781ce6a4e1b} 
+\index{mom\_cap\_outputlog@{mom\_cap\_outputlog}!mpicomm@{mpicomm}}
+\index{mpicomm@{mpicomm}!mom\_cap\_outputlog@{mom\_cap\_outputlog}}
+\doxysubsubsection{\texorpdfstring{mpicomm}{mpicomm}}
+{\footnotesize\ttfamily type(mpi\+\_\+comm) mom\+\_\+cap\+\_\+outputlog\+::mpicomm\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__outputlog_a0e356492086e39c2bd19be826b9354a0}\label{namespacemom__cap__outputlog_a0e356492086e39c2bd19be826b9354a0} 
+\index{mom\_cap\_outputlog@{mom\_cap\_outputlog}!n\_freq@{n\_freq}}
+\index{n\_freq@{n\_freq}!mom\_cap\_outputlog@{mom\_cap\_outputlog}}
+\doxysubsubsection{\texorpdfstring{n\_freq}{n\_freq}}
+{\footnotesize\ttfamily integer, parameter mom\+\_\+cap\+\_\+outputlog\+::n\+\_\+freq = 4\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__outputlog_ace10dd5da2eab29be760a93aab825589}\label{namespacemom__cap__outputlog_ace10dd5da2eab29be760a93aab825589} 
+\index{mom\_cap\_outputlog@{mom\_cap\_outputlog}!nfiles@{nfiles}}
+\index{nfiles@{nfiles}!mom\_cap\_outputlog@{mom\_cap\_outputlog}}
+\doxysubsubsection{\texorpdfstring{nfiles}{nfiles}}
+{\footnotesize\ttfamily integer mom\+\_\+cap\+\_\+outputlog\+::nfiles\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__outputlog_ad845115e7fc26077fee28418fd50a67a}\label{namespacemom__cap__outputlog_ad845115e7fc26077fee28418fd50a67a} 
+\index{mom\_cap\_outputlog@{mom\_cap\_outputlog}!outputdir@{outputdir}}
+\index{outputdir@{outputdir}!mom\_cap\_outputlog@{mom\_cap\_outputlog}}
+\doxysubsubsection{\texorpdfstring{outputdir}{outputdir}}
+{\footnotesize\ttfamily character(len=256) mom\+\_\+cap\+\_\+outputlog\+::outputdir\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__outputlog_ac0480a093179e02032d33361dd9769fd}\label{namespacemom__cap__outputlog_ac0480a093179e02032d33361dd9769fd} 
+\index{mom\_cap\_outputlog@{mom\_cap\_outputlog}!restartdir@{restartdir}}
+\index{restartdir@{restartdir}!mom\_cap\_outputlog@{mom\_cap\_outputlog}}
+\doxysubsubsection{\texorpdfstring{restartdir}{restartdir}}
+{\footnotesize\ttfamily character(len=256) mom\+\_\+cap\+\_\+outputlog\+::restartdir\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__outputlog_a86d1f659c76da888f41c943475f0dbc2}\label{namespacemom__cap__outputlog_a86d1f659c76da888f41c943475f0dbc2} 
+\index{mom\_cap\_outputlog@{mom\_cap\_outputlog}!state@{state}}
+\index{state@{state}!mom\_cap\_outputlog@{mom\_cap\_outputlog}}
+\doxysubsubsection{\texorpdfstring{state}{state}}
+{\footnotesize\ttfamily type(\mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__state__type}{outputlog\+\_\+state\+\_\+type}}), dimension(\mbox{\hyperlink{namespacemom__cap__outputlog_a0e356492086e39c2bd19be826b9354a0}{n\+\_\+freq}}) mom\+\_\+cap\+\_\+outputlog\+::state\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__outputlog_a4aa380c29aace54850ec4b9965b3bc33}\label{namespacemom__cap__outputlog_a4aa380c29aace54850ec4b9965b3bc33} 
+\index{mom\_cap\_outputlog@{mom\_cap\_outputlog}!toffset@{toffset}}
+\index{toffset@{toffset}!mom\_cap\_outputlog@{mom\_cap\_outputlog}}
+\doxysubsubsection{\texorpdfstring{toffset}{toffset}}
+{\footnotesize\ttfamily integer mom\+\_\+cap\+\_\+outputlog\+::toffset\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__outputlog_a9813ad21e5c7ee0542be1387c38d2f1f}\label{namespacemom__cap__outputlog_a9813ad21e5c7ee0542be1387c38d2f1f} 
+\index{mom\_cap\_outputlog@{mom\_cap\_outputlog}!u\_file\_u@{u\_file\_u}}
+\index{u\_file\_u@{u\_file\_u}!mom\_cap\_outputlog@{mom\_cap\_outputlog}}
+\doxysubsubsection{\texorpdfstring{u\_file\_u}{u\_file\_u}}
+{\footnotesize\ttfamily character(len=\texorpdfstring{$\ast$}{*}), parameter mom\+\_\+cap\+\_\+outputlog\+::u\+\_\+file\+\_\+u = \+\_\+\+\_\+\+FILE\+\_\+\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{namespacemom__cap__outputlog_a4b49f7e0d0d4508119010fcce92592d2}\label{namespacemom__cap__outputlog_a4b49f7e0d0d4508119010fcce92592d2} 
+\index{mom\_cap\_outputlog@{mom\_cap\_outputlog}!vm@{vm}}
+\index{vm@{vm}!mom\_cap\_outputlog@{mom\_cap\_outputlog}}
+\doxysubsubsection{\texorpdfstring{vm}{vm}}
+{\footnotesize\ttfamily type(esmf\+\_\+vm) mom\+\_\+cap\+\_\+outputlog\+::vm\hspace{0.3cm}{\ttfamily [private]}}
+
