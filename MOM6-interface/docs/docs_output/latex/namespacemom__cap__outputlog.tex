@@ -65,7 +65,20 @@ This module contains a set of subroutines that check if MOM restart and history 
 
 Initialize a set of Alarms at the allowed output frequencies. 
 
-{\ttfamily outputlog\+\_\+init} is called from MOM\+\_\+cap\+\_\+mod\+::\+Model\+Set\+Run\+Clock \Hypertarget{namespacemom__cap__outputlog_af85f24b5e98f54d3ac8497288891c97d}\label{namespacemom__cap__outputlog_af85f24b5e98f54d3ac8497288891c97d} 
+{\ttfamily outputlog\+\_\+init} is called from \mbox{[}mom\+\_\+cap\+\_\+mod\+::\+Model\+Set\+Run\+Clock\mbox{]} (\href{https://github.com/NOAA-EMC/MOM6/blob/9b0576b47f8d464c70b12eb28763463644a37de4/config_src/drivers/nuopc_cap/mom_cap.F90\#L2095}{\texttt{ https\+://github.\+com/\+NOAA-\/\+EMC/\+MOM6/blob/9b0576b47f8d464c70b12eb28763463644a37de4/config\+\_\+src/drivers/nuopc\+\_\+cap/mom\+\_\+cap.\+F90\#\+L2095}})
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em gcomp} & an ESMF\+\_\+\+Grid\+Comp object \\
+\hline
+ & {\em clock} & an ESMF\+\_\+\+Clock object \\
+\hline
+\mbox{\texttt{ in}}  & {\em ocean\+\_\+grid} & ocean grid \\
+\hline
+\mbox{\texttt{ out}}  & {\em rc} & return code \\
+\hline
+\end{DoxyParams}
+\Hypertarget{namespacemom__cap__outputlog_af85f24b5e98f54d3ac8497288891c97d}\label{namespacemom__cap__outputlog_af85f24b5e98f54d3ac8497288891c97d} 
 \index{mom\_cap\_outputlog@{mom\_cap\_outputlog}!outputlog\_restart@{outputlog\_restart}}
 \index{outputlog\_restart@{outputlog\_restart}!mom\_cap\_outputlog@{mom\_cap\_outputlog}}
 \doxysubsubsection{\texorpdfstring{outputlog\_restart()}{outputlog\_restart()}}
