@@ -9,7 +9,7 @@ This module contains a set of subroutines that check if MOM restart and history 
 \begin{DoxyCompactItemize}
 \item 
 subroutine, public \mbox{\hyperlink{namespacemom__cap__outputlog_a772944ef6621c112cfb36b604ba5f75e}{outputlog\+\_\+init}} (gcomp, mclock, ocean\+\_\+grid, rc)
-\begin{DoxyCompactList}\small\item\em Initialize a set of Alarms at the allowed output frequencies. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Initialize the configuration of the outputlog feature. \end{DoxyCompactList}\item 
 subroutine, public \mbox{\hyperlink{namespacemom__cap__outputlog_a63c992951482449c83f6bd9c7de49626}{outputlog\+\_\+run}} (mclock, atstoptime, rc)
 \begin{DoxyCompactList}\small\item\em Wrapper for logging output at single frequency. \end{DoxyCompactList}\item 
 subroutine, public \mbox{\hyperlink{namespacemom__cap__outputlog_abf152af2b5ff79377f77ac979555bbac}{track\+\_\+freqn}} (mtime, cf\+\_\+n, state\+\_\+n, comm, isroot, rootpe, \mbox{\hyperlink{namespacemom__cap__outputlog_ad845115e7fc26077fee28418fd50a67a}{outputdir}}, \mbox{\hyperlink{namespacemom__cap__outputlog_ab6710c7fd3664719466c5003c2a43278}{lastrestart}}, \mbox{\hyperlink{namespacemom__cap__outputlog_ac1d5119536f4bb3762cf13f6f6b6c029}{debug\+\_\+onroot}}, lstop, rc)
@@ -63,9 +63,9 @@ This module contains a set of subroutines that check if MOM restart and history 
 
 
 
-Initialize a set of Alarms at the allowed output frequencies. 
+Initialize the configuration of the outputlog feature. 
 
-{\ttfamily outputlog\+\_\+init} is called from \href{https://github.com/NOAA-EMC/MOM6/blob/9b0576b47f8d464c70b12eb28763463644a37de4/config_src/drivers/nuopc_cap/mom_cap.F90\#L2095)}{\texttt{ mom\+\_\+cap\+\_\+mod\+::\+Model\+Set\+Run\+Clock}}.
+{\ttfamily outputlog\+\_\+init} is called from \href{https://github.com/NOAA-EMC/MOM6/blob/9b0576b47f8d464c70b12eb28763463644a37de4/config_src/drivers/nuopc_cap/mom_cap.F90\#L2095}{\texttt{ MOM\+\_\+cap\+\_\+mod\+::\+Model\+Set\+Run\+Clock}}.
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -88,6 +88,8 @@ Initialize a set of Alarms at the allowed output frequencies.
 
 Check all restart files to determine if output has been completed. 
 
+{\ttfamily outputlog\+\_\+restart} is called whenever restart-\/writing is triggered in \href{https://github.com/NOAA-EMC/MOM6/blob/9b0576b47f8d464c70b12eb28763463644a37de4/config_src/drivers/nuopc_cap/mom_cap.F90\#L1746)}{\texttt{ MOM\+\_\+cap\+\_\+mod\+::\+Model\+Advance}}
+
 
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in}}  & {\em clock} & an ESMF\+\_\+\+Clock object \\
@@ -106,6 +108,8 @@ Check all restart files to determine if output has been completed.
 
 
 Wrapper for logging output at single frequency. 
+
+{\ttfamily outputlog\+\_\+run} is called during once during each \href{https://github.com/NOAA-EMC/MOM6/blob/9b0576b47f8d464c70b12eb28763463644a37de4/config_src/drivers/nuopc_cap/mom_cap.F90\#L1746}{\texttt{ MOM\+\_\+cap\+\_\+mod\+::\+Model\+Advance}}
 
 
 \begin{DoxyParams}{Parameters}

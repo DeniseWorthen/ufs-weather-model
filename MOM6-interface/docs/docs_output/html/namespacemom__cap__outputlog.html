@@ -82,7 +82,7 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a772944ef6621c112cfb36b604ba5f75e" id="r_a772944ef6621c112cfb36b604ba5f75e"><td class="memItemLeft" align="right" valign="top">subroutine, public&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#a772944ef6621c112cfb36b604ba5f75e">outputlog_init</a> (gcomp, mclock, ocean_grid, rc)</td></tr>
-<tr class="memdesc:a772944ef6621c112cfb36b604ba5f75e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a set of Alarms at the allowed output frequencies.  <br /></td></tr>
+<tr class="memdesc:a772944ef6621c112cfb36b604ba5f75e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the configuration of the outputlog feature.  <br /></td></tr>
 <tr class="separator:a772944ef6621c112cfb36b604ba5f75e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a63c992951482449c83f6bd9c7de49626" id="r_a63c992951482449c83f6bd9c7de49626"><td class="memItemLeft" align="right" valign="top">subroutine, public&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__cap__outputlog.html#a63c992951482449c83f6bd9c7de49626">outputlog_run</a> (mclock, atstoptime, rc)</td></tr>
 <tr class="memdesc:a63c992951482449c83f6bd9c7de49626"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper for logging output at single frequency.  <br /></td></tr>
@@ -168,8 +168,8 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Initialize a set of Alarms at the allowed output frequencies. </p>
-<p><code>outputlog_init</code> is called from <a href="https://github.com/NOAA-EMC/MOM6/blob/9b0576b47f8d464c70b12eb28763463644a37de4/config_src/drivers/nuopc_cap/mom_cap.F90#L2095)">mom_cap_mod::ModelSetRunClock</a>.</p>
+<p>Initialize the configuration of the outputlog feature. </p>
+<p><code>outputlog_init</code> is called from <a href="https://github.com/NOAA-EMC/MOM6/blob/9b0576b47f8d464c70b12eb28763463644a37de4/config_src/drivers/nuopc_cap/mom_cap.F90#L2095">MOM_cap_mod::ModelSetRunClock</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir"></td><td class="paramname">gcomp</td><td>an ESMF_GridComp object </td></tr>
@@ -215,6 +215,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Check all restart files to determine if output has been completed. </p>
+<p><code>outputlog_restart</code> is called whenever restart-writing is triggered in <a href="https://github.com/NOAA-EMC/MOM6/blob/9b0576b47f8d464c70b12eb28763463644a37de4/config_src/drivers/nuopc_cap/mom_cap.F90#L1746)">MOM_cap_mod::ModelAdvance</a></p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">clock</td><td>an ESMF_Clock object </td></tr>
@@ -259,6 +260,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Wrapper for logging output at single frequency. </p>
+<p><code>outputlog_run</code> is called during once during each <a href="https://github.com/NOAA-EMC/MOM6/blob/9b0576b47f8d464c70b12eb28763463644a37de4/config_src/drivers/nuopc_cap/mom_cap.F90#L1746">MOM_cap_mod::ModelAdvance</a></p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">clock</td><td>an ESMF_Clock object </td></tr>
