@@ -33,6 +33,11 @@ jobs:
           submodules: recursive
           path: ufs-weather-model
 
+      - name: Install Doxygen
+        shell: bash
+        run: |
+          set -euxo pipefail
+          apt-get update && apt-get install -y doxygen graphviz
       - name: Configure
         shell: bash
         run: |
@@ -63,3 +68,19 @@ jobs:
           set -euxo pipefail
           . /entrypoint.sh
           ctest --test-dir build/MOM6-interface -V
+
+      - name: Build Doxygen Documentation
+        shell: bash
+        if: always() # Build docs even if the unit tests fail
+        run: |
+          set -euxo pipefail
+          . /entrypoint.sh
+          cmake --build build --target feature_docs
+
+      - name: Upload Documentation Artifact
+        uses: actions/upload-artifact@v4
+        if: always() # Ensure artifact uploads even if a previous step failed
+        with:
+          name: mom6-feature-docs
+          path: build/MOM6-interface/unit-tests/docs_output/html/
+          retention-days: 14
