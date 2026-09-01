@@ -4,6 +4,9 @@
 !! use by outputlog feature. Tests to ensure the outputlog alarms will trigger
 !! for start hours which are not multiples of 6 (eg IAU use cases)
 !!
+!! A failure here localizes the problem to the formula itself, independent
+!! of whether AlarmInit/ring-detection machinery is also working correctly.
+!!
 !> @authorDenise.Worthen@noaa.gov
 !> @date 08-01-2026
 program test_alarminit
@@ -46,11 +49,7 @@ program test_alarminit
 
   nt = 0
   ! ===========================================================================
-  ! test set_toffset directly -- pure integer function, no ESMF/clock needed.
-  ! Fast, isolated check of the REAL production formula (mom_outputlog_methods)
-  ! against every literal already confirmed via full ring-detection below.
-  ! A failure here localizes the problem to the formula itself, independent
-  ! of whether AlarmInit/ring-detection machinery is also working correctly.
+  ! test set_toffset directly
   ! ===========================================================================
 
   nt = nt + 1
@@ -96,10 +95,7 @@ program test_alarminit
   call assert_equal(is_passing, .true., testname, assertrc, assertmsg)
   call addresult(alarmtests, assertrc, trim(assertmsg), 'expected toffset=0 (already aligned)')
 
-  ! freq=1/24: explicitly excluded regardless of start hour (see
-  ! set_toffset's docstring) -- pick a deliberately non-aligned start hour
-  ! for both, so a passing result actually demonstrates the exclusion
-  ! rather than coincidentally landing on the mod==0 branch.
+  ! freqs = 1 and 24: explicitly toffset zero regardless of start hour
   nt = nt + 1
   teststart = 5; testfreq = 1
   write(testname,'(3(A,I2.2))')'test ',nt,' set_toffset: start_hour ',teststart,' freq ',testfreq
@@ -165,9 +161,7 @@ program test_alarminit
   ! ===========================================================================
   ! test alignment for freq=1,3 under the generalized per-frequency toffset:
   ! ring hour must land on a multiple of freq (freq=1 is vacuously true --
-  ! nothing to misalign at 1h granularity). Existing cases below (start=0,9,21)
-  ! all happen to already be multiples of 3, so they don't exercise a genuine
-  ! non-aligned correction the way start=21,freq=6 does -- see TODO below.
+  ! nothing to misalign at 1h granularity).
   ! ===========================================================================
 
   nt = nt + 1
@@ -210,10 +204,7 @@ program test_alarminit
   call addresult(alarmtests, assertrc, trim(assertmsg), trim(errmsg))
 
   ! ------------------
-  ! start=21, freq=3 crosses midnight (21+3=24 -> hour 0, next day). No
-  ! special-casing needed here: run_case compares full ESMF_Time objects via
-  ! the native == operator, so day rollover is handled by ESMF's own time
-  ! arithmetic rather than manual modulo-24 hour math at the call site.
+  ! start=21, freq=3 crosses midnight (21+3=24 -> hour 0, next day)
   nt = nt + 1
   teststart = 21; testfreq = 3
   write(testname,'(3(A,I2.2))')'test ',nt,' start_hour ',teststart,' freq ',testfreq
@@ -362,7 +353,6 @@ program test_alarminit
   call esmf_err(rc, subname, "ESMF_Finalize")
 
 contains
-
   !> Steps the clock forward (small dt, checked every step) until the given
   !! alarm actually rings, or gives up after max_steps. Pure mechanics only --
   !! no assertions, no notion of "correct." Shared by run_case (structural
@@ -391,7 +381,7 @@ contains
     integer :: rc, use_dt
     integer :: rcnt, step
     integer, parameter :: max_steps = 200   ! fixed everywhere -- covers 100h at the default dt=1800s;
-                                              ! only dt varies per-case to change effective coverage
+                                            ! only dt varies per-case to change effective coverage
     logical :: rang
 
     ierr = 0

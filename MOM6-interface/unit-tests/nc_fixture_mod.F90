@@ -1,33 +1,34 @@
+!> NetCDF fixture to generate files with established behaviour of file creation and
+!! completion. This feature creates files and then writes files with one of two observed
+!! patterns:
+
+!! 1) in DATM mode, nlen flips from 0 at creation to 1 at completion; file size is ~constant
+!! 2) in ATM mode, nlen>0 at creation and completion is determined by the file size increase
+!!
+!! For 1) we can't reproduce the observed behaviour using a variable that actually shares "time"
+!! (writing any such variable immediately advances nlen) so this is a deliberate stand-in that
+!! reproduces the observable nlen/fsize progression without replicating the real file's
+!! internal variable structure. file_is_complete/get_file_state only look at nlen and fsize, so
+!! that's sufficient for what's under test.
+!!
+!> @date 09-01-2026
 module nc_fixture_mod
-  ! ============================================================================
-  ! Deterministic netCDF-4 fixture primitives for testing file_is_complete /
-  ! get_file_state directly, without depending on incidental HDF5 flush timing.
-  ! Every write here is followed by an explicit nf90_sync + close before
-  ! returning, so the on-disk state is always exactly what it claims to be --
-  ! confirmed necessary in the earlier reproducer work (fsize is NOT reliably
-  ! visible to a separate reader until sync/close; nlen IS visible immediately).
-  !
-  ! Composable primitives, not fixed "states": the alarm-driven test will need
-  ! to interleave these with calls to outputlog_freqn (e.g. create the file
-  ! before the ring is detected, grow it afterward), not just hand it a
-  ! finished file.
-  ! ============================================================================
+
   use netcdf
   implicit none
 
-  integer, parameter :: fixture_nx = 200       ! bulk "data" variable spatial size (ATM payload)
-  integer, parameter :: fixture_pad_n = 100000 ! padding variable size -- models the DATM case's
-                                                 ! already-written bulk payload that does NOT share
-                                                 ! the unlimited "time" dim (see write_padding below)
-
+  integer, parameter :: fixture_nx = 200         ! bulk "data" variable spatial size (ATM payload)
+  integer, parameter :: fixture_pad_n = 100000   ! padding variable size -- models the DATM case's
+                                                 ! already-written bulk payload
 contains
-
   !> Create a fresh file with the schema defined but zero records written. nlen=0.
-  !> Includes an extra "pad" variable that does NOT use the unlimited "time" dim --
-  !> see write_padding for why.
+  !! Includes an extra "pad" variable that does NOT use the unlimited "time" dim
+  !!
+  !! @param[in]   fname                filename
+  !! @param[out]  createsize_out       optional returned file size at creation
   subroutine create_schema(fname, createsize_out)
     character(len=*), intent(in)            :: fname
-    integer,           intent(out), optional :: createsize_out
+    integer,          intent(out), optional :: createsize_out
 
     integer :: ncid, dimid_t, dimid_x, dimid_pad, varid_t, varid_data, varid_pad, fsize
 
@@ -47,9 +48,11 @@ contains
       createsize_out = fsize
     end if
   end subroutine create_schema
-
   !> Extend the unlimited dim by writing record 1's time-coordinate value.
-  !> nlen: 0 -> 1. Does NOT write the bulk data variable.
+  !! nlen: 0 -> 1. Does NOT write the bulk data variable.
+  !!
+  !! @param[in]   fname            filename
+  !! @param[in]   time_value       optional time value used
   subroutine write_record(fname, time_value)
     character(len=*), intent(in)           :: fname
     real(8),          intent(in), optional :: time_value
@@ -66,9 +69,11 @@ contains
     call nf90_err(nf90_sync(ncid), "sync (record)")
     call nf90_err(nf90_close(ncid), "close (record)")
   end subroutine write_record
-
   !> Write the bulk "data" variable for record 1. Grows fsize. Requires
-  !> write_record to have been called first (record 1 must already exist).
+  !! write_record to have been called first (record 1 must already exist).
+  !!
+  !! @param[in]   fname            filename
+  !! @param[in]   fill_value       optional fill value for data fill
   subroutine write_bulk_data(fname, fill_value)
     character(len=*), intent(in)           :: fname
     real(8),          intent(in), optional :: fill_value
@@ -87,16 +92,11 @@ contains
     call nf90_err(nf90_sync(ncid), "sync (data)")
     call nf90_err(nf90_close(ncid), "close (data)")
   end subroutine write_bulk_data
-
-  !> Write the "pad" variable -- deliberately NOT tied to the unlimited "time"
-  !> dim. This models the confirmed real DATM behavior: the bulk payload is
-  !> already fully on disk (fsize ~final) BEFORE nlen ever advances from 0.
-  !> We can't reproduce that using a variable that actually shares "time"
-  !> (writing any such variable immediately advances nlen, per the earlier
-  !> reproducer) -- so this is a deliberate stand-in that reproduces the
-  !> observable nlen/fsize progression without replicating the real file's
-  !> internal variable structure. file_is_complete/get_file_state only look
-  !> at nlen and fsize, so that's sufficient for what's under test.
+  !> Write the "pad" variable -- deliberately not tied to the unlimited "time"
+  !! dim.
+  !!
+  !! @param[in]   fname            filename
+  !! @param[in]   fill_value       optional fill value for data fill
   subroutine write_padding(fname, fill_value)
     character(len=*), intent(in)           :: fname
     real(8),          intent(in), optional :: fill_value
@@ -116,32 +116,30 @@ contains
     call nf90_err(nf90_close(ncid), "close (pad)")
   end subroutine write_padding
 
-  ! --------------------------------------------------------------------------
-  ! Convenience wrappers for the four canonical states, built from the
-  ! primitives above. createsize_out reports the file's size at the moment
-  ! production would have captured it (i.e. right after the record write,
-  ! matching outputlog_freqn's get_file_state call at ring time) -- use this
-  ! as the "createsize" argument to file_is_complete in tests.
-  ! --------------------------------------------------------------------------
-
-  !> DATM incomplete: confirmed against real production output -- the bulk
-  !> payload is already fully written (fsize ~final) while nlen=0.
+  ! -------------------------------------------------------------------------------
+  ! Convenience wrappers for the four canonical states, built from the  primitives
+  !--------------------------------------------------------------------------------
+  !> Wrapper for DATM incomplete
+  !!
+  !! @param[in]   fname    filename
   subroutine make_datm_incomplete(fname)
     character(len=*), intent(in) :: fname
     call create_schema(fname)
     call write_padding(fname)
   end subroutine make_datm_incomplete
-
-  !> DATM complete: confirmed against real production output -- differs from
-  !> incomplete ONLY by the record/timestamp write (nlen 0->1, fsize grows by
-  !> exactly one real*8). The bulk payload was already present.
+  !> Wrapper for DATM complete
+  !!
+  !! @param[in]   fname    filename
   subroutine make_datm_complete(fname)
     character(len=*), intent(in) :: fname
     call create_schema(fname)
     call write_padding(fname)
     call write_record(fname)
   end subroutine make_datm_complete
-
+  !> Wrapper for ATM incomplete
+  !!
+  !! @param[in]   fname            filename
+  !! @param[out]  createsize_out   file size at creation
   subroutine make_atm_incomplete(fname, createsize_out)
     character(len=*),  intent(in)  :: fname
     integer,           intent(out) :: createsize_out
@@ -151,14 +149,20 @@ contains
     inquire(file=trim(fname), size=fsize)
     createsize_out = fsize
   end subroutine make_atm_incomplete
-
+  !> Wrapper for ATM complete
+  !!
+  !! @param[in]   fname            filename
+  !! @param[out]  createsize_out   file size at completion
   subroutine make_atm_complete(fname, createsize_out)
     character(len=*),  intent(in)  :: fname
     integer,           intent(out) :: createsize_out
     call make_atm_incomplete(fname, createsize_out)
     call write_bulk_data(fname)
   end subroutine make_atm_complete
-
+  !> Error return function for NetCDF
+  !!
+  !! @param[in]    ierr      error return value
+  !! @param[in]    context   failure identifier
   subroutine nf90_err(ierr, context)
     integer,          intent(in) :: ierr
     character(len=*), intent(in) :: context
