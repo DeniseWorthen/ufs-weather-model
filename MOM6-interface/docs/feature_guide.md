@@ -42,5 +42,4 @@ dimension is >0 and the filesize is larger than the initial size.
 When a file is determined to be complete, a log file is recorded containing the forecast hour, the
 valid time, the name of the output file and the last completed restart file.
 
-
-![Architecture Diagram](logging_diagram1.png)
+!> @image html logging_diagram1.png "Logging Architecture Diagram" width=50%
