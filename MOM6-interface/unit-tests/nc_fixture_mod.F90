@@ -1,7 +1,8 @@
-!> NetCDF fixture to generate files with established behaviour of file creation and
+!> @file nc_fixture_mod.F90
+!> @brief NetCDF fixture to generate files with established behaviour of file creation and
 !! completion. This feature creates files and then writes files with one of two observed
 !! patterns:
-
+!!
 !! 1) in DATM mode, nlen flips from 0 at creation to 1 at completion; file size is ~constant
 !! 2) in ATM mode, nlen>0 at creation and completion is determined by the file size increase
 !!
