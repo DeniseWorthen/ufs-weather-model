@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['nuopc_20cap_0',['NUOPC Cap',['../nuopc_cap.html',1,'']]]
+  ['mom6_20output_20logging_20user_20guide_0',['MOM6 Output Logging User Guide',['../index.html',1,'']]]
 ];

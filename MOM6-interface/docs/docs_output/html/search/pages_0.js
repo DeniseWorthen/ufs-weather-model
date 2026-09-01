@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['mom_5fcap_5foutputlog_0',['mom_cap_outputlog',['../index.html',1,'']]]
+  ['guide_0',['MOM6 Output Logging User Guide',['../index.html',1,'']]]
 ];
