@@ -8,7 +8,6 @@
 !! A failure here localizes the problem to the formula itself, independent
 !! of whether AlarmInit/ring-detection machinery is also working correctly.
 !!
-!> @authorDenise.Worthen@noaa.gov
 !> @date 08-01-2026
 program test_outputlog_alarminit
 
@@ -112,12 +111,8 @@ program test_outputlog_alarminit
   call addresult(alarmtests, assertrc, trim(assertmsg), 'expected toffset=0 (freq=24 always excluded)')
 
   ! ===========================================================================
-  ! test capture of ringtime via test -- deliberately uses a small dt so that
-  ! the fixed max_steps bound (200 steps) covers LESS real time than the 6h
-  ! needed to reach the actual ring, verifying the "never rang" failure path
-  ! itself. Every other case below uses the default dt, which covers a
-  ! generous 100h -- only dt varies here, not the step count, so the 200-step
-  ! bound stays one constant, uniform invariant across every case.
+  ! test capture of ringtime via test by setting a small dt so that the alarm
+  ! never rings
   ! ===========================================================================
 
   nt = nt + 1
@@ -161,8 +156,7 @@ program test_outputlog_alarminit
 
   ! ===========================================================================
   ! test alignment for freq=1,3 under the generalized per-frequency toffset:
-  ! ring hour must land on a multiple of freq (freq=1 is vacuously true --
-  ! nothing to misalign at 1h granularity).
+  ! ring hour must land on a multiple of freq
   ! ===========================================================================
 
   nt = nt + 1
@@ -217,17 +211,11 @@ program test_outputlog_alarminit
 
   ! ===========================================================================
   ! Literal-value tests: hand-verified expected ring times, independent of
-  ! any re-derived formula. Unlike primary/secondary in run_case, there is NO
-  ! re-derivation risk here -- values come from the user's own domain
-  ! reasoning (or real observed production output), not from code that
-  ! re-implements AlarmInit's own logic. This is what actually caught the
-  ! start=21,freq=6 IAU bug -- primary and secondary both agreed with each
-  ! other and both passed; only the independently-reasoned literal disagreed.
+  ! any re-derived formula.
   ! ===========================================================================
 
-  ! IAU case that originally exposed the bug: 21 is one interval before the
-  ! nominal grid crosses midnight. The averaging window centered here starts
-  ! the following day.
+  ! IAU case: start 21 is one interval before the nominal grid crosses midnight.
+  ! The averaging window centered here starts the following day.
   nt = nt + 1
   teststart = 21; testfreq = 6
   write(testname,'(3(A,I2.2))')'test ',nt,' literal check: start_hour ',teststart,' freq ',testfreq
@@ -245,7 +233,7 @@ program test_outputlog_alarminit
   call addresult(alarmtests, assertrc, trim(assertmsg), trim(errmsg))
 
   ! ------------------
-  ! IAU case, same-day: 3h before the nominal 18:00 grid point.
+  ! IAU case, same-day: 3h before the nominal 18:00.
   nt = nt + 1
   teststart = 15; testfreq = 6
   write(testname,'(3(A,I2.2))')'test ',nt,' literal check: start_hour ',teststart,' freq ',testfreq
@@ -263,10 +251,7 @@ program test_outputlog_alarminit
   call addresult(alarmtests, assertrc, trim(assertmsg), trim(errmsg))
 
   ! ------------------
-  ! Arbitrary, non-IAU, non-multiple-of-3 start hour: currently the ONLY
-  ! coverage of start=11 anywhere in this file -- it falls outside
-  ! run_case's structural sweep entirely (that loop only visits multiples
-  ! of 3), so without this literal it would be untested.
+  ! Arbitrary, non-IAU, non-multiple-of-3 start hour
   nt = nt + 1
   teststart = 11; testfreq = 6
   write(testname,'(3(A,I2.2))')'test ',nt,' literal check: start_hour ',teststart,' freq ',testfreq
@@ -285,10 +270,8 @@ program test_outputlog_alarminit
 
   ! ------------------
   ! Non-IAU restart scenario: start=10 is not a multiple of 3, so the
-  ! generalized per-frequency toffset must apply here too, not just for
-  ! freq>=6. The 10:13 window is unusably partial (phantom, same pattern as
-  ! elsewhere in this project); 12:15 is the first usable 3-hourly average,
-  ! so the ring must land at hour 12.
+  ! generalized per-frequency toffset must apply here too. 12:15 is the
+  ! first usable 3-hourly average, so the ring must land at hour 12.
   nt = nt + 1
   teststart = 10; testfreq = 3
   write(testname,'(3(A,I2.2))')'test ',nt,' literal check: start_hour ',teststart,' freq ',testfreq
@@ -306,11 +289,7 @@ program test_outputlog_alarminit
   call addresult(alarmtests, assertrc, trim(assertmsg), trim(errmsg))
 
   ! ------------------
-  ! freq=24 has no external grid to align to -- confirmed via a real run
-  ! (ncdump of the actual FMS-averaged output file showed an unshifted
-  ! [start,start+24h] window; applying any toffset correction rang the
-  ! alarm 10h before that window's real close, producing no log output at
-  ! all). Ring must land at exactly start+24h, same as if toffset were
+  ! freq=24, rRing must land at exactly start+24h, same as if toffset were
   ! always 0, regardless of start_hour.
   nt = nt + 1
   teststart = 10; testfreq = 24
