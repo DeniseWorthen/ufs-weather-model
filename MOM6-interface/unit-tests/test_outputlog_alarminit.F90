@@ -1,4 +1,4 @@
-!> @file test_alarminit.F90
+!> @file test_outputlog_alarminit.F90
 !> @brief Test code for outputlog Alarm Initialization
 !!
 !! Probes the use of AlarmInit from MOM6 NUOPC cap to intialize alarms for

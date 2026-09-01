@@ -26,3 +26,9 @@ MACRO_EXPANSION        = YES
 SEARCH_INCLUDES        = YES
 
 ALIASES += "mom6_nuopc_url=https://github.com/NOAA-EMC/MOM6/blob/9b0576b47f8d464c70b12eb28763463644a37de4/config_src/drivers/nuopc_cap"
+
+# Turn warnings into fatal build errors
+WARN_AS_ERROR        = YES
+WARNINGS             = YES
+WARN_IF_UNDOCUMENTED = YES
+EXTRACT_ALL          = NO
