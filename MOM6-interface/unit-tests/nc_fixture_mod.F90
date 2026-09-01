@@ -116,7 +116,6 @@ contains
     call nf90_err(nf90_sync(ncid), "sync (pad)")
     call nf90_err(nf90_close(ncid), "close (pad)")
   end subroutine write_padding
-
   ! -------------------------------------------------------------------------------
   ! Convenience wrappers for the four canonical states, built from the  primitives
   !--------------------------------------------------------------------------------

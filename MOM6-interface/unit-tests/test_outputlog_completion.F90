@@ -1,41 +1,16 @@
-!> Test code for the outputlog file-completion contract
+!> @file test_outputlog_completion.F90
+!> @brief Tests file completion contract in isolation
 !!
-!! Probes get_file_state / file_is_complete directly against real netCDF-4
-!! fixture files (see nc_fixture_mod.F90), independent of the alarm/clock
-!! machinery in outputlog_freqn -- this file only asks: given a file in a
-!! known nlen/fsize state, does file_is_complete correctly report whether
-!! it's complete?
+!! Probes get_file_state and file_is_complete directly against on-disk netCDF-4 fixture
+!! files (see nc_fixture_mod.F90), independent of the alarm/clock machinery in outputlog_freqn.
 !!
-!! A test like this only has value if its notion of "correct" doesn't come
-!! from the same place as the code being tested -- otherwise it just checks
-!! that the code agrees with itself. Two things keep this one independent:
-!!
-!! 1. The fixtures are built with plain netCDF library calls (nf90_create,
-!!    nf90_put_var, nf90_sync) -- never by calling file_is_complete or
-!!    anything in mom_outputlog_methods. There's no shared code between the
-!!    files under test and the function testing them.
-!!
-!! 2. The nlen/fsize completion contract itself predates this test, and
-!!    predates file_is_complete's implementation even existing in a form
-!!    anyone could read: it was discovered by hand, empirically, while the
-!!    outputlog feature was first being built -- printing nlen during real
-!!    DATM runs, then finding nlen alone insufficient for active ATM, which
-!!    is specifically what led to tracking fsize too. file_is_complete's
-!!    formula is downstream of that discovery, not the other way around.
-!!    A second, separate confirmation of the same contract came from
-!!    ncdump -c snapshots of real production files (a wholly different tool,
-!!    sharing no code with either file_is_complete or these fixtures).
-!!
-!! So the fixtures here aren't constructed to match file_is_complete's own
-!! logic -- they're constructed to match a pattern established independently
-!! of it, twice over, and file_is_complete is checked against that.
-!!
+!! @date 09-01-2026
 program test_outputlog_completion
 
   use mpi_f08,               only : MPI_Init, MPI_Finalize, MPI_Comm, MPI_Comm_rank, MPI_COMM_WORLD
   use mom_outputlog_methods, only : get_file_state, file_is_complete
   use nc_fixture_mod,        only : make_datm_incomplete, make_datm_complete
- use nc_fixture_mod,         only : make_atm_incomplete,  make_atm_complete
+  use nc_fixture_mod,        only : make_atm_incomplete,  make_atm_complete
 
   implicit none
 
@@ -160,9 +135,8 @@ contains
   end subroutine check_atm_complete
 
   !> Edge case: get_file_state/file_is_complete asked about a file that was
-  !> never created. get_file_state's isroot-only inquire() leaves nlen/fsize
-  !> at nf90_fill_int when the file doesn't exist -- confirm that propagates
-  !> correctly and that file_is_complete treats it as incomplete either way.
+  !> never created. Confirm that propagates correctly and that file_is_complete
+  !> treats it as incomplete either way.
   subroutine check_file_does_not_exist()
     character(len=*), parameter :: fname = "test_does_not_exist.nc"
     integer :: rc, nlen
@@ -170,8 +144,6 @@ contains
 
     call get_file_state(comm, isroot, rootpe, fname, nlen=nlen, rc=rc)
     call assert_equal(0, rc, "Nonexistent file: get_file_state rc")
-    ! nf90_fill_int is a large negative sentinel -- assert it's NOT a
-    ! plausible real record count, rather than hardcoding the exact constant
     call assert_true(nlen < 0, "Nonexistent file: nlen should be the fill-value sentinel, not a real count")
 
     complete_datm = file_is_complete(comm, isroot, rootpe, fname, .false., 0, rc)

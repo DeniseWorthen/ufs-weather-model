@@ -1,4 +1,9 @@
-!>  Narrow orchestration test for the outputlog_freqn machinery
+!> @file test_outputlog_freqn.F90
+!> @brief Orchestration test for the outputlog_freqn machinery
+!!
+!! Set up a modelClock and ring state for a logging frequency; calls into track_freqn
+!! with fixed curr/next Time, mimicking actual ModelAdvance where the clock itself never
+!! advances. Creates and completes files in same sequence as actual production code.
 !!
 !> @date 08-12-2026
 program test_outputlog_freqn
@@ -182,7 +187,16 @@ program test_outputlog_freqn
   endif
 
 contains
-  !> TODO
+  !> Run a single test case through a simulated modelClock advance cycle
+  !!
+  !! @param[in]      test           descriptive test name
+  !! @param[in]      freq           output frequency
+  !! @param[in]      start_hour     clock start time
+  !! @param[in]      runhours       clock advance length
+  !! @param[in]      timereduce     optional argument to specify average or snapshot mode
+  !! @param[in]      use_filesize   optional argument to specify completion type
+  !! @param[in]      nfiles         optional argument to specify io-layout file number
+  !! @param[out]     completions    number of file completions found
   subroutine run_case(test, freq, start_hour, runhours, timereduce, use_filesize, nfiles, &
        completions)
 

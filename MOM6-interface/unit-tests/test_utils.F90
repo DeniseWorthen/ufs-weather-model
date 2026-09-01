@@ -1,3 +1,7 @@
+!>@file test_utils.F90
+!>@brief Common assertion and test summary functions for MOM6 outputlog unit tests
+!!
+!> @date 08-12-2026
 module test_utils
 
   use ESMF, only : ESMF_SUCCESS
@@ -53,7 +57,12 @@ contains
     allocate(this%errmessage(maxtests))
 
   end subroutine init_summary
-
+  !> Add test results to summary
+  !!
+  !! @param[inout]     summary     test summary
+  !! @param[in]        passed      test result
+  !! @param[in]        message     test message
+  !! @param[in]        errormsg    test errory message
   subroutine add_test_result(summary, passed, message, errormsg)
 
     type(testsummary), intent(inout) :: summary
@@ -73,17 +82,17 @@ contains
     summary%testmessage(summary%count)%str = message
     summary%errmessage(summary%count)%str = errormsg
   end subroutine add_test_result
-  !> Grows teststatus/testmessage/errmessage to fit summary%count, doubling
-  !> capacity (or matching count exactly if that's larger) rather than a
-  !> fixed maxtests -- add_test_result can never write out of bounds, and
-  !> init(maxtests) becomes just an optional initial-capacity hint rather
-  !> than a hard, easy-to-forget-to-update limit. Safe to call whether or
-  !> not init() was ever called (an unallocated array is treated as size 0).
+  !> Increase the size of the testsummary type
+  !!
+  !! @param[inout]    summary    test summary type
   subroutine grow_if_needed(summary)
     type(testsummary), intent(inout) :: summary
+
     logical,        allocatable :: new_status(:)
     type(msg_type), allocatable :: new_testmsg(:), new_errmsg(:)
+
     integer :: old_size, new_size
+
     old_size = 0
     if (allocated(summary%teststatus)) old_size = size(summary%teststatus)
     if (summary%count <= old_size) return
