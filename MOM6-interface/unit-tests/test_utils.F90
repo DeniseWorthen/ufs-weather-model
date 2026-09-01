@@ -1,3 +1,9 @@
+!>@file test_utils.F90
+!>@brief Common assertion and test summary functions for MOM6 outputlog unit tests
+!!
+!> @date 08-12-2026
+
+!> Module containing common assertion and test summary functions
 module test_utils
 
   use ESMF, only : ESMF_SUCCESS
@@ -14,21 +20,25 @@ module test_utils
   public :: testsummary, addresult, esmf_err, itoa
   public :: assert_equal
 
+  !> Wrapper type for dynamically sized string messages
   type :: msg_type
-     character(len=:), allocatable :: str
+     character(len=:), allocatable :: str    !< a message string
   end type msg_type
 
+  !> Type for tracking test execution counts, passes, fails, and messages
   type testsummary
-     integer :: count = 0
-     integer :: npass = 0
-     integer :: nfail = 0
-     logical,        allocatable :: teststatus(:)
-     type(msg_type), allocatable :: testmessage(:)
-     type(msg_type), allocatable :: errmessage(:)
+     integer :: count = 0         !< a test count
+     integer :: npass = 0         !< passing test count
+     integer :: nfail = 0         !< failing test count
+     logical,        allocatable :: teststatus(:)       !< test status list
+     type(msg_type), allocatable :: testmessage(:)      !< test message list
+     type(msg_type), allocatable :: errmessage(:)       !< test error message list
    contains
+     !> Bound procedure to initialize the summary
      procedure :: init => init_summary
   end type testsummary
 
+  !> Generic interface for asserting equality between expected and actual values
   interface assert_equal
      module procedure assert_int_scalar
      module procedure assert_real_scalar
@@ -37,12 +47,17 @@ module test_utils
      module procedure assert_logical
   end interface assert_equal
 
+  !> Generic interface for adding a test result to the summary
   interface addresult
      module procedure add_test_result
   end interface addresult
 
 contains
 
+  !> Initialize the test summary object
+  !!
+  !! @param[inout] this       The testsummary object to initialize
+  !! @param[in]    maxtests   The maximum number of tests to allocate space for
   subroutine init_summary(this, maxtests)
 
     class(testsummary), intent(inout) :: this
@@ -54,6 +69,12 @@ contains
 
   end subroutine init_summary
 
+  !> Add test results to summary
+  !!
+  !! @param[inout]     summary     test summary
+  !! @param[in]        passed      test result
+  !! @param[in]        message     test message
+  !! @param[in]        errormsg    test error message
   subroutine add_test_result(summary, passed, message, errormsg)
 
     type(testsummary), intent(inout) :: summary
@@ -73,17 +94,18 @@ contains
     summary%testmessage(summary%count)%str = message
     summary%errmessage(summary%count)%str = errormsg
   end subroutine add_test_result
-  !> Grows teststatus/testmessage/errmessage to fit summary%count, doubling
-  !> capacity (or matching count exactly if that's larger) rather than a
-  !> fixed maxtests -- add_test_result can never write out of bounds, and
-  !> init(maxtests) becomes just an optional initial-capacity hint rather
-  !> than a hard, easy-to-forget-to-update limit. Safe to call whether or
-  !> not init() was ever called (an unallocated array is treated as size 0).
+
+  !> Increase the size of the testsummary type arrays if needed
+  !!
+  !! @param[inout]    summary    test summary type
   subroutine grow_if_needed(summary)
     type(testsummary), intent(inout) :: summary
+
     logical,        allocatable :: new_status(:)
     type(msg_type), allocatable :: new_testmsg(:), new_errmsg(:)
+
     integer :: old_size, new_size
+
     old_size = 0
     if (allocated(summary%teststatus)) old_size = size(summary%teststatus)
     if (summary%count <= old_size) return
@@ -99,6 +121,13 @@ contains
     call move_alloc(new_errmsg, summary%errmessage)
   end subroutine grow_if_needed
 
+  !> Assert equality between two logical values
+  !!
+  !! @param[in]  actual      The actual boolean result
+  !! @param[in]  expected    The expected boolean result
+  !! @param[in]  msg         Description of the test
+  !! @param[out] rc          Return code (true if pass, false if fail)
+  !! @param[out] returnmsg   Formatted result string
   subroutine assert_logical(actual, expected, msg, rc, returnmsg)
 
     logical,          intent(in)  :: actual, expected
@@ -114,6 +143,13 @@ contains
     endif
   end subroutine assert_logical
 
+  !> Assert equality between two integer scalars
+  !!
+  !! @param[in]  actual      The actual integer
+  !! @param[in]  expected    The expected integer
+  !! @param[in]  msg         Description of the test
+  !! @param[out] rc          Return code (true if pass, false if fail)
+  !! @param[out] returnmsg   Formatted result string
   subroutine assert_int_scalar(actual, expected, msg, rc, returnmsg)
     integer(int_kind), intent(in)  :: actual, expected
     character(len=*),  intent(in)  :: msg
@@ -128,6 +164,14 @@ contains
     end if
   end subroutine assert_int_scalar
 
+  !> Assert equality between two real scalars within a tolerance
+  !!
+  !! @param[in]  actual      The actual real value
+  !! @param[in]  expected    The expected real value
+  !! @param[in]  tol         The tolerance for equality
+  !! @param[in]  msg         Description of the test
+  !! @param[out] rc          Return code (true if pass, false if fail)
+  !! @param[out] returnmsg   Formatted result string
   subroutine assert_real_scalar(actual, expected, tol, msg, rc, returnmsg)
     real(real_kind),   intent(in)  :: actual, expected, tol
     character(len=*),  intent(in)  :: msg
@@ -142,6 +186,14 @@ contains
     end if
   end subroutine assert_real_scalar
 
+  !> Assert equality between two double precision scalars within a tolerance
+  !!
+  !! @param[in]  actual      The actual double value
+  !! @param[in]  expected    The expected double value
+  !! @param[in]  tol         The tolerance for equality
+  !! @param[in]  msg         Description of the test
+  !! @param[out] rc          Return code (true if pass, false if fail)
+  !! @param[out] returnmsg   Formatted result string
   subroutine assert_double_scalar(actual, expected, tol, msg, rc, returnmsg)
     real(dbl_kind),    intent(in)  :: actual, expected, tol
     character(len=*),  intent(in)  :: msg
@@ -156,6 +208,14 @@ contains
     end if
   end subroutine assert_double_scalar
 
+  !> Assert equality between two double precision 1D arrays within a tolerance
+  !!
+  !! @param[in]  actual      The actual double array
+  !! @param[in]  expected    The expected double array
+  !! @param[in]  tol         The tolerance for equality
+  !! @param[in]  msg         Description of the test
+  !! @param[out] rc          Return code (true if pass, false if fail)
+  !! @param[out] returnmsg   Formatted result string
   subroutine assert_double_1d(actual, expected, tol, msg, rc, returnmsg)
     real(dbl_kind),    intent(in)  :: actual(:), expected(:), tol
     character(len=*),  intent(in)  :: msg
@@ -170,6 +230,10 @@ contains
     end if
   end subroutine assert_double_1d
 
+  !> Convert an integer to a string
+  !!
+  !! @param[in] i  The integer to convert
+  !! @return       A string representation of the integer
   function itoa(i) result(s)
     integer, intent(in) :: i
     character(len=4) :: s
@@ -177,6 +241,11 @@ contains
     write(s,'(I0)') i
   end function itoa
 
+  !> Check an ESMF return code and abort if an error is found
+  !!
+  !! @param[in] rc        The ESMF return code
+  !! @param[in] subname   The name of the calling subroutine for logging
+  !! @param[in] context   Context message for logging
   subroutine esmf_err(rc, subname, context)
     integer,          intent(in) :: rc
     character(len=*), intent(in) :: subname

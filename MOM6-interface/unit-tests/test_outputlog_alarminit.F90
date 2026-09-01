@@ -1,16 +1,14 @@
-!> @file test_alarminit.F90
+!> @file test_outputlog_alarminit.F90
 !> @brief Test code for outputlog Alarm Initialization
 !!
 !! Probes the use of AlarmInit from MOM6 NUOPC cap to intialize alarms for
 !! use by outputlog feature. Tests to ensure the outputlog alarms will trigger
 !! for start hours which are not multiples of 6 (eg IAU use cases)
 !!
-!! A failure here localizes the problem to the formula itself, independent
-!! of whether AlarmInit/ring-detection machinery is also working correctly.
-!!
-!> @authorDenise.Worthen@noaa.gov
 !> @date 08-01-2026
-program test_alarminit
+
+!> Main program for testing outputlog alarm initialization
+program test_outputlog_alarminit
 
   use test_utils
 
@@ -19,7 +17,8 @@ program test_alarminit
   use ESMF,  only : ESMF_Clock, ESMF_ClockCreate, ESMF_ClockGet, ESMF_ClockAdvance
   use ESMF,  only : ESMF_Time, ESMF_TimeSet, ESMF_TimeGet, ESMF_TimeInterval, ESMF_TimeIntervalSet
   use ESMF,  only : operator(==), operator(/=), operator(+), operator(-), operator(*)
-  use MOM_cap_time, only : AlarmInit
+
+  use MOM_cap_time,          only : AlarmInit
   use mom_outputlog_methods, only : set_toffset
 
   implicit none
@@ -112,12 +111,8 @@ program test_alarminit
   call addresult(alarmtests, assertrc, trim(assertmsg), 'expected toffset=0 (freq=24 always excluded)')
 
   ! ===========================================================================
-  ! test capture of ringtime via test -- deliberately uses a small dt so that
-  ! the fixed max_steps bound (200 steps) covers LESS real time than the 6h
-  ! needed to reach the actual ring, verifying the "never rang" failure path
-  ! itself. Every other case below uses the default dt, which covers a
-  ! generous 100h -- only dt varies here, not the step count, so the 200-step
-  ! bound stays one constant, uniform invariant across every case.
+  ! test capture of ringtime via test by setting a small dt so that the alarm
+  ! never rings
   ! ===========================================================================
 
   nt = nt + 1
@@ -161,8 +156,7 @@ program test_alarminit
 
   ! ===========================================================================
   ! test alignment for freq=1,3 under the generalized per-frequency toffset:
-  ! ring hour must land on a multiple of freq (freq=1 is vacuously true --
-  ! nothing to misalign at 1h granularity).
+  ! ring hour must land on a multiple of freq
   ! ===========================================================================
 
   nt = nt + 1
@@ -217,17 +211,11 @@ program test_alarminit
 
   ! ===========================================================================
   ! Literal-value tests: hand-verified expected ring times, independent of
-  ! any re-derived formula. Unlike primary/secondary in run_case, there is NO
-  ! re-derivation risk here -- values come from the user's own domain
-  ! reasoning (or real observed production output), not from code that
-  ! re-implements AlarmInit's own logic. This is what actually caught the
-  ! start=21,freq=6 IAU bug -- primary and secondary both agreed with each
-  ! other and both passed; only the independently-reasoned literal disagreed.
+  ! any re-derived formula.
   ! ===========================================================================
 
-  ! IAU case that originally exposed the bug: 21 is one interval before the
-  ! nominal grid crosses midnight. The averaging window centered here starts
-  ! the following day.
+  ! IAU case: start 21 is one interval before the nominal grid crosses midnight.
+  ! The averaging window centered here starts the following day.
   nt = nt + 1
   teststart = 21; testfreq = 6
   write(testname,'(3(A,I2.2))')'test ',nt,' literal check: start_hour ',teststart,' freq ',testfreq
@@ -245,7 +233,7 @@ program test_alarminit
   call addresult(alarmtests, assertrc, trim(assertmsg), trim(errmsg))
 
   ! ------------------
-  ! IAU case, same-day: 3h before the nominal 18:00 grid point.
+  ! IAU case, same-day: 3h before the nominal 18:00.
   nt = nt + 1
   teststart = 15; testfreq = 6
   write(testname,'(3(A,I2.2))')'test ',nt,' literal check: start_hour ',teststart,' freq ',testfreq
@@ -263,10 +251,7 @@ program test_alarminit
   call addresult(alarmtests, assertrc, trim(assertmsg), trim(errmsg))
 
   ! ------------------
-  ! Arbitrary, non-IAU, non-multiple-of-3 start hour: currently the ONLY
-  ! coverage of start=11 anywhere in this file -- it falls outside
-  ! run_case's structural sweep entirely (that loop only visits multiples
-  ! of 3), so without this literal it would be untested.
+  ! Arbitrary, non-IAU, non-multiple-of-3 start hour
   nt = nt + 1
   teststart = 11; testfreq = 6
   write(testname,'(3(A,I2.2))')'test ',nt,' literal check: start_hour ',teststart,' freq ',testfreq
@@ -285,10 +270,8 @@ program test_alarminit
 
   ! ------------------
   ! Non-IAU restart scenario: start=10 is not a multiple of 3, so the
-  ! generalized per-frequency toffset must apply here too, not just for
-  ! freq>=6. The 10:13 window is unusably partial (phantom, same pattern as
-  ! elsewhere in this project); 12:15 is the first usable 3-hourly average,
-  ! so the ring must land at hour 12.
+  ! generalized per-frequency toffset must apply here too. 12:15 is the
+  ! first usable 3-hourly average, so the ring must land at hour 12.
   nt = nt + 1
   teststart = 10; testfreq = 3
   write(testname,'(3(A,I2.2))')'test ',nt,' literal check: start_hour ',teststart,' freq ',testfreq
@@ -306,11 +289,7 @@ program test_alarminit
   call addresult(alarmtests, assertrc, trim(assertmsg), trim(errmsg))
 
   ! ------------------
-  ! freq=24 has no external grid to align to -- confirmed via a real run
-  ! (ncdump of the actual FMS-averaged output file showed an unshifted
-  ! [start,start+24h] window; applying any toffset correction rang the
-  ! alarm 10h before that window's real close, producing no log output at
-  ! all). Ring must land at exactly start+24h, same as if toffset were
+  ! freq=24, rRing must land at exactly start+24h, same as if toffset were
   ! always 0, regardless of start_hour.
   nt = nt + 1
   teststart = 10; testfreq = 24
@@ -354,15 +333,17 @@ program test_alarminit
   call esmf_err(rc, subname, "ESMF_Finalize")
 
 contains
-  !> Steps the clock forward (small dt, checked every step) until the given
-  !! alarm actually rings, or gives up after max_steps. Pure mechanics only --
-  !! no assertions, no notion of "correct." Shared by run_case (structural
-  !! primary+secondary checks) and any literal-value test (direct comparison
-  !! against a hand-verified expected time), so the ring-detection logic
-  !! itself only exists in one place. Also returns startTime and toffset,
-  !! since both run_case's checks and a literal test's own comparison need
-  !! them (startTime to build an expected ESMF_Time; toffset only for
-  !! run_case's regression check).
+  !> Steps the clock forward (small dt, checked every step) until the given alarm actually rings,
+  !! or gives up after max_steps.
+  !!
+  !! @param[in]      freq          output frequency (hours)
+  !! @param[in]      start_hour    start_hour for clock
+  !! @param[out]     ringTime      ESMF_Time at ring
+  !! @param[out]     startTime     ESMF_Time at start
+  !! @param[out]     toffset       required hour offset to set ring at valid interval
+  !! @param[out]     ierr          error return code
+  !! @param[out]     errmsg        returned error message
+  !! @param[in]      dt            optional timestep used to test no-ring
   subroutine find_ring_time(freq, start_hour, ringTime, startTime, toffset, ierr, errmsg, dt)
 
     integer,           intent(in)  :: freq, start_hour
@@ -403,12 +384,6 @@ contains
     call ESMF_TimeIntervalSet(tincrement, m=1, rc=rc)
     call esmf_err(rc, subname,  "ESMF_TimeIntervalSet(tincrement)")
 
-    ! Real production logic, not a reimplementation -- closes the
-    ! reimplementation gap this whole test file used to carry: every ring
-    ! detected here now depends on the SAME toffset computation outputlog_init
-    ! actually uses, not a hand-typed duplicate of it. See set_toffset's own
-    ! docstring (mom_outputlog_methods.F90) and test_set_toffset (in this
-    ! program) for why freq=1/24 are excluded.
     toffset = set_toffset(start_hour, freq)
 
     alarmoffset = toffset*60*tincrement
@@ -447,14 +422,15 @@ contains
     call ESMF_ClockGet(clock, currTime=ringTime, rc=rc)
     call esmf_err(rc, subname,  "ESMF_ClockGet(currTime at ringTime)")
   end subroutine find_ring_time
-
-  !> Runs one freq/start_hour case end to end and reports a SINGLE result:
-  !! ierr==0 means the alarm rang in time AND both the primary (structural)
-  !! and secondary (regression) checks passed; any other outcome sets
-  !! ierr/=0 with errmsg describing specifically what failed. Callers never
-  !! need to assemble their own pass/fail expression -- every call site
-  !! reduces to `call run_case(...); is_passing = (ierr==0)` (or /=0 for the
-  !! one case that's expected to time out).
+  !> Runs one freq/start_hour case end to end. Returns ierr, where ierr==0 means the
+  !! alarm rang in time and both the primary (structural) and secondary (regression)
+  !! checks passed
+  !!
+  !! @param[in]      freq          output frequency (hours)
+  !! @param[in]      start_hour    start_hour for clock
+  !! @param[out]     ierr          error return code
+  !! @param[out]     errmsg        returned error message
+  !! @param[in]      dt            optional timestep used to test no-ring
   subroutine run_case(freq, start_hour, ierr, errmsg, dt)
 
     integer,           intent(in)  :: freq, start_hour
@@ -470,22 +446,12 @@ contains
     logical :: primary_ok, secondary_ok
 
     call find_ring_time(freq, start_hour, ringTime, startTime, toffset, ierr, errmsg, dt)
-    if (ierr /= 0) return   ! never rang -- errmsg already set by find_ring_time
+    if (ierr /= 0) return   ! never rang
 
     call ESMF_TimeGet(ringTime, dd=ring_day, h=ring_hour, rc=rc)
     call esmf_err(rc, subname,  "ESMF_TimeGet(ringTime)")
 
-    ! --- PRIMARY: independent structural check (the code's own stated intent).
-    ! For freq=3/6, "ring hour is a multiple of freq" is meaningful -- there
-    ! are multiple valid nonzero remainders within a day (e.g. 6,12,18 for
-    ! freq=6). For freq=1 it's vacuously true (every hour is a valid 1h
-    ! boundary). For freq=24 it is NOT meaningful: ring_hour is bounded to
-    ! 0-23, and 24 can never appear as a nonzero remainder in that range --
-    ! mod(ring_hour,24)==0 can only ever be satisfied by ring_hour=0 exactly,
-    ! regardless of whether the ring landed on the correct day. freq=24's
-    ! real invariant (confirmed via real production runs -- see set_toffset's
-    ! docstring) is that it has no external grid at all: the ring must land
-    ! EXACTLY 24h after start, checked as a full ESMF_Time instant instead.
+    ! --- primary (structural) check. verify that the ringhour is a multiple of freq
     if (freq == 24) then
        call ESMF_TimeIntervalSet(freqInterval, h=freq, rc=rc)
        call esmf_err(rc, subname, "ESMF_TimeIntervalSet(freqInterval)")
@@ -502,10 +468,8 @@ contains
        endif
     endif
 
-    ! --- SECONDARY: regression check only -- re-derives AlarmInit's own
-    ! rewind-then-advance loop independently and compares the FULL resulting
-    ! time (via ESMF's == operator, not just the hour) against what actually
-    ! rang. Carries real oracle-mirroring risk, unlike the primary check.
+    ! --- secondary (regression) check. verify manual construction of timeinterval based
+    ! on toffset rings at the right time
     call ESMF_TimeIntervalSet(regressionInterval, h=predicted_ring_offset(freq, toffset), rc=rc)
     call esmf_err(rc, subname, "ESMF_TimeIntervalSet(regressionInterval)")
     regressionTime = startTime + regressionInterval
@@ -516,12 +480,12 @@ contains
 
     if (.not. (primary_ok .and. secondary_ok)) ierr = 1
   end subroutine run_case
-
   !> Independent re-derivation of AlarmInit's rewind-then-advance loop, for
-  !! the regression check only. Returns the UNWRAPPED elapsed-hours offset
-  !! from startTime (not an hour-of-day) so the caller can build a proper
-  !! ESMF_TimeInterval and compare full ESMF_Time objects -- preserves day
-  !! precision, unlike returning a modulo-24 hour value would.
+  !! the regression check only. Returns the elapsed-hours offset from startTime
+  !! to construct ESMF_TimeInterval to compare full ESMF_Time objects
+  !!
+  !! @param[in]    freq     alarm freq (hour)
+  !! @param[in]    toffset  establised time offset (hour)
   function predicted_ring_offset(freq, toffset) result(val)
     integer, intent(in) :: freq, toffset
     integer :: val
@@ -531,4 +495,4 @@ contains
        val = val + freq
     end do
   end function predicted_ring_offset
-end program test_alarminit
+end program test_outputlog_alarminit
