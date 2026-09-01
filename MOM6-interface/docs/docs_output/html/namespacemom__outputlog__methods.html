@@ -83,10 +83,13 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Data Types</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">type &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmom__outputlog__methods_1_1outputlog__config__type.html">outputlog_config_type</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure containing the configuration for output logging at a given frequency.  <a href="structmom__outputlog__methods_1_1outputlog__config__type.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">type &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmom__outputlog__methods_1_1outputlog__modeltime__type.html">outputlog_modeltime_type</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure containing the model time state during tracking.  <a href="structmom__outputlog__methods_1_1outputlog__modeltime__type.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">type &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmom__outputlog__methods_1_1outputlog__state__type.html">outputlog_state_type</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure containing the time-dependent state of a tracked file.  <a href="structmom__outputlog__methods_1_1outputlog__state__type.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
@@ -94,9 +97,9 @@ Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a01160bef8095af4012645fc9f9557d35" id="r_a01160bef8095af4012645fc9f9557d35"><td class="memItemLeft" align="right" valign="top">subroutine, public&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__outputlog__methods.html#a01160bef8095af4012645fc9f9557d35">readnml</a> (fname, cf, debug, errmsg, rc)</td></tr>
 <tr class="memdesc:a01160bef8095af4012645fc9f9557d35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read nml options to configure output logging.  <br /></td></tr>
 <tr class="separator:a01160bef8095af4012645fc9f9557d35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6f6531dd449d24f188a521c5cdf2e19" id="r_ac6f6531dd449d24f188a521c5cdf2e19"><td class="memItemLeft" align="right" valign="top">subroutine, public&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__outputlog__methods.html#ac6f6531dd449d24f188a521c5cdf2e19">get_ring_state</a> (state_n, comm, isroot, rootpe, rc)</td></tr>
-<tr class="memdesc:ac6f6531dd449d24f188a521c5cdf2e19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the state of the netcdf output file at ring time.  <br /></td></tr>
-<tr class="separator:ac6f6531dd449d24f188a521c5cdf2e19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08240cb1abfdc64cfb2e799c6e0d688c" id="r_a08240cb1abfdc64cfb2e799c6e0d688c"><td class="memItemLeft" align="right" valign="top">subroutine, public&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__outputlog__methods.html#a08240cb1abfdc64cfb2e799c6e0d688c">get_file_state_atring</a> (state_n, comm, isroot, rootpe, rc)</td></tr>
+<tr class="memdesc:a08240cb1abfdc64cfb2e799c6e0d688c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the state of the netcdf output file at ring time.  <br /></td></tr>
+<tr class="separator:a08240cb1abfdc64cfb2e799c6e0d688c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad2ea9c0e9a4d3312567183e418a0a1b9" id="r_ad2ea9c0e9a4d3312567183e418a0a1b9"><td class="memItemLeft" align="right" valign="top">subroutine, public&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__outputlog__methods.html#ad2ea9c0e9a4d3312567183e418a0a1b9">get_file_state</a> (comm, isroot, rootpe, fname, nlen, fsize, rc)</td></tr>
 <tr class="memdesc:ad2ea9c0e9a4d3312567183e418a0a1b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the unlimited dimension length and file size, broadcasting to all PEs.  <br /></td></tr>
 <tr class="separator:ad2ea9c0e9a4d3312567183e418a0a1b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -136,7 +139,9 @@ Functions/Subroutines</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a743fed927ae81b3028b61387b6fc1871" id="r_a743fed927ae81b3028b61387b6fc1871"><td class="memItemLeft" align="right" valign="top">character(len= *), parameter&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemom__outputlog__methods.html#a743fed927ae81b3028b61387b6fc1871">u_file_u</a> = __FILE__</td></tr>
+<tr class="memitem:a743fed927ae81b3028b61387b6fc1871" id="r_a743fed927ae81b3028b61387b6fc1871"><td class="memItemLeft" align="right" valign="top"><a id="a743fed927ae81b3028b61387b6fc1871" name="a743fed927ae81b3028b61387b6fc1871"></a>
+character(len= *), parameter&#160;</td><td class="memItemRight" valign="bottom"><b>u_file_u</b> = __FILE__</td></tr>
+<tr class="memdesc:a743fed927ae81b3028b61387b6fc1871"><td class="mdescLeft">&#160;</td><td class="mdescRight">an ESMF message tracker <br /></td></tr>
 <tr class="separator:a743fed927ae81b3028b61387b6fc1871"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -384,59 +389,14 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a99e5b2d37e927c2db6b5fb70794221ef" name="a99e5b2d37e927c2db6b5fb70794221ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a99e5b2d37e927c2db6b5fb70794221ef">&#9670;&#160;</a></span>get_importexport()</h2>
+<a id="a08240cb1abfdc64cfb2e799c6e0d688c" name="a08240cb1abfdc64cfb2e799c6e0d688c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08240cb1abfdc64cfb2e799c6e0d688c">&#9670;&#160;</a></span>get_file_state_atring()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">character(len=40) function, public mom_outputlog_methods::get_importexport </td>
-          <td>(</td>
-          <td class="paramtype">type(esmf_time), intent(in)&#160;</td>
-          <td class="paramname"><em>currtime</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">type(esmf_time), intent(in)&#160;</td>
-          <td class="paramname"><em>nexttime</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">integer, intent(out)&#160;</td>
-          <td class="paramname"><em>rc</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Convenience function to return import/export timestring. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">currTime</td><td>an ESMF_Time object </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">nextTime</td><td>an ESMF_Time object </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">rc</td><td>return code </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>40-character string </dd></dl>
-
-</div>
-</div>
-<a id="ac6f6531dd449d24f188a521c5cdf2e19" name="ac6f6531dd449d24f188a521c5cdf2e19"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6f6531dd449d24f188a521c5cdf2e19">&#9670;&#160;</a></span>get_ring_state()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">subroutine, public mom_outputlog_methods::get_ring_state </td>
+          <td class="memname">subroutine, public mom_outputlog_methods::get_file_state_atring </td>
           <td>(</td>
           <td class="paramtype">type(<a class="el" href="structmom__outputlog__methods_1_1outputlog__state__type.html">outputlog_state_type</a>), intent(inout)&#160;</td>
           <td class="paramname"><em>state_n</em>, </td>
@@ -484,6 +444,51 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a99e5b2d37e927c2db6b5fb70794221ef" name="a99e5b2d37e927c2db6b5fb70794221ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99e5b2d37e927c2db6b5fb70794221ef">&#9670;&#160;</a></span>get_importexport()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">character(len=40) function, public mom_outputlog_methods::get_importexport </td>
+          <td>(</td>
+          <td class="paramtype">type(esmf_time), intent(in)&#160;</td>
+          <td class="paramname"><em>currtime</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">type(esmf_time), intent(in)&#160;</td>
+          <td class="paramname"><em>nexttime</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer, intent(out)&#160;</td>
+          <td class="paramname"><em>rc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Convenience function to return import/export timestring. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">currTime</td><td>an ESMF_Time object </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">nextTime</td><td>an ESMF_Time object </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">rc</td><td>return code </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>40-character string </dd></dl>
 
 </div>
 </div>
@@ -867,21 +872,6 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>output reduction type by supported frequency slot </dd></dl>
-
-</div>
-</div>
-<h2 class="groupheader">Variable Documentation</h2>
-<a id="a743fed927ae81b3028b61387b6fc1871" name="a743fed927ae81b3028b61387b6fc1871"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a743fed927ae81b3028b61387b6fc1871">&#9670;&#160;</a></span>u_file_u</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">character(len=*), parameter mom_outputlog_methods::u_file_u = __FILE__</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
 
 </div>
 </div>

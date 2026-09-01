@@ -8,6 +8,5 @@ var searchData=
   ['outputlog_5frestart_5',['outputlog_restart',['../namespacemom__cap__outputlog.html#af85f24b5e98f54d3ac8497288891c97d',1,'mom_cap_outputlog']]],
   ['outputlog_5frun_6',['outputlog_run',['../namespacemom__cap__outputlog.html#a63c992951482449c83f6bd9c7de49626',1,'mom_cap_outputlog']]],
   ['outputlog_5fstate_5ftype_7',['outputlog_state_type',['../structmom__outputlog__methods_1_1outputlog__state__type.html',1,'mom_outputlog_methods']]],
-  ['outputlog_5ftest_5fhelpers_8',['outputlog_test_helpers',['../namespaceoutputlog__test__helpers.html',1,'']]],
-  ['outputlog_5ftest_5fhelpers_2ef90_9',['outputlog_test_helpers.F90',['../outputlog__test__helpers_8F90.html',1,'']]]
+  ['outputlog_5ftest_5fhelpers_2ef90_8',['outputlog_test_helpers.F90',['../outputlog__test__helpers_8F90.html',1,'']]]
 ];

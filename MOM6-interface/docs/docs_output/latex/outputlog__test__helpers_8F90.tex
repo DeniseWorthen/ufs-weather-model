@@ -1,23 +1,91 @@
 \doxysection{/work/noaa/nems/dworthen/ufs\+\_\+dw/\+MOM6-\/interface/unit-\/tests/outputlog\+\_\+test\+\_\+helpers.F90 File Reference}
 \hypertarget{outputlog__test__helpers_8F90}{}\label{outputlog__test__helpers_8F90}\index{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/unit-\/tests/outputlog\_test\_helpers.F90@{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/unit-\/tests/outputlog\_test\_helpers.F90}}
-\doxysubsubsection*{Modules}
-\begin{DoxyCompactItemize}
-\item 
-module \mbox{\hyperlink{namespaceoutputlog__test__helpers}{outputlog\+\_\+test\+\_\+helpers}}
-\begin{DoxyCompactList}\small\item\em Shared setup/teardown helpers for outputlog unit tests. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+Shared setup for outputlog unit tests.  
+
+
 \doxysubsubsection*{Functions/\+Subroutines}
 \begin{DoxyCompactItemize}
 \item 
-subroutine, public \mbox{\hyperlink{namespaceoutputlog__test__helpers_aa686e4425f339e09909cc3cd9ad29e7c}{outputlog\+\_\+test\+\_\+helpers\+::setup\+\_\+case}} (start\+\_\+hour, runhours, freq, l\+\_\+nfiles, l\+\_\+timereduce, debug\+\_\+onroot, modelclock, cf\+\_\+n, state\+\_\+n, rc)
+subroutine, public \mbox{\hyperlink{outputlog__test__helpers_8F90_aa686e4425f339e09909cc3cd9ad29e7c}{outputlog\+\_\+test\+\_\+helpers\+::setup\+\_\+case}} (start\+\_\+hour, runhours, freq, l\+\_\+nfiles, l\+\_\+timereduce, debug\+\_\+onroot, modelclock, cf\+\_\+n, state\+\_\+n, rc)
 \begin{DoxyCompactList}\small\item\em Build a real ESMF\+\_\+\+Clock/alarm plus cf\+\_\+n/state\+\_\+n for one test case, exactly as outputlog\+\_\+init would. \end{DoxyCompactList}\item 
-subroutine, public \mbox{\hyperlink{namespaceoutputlog__test__helpers_af0f5c431a443318ddd9983fa85de0a40}{outputlog\+\_\+test\+\_\+helpers\+::handlefiles}} (isroot, fname, use\+\_\+filesize, mode)
+subroutine, public \mbox{\hyperlink{outputlog__test__helpers_8F90_af0f5c431a443318ddd9983fa85de0a40}{outputlog\+\_\+test\+\_\+helpers\+::handlefiles}} (isroot, fname, use\+\_\+filesize, mode)
 \begin{DoxyCompactList}\small\item\em Create/complete a net\+CDF fixture file, matching the real DATM/\+ATM completion contract. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-integer, parameter, public \mbox{\hyperlink{namespaceoutputlog__test__helpers_aed02edb07ac29a6fe85f20ae2c14e179}{outputlog\+\_\+test\+\_\+helpers\+::base\+\_\+yy}} = 2021
-\item 
-integer, parameter, public \mbox{\hyperlink{namespaceoutputlog__test__helpers_a29853931940e6ffcbdae805eec563d45}{outputlog\+\_\+test\+\_\+helpers\+::base\+\_\+mm}} = 3
-\item 
-integer, parameter, public \mbox{\hyperlink{namespaceoutputlog__test__helpers_a3e0c98cacb35c9ea0acf8335bdb36679}{outputlog\+\_\+test\+\_\+helpers\+::base\+\_\+dd}} = 22
-\end{DoxyCompactItemize}
+\Hypertarget{outputlog__test__helpers_8F90_aed02edb07ac29a6fe85f20ae2c14e179}\label{outputlog__test__helpers_8F90_aed02edb07ac29a6fe85f20ae2c14e179} 
+integer, parameter, public {\bfseries outputlog\+\_\+test\+\_\+helpers\+::base\+\_\+yy} = 2021
+\begin{DoxyCompactList}\small\item\em a standard start year \end{DoxyCompactList}\item 
+\Hypertarget{outputlog__test__helpers_8F90_a29853931940e6ffcbdae805eec563d45}\label{outputlog__test__helpers_8F90_a29853931940e6ffcbdae805eec563d45} 
+integer, parameter, public {\bfseries outputlog\+\_\+test\+\_\+helpers\+::base\+\_\+mm} = 3
+\begin{DoxyCompactList}\small\item\em a standard start month \end{DoxyCompactList}\item 
+\Hypertarget{outputlog__test__helpers_8F90_a3e0c98cacb35c9ea0acf8335bdb36679}\label{outputlog__test__helpers_8F90_a3e0c98cacb35c9ea0acf8335bdb36679} 
+integer, parameter, public {\bfseries outputlog\+\_\+test\+\_\+helpers\+::base\+\_\+dd} = 22
+\begin{DoxyCompactList}\small\item\em a standard start day \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Shared setup for outputlog unit tests. 
+
+\begin{DoxyDate}{Date}
+08-\/12-\/2026 
+\end{DoxyDate}
+
+
+\doxysubsection{Function/\+Subroutine Documentation}
+\Hypertarget{outputlog__test__helpers_8F90_af0f5c431a443318ddd9983fa85de0a40}\label{outputlog__test__helpers_8F90_af0f5c431a443318ddd9983fa85de0a40} 
+\index{outputlog\_test\_helpers.F90@{outputlog\_test\_helpers.F90}!handlefiles@{handlefiles}}
+\index{handlefiles@{handlefiles}!outputlog\_test\_helpers.F90@{outputlog\_test\_helpers.F90}}
+\doxysubsubsection{\texorpdfstring{handlefiles()}{handlefiles()}}
+{\footnotesize\ttfamily subroutine, public outputlog\+\_\+test\+\_\+helpers\+::handlefiles (\begin{DoxyParamCaption}\item[{logical, intent(in)}]{isroot,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{fname,  }\item[{logical, intent(in)}]{use\+\_\+filesize,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{mode }\end{DoxyParamCaption})}
+
+
+
+Create/complete a net\+CDF fixture file, matching the real DATM/\+ATM completion contract. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em isroot} & .true. on the root PE \\
+\hline
+\mbox{\texttt{ in}}  & {\em fname} & the fixture\textquotesingle{}s path \\
+\hline
+\mbox{\texttt{ in}}  & {\em use\+\_\+filesize} & .true. for ATM-\/style (fsize-\/based) completion, .false. for DATM-\/style (nlen-\/based) \\
+\hline
+\mbox{\texttt{ in}}  & {\em mode} & \textquotesingle{}create\textquotesingle{}, \textquotesingle{}complete\textquotesingle{}, or \textquotesingle{}create-\/complete\textquotesingle{} \\
+\hline
+\end{DoxyParams}
+\Hypertarget{outputlog__test__helpers_8F90_aa686e4425f339e09909cc3cd9ad29e7c}\label{outputlog__test__helpers_8F90_aa686e4425f339e09909cc3cd9ad29e7c} 
+\index{outputlog\_test\_helpers.F90@{outputlog\_test\_helpers.F90}!setup\_case@{setup\_case}}
+\index{setup\_case@{setup\_case}!outputlog\_test\_helpers.F90@{outputlog\_test\_helpers.F90}}
+\doxysubsubsection{\texorpdfstring{setup\_case()}{setup\_case()}}
+{\footnotesize\ttfamily subroutine, public outputlog\+\_\+test\+\_\+helpers\+::setup\+\_\+case (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{start\+\_\+hour,  }\item[{integer, intent(in)}]{runhours,  }\item[{integer, intent(in)}]{freq,  }\item[{integer, intent(in)}]{l\+\_\+nfiles,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{l\+\_\+timereduce,  }\item[{logical, intent(in)}]{debug\+\_\+onroot,  }\item[{type(esmf\+\_\+clock), intent(out)}]{modelclock,  }\item[{type(\mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__config__type}{outputlog\+\_\+config\+\_\+type}}), intent(out)}]{cf\+\_\+n,  }\item[{type(\mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__state__type}{outputlog\+\_\+state\+\_\+type}}), intent(out)}]{state\+\_\+n,  }\item[{integer, intent(out)}]{rc }\end{DoxyParamCaption})}
+
+
+
+Build a real ESMF\+\_\+\+Clock/alarm plus cf\+\_\+n/state\+\_\+n for one test case, exactly as outputlog\+\_\+init would. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em start\+\_\+hour} & model start hour \\
+\hline
+\mbox{\texttt{ in}}  & {\em runhours} & total run length in hours \\
+\hline
+\mbox{\texttt{ in}}  & {\em freq} & output frequency in hours \\
+\hline
+\mbox{\texttt{ in}}  & {\em l\+\_\+nfiles} & number of IO-\/layout files (1 = single file) \\
+\hline
+\mbox{\texttt{ in}}  & {\em l\+\_\+timereduce} & \textquotesingle{}average\textquotesingle{} or \textquotesingle{}none\textquotesingle{} \\
+\hline
+\mbox{\texttt{ in}}  & {\em debug\+\_\+onroot} & enable verbose setup printing \\
+\hline
+\mbox{\texttt{ out}}  & {\em model\+Clock} & the constructed ESMF\+\_\+\+Clock \\
+\hline
+\mbox{\texttt{ out}}  & {\em cf\+\_\+n} & this frequency\textquotesingle{}s config \\
+\hline
+\mbox{\texttt{ out}}  & {\em state\+\_\+n} & this frequency\textquotesingle{}s state \\
+\hline
+\mbox{\texttt{ out}}  & {\em rc} & return code \\
+\hline
+\end{DoxyParams}

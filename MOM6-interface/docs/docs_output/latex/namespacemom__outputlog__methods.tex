@@ -9,17 +9,17 @@ This module contains a set of subroutines that are required by the UFS outputlog
 \begin{DoxyCompactItemize}
 \item 
 type \mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__config__type}{outputlog\+\_\+config\+\_\+type}}
-\item 
+\begin{DoxyCompactList}\small\item\em Structure containing the configuration for output logging at a given frequency. \end{DoxyCompactList}\item 
 type \mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__modeltime__type}{outputlog\+\_\+modeltime\+\_\+type}}
-\item 
+\begin{DoxyCompactList}\small\item\em Structure containing the model time state during tracking. \end{DoxyCompactList}\item 
 type \mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__state__type}{outputlog\+\_\+state\+\_\+type}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Structure containing the time-\/dependent state of a tracked file. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Functions/\+Subroutines}
 \begin{DoxyCompactItemize}
 \item 
 subroutine, public \mbox{\hyperlink{namespacemom__outputlog__methods_a01160bef8095af4012645fc9f9557d35}{readnml}} (fname, cf, debug, errmsg, rc)
 \begin{DoxyCompactList}\small\item\em Read nml options to configure output logging. \end{DoxyCompactList}\item 
-subroutine, public \mbox{\hyperlink{namespacemom__outputlog__methods_ac6f6531dd449d24f188a521c5cdf2e19}{get\+\_\+ring\+\_\+state}} (state\+\_\+n, comm, isroot, rootpe, rc)
+subroutine, public \mbox{\hyperlink{namespacemom__outputlog__methods_a08240cb1abfdc64cfb2e799c6e0d688c}{get\+\_\+file\+\_\+state\+\_\+atring}} (state\+\_\+n, comm, isroot, rootpe, rc)
 \begin{DoxyCompactList}\small\item\em Get the state of the netcdf output file at ring time. \end{DoxyCompactList}\item 
 subroutine, public \mbox{\hyperlink{namespacemom__outputlog__methods_ad2ea9c0e9a4d3312567183e418a0a1b9}{get\+\_\+file\+\_\+state}} (comm, isroot, rootpe, fname, nlen, fsize, rc)
 \begin{DoxyCompactList}\small\item\em Retrieve the unlimited dimension length and file size, broadcasting to all PEs. \end{DoxyCompactList}\item 
@@ -48,8 +48,9 @@ subroutine, public \mbox{\hyperlink{namespacemom__outputlog__methods_ae7a85eece3
 \doxysubsubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-character(len= \texorpdfstring{$\ast$}{*}), parameter \mbox{\hyperlink{namespacemom__outputlog__methods_a743fed927ae81b3028b61387b6fc1871}{u\+\_\+file\+\_\+u}} = \+\_\+\+\_\+\+FILE\+\_\+\+\_\+
-\end{DoxyCompactItemize}
+\Hypertarget{namespacemom__outputlog__methods_a743fed927ae81b3028b61387b6fc1871}\label{namespacemom__outputlog__methods_a743fed927ae81b3028b61387b6fc1871} 
+character(len= \texorpdfstring{$\ast$}{*}), parameter {\bfseries u\+\_\+file\+\_\+u} = \+\_\+\+\_\+\+FILE\+\_\+\+\_\+
+\begin{DoxyCompactList}\small\item\em an ESMF message tracker \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -149,6 +150,29 @@ Retrieve the unlimited dimension length and file size, broadcasting to all PEs.
 \mbox{\texttt{ out}}  & {\em rc} & return code \\
 \hline
 \end{DoxyParams}
+\Hypertarget{namespacemom__outputlog__methods_a08240cb1abfdc64cfb2e799c6e0d688c}\label{namespacemom__outputlog__methods_a08240cb1abfdc64cfb2e799c6e0d688c} 
+\index{mom\_outputlog\_methods@{mom\_outputlog\_methods}!get\_file\_state\_atring@{get\_file\_state\_atring}}
+\index{get\_file\_state\_atring@{get\_file\_state\_atring}!mom\_outputlog\_methods@{mom\_outputlog\_methods}}
+\doxysubsubsection{\texorpdfstring{get\_file\_state\_atring()}{get\_file\_state\_atring()}}
+{\footnotesize\ttfamily subroutine, public mom\+\_\+outputlog\+\_\+methods\+::get\+\_\+file\+\_\+state\+\_\+atring (\begin{DoxyParamCaption}\item[{type(\mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__state__type}{outputlog\+\_\+state\+\_\+type}}), intent(inout)}]{state\+\_\+n,  }\item[{type(mpi\+\_\+comm), intent(in)}]{comm,  }\item[{logical, intent(in)}]{isroot,  }\item[{integer, intent(in)}]{rootpe,  }\item[{integer, intent(out)}]{rc }\end{DoxyParamCaption})}
+
+
+
+Get the state of the netcdf output file at ring time. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em state\+\_\+n} & this frequency\textquotesingle{}s state -- mutated here \\
+\hline
+\mbox{\texttt{ in}}  & {\em comm} & MPI communicator \\
+\hline
+\mbox{\texttt{ in}}  & {\em isroot} & .true. on the root PE \\
+\hline
+\mbox{\texttt{ in}}  & {\em rootpe} & the root PE\textquotesingle{}s rank \\
+\hline
+\mbox{\texttt{ out}}  & {\em rc} & return code \\
+\hline
+\end{DoxyParams}
 \Hypertarget{namespacemom__outputlog__methods_a99e5b2d37e927c2db6b5fb70794221ef}\label{namespacemom__outputlog__methods_a99e5b2d37e927c2db6b5fb70794221ef} 
 \index{mom\_outputlog\_methods@{mom\_outputlog\_methods}!get\_importexport@{get\_importexport}}
 \index{get\_importexport@{get\_importexport}!mom\_outputlog\_methods@{mom\_outputlog\_methods}}
@@ -171,29 +195,6 @@ Convenience function to return import/export timestring.
 \begin{DoxyReturn}{Returns}
 40-\/character string 
 \end{DoxyReturn}
-\Hypertarget{namespacemom__outputlog__methods_ac6f6531dd449d24f188a521c5cdf2e19}\label{namespacemom__outputlog__methods_ac6f6531dd449d24f188a521c5cdf2e19} 
-\index{mom\_outputlog\_methods@{mom\_outputlog\_methods}!get\_ring\_state@{get\_ring\_state}}
-\index{get\_ring\_state@{get\_ring\_state}!mom\_outputlog\_methods@{mom\_outputlog\_methods}}
-\doxysubsubsection{\texorpdfstring{get\_ring\_state()}{get\_ring\_state()}}
-{\footnotesize\ttfamily subroutine, public mom\+\_\+outputlog\+\_\+methods\+::get\+\_\+ring\+\_\+state (\begin{DoxyParamCaption}\item[{type(\mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__state__type}{outputlog\+\_\+state\+\_\+type}}), intent(inout)}]{state\+\_\+n,  }\item[{type(mpi\+\_\+comm), intent(in)}]{comm,  }\item[{logical, intent(in)}]{isroot,  }\item[{integer, intent(in)}]{rootpe,  }\item[{integer, intent(out)}]{rc }\end{DoxyParamCaption})}
-
-
-
-Get the state of the netcdf output file at ring time. 
-
-
-\begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in,out}}  & {\em state\+\_\+n} & this frequency\textquotesingle{}s state -- mutated here \\
-\hline
-\mbox{\texttt{ in}}  & {\em comm} & MPI communicator \\
-\hline
-\mbox{\texttt{ in}}  & {\em isroot} & .true. on the root PE \\
-\hline
-\mbox{\texttt{ in}}  & {\em rootpe} & the root PE\textquotesingle{}s rank \\
-\hline
-\mbox{\texttt{ out}}  & {\em rc} & return code \\
-\hline
-\end{DoxyParams}
 \Hypertarget{namespacemom__outputlog__methods_a0c43720239c99353a3a5ca45ba75bb79}\label{namespacemom__outputlog__methods_a0c43720239c99353a3a5ca45ba75bb79} 
 \index{mom\_outputlog\_methods@{mom\_outputlog\_methods}!get\_timestr@{get\_timestr}}
 \index{get\_timestr@{get\_timestr}!mom\_outputlog\_methods@{mom\_outputlog\_methods}}
@@ -374,12 +375,3 @@ Determine output reduction type for each requested frequency.
 \begin{DoxyReturn}{Returns}
 output reduction type by supported frequency slot 
 \end{DoxyReturn}
-
-
-\doxysubsection{Variable Documentation}
-\Hypertarget{namespacemom__outputlog__methods_a743fed927ae81b3028b61387b6fc1871}\label{namespacemom__outputlog__methods_a743fed927ae81b3028b61387b6fc1871} 
-\index{mom\_outputlog\_methods@{mom\_outputlog\_methods}!u\_file\_u@{u\_file\_u}}
-\index{u\_file\_u@{u\_file\_u}!mom\_outputlog\_methods@{mom\_outputlog\_methods}}
-\doxysubsubsection{\texorpdfstring{u\_file\_u}{u\_file\_u}}
-{\footnotesize\ttfamily character(len=\texorpdfstring{$\ast$}{*}), parameter mom\+\_\+outputlog\+\_\+methods\+::u\+\_\+file\+\_\+u = \+\_\+\+\_\+\+FILE\+\_\+\+\_\+}
-

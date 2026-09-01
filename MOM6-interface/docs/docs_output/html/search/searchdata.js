@@ -2,9 +2,9 @@ var indexSectionsWithContent =
 {
   0: "abcdefghilmnoprstuvw",
   1: "amot",
-  2: "mnot",
-  3: "cfmnost",
-  4: "acdefghimnoprstvw",
+  2: "mt",
+  3: "not",
+  4: "acdefghimnoprstw",
   5: "abcdefilmnoprstuv",
   6: "m"
 };

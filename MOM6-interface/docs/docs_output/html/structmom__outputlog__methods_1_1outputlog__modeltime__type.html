@@ -79,77 +79,33 @@ $(function() {
   <div class="headertitle"><div class="title">mom_outputlog_methods::outputlog_modeltime_type Type Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Structure containing the model time state during tracking.  
+ <a href="structmom__outputlog__methods_1_1outputlog__modeltime__type.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:ab7e7ce30f39797ad6388c11d78140086" id="r_ab7e7ce30f39797ad6388c11d78140086"><td class="memItemLeft" align="right" valign="top">type(esmf_time)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmom__outputlog__methods_1_1outputlog__modeltime__type.html#ab7e7ce30f39797ad6388c11d78140086">starttime</a></td></tr>
+<tr class="memitem:ab7e7ce30f39797ad6388c11d78140086" id="r_ab7e7ce30f39797ad6388c11d78140086"><td class="memItemLeft" align="right" valign="top"><a id="ab7e7ce30f39797ad6388c11d78140086" name="ab7e7ce30f39797ad6388c11d78140086"></a>
+type(esmf_time)&#160;</td><td class="memItemRight" valign="bottom"><b>starttime</b></td></tr>
+<tr class="memdesc:ab7e7ce30f39797ad6388c11d78140086"><td class="mdescLeft">&#160;</td><td class="mdescRight">the model startime <br /></td></tr>
 <tr class="separator:ab7e7ce30f39797ad6388c11d78140086"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6abeea3d87885414a8469856734aaf14" id="r_a6abeea3d87885414a8469856734aaf14"><td class="memItemLeft" align="right" valign="top">type(esmf_time)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmom__outputlog__methods_1_1outputlog__modeltime__type.html#a6abeea3d87885414a8469856734aaf14">currtime</a></td></tr>
+<tr class="memitem:a6abeea3d87885414a8469856734aaf14" id="r_a6abeea3d87885414a8469856734aaf14"><td class="memItemLeft" align="right" valign="top"><a id="a6abeea3d87885414a8469856734aaf14" name="a6abeea3d87885414a8469856734aaf14"></a>
+type(esmf_time)&#160;</td><td class="memItemRight" valign="bottom"><b>currtime</b></td></tr>
+<tr class="memdesc:a6abeea3d87885414a8469856734aaf14"><td class="mdescLeft">&#160;</td><td class="mdescRight">the model current time at this ModelAdvance <br /></td></tr>
 <tr class="separator:a6abeea3d87885414a8469856734aaf14"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a18ea54608deb7399457dde13c8214579" id="r_a18ea54608deb7399457dde13c8214579"><td class="memItemLeft" align="right" valign="top">type(esmf_time)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmom__outputlog__methods_1_1outputlog__modeltime__type.html#a18ea54608deb7399457dde13c8214579">nexttime</a></td></tr>
+<tr class="memitem:a18ea54608deb7399457dde13c8214579" id="r_a18ea54608deb7399457dde13c8214579"><td class="memItemLeft" align="right" valign="top"><a id="a18ea54608deb7399457dde13c8214579" name="a18ea54608deb7399457dde13c8214579"></a>
+type(esmf_time)&#160;</td><td class="memItemRight" valign="bottom"><b>nexttime</b></td></tr>
+<tr class="memdesc:a18ea54608deb7399457dde13c8214579"><td class="mdescLeft">&#160;</td><td class="mdescRight">the model time at the end of this ModelAdvance <br /></td></tr>
 <tr class="separator:a18ea54608deb7399457dde13c8214579"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38a1e5b79b1d02960ff5797f5aebdacc" id="r_a38a1e5b79b1d02960ff5797f5aebdacc"><td class="memItemLeft" align="right" valign="top">type(esmf_timeinterval)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmom__outputlog__methods_1_1outputlog__modeltime__type.html#a38a1e5b79b1d02960ff5797f5aebdacc">tincrement</a></td></tr>
+<tr class="memitem:a38a1e5b79b1d02960ff5797f5aebdacc" id="r_a38a1e5b79b1d02960ff5797f5aebdacc"><td class="memItemLeft" align="right" valign="top"><a id="a38a1e5b79b1d02960ff5797f5aebdacc" name="a38a1e5b79b1d02960ff5797f5aebdacc"></a>
+type(esmf_timeinterval)&#160;</td><td class="memItemRight" valign="bottom"><b>tincrement</b></td></tr>
+<tr class="memdesc:a38a1e5b79b1d02960ff5797f5aebdacc"><td class="mdescLeft">&#160;</td><td class="mdescRight">a convenient time increment of 1 minute <br /></td></tr>
 <tr class="separator:a38a1e5b79b1d02960ff5797f5aebdacc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a6abeea3d87885414a8469856734aaf14" name="a6abeea3d87885414a8469856734aaf14"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6abeea3d87885414a8469856734aaf14">&#9670;&#160;</a></span>currtime</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">type(esmf_time) mom_outputlog_methods::outputlog_modeltime_type::currtime</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a18ea54608deb7399457dde13c8214579" name="a18ea54608deb7399457dde13c8214579"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a18ea54608deb7399457dde13c8214579">&#9670;&#160;</a></span>nexttime</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">type(esmf_time) mom_outputlog_methods::outputlog_modeltime_type::nexttime</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ab7e7ce30f39797ad6388c11d78140086" name="ab7e7ce30f39797ad6388c11d78140086"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab7e7ce30f39797ad6388c11d78140086">&#9670;&#160;</a></span>starttime</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">type(esmf_time) mom_outputlog_methods::outputlog_modeltime_type::starttime</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a38a1e5b79b1d02960ff5797f5aebdacc" name="a38a1e5b79b1d02960ff5797f5aebdacc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a38a1e5b79b1d02960ff5797f5aebdacc">&#9670;&#160;</a></span>tincrement</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">type(esmf_timeinterval) mom_outputlog_methods::outputlog_modeltime_type::tincrement</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<hr/>The documentation for this type was generated from the following file:<ul>
-<li>/work/noaa/nems/dworthen/ufs_dw/MOM6-interface/MOM6/config_src/drivers/nuopc_cap/<a class="el" href="mom__outputlog__methods_8F90.html">mom_outputlog_methods.F90</a></li>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Structure containing the model time state during tracking. </p>
+</div><hr/>The documentation for this type was generated from the following file:<ul>
+<li>/work/noaa/nems/dworthen/ufs_dw/MOM6-interface/MOM6/config_src/drivers/nuopc_cap/<b>mom_outputlog_methods.F90</b></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

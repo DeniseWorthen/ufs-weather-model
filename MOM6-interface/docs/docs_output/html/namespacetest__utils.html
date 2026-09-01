@@ -76,58 +76,80 @@ $(function() {
   <div class="headertitle"><div class="title">test_utils Module Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Module containing common assertion and test summary functions.  
+<a href="namespacetest__utils.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Data Types</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">interface &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacetest__utils_1_1addresult.html">addresult</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic interface for adding a test result to the summary.  <a href="interfacetest__utils_1_1addresult.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">interface &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacetest__utils_1_1assert__equal.html">assert_equal</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic interface for asserting equality between expected and actual values.  <a href="interfacetest__utils_1_1assert__equal.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">type &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtest__utils_1_1msg__type.html">msg_type</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper type for dynamically sized string messages.  <a href="structtest__utils_1_1msg__type.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">type &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtest__utils_1_1testsummary.html">testsummary</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type for tracking test execution counts, passes, fails, and messages.  <a href="structtest__utils_1_1testsummary.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a5cde06c2992d68a039f375924f8b5654" id="r_a5cde06c2992d68a039f375924f8b5654"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetest__utils.html#a5cde06c2992d68a039f375924f8b5654">init_summary</a> (this, maxtests)</td></tr>
+<tr class="memdesc:a5cde06c2992d68a039f375924f8b5654"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the test summary object.  <br /></td></tr>
 <tr class="separator:a5cde06c2992d68a039f375924f8b5654"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59ea1620613078a6c2e45df80da3f43d" id="r_a59ea1620613078a6c2e45df80da3f43d"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetest__utils.html#a59ea1620613078a6c2e45df80da3f43d">add_test_result</a> (summary, passed, message, errormsg)</td></tr>
+<tr class="memdesc:a59ea1620613078a6c2e45df80da3f43d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add test results to summary.  <br /></td></tr>
 <tr class="separator:a59ea1620613078a6c2e45df80da3f43d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6effc4f29f19ff54c3733d062a2af1b4" id="r_a6effc4f29f19ff54c3733d062a2af1b4"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetest__utils.html#a6effc4f29f19ff54c3733d062a2af1b4">grow_if_needed</a> (summary)</td></tr>
-<tr class="memdesc:a6effc4f29f19ff54c3733d062a2af1b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Grows teststatus/testmessage/errmessage to fit summarycount, doubling capacity (or matching count exactly if that's larger) rather than a fixed maxtests &ndash; add_test_result can never write out of bounds, and init(maxtests) becomes just an optional initial-capacity hint rather than a hard, easy-to-forget-to-update limit. Safe to call whether or not init() was ever called (an unallocated array is treated as size 0).  <br /></td></tr>
+<tr class="memdesc:a6effc4f29f19ff54c3733d062a2af1b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Increase the size of the testsummary type arrays if needed.  <br /></td></tr>
 <tr class="separator:a6effc4f29f19ff54c3733d062a2af1b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaf2593ef3264cd38d5f22f5fe65b1821" id="r_aaf2593ef3264cd38d5f22f5fe65b1821"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetest__utils.html#aaf2593ef3264cd38d5f22f5fe65b1821">assert_logical</a> (actual, expected, msg, rc, returnmsg)</td></tr>
+<tr class="memdesc:aaf2593ef3264cd38d5f22f5fe65b1821"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert equality between two logical values.  <br /></td></tr>
 <tr class="separator:aaf2593ef3264cd38d5f22f5fe65b1821"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb1dfe8c7460aac7b22885195f3f631d" id="r_abb1dfe8c7460aac7b22885195f3f631d"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetest__utils.html#abb1dfe8c7460aac7b22885195f3f631d">assert_int_scalar</a> (actual, expected, msg, rc, returnmsg)</td></tr>
+<tr class="memdesc:abb1dfe8c7460aac7b22885195f3f631d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert equality between two integer scalars.  <br /></td></tr>
 <tr class="separator:abb1dfe8c7460aac7b22885195f3f631d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a482cd1763251653fe07617c948bbf740" id="r_a482cd1763251653fe07617c948bbf740"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetest__utils.html#a482cd1763251653fe07617c948bbf740">assert_real_scalar</a> (actual, expected, tol, msg, rc, returnmsg)</td></tr>
+<tr class="memdesc:a482cd1763251653fe07617c948bbf740"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert equality between two real scalars within a tolerance.  <br /></td></tr>
 <tr class="separator:a482cd1763251653fe07617c948bbf740"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e79afc74f0e5a6fbea2aeb6cca9bdec" id="r_a6e79afc74f0e5a6fbea2aeb6cca9bdec"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetest__utils.html#a6e79afc74f0e5a6fbea2aeb6cca9bdec">assert_double_scalar</a> (actual, expected, tol, msg, rc, returnmsg)</td></tr>
+<tr class="memdesc:a6e79afc74f0e5a6fbea2aeb6cca9bdec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert equality between two double precision scalars within a tolerance.  <br /></td></tr>
 <tr class="separator:a6e79afc74f0e5a6fbea2aeb6cca9bdec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a72547f2aaf32d76452251c30e1b313e9" id="r_a72547f2aaf32d76452251c30e1b313e9"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetest__utils.html#a72547f2aaf32d76452251c30e1b313e9">assert_double_1d</a> (actual, expected, tol, msg, rc, returnmsg)</td></tr>
+<tr class="memdesc:a72547f2aaf32d76452251c30e1b313e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert equality between two double precision 1D arrays within a tolerance.  <br /></td></tr>
 <tr class="separator:a72547f2aaf32d76452251c30e1b313e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a20d93fb56e43810b7fb18af42c72a0f2" id="r_a20d93fb56e43810b7fb18af42c72a0f2"><td class="memItemLeft" align="right" valign="top">character(len=4) function, public&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetest__utils.html#a20d93fb56e43810b7fb18af42c72a0f2">itoa</a> (i)</td></tr>
+<tr class="memdesc:a20d93fb56e43810b7fb18af42c72a0f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert an integer to a string.  <br /></td></tr>
 <tr class="separator:a20d93fb56e43810b7fb18af42c72a0f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e0e987ef3b5f5dcfd49780156131c2a" id="r_a0e0e987ef3b5f5dcfd49780156131c2a"><td class="memItemLeft" align="right" valign="top">subroutine, public&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetest__utils.html#a0e0e987ef3b5f5dcfd49780156131c2a">esmf_err</a> (rc, subname, context)</td></tr>
+<tr class="memdesc:a0e0e987ef3b5f5dcfd49780156131c2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check an ESMF return code and abort if an error is found.  <br /></td></tr>
 <tr class="separator:a0e0e987ef3b5f5dcfd49780156131c2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a8100e06bdb60a83d7b370885c5f2c167" id="r_a8100e06bdb60a83d7b370885c5f2c167"><td class="memItemLeft" align="right" valign="top">integer, parameter&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetest__utils.html#a8100e06bdb60a83d7b370885c5f2c167">real_kind</a> = selected_real_kind( 6)</td></tr>
-<tr class="memdesc:a8100e06bdb60a83d7b370885c5f2c167"><td class="mdescLeft">&#160;</td><td class="mdescRight">4 byte real  <br /></td></tr>
+<tr class="memitem:a8100e06bdb60a83d7b370885c5f2c167" id="r_a8100e06bdb60a83d7b370885c5f2c167"><td class="memItemLeft" align="right" valign="top"><a id="a8100e06bdb60a83d7b370885c5f2c167" name="a8100e06bdb60a83d7b370885c5f2c167"></a>
+integer, parameter&#160;</td><td class="memItemRight" valign="bottom"><b>real_kind</b> = selected_real_kind( 6)</td></tr>
+<tr class="memdesc:a8100e06bdb60a83d7b370885c5f2c167"><td class="mdescLeft">&#160;</td><td class="mdescRight">4 byte real <br /></td></tr>
 <tr class="separator:a8100e06bdb60a83d7b370885c5f2c167"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab04388abbfa7667ba5a7a01e45e776a2" id="r_ab04388abbfa7667ba5a7a01e45e776a2"><td class="memItemLeft" align="right" valign="top">integer, parameter&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetest__utils.html#ab04388abbfa7667ba5a7a01e45e776a2">dbl_kind</a> = selected_real_kind(12)</td></tr>
-<tr class="memdesc:ab04388abbfa7667ba5a7a01e45e776a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">8 byte real  <br /></td></tr>
+<tr class="memitem:ab04388abbfa7667ba5a7a01e45e776a2" id="r_ab04388abbfa7667ba5a7a01e45e776a2"><td class="memItemLeft" align="right" valign="top"><a id="ab04388abbfa7667ba5a7a01e45e776a2" name="ab04388abbfa7667ba5a7a01e45e776a2"></a>
+integer, parameter&#160;</td><td class="memItemRight" valign="bottom"><b>dbl_kind</b> = selected_real_kind(12)</td></tr>
+<tr class="memdesc:ab04388abbfa7667ba5a7a01e45e776a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">8 byte real <br /></td></tr>
 <tr class="separator:ab04388abbfa7667ba5a7a01e45e776a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac675c9fe740321737aea9eeb4a7a87ba" id="r_ac675c9fe740321737aea9eeb4a7a87ba"><td class="memItemLeft" align="right" valign="top">integer, parameter&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetest__utils.html#ac675c9fe740321737aea9eeb4a7a87ba">int_kind</a> = selected_int_kind ( 6)</td></tr>
-<tr class="memdesc:ac675c9fe740321737aea9eeb4a7a87ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">4 byte integer  <br /></td></tr>
+<tr class="memitem:ac675c9fe740321737aea9eeb4a7a87ba" id="r_ac675c9fe740321737aea9eeb4a7a87ba"><td class="memItemLeft" align="right" valign="top"><a id="ac675c9fe740321737aea9eeb4a7a87ba" name="ac675c9fe740321737aea9eeb4a7a87ba"></a>
+integer, parameter&#160;</td><td class="memItemRight" valign="bottom"><b>int_kind</b> = selected_int_kind ( 6)</td></tr>
+<tr class="memdesc:ac675c9fe740321737aea9eeb4a7a87ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">4 byte integer <br /></td></tr>
 <tr class="separator:ac675c9fe740321737aea9eeb4a7a87ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2789334e59bc11103ee4151b569e0a36" id="r_a2789334e59bc11103ee4151b569e0a36"><td class="memItemLeft" align="right" valign="top">integer, parameter&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetest__utils.html#a2789334e59bc11103ee4151b569e0a36">int8_kind</a> = selected_int_kind (13)</td></tr>
-<tr class="memdesc:a2789334e59bc11103ee4151b569e0a36"><td class="mdescLeft">&#160;</td><td class="mdescRight">8 byte integer  <br /></td></tr>
+<tr class="memitem:a2789334e59bc11103ee4151b569e0a36" id="r_a2789334e59bc11103ee4151b569e0a36"><td class="memItemLeft" align="right" valign="top"><a id="a2789334e59bc11103ee4151b569e0a36" name="a2789334e59bc11103ee4151b569e0a36"></a>
+integer, parameter&#160;</td><td class="memItemRight" valign="bottom"><b>int8_kind</b> = selected_int_kind (13)</td></tr>
+<tr class="memdesc:a2789334e59bc11103ee4151b569e0a36"><td class="mdescLeft">&#160;</td><td class="mdescRight">8 byte integer <br /></td></tr>
 <tr class="separator:a2789334e59bc11103ee4151b569e0a36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function/Subroutine Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Module containing common assertion and test summary functions. </p>
+</div><h2 class="groupheader">Function/Subroutine Documentation</h2>
 <a id="a59ea1620613078a6c2e45df80da3f43d" name="a59ea1620613078a6c2e45df80da3f43d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a59ea1620613078a6c2e45df80da3f43d">&#9670;&#160;</a></span>add_test_result()</h2>
 
@@ -173,6 +195,17 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Add test results to summary. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">summary</td><td>test summary </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">passed</td><td>test result </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">message</td><td>test message </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">errormsg</td><td>test error message </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -234,6 +267,19 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Assert equality between two double precision 1D arrays within a tolerance. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">actual</td><td>The actual double array </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">expected</td><td>The expected double array </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">tol</td><td>The tolerance for equality </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">msg</td><td>Description of the test </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">rc</td><td>Return code (true if pass, false if fail) </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">returnmsg</td><td>Formatted result string </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a6e79afc74f0e5a6fbea2aeb6cca9bdec" name="a6e79afc74f0e5a6fbea2aeb6cca9bdec"></a>
@@ -294,6 +340,19 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Assert equality between two double precision scalars within a tolerance. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">actual</td><td>The actual double value </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">expected</td><td>The expected double value </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">tol</td><td>The tolerance for equality </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">msg</td><td>Description of the test </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">rc</td><td>Return code (true if pass, false if fail) </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">returnmsg</td><td>Formatted result string </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="abb1dfe8c7460aac7b22885195f3f631d" name="abb1dfe8c7460aac7b22885195f3f631d"></a>
@@ -348,6 +407,18 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Assert equality between two integer scalars. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">actual</td><td>The actual integer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">expected</td><td>The expected integer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">msg</td><td>Description of the test </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">rc</td><td>Return code (true if pass, false if fail) </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">returnmsg</td><td>Formatted result string </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="aaf2593ef3264cd38d5f22f5fe65b1821" name="aaf2593ef3264cd38d5f22f5fe65b1821"></a>
@@ -401,6 +472,18 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Assert equality between two logical values. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">actual</td><td>The actual boolean result </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">expected</td><td>The expected boolean result </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">msg</td><td>Description of the test </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">rc</td><td>Return code (true if pass, false if fail) </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">returnmsg</td><td>Formatted result string </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -462,6 +545,19 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Assert equality between two real scalars within a tolerance. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">actual</td><td>The actual real value </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">expected</td><td>The expected real value </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">tol</td><td>The tolerance for equality </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">msg</td><td>Description of the test </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">rc</td><td>Return code (true if pass, false if fail) </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">returnmsg</td><td>Formatted result string </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a0e0e987ef3b5f5dcfd49780156131c2a" name="a0e0e987ef3b5f5dcfd49780156131c2a"></a>
@@ -496,6 +592,16 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Check an ESMF return code and abort if an error is found. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">rc</td><td>The ESMF return code </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">subname</td><td>The name of the calling subroutine for logging </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">context</td><td>Context message for logging </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a6effc4f29f19ff54c3733d062a2af1b4" name="a6effc4f29f19ff54c3733d062a2af1b4"></a>
@@ -522,7 +628,13 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Grows teststatus/testmessage/errmessage to fit summarycount, doubling capacity (or matching count exactly if that's larger) rather than a fixed maxtests &ndash; add_test_result can never write out of bounds, and init(maxtests) becomes just an optional initial-capacity hint rather than a hard, easy-to-forget-to-update limit. Safe to call whether or not init() was ever called (an unallocated array is treated as size 0). </p>
+<p>Increase the size of the testsummary type arrays if needed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">summary</td><td>test summary type </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -560,6 +672,15 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Initialize the test summary object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">this</td><td>The testsummary object to initialize </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">maxtests</td><td>The maximum number of tests to allocate space for </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a20d93fb56e43810b7fb18af42c72a0f2" name="a20d93fb56e43810b7fb18af42c72a0f2"></a>
@@ -578,102 +699,14 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<h2 class="groupheader">Variable Documentation</h2>
-<a id="ab04388abbfa7667ba5a7a01e45e776a2" name="ab04388abbfa7667ba5a7a01e45e776a2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab04388abbfa7667ba5a7a01e45e776a2">&#9670;&#160;</a></span>dbl_kind</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">integer, parameter test_utils::dbl_kind = selected_real_kind(12)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>8 byte real </p>
-
-</div>
-</div>
-<a id="a2789334e59bc11103ee4151b569e0a36" name="a2789334e59bc11103ee4151b569e0a36"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2789334e59bc11103ee4151b569e0a36">&#9670;&#160;</a></span>int8_kind</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">integer, parameter test_utils::int8_kind = selected_int_kind (13)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>8 byte integer </p>
-
-</div>
-</div>
-<a id="ac675c9fe740321737aea9eeb4a7a87ba" name="ac675c9fe740321737aea9eeb4a7a87ba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac675c9fe740321737aea9eeb4a7a87ba">&#9670;&#160;</a></span>int_kind</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">integer, parameter test_utils::int_kind = selected_int_kind ( 6)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>4 byte integer </p>
-
-</div>
-</div>
-<a id="a8100e06bdb60a83d7b370885c5f2c167" name="a8100e06bdb60a83d7b370885c5f2c167"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8100e06bdb60a83d7b370885c5f2c167">&#9670;&#160;</a></span>real_kind</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">integer, parameter test_utils::real_kind = selected_real_kind( 6)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>4 byte real </p>
+<p>Convert an integer to a string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">i</td><td>The integer to convert </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A string representation of the integer </dd></dl>
 
 </div>
 </div>

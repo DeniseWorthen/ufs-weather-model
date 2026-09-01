@@ -1,0 +1,101 @@
+\doxysection{/work/noaa/nems/dworthen/ufs\+\_\+dw/\+MOM6-\/interface/unit-\/tests/test\+\_\+outputlog\+\_\+alarminit.F90 File Reference}
+\hypertarget{test__outputlog__alarminit_8F90}{}\label{test__outputlog__alarminit_8F90}\index{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/unit-\/tests/test\_outputlog\_alarminit.F90@{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/unit-\/tests/test\_outputlog\_alarminit.F90}}
+
+
+Test code for outputlog Alarm Initialization.  
+
+
+\doxysubsubsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{test__outputlog__alarminit_8F90_a5a941d261713b9c982f59a9dc5afc015}\label{test__outputlog__alarminit_8F90_a5a941d261713b9c982f59a9dc5afc015} 
+program {\bfseries test\+\_\+outputlog\+\_\+alarminit}
+\begin{DoxyCompactList}\small\item\em Main program for testing outputlog alarm initialization. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{test__outputlog__alarminit_8F90_adcf591982e6c48c95a926e67ffc92841}{find\+\_\+ring\+\_\+time}} (freq, start\+\_\+hour, ringtime, starttime, toffset, ierr, errmsg, dt)
+\begin{DoxyCompactList}\small\item\em Steps the clock forward (small dt, checked every step) until the given alarm actually rings, or gives up after max\+\_\+steps. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{test__outputlog__alarminit_8F90_ac12d4c8be259aa0e8dc57c9ab7f43ff4}{run\+\_\+case}} (freq, start\+\_\+hour, ierr, errmsg, dt)
+\begin{DoxyCompactList}\small\item\em Runs one freq/start\+\_\+hour case end to end. Returns ierr, where ierr==0 means the alarm rang in time and both the primary (structural) and secondary (regression) checks passed. \end{DoxyCompactList}\item 
+integer function \mbox{\hyperlink{test__outputlog__alarminit_8F90_acc68aae3136c879d00204b39b45adc82}{predicted\+\_\+ring\+\_\+offset}} (freq, toffset)
+\begin{DoxyCompactList}\small\item\em Independent re-\/derivation of Alarm\+Init\textquotesingle{}s rewind-\/then-\/advance loop, for the regression check only. Returns the elapsed-\/hours offset from start\+Time to construct ESMF\+\_\+\+Time\+Interval to compare full ESMF\+\_\+\+Time objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Test code for outputlog Alarm Initialization. 
+
+Probes the use of Alarm\+Init from MOM6 NUOPC cap to intialize alarms for use by outputlog feature. Tests to ensure the outputlog alarms will trigger for start hours which are not multiples of 6 (eg IAU use cases)
+
+\begin{DoxyDate}{Date}
+08-\/01-\/2026 
+\end{DoxyDate}
+
+
+\doxysubsection{Function/\+Subroutine Documentation}
+\Hypertarget{test__outputlog__alarminit_8F90_adcf591982e6c48c95a926e67ffc92841}\label{test__outputlog__alarminit_8F90_adcf591982e6c48c95a926e67ffc92841} 
+\index{test\_outputlog\_alarminit.F90@{test\_outputlog\_alarminit.F90}!find\_ring\_time@{find\_ring\_time}}
+\index{find\_ring\_time@{find\_ring\_time}!test\_outputlog\_alarminit.F90@{test\_outputlog\_alarminit.F90}}
+\doxysubsubsection{\texorpdfstring{find\_ring\_time()}{find\_ring\_time()}}
+{\footnotesize\ttfamily subroutine test\+\_\+outputlog\+\_\+alarminit\+::find\+\_\+ring\+\_\+time (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{freq,  }\item[{integer, intent(in)}]{start\+\_\+hour,  }\item[{type(esmf\+\_\+time), intent(out)}]{ringtime,  }\item[{type(esmf\+\_\+time), intent(out)}]{starttime,  }\item[{integer, intent(out)}]{toffset,  }\item[{integer, intent(out)}]{ierr,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(out)}]{errmsg,  }\item[{integer, intent(in), optional}]{dt }\end{DoxyParamCaption})}
+
+
+
+Steps the clock forward (small dt, checked every step) until the given alarm actually rings, or gives up after max\+\_\+steps. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em freq} & output frequency (hours) \\
+\hline
+\mbox{\texttt{ in}}  & {\em start\+\_\+hour} & start\+\_\+hour for clock \\
+\hline
+\mbox{\texttt{ out}}  & {\em ring\+Time} & ESMF\+\_\+\+Time at ring \\
+\hline
+\mbox{\texttt{ out}}  & {\em start\+Time} & ESMF\+\_\+\+Time at start \\
+\hline
+\mbox{\texttt{ out}}  & {\em toffset} & required hour offset to set ring at valid interval \\
+\hline
+\mbox{\texttt{ out}}  & {\em ierr} & error return code \\
+\hline
+\mbox{\texttt{ out}}  & {\em errmsg} & returned error message \\
+\hline
+\mbox{\texttt{ in}}  & {\em dt} & optional timestep used to test no-\/ring \\
+\hline
+\end{DoxyParams}
+\Hypertarget{test__outputlog__alarminit_8F90_acc68aae3136c879d00204b39b45adc82}\label{test__outputlog__alarminit_8F90_acc68aae3136c879d00204b39b45adc82} 
+\index{test\_outputlog\_alarminit.F90@{test\_outputlog\_alarminit.F90}!predicted\_ring\_offset@{predicted\_ring\_offset}}
+\index{predicted\_ring\_offset@{predicted\_ring\_offset}!test\_outputlog\_alarminit.F90@{test\_outputlog\_alarminit.F90}}
+\doxysubsubsection{\texorpdfstring{predicted\_ring\_offset()}{predicted\_ring\_offset()}}
+{\footnotesize\ttfamily integer function test\+\_\+outputlog\+\_\+alarminit\+::predicted\+\_\+ring\+\_\+offset (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{freq,  }\item[{integer, intent(in)}]{toffset }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Independent re-\/derivation of Alarm\+Init\textquotesingle{}s rewind-\/then-\/advance loop, for the regression check only. Returns the elapsed-\/hours offset from start\+Time to construct ESMF\+\_\+\+Time\+Interval to compare full ESMF\+\_\+\+Time objects. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em freq} & alarm freq (hour) \\
+\hline
+\mbox{\texttt{ in}}  & {\em toffset} & establised time offset (hour) \\
+\hline
+\end{DoxyParams}
+\Hypertarget{test__outputlog__alarminit_8F90_ac12d4c8be259aa0e8dc57c9ab7f43ff4}\label{test__outputlog__alarminit_8F90_ac12d4c8be259aa0e8dc57c9ab7f43ff4} 
+\index{test\_outputlog\_alarminit.F90@{test\_outputlog\_alarminit.F90}!run\_case@{run\_case}}
+\index{run\_case@{run\_case}!test\_outputlog\_alarminit.F90@{test\_outputlog\_alarminit.F90}}
+\doxysubsubsection{\texorpdfstring{run\_case()}{run\_case()}}
+{\footnotesize\ttfamily subroutine test\+\_\+outputlog\+\_\+alarminit\+::run\+\_\+case (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{freq,  }\item[{integer, intent(in)}]{start\+\_\+hour,  }\item[{integer, intent(out)}]{ierr,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(out)}]{errmsg,  }\item[{integer, intent(in), optional}]{dt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Runs one freq/start\+\_\+hour case end to end. Returns ierr, where ierr==0 means the alarm rang in time and both the primary (structural) and secondary (regression) checks passed. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em freq} & output frequency (hours) \\
+\hline
+\mbox{\texttt{ in}}  & {\em start\+\_\+hour} & start\+\_\+hour for clock \\
+\hline
+\mbox{\texttt{ out}}  & {\em ierr} & error return code \\
+\hline
+\mbox{\texttt{ out}}  & {\em errmsg} & returned error message \\
+\hline
+\mbox{\texttt{ in}}  & {\em dt} & optional timestep used to test no-\/ring \\
+\hline
+\end{DoxyParams}

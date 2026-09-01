@@ -1,93 +1,48 @@
 \doxysection{mom\+\_\+outputlog\+\_\+methods\+::outputlog\+\_\+state\+\_\+type Type Reference}
 \hypertarget{structmom__outputlog__methods_1_1outputlog__state__type}{}\label{structmom__outputlog__methods_1_1outputlog__state__type}\index{mom\_outputlog\_methods::outputlog\_state\_type@{mom\_outputlog\_methods::outputlog\_state\_type}}
+
+
+Structure containing the time-\/dependent state of a tracked file.  
+
+
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-logical \mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__state__type_aa38dd807fc81b87d121cab9bc041e272}{chkfile\+\_\+nextadvance}}
-\item 
-logical \mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__state__type_ac59dabb6f456e85e9532ec6b15df2004}{use\+\_\+filesize}}
-\item 
-logical \mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__state__type_a30cd4ce3e9271028482ebe0f72702551}{ringing}}
-\item 
-logical \mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__state__type_a5ae32fb10a25ce79813941532463c660}{filecomplete}}
-\item 
-character(len=\+:), allocatable \mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__state__type_a63323fcac15625404015f20a0094b4ca}{filename}}
-\item 
-integer \mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__state__type_a06b517138855489a246cec4eff6bacf0}{createsize}}
-\item 
-integer \mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__state__type_a8c7c7b7306137ab7b7b2474483370071}{completesize}}
-\item 
-type(esmf\+\_\+time) \mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__state__type_a1c36e088417368a5aea5e38a4365e383}{time\+\_\+lastrestart}}
-\item 
-type(esmf\+\_\+time) \mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__state__type_a9aff5c2e721e15e31bee499ea9659f44}{time\+\_\+logfile}}
-\item 
-type(esmf\+\_\+time) \mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__state__type_a8d34ba68b60ba7456b53541b467829a5}{prevring}}
-\end{DoxyCompactItemize}
-
-
-\doxysubsection{Member Data Documentation}
 \Hypertarget{structmom__outputlog__methods_1_1outputlog__state__type_aa38dd807fc81b87d121cab9bc041e272}\label{structmom__outputlog__methods_1_1outputlog__state__type_aa38dd807fc81b87d121cab9bc041e272} 
-\index{mom\_outputlog\_methods::outputlog\_state\_type@{mom\_outputlog\_methods::outputlog\_state\_type}!chkfile\_nextadvance@{chkfile\_nextadvance}}
-\index{chkfile\_nextadvance@{chkfile\_nextadvance}!mom\_outputlog\_methods::outputlog\_state\_type@{mom\_outputlog\_methods::outputlog\_state\_type}}
-\doxysubsubsection{\texorpdfstring{chkfile\_nextadvance}{chkfile\_nextadvance}}
-{\footnotesize\ttfamily logical mom\+\_\+outputlog\+\_\+methods\+::outputlog\+\_\+state\+\_\+type\+::chkfile\+\_\+nextadvance}
-
-\Hypertarget{structmom__outputlog__methods_1_1outputlog__state__type_a8c7c7b7306137ab7b7b2474483370071}\label{structmom__outputlog__methods_1_1outputlog__state__type_a8c7c7b7306137ab7b7b2474483370071} 
-\index{mom\_outputlog\_methods::outputlog\_state\_type@{mom\_outputlog\_methods::outputlog\_state\_type}!completesize@{completesize}}
-\index{completesize@{completesize}!mom\_outputlog\_methods::outputlog\_state\_type@{mom\_outputlog\_methods::outputlog\_state\_type}}
-\doxysubsubsection{\texorpdfstring{completesize}{completesize}}
-{\footnotesize\ttfamily integer mom\+\_\+outputlog\+\_\+methods\+::outputlog\+\_\+state\+\_\+type\+::completesize}
-
-\Hypertarget{structmom__outputlog__methods_1_1outputlog__state__type_a06b517138855489a246cec4eff6bacf0}\label{structmom__outputlog__methods_1_1outputlog__state__type_a06b517138855489a246cec4eff6bacf0} 
-\index{mom\_outputlog\_methods::outputlog\_state\_type@{mom\_outputlog\_methods::outputlog\_state\_type}!createsize@{createsize}}
-\index{createsize@{createsize}!mom\_outputlog\_methods::outputlog\_state\_type@{mom\_outputlog\_methods::outputlog\_state\_type}}
-\doxysubsubsection{\texorpdfstring{createsize}{createsize}}
-{\footnotesize\ttfamily integer mom\+\_\+outputlog\+\_\+methods\+::outputlog\+\_\+state\+\_\+type\+::createsize}
-
-\Hypertarget{structmom__outputlog__methods_1_1outputlog__state__type_a5ae32fb10a25ce79813941532463c660}\label{structmom__outputlog__methods_1_1outputlog__state__type_a5ae32fb10a25ce79813941532463c660} 
-\index{mom\_outputlog\_methods::outputlog\_state\_type@{mom\_outputlog\_methods::outputlog\_state\_type}!filecomplete@{filecomplete}}
-\index{filecomplete@{filecomplete}!mom\_outputlog\_methods::outputlog\_state\_type@{mom\_outputlog\_methods::outputlog\_state\_type}}
-\doxysubsubsection{\texorpdfstring{filecomplete}{filecomplete}}
-{\footnotesize\ttfamily logical mom\+\_\+outputlog\+\_\+methods\+::outputlog\+\_\+state\+\_\+type\+::filecomplete}
-
-\Hypertarget{structmom__outputlog__methods_1_1outputlog__state__type_a63323fcac15625404015f20a0094b4ca}\label{structmom__outputlog__methods_1_1outputlog__state__type_a63323fcac15625404015f20a0094b4ca} 
-\index{mom\_outputlog\_methods::outputlog\_state\_type@{mom\_outputlog\_methods::outputlog\_state\_type}!filename@{filename}}
-\index{filename@{filename}!mom\_outputlog\_methods::outputlog\_state\_type@{mom\_outputlog\_methods::outputlog\_state\_type}}
-\doxysubsubsection{\texorpdfstring{filename}{filename}}
-{\footnotesize\ttfamily character(len=\+:), allocatable mom\+\_\+outputlog\+\_\+methods\+::outputlog\+\_\+state\+\_\+type\+::filename}
-
-\Hypertarget{structmom__outputlog__methods_1_1outputlog__state__type_a8d34ba68b60ba7456b53541b467829a5}\label{structmom__outputlog__methods_1_1outputlog__state__type_a8d34ba68b60ba7456b53541b467829a5} 
-\index{mom\_outputlog\_methods::outputlog\_state\_type@{mom\_outputlog\_methods::outputlog\_state\_type}!prevring@{prevring}}
-\index{prevring@{prevring}!mom\_outputlog\_methods::outputlog\_state\_type@{mom\_outputlog\_methods::outputlog\_state\_type}}
-\doxysubsubsection{\texorpdfstring{prevring}{prevring}}
-{\footnotesize\ttfamily type(esmf\+\_\+time) mom\+\_\+outputlog\+\_\+methods\+::outputlog\+\_\+state\+\_\+type\+::prevring}
-
-\Hypertarget{structmom__outputlog__methods_1_1outputlog__state__type_a30cd4ce3e9271028482ebe0f72702551}\label{structmom__outputlog__methods_1_1outputlog__state__type_a30cd4ce3e9271028482ebe0f72702551} 
-\index{mom\_outputlog\_methods::outputlog\_state\_type@{mom\_outputlog\_methods::outputlog\_state\_type}!ringing@{ringing}}
-\index{ringing@{ringing}!mom\_outputlog\_methods::outputlog\_state\_type@{mom\_outputlog\_methods::outputlog\_state\_type}}
-\doxysubsubsection{\texorpdfstring{ringing}{ringing}}
-{\footnotesize\ttfamily logical mom\+\_\+outputlog\+\_\+methods\+::outputlog\+\_\+state\+\_\+type\+::ringing}
-
-\Hypertarget{structmom__outputlog__methods_1_1outputlog__state__type_a1c36e088417368a5aea5e38a4365e383}\label{structmom__outputlog__methods_1_1outputlog__state__type_a1c36e088417368a5aea5e38a4365e383} 
-\index{mom\_outputlog\_methods::outputlog\_state\_type@{mom\_outputlog\_methods::outputlog\_state\_type}!time\_lastrestart@{time\_lastrestart}}
-\index{time\_lastrestart@{time\_lastrestart}!mom\_outputlog\_methods::outputlog\_state\_type@{mom\_outputlog\_methods::outputlog\_state\_type}}
-\doxysubsubsection{\texorpdfstring{time\_lastrestart}{time\_lastrestart}}
-{\footnotesize\ttfamily type(esmf\+\_\+time) mom\+\_\+outputlog\+\_\+methods\+::outputlog\+\_\+state\+\_\+type\+::time\+\_\+lastrestart}
-
-\Hypertarget{structmom__outputlog__methods_1_1outputlog__state__type_a9aff5c2e721e15e31bee499ea9659f44}\label{structmom__outputlog__methods_1_1outputlog__state__type_a9aff5c2e721e15e31bee499ea9659f44} 
-\index{mom\_outputlog\_methods::outputlog\_state\_type@{mom\_outputlog\_methods::outputlog\_state\_type}!time\_logfile@{time\_logfile}}
-\index{time\_logfile@{time\_logfile}!mom\_outputlog\_methods::outputlog\_state\_type@{mom\_outputlog\_methods::outputlog\_state\_type}}
-\doxysubsubsection{\texorpdfstring{time\_logfile}{time\_logfile}}
-{\footnotesize\ttfamily type(esmf\+\_\+time) mom\+\_\+outputlog\+\_\+methods\+::outputlog\+\_\+state\+\_\+type\+::time\+\_\+logfile}
-
+logical {\bfseries chkfile\+\_\+nextadvance}
+\begin{DoxyCompactList}\small\item\em logical flag to check file completion at next Model\+Advance \end{DoxyCompactList}\item 
 \Hypertarget{structmom__outputlog__methods_1_1outputlog__state__type_ac59dabb6f456e85e9532ec6b15df2004}\label{structmom__outputlog__methods_1_1outputlog__state__type_ac59dabb6f456e85e9532ec6b15df2004} 
-\index{mom\_outputlog\_methods::outputlog\_state\_type@{mom\_outputlog\_methods::outputlog\_state\_type}!use\_filesize@{use\_filesize}}
-\index{use\_filesize@{use\_filesize}!mom\_outputlog\_methods::outputlog\_state\_type@{mom\_outputlog\_methods::outputlog\_state\_type}}
-\doxysubsubsection{\texorpdfstring{use\_filesize}{use\_filesize}}
-{\footnotesize\ttfamily logical mom\+\_\+outputlog\+\_\+methods\+::outputlog\+\_\+state\+\_\+type\+::use\+\_\+filesize}
+logical {\bfseries use\+\_\+filesize}
+\begin{DoxyCompactList}\small\item\em logical flag to use the file size to determine completion \end{DoxyCompactList}\item 
+\Hypertarget{structmom__outputlog__methods_1_1outputlog__state__type_a30cd4ce3e9271028482ebe0f72702551}\label{structmom__outputlog__methods_1_1outputlog__state__type_a30cd4ce3e9271028482ebe0f72702551} 
+logical {\bfseries ringing}
+\begin{DoxyCompactList}\small\item\em logical flag for alarm ring \end{DoxyCompactList}\item 
+\Hypertarget{structmom__outputlog__methods_1_1outputlog__state__type_a5ae32fb10a25ce79813941532463c660}\label{structmom__outputlog__methods_1_1outputlog__state__type_a5ae32fb10a25ce79813941532463c660} 
+logical {\bfseries filecomplete}
+\begin{DoxyCompactList}\small\item\em logical flag for file completion \end{DoxyCompactList}\item 
+\Hypertarget{structmom__outputlog__methods_1_1outputlog__state__type_a63323fcac15625404015f20a0094b4ca}\label{structmom__outputlog__methods_1_1outputlog__state__type_a63323fcac15625404015f20a0094b4ca} 
+character(len=\+:), allocatable {\bfseries filename}
+\begin{DoxyCompactList}\small\item\em tracked file name \end{DoxyCompactList}\item 
+\Hypertarget{structmom__outputlog__methods_1_1outputlog__state__type_a06b517138855489a246cec4eff6bacf0}\label{structmom__outputlog__methods_1_1outputlog__state__type_a06b517138855489a246cec4eff6bacf0} 
+integer {\bfseries createsize}
+\begin{DoxyCompactList}\small\item\em tracked file size at creation \end{DoxyCompactList}\item 
+\Hypertarget{structmom__outputlog__methods_1_1outputlog__state__type_a8c7c7b7306137ab7b7b2474483370071}\label{structmom__outputlog__methods_1_1outputlog__state__type_a8c7c7b7306137ab7b7b2474483370071} 
+integer {\bfseries completesize}
+\begin{DoxyCompactList}\small\item\em tracked file size at completion \end{DoxyCompactList}\item 
+\Hypertarget{structmom__outputlog__methods_1_1outputlog__state__type_a1c36e088417368a5aea5e38a4365e383}\label{structmom__outputlog__methods_1_1outputlog__state__type_a1c36e088417368a5aea5e38a4365e383} 
+type(esmf\+\_\+time) {\bfseries time\+\_\+lastrestart}
+\begin{DoxyCompactList}\small\item\em time of last restart write when a tracked file completes \end{DoxyCompactList}\item 
+\Hypertarget{structmom__outputlog__methods_1_1outputlog__state__type_a9aff5c2e721e15e31bee499ea9659f44}\label{structmom__outputlog__methods_1_1outputlog__state__type_a9aff5c2e721e15e31bee499ea9659f44} 
+type(esmf\+\_\+time) {\bfseries time\+\_\+logfile}
+\begin{DoxyCompactList}\small\item\em time used to create the logfile for tracked file \end{DoxyCompactList}\item 
+\Hypertarget{structmom__outputlog__methods_1_1outputlog__state__type_a8d34ba68b60ba7456b53541b467829a5}\label{structmom__outputlog__methods_1_1outputlog__state__type_a8d34ba68b60ba7456b53541b467829a5} 
+type(esmf\+\_\+time) {\bfseries prevring}
+\begin{DoxyCompactList}\small\item\em the prev\+Ring time associated with an Alarm \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+Structure containing the time-\/dependent state of a tracked file. 
 
 The documentation for this type was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-/work/noaa/nems/dworthen/ufs\+\_\+dw/\+MOM6-\/interface/\+MOM6/config\+\_\+src/drivers/nuopc\+\_\+cap/\mbox{\hyperlink{mom__outputlog__methods_8F90}{mom\+\_\+outputlog\+\_\+methods.\+F90}}\end{DoxyCompactItemize}
+/work/noaa/nems/dworthen/ufs\+\_\+dw/\+MOM6-\/interface/\+MOM6/config\+\_\+src/drivers/nuopc\+\_\+cap/mom\+\_\+outputlog\+\_\+methods.\+F90\end{DoxyCompactItemize}

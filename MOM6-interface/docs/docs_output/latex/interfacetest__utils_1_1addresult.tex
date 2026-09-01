@@ -1,11 +1,19 @@
 \doxysection{test\+\_\+utils\+::addresult Interface Reference}
 \hypertarget{interfacetest__utils_1_1addresult}{}\label{interfacetest__utils_1_1addresult}\index{test\_utils::addresult@{test\_utils::addresult}}
+
+
+Generic interface for adding a test result to the summary.  
+
+
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 subroutine \mbox{\hyperlink{interfacetest__utils_1_1addresult_ac7fb66210680048df74f551891980e4d}{add\+\_\+test\+\_\+result}} (summary, passed, message, errormsg)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Add test results to summary. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+Generic interface for adding a test result to the summary. 
 
 \doxysubsection{Member Function/\+Subroutine Documentation}
 \Hypertarget{interfacetest__utils_1_1addresult_ac7fb66210680048df74f551891980e4d}\label{interfacetest__utils_1_1addresult_ac7fb66210680048df74f551891980e4d} 
@@ -14,6 +22,21 @@ subroutine \mbox{\hyperlink{interfacetest__utils_1_1addresult_ac7fb66210680048df
 \doxysubsubsection{\texorpdfstring{add\_test\_result()}{add\_test\_result()}}
 {\footnotesize\ttfamily subroutine test\+\_\+utils\+::addresult\+::add\+\_\+test\+\_\+result (\begin{DoxyParamCaption}\item[{type(\mbox{\hyperlink{structtest__utils_1_1testsummary}{testsummary}}), intent(inout)}]{summary,  }\item[{logical, intent(in)}]{passed,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{message,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{errormsg }\end{DoxyParamCaption})}
 
+
+
+Add test results to summary. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em summary} & test summary \\
+\hline
+\mbox{\texttt{ in}}  & {\em passed} & test result \\
+\hline
+\mbox{\texttt{ in}}  & {\em message} & test message \\
+\hline
+\mbox{\texttt{ in}}  & {\em errormsg} & test error message \\
+\hline
+\end{DoxyParams}
 
 
 The documentation for this interface was generated from the following file\+:\begin{DoxyCompactItemize}

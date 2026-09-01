@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MOM6 Outputlog Feature &amp; Unit Tests: Main Page</title>
+<title>MOM6 Outputlog Feature &amp; Unit Tests: mom_cap_outputlog</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -68,10 +68,25 @@ $(function() {
 </div>
 </div>
 
-<div class="header">
-  <div class="headertitle"><div class="title">MOM6 Outputlog Feature &amp; Unit Tests Documentation</div></div>
+<div><div class="header">
+  <div class="headertitle"><div class="title"><a class="el" href="namespacemom__cap__outputlog.html" title="This module contains a set of subroutines that check if MOM restart and history files have been writt...">mom_cap_outputlog</a> </div></div>
 </div><!--header-->
 <div class="contents">
+<div class="textblock"><p><a class="anchor" id="md__2work_2noaa_2nems_2dworthen_2ufs__dw_2MOM6-interface_2docs_2feature__guide"></a> </p>
+<h1><a class="anchor" id="autotoc_md1"></a>
+Introduction</h1>
+<p>The tincrement interval (defined in minutes) is used to construct the output filename the file name must be set as the mid-point of the averaging period via the diagtable and the output filename timestrings are given by</p>
+<p>T - (interval * 60 * increment + interval/2 * 60 * increment )</p>
+<p>where T is the time when the file is closed</p>
+<p>00 . 03 . 06 . 09 1:30 = 6 - (3 + 1:30) 4:30 = 9 - (3 + 1:30)</p>
+<p>00 . 06 . 12 . 18 03 = 12 - (6 + 3) 09 = 18 - (6 + 3)</p>
+<p>00 . 24 . 48 . 72 12 = 48 - (24 + 12) 36 = 72 - (24 + 12)</p>
+<p>when the model reaches the stop time, any 'pending' output file is closed, and the final interval output is also closed </p><pre class="fragment">              stop
+</pre><p> 18 . 24 . 30 21 = 30 - (12 + 3) 03 = 30 - (3)</p>
+<p>since both the final interval and the next-to-final interval can be closed at the stop time, a different log file name is required for the final log file, otherwise the next-to-final log is overwritten</p>
+<p>Depending on configuration, the output file can have an unlimited dimension &gt;0 at creation time. This necessitates checking for an additional criteria using the filesize at creation. An output file is declared complete either when the unlimited dimension in the file is &gt;0 or when the unlimited dimension is &gt;0 and the filesize is larger than the initial size.</p>
+<p>When a file is determined to be complete, a log file is recorded containing the forecast hour, the valid time, the name of the output file and the last completed restart file. </p>
+</div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

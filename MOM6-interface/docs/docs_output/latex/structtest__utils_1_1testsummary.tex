@@ -1,26 +1,40 @@
 \doxysection{test\+\_\+utils\+::testsummary Type Reference}
 \hypertarget{structtest__utils_1_1testsummary}{}\label{structtest__utils_1_1testsummary}\index{test\_utils::testsummary@{test\_utils::testsummary}}
+
+
+Type for tracking test execution counts, passes, fails, and messages.  
+
+
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 procedure \mbox{\hyperlink{structtest__utils_1_1testsummary_a9f9aef0053e0309f5e6bfeb2a7260c20}{init}} (this, maxtests)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Bound procedure to initialize the summary. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-integer \mbox{\hyperlink{structtest__utils_1_1testsummary_aa214f694c470e396e71f5f4133e2a392}{count}} = 0
-\item 
-integer \mbox{\hyperlink{structtest__utils_1_1testsummary_acd0ab292e49d84d91c4777dd26e62920}{npass}} = 0
-\item 
-integer \mbox{\hyperlink{structtest__utils_1_1testsummary_a09419a9e38420cbf2afde8e44efa955e}{nfail}} = 0
-\item 
-logical, dimension(\+:), allocatable \mbox{\hyperlink{structtest__utils_1_1testsummary_a226e0bb7fbadfc9d111b6799d1528b4f}{teststatus}}
-\item 
-type(\mbox{\hyperlink{structtest__utils_1_1msg__type}{msg\+\_\+type}}), dimension(\+:), allocatable \mbox{\hyperlink{structtest__utils_1_1testsummary_ac8dda29acca6c362a64abb4b6b32b9c3}{testmessage}}
-\item 
-type(\mbox{\hyperlink{structtest__utils_1_1msg__type}{msg\+\_\+type}}), dimension(\+:), allocatable \mbox{\hyperlink{structtest__utils_1_1testsummary_acdf4f30a76fcb71dc876dad7ce469913}{errmessage}}
-\end{DoxyCompactItemize}
+\Hypertarget{structtest__utils_1_1testsummary_aa214f694c470e396e71f5f4133e2a392}\label{structtest__utils_1_1testsummary_aa214f694c470e396e71f5f4133e2a392} 
+integer {\bfseries count} = 0
+\begin{DoxyCompactList}\small\item\em a test count \end{DoxyCompactList}\item 
+\Hypertarget{structtest__utils_1_1testsummary_acd0ab292e49d84d91c4777dd26e62920}\label{structtest__utils_1_1testsummary_acd0ab292e49d84d91c4777dd26e62920} 
+integer {\bfseries npass} = 0
+\begin{DoxyCompactList}\small\item\em passing test count \end{DoxyCompactList}\item 
+\Hypertarget{structtest__utils_1_1testsummary_a09419a9e38420cbf2afde8e44efa955e}\label{structtest__utils_1_1testsummary_a09419a9e38420cbf2afde8e44efa955e} 
+integer {\bfseries nfail} = 0
+\begin{DoxyCompactList}\small\item\em failing test count \end{DoxyCompactList}\item 
+\Hypertarget{structtest__utils_1_1testsummary_a226e0bb7fbadfc9d111b6799d1528b4f}\label{structtest__utils_1_1testsummary_a226e0bb7fbadfc9d111b6799d1528b4f} 
+logical, dimension(\+:), allocatable {\bfseries teststatus}
+\begin{DoxyCompactList}\small\item\em test status list \end{DoxyCompactList}\item 
+\Hypertarget{structtest__utils_1_1testsummary_ac8dda29acca6c362a64abb4b6b32b9c3}\label{structtest__utils_1_1testsummary_ac8dda29acca6c362a64abb4b6b32b9c3} 
+type(\mbox{\hyperlink{structtest__utils_1_1msg__type}{msg\+\_\+type}}), dimension(\+:), allocatable {\bfseries testmessage}
+\begin{DoxyCompactList}\small\item\em test message list \end{DoxyCompactList}\item 
+\Hypertarget{structtest__utils_1_1testsummary_acdf4f30a76fcb71dc876dad7ce469913}\label{structtest__utils_1_1testsummary_acdf4f30a76fcb71dc876dad7ce469913} 
+type(\mbox{\hyperlink{structtest__utils_1_1msg__type}{msg\+\_\+type}}), dimension(\+:), allocatable {\bfseries errmessage}
+\begin{DoxyCompactList}\small\item\em test error message list \end{DoxyCompactList}\end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+Type for tracking test execution counts, passes, fails, and messages. 
 
 \doxysubsection{Member Function/\+Subroutine Documentation}
 \Hypertarget{structtest__utils_1_1testsummary_a9f9aef0053e0309f5e6bfeb2a7260c20}\label{structtest__utils_1_1testsummary_a9f9aef0053e0309f5e6bfeb2a7260c20} 
@@ -31,43 +45,15 @@ type(\mbox{\hyperlink{structtest__utils_1_1msg__type}{msg\+\_\+type}}), dimensio
 
 
 
-\doxysubsection{Member Data Documentation}
-\Hypertarget{structtest__utils_1_1testsummary_aa214f694c470e396e71f5f4133e2a392}\label{structtest__utils_1_1testsummary_aa214f694c470e396e71f5f4133e2a392} 
-\index{test\_utils::testsummary@{test\_utils::testsummary}!count@{count}}
-\index{count@{count}!test\_utils::testsummary@{test\_utils::testsummary}}
-\doxysubsubsection{\texorpdfstring{count}{count}}
-{\footnotesize\ttfamily integer test\+\_\+utils\+::testsummary\+::count = 0}
+Bound procedure to initialize the summary. 
 
-\Hypertarget{structtest__utils_1_1testsummary_acdf4f30a76fcb71dc876dad7ce469913}\label{structtest__utils_1_1testsummary_acdf4f30a76fcb71dc876dad7ce469913} 
-\index{test\_utils::testsummary@{test\_utils::testsummary}!errmessage@{errmessage}}
-\index{errmessage@{errmessage}!test\_utils::testsummary@{test\_utils::testsummary}}
-\doxysubsubsection{\texorpdfstring{errmessage}{errmessage}}
-{\footnotesize\ttfamily type(\mbox{\hyperlink{structtest__utils_1_1msg__type}{msg\+\_\+type}}), dimension(\+:), allocatable test\+\_\+utils\+::testsummary\+::errmessage}
 
-\Hypertarget{structtest__utils_1_1testsummary_a09419a9e38420cbf2afde8e44efa955e}\label{structtest__utils_1_1testsummary_a09419a9e38420cbf2afde8e44efa955e} 
-\index{test\_utils::testsummary@{test\_utils::testsummary}!nfail@{nfail}}
-\index{nfail@{nfail}!test\_utils::testsummary@{test\_utils::testsummary}}
-\doxysubsubsection{\texorpdfstring{nfail}{nfail}}
-{\footnotesize\ttfamily integer test\+\_\+utils\+::testsummary\+::nfail = 0}
-
-\Hypertarget{structtest__utils_1_1testsummary_acd0ab292e49d84d91c4777dd26e62920}\label{structtest__utils_1_1testsummary_acd0ab292e49d84d91c4777dd26e62920} 
-\index{test\_utils::testsummary@{test\_utils::testsummary}!npass@{npass}}
-\index{npass@{npass}!test\_utils::testsummary@{test\_utils::testsummary}}
-\doxysubsubsection{\texorpdfstring{npass}{npass}}
-{\footnotesize\ttfamily integer test\+\_\+utils\+::testsummary\+::npass = 0}
-
-\Hypertarget{structtest__utils_1_1testsummary_ac8dda29acca6c362a64abb4b6b32b9c3}\label{structtest__utils_1_1testsummary_ac8dda29acca6c362a64abb4b6b32b9c3} 
-\index{test\_utils::testsummary@{test\_utils::testsummary}!testmessage@{testmessage}}
-\index{testmessage@{testmessage}!test\_utils::testsummary@{test\_utils::testsummary}}
-\doxysubsubsection{\texorpdfstring{testmessage}{testmessage}}
-{\footnotesize\ttfamily type(\mbox{\hyperlink{structtest__utils_1_1msg__type}{msg\+\_\+type}}), dimension(\+:), allocatable test\+\_\+utils\+::testsummary\+::testmessage}
-
-\Hypertarget{structtest__utils_1_1testsummary_a226e0bb7fbadfc9d111b6799d1528b4f}\label{structtest__utils_1_1testsummary_a226e0bb7fbadfc9d111b6799d1528b4f} 
-\index{test\_utils::testsummary@{test\_utils::testsummary}!teststatus@{teststatus}}
-\index{teststatus@{teststatus}!test\_utils::testsummary@{test\_utils::testsummary}}
-\doxysubsubsection{\texorpdfstring{teststatus}{teststatus}}
-{\footnotesize\ttfamily logical, dimension(\+:), allocatable test\+\_\+utils\+::testsummary\+::teststatus}
-
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em this} & The testsummary object to initialize \\
+\hline
+\mbox{\texttt{ in}}  & {\em maxtests} & The maximum number of tests to allocate space for \\
+\hline
+\end{DoxyParams}
 
 
 The documentation for this type was generated from the following file\+:\begin{DoxyCompactItemize}

@@ -1,52 +1,69 @@
 \doxysection{/work/noaa/nems/dworthen/ufs\+\_\+dw/\+MOM6-\/interface/unit-\/tests/test\+\_\+utils.F90 File Reference}
 \hypertarget{test__utils_8F90}{}\label{test__utils_8F90}\index{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/unit-\/tests/test\_utils.F90@{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/unit-\/tests/test\_utils.F90}}
+
+
+Common assertion and test summary functions for MOM6 outputlog unit tests.  
+
+
 \doxysubsubsection*{Data Types}
 \begin{DoxyCompactItemize}
 \item 
 type \mbox{\hyperlink{structtest__utils_1_1msg__type}{test\+\_\+utils\+::msg\+\_\+type}}
-\item 
+\begin{DoxyCompactList}\small\item\em Wrapper type for dynamically sized string messages. \end{DoxyCompactList}\item 
 type \mbox{\hyperlink{structtest__utils_1_1testsummary}{test\+\_\+utils\+::testsummary}}
-\item 
+\begin{DoxyCompactList}\small\item\em Type for tracking test execution counts, passes, fails, and messages. \end{DoxyCompactList}\item 
 interface \mbox{\hyperlink{interfacetest__utils_1_1assert__equal}{test\+\_\+utils\+::assert\+\_\+equal}}
-\item 
+\begin{DoxyCompactList}\small\item\em Generic interface for asserting equality between expected and actual values. \end{DoxyCompactList}\item 
 interface \mbox{\hyperlink{interfacetest__utils_1_1addresult}{test\+\_\+utils\+::addresult}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Generic interface for adding a test result to the summary. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Modules}
 \begin{DoxyCompactItemize}
 \item 
 module \mbox{\hyperlink{namespacetest__utils}{test\+\_\+utils}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Module containing common assertion and test summary functions. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Functions/\+Subroutines}
 \begin{DoxyCompactItemize}
 \item 
 subroutine \mbox{\hyperlink{namespacetest__utils_a5cde06c2992d68a039f375924f8b5654}{test\+\_\+utils\+::init\+\_\+summary}} (this, maxtests)
-\item 
+\begin{DoxyCompactList}\small\item\em Initialize the test summary object. \end{DoxyCompactList}\item 
 subroutine \mbox{\hyperlink{namespacetest__utils_a59ea1620613078a6c2e45df80da3f43d}{test\+\_\+utils\+::add\+\_\+test\+\_\+result}} (summary, passed, message, errormsg)
-\item 
+\begin{DoxyCompactList}\small\item\em Add test results to summary. \end{DoxyCompactList}\item 
 subroutine \mbox{\hyperlink{namespacetest__utils_a6effc4f29f19ff54c3733d062a2af1b4}{test\+\_\+utils\+::grow\+\_\+if\+\_\+needed}} (summary)
-\begin{DoxyCompactList}\small\item\em Grows teststatus/testmessage/errmessage to fit summarycount, doubling capacity (or matching count exactly if that\textquotesingle{}s larger) rather than a fixed maxtests -- add\+\_\+test\+\_\+result can never write out of bounds, and init(maxtests) becomes just an optional initial-\/capacity hint rather than a hard, easy-\/to-\/forget-\/to-\/update limit. Safe to call whether or not init() was ever called (an unallocated array is treated as size 0). \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Increase the size of the testsummary type arrays if needed. \end{DoxyCompactList}\item 
 subroutine \mbox{\hyperlink{namespacetest__utils_aaf2593ef3264cd38d5f22f5fe65b1821}{test\+\_\+utils\+::assert\+\_\+logical}} (actual, expected, msg, rc, returnmsg)
-\item 
+\begin{DoxyCompactList}\small\item\em Assert equality between two logical values. \end{DoxyCompactList}\item 
 subroutine \mbox{\hyperlink{namespacetest__utils_abb1dfe8c7460aac7b22885195f3f631d}{test\+\_\+utils\+::assert\+\_\+int\+\_\+scalar}} (actual, expected, msg, rc, returnmsg)
-\item 
+\begin{DoxyCompactList}\small\item\em Assert equality between two integer scalars. \end{DoxyCompactList}\item 
 subroutine \mbox{\hyperlink{namespacetest__utils_a482cd1763251653fe07617c948bbf740}{test\+\_\+utils\+::assert\+\_\+real\+\_\+scalar}} (actual, expected, tol, msg, rc, returnmsg)
-\item 
+\begin{DoxyCompactList}\small\item\em Assert equality between two real scalars within a tolerance. \end{DoxyCompactList}\item 
 subroutine \mbox{\hyperlink{namespacetest__utils_a6e79afc74f0e5a6fbea2aeb6cca9bdec}{test\+\_\+utils\+::assert\+\_\+double\+\_\+scalar}} (actual, expected, tol, msg, rc, returnmsg)
-\item 
+\begin{DoxyCompactList}\small\item\em Assert equality between two double precision scalars within a tolerance. \end{DoxyCompactList}\item 
 subroutine \mbox{\hyperlink{namespacetest__utils_a72547f2aaf32d76452251c30e1b313e9}{test\+\_\+utils\+::assert\+\_\+double\+\_\+1d}} (actual, expected, tol, msg, rc, returnmsg)
-\item 
+\begin{DoxyCompactList}\small\item\em Assert equality between two double precision 1D arrays within a tolerance. \end{DoxyCompactList}\item 
 character(len=4) function, public \mbox{\hyperlink{namespacetest__utils_a20d93fb56e43810b7fb18af42c72a0f2}{test\+\_\+utils\+::itoa}} (i)
-\item 
+\begin{DoxyCompactList}\small\item\em Convert an integer to a string. \end{DoxyCompactList}\item 
 subroutine, public \mbox{\hyperlink{namespacetest__utils_a0e0e987ef3b5f5dcfd49780156131c2a}{test\+\_\+utils\+::esmf\+\_\+err}} (rc, subname, context)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Check an ESMF return code and abort if an error is found. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-integer, parameter \mbox{\hyperlink{namespacetest__utils_a8100e06bdb60a83d7b370885c5f2c167}{test\+\_\+utils\+::real\+\_\+kind}} = selected\+\_\+real\+\_\+kind( 6)
+\Hypertarget{namespacetest__utils_a8100e06bdb60a83d7b370885c5f2c167}\label{namespacetest__utils_a8100e06bdb60a83d7b370885c5f2c167} 
+integer, parameter {\bfseries test\+\_\+utils\+::real\+\_\+kind} = selected\+\_\+real\+\_\+kind( 6)
 \begin{DoxyCompactList}\small\item\em 4 byte real \end{DoxyCompactList}\item 
-integer, parameter \mbox{\hyperlink{namespacetest__utils_ab04388abbfa7667ba5a7a01e45e776a2}{test\+\_\+utils\+::dbl\+\_\+kind}} = selected\+\_\+real\+\_\+kind(12)
+\Hypertarget{namespacetest__utils_ab04388abbfa7667ba5a7a01e45e776a2}\label{namespacetest__utils_ab04388abbfa7667ba5a7a01e45e776a2} 
+integer, parameter {\bfseries test\+\_\+utils\+::dbl\+\_\+kind} = selected\+\_\+real\+\_\+kind(12)
 \begin{DoxyCompactList}\small\item\em 8 byte real \end{DoxyCompactList}\item 
-integer, parameter \mbox{\hyperlink{namespacetest__utils_ac675c9fe740321737aea9eeb4a7a87ba}{test\+\_\+utils\+::int\+\_\+kind}} = selected\+\_\+int\+\_\+kind ( 6)
+\Hypertarget{namespacetest__utils_ac675c9fe740321737aea9eeb4a7a87ba}\label{namespacetest__utils_ac675c9fe740321737aea9eeb4a7a87ba} 
+integer, parameter {\bfseries test\+\_\+utils\+::int\+\_\+kind} = selected\+\_\+int\+\_\+kind ( 6)
 \begin{DoxyCompactList}\small\item\em 4 byte integer \end{DoxyCompactList}\item 
-integer, parameter \mbox{\hyperlink{namespacetest__utils_a2789334e59bc11103ee4151b569e0a36}{test\+\_\+utils\+::int8\+\_\+kind}} = selected\+\_\+int\+\_\+kind (13)
+\Hypertarget{namespacetest__utils_a2789334e59bc11103ee4151b569e0a36}\label{namespacetest__utils_a2789334e59bc11103ee4151b569e0a36} 
+integer, parameter {\bfseries test\+\_\+utils\+::int8\+\_\+kind} = selected\+\_\+int\+\_\+kind (13)
 \begin{DoxyCompactList}\small\item\em 8 byte integer \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Common assertion and test summary functions for MOM6 outputlog unit tests. 
+
+\begin{DoxyDate}{Date}
+08-\/12-\/2026 
+\end{DoxyDate}

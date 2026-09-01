@@ -1,64 +1,57 @@
 \doxysection{/work/noaa/nems/dworthen/ufs\+\_\+dw/\+MOM6-\/interface/unit-\/tests/test\+\_\+outputlog\+\_\+freqn.F90 File Reference}
 \hypertarget{test__outputlog__freqn_8F90}{}\label{test__outputlog__freqn_8F90}\index{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/unit-\/tests/test\_outputlog\_freqn.F90@{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/unit-\/tests/test\_outputlog\_freqn.F90}}
+
+
+Orchestration test for the outputlog\+\_\+freqn machinery.  
+
+
 \doxysubsubsection*{Functions/\+Subroutines}
 \begin{DoxyCompactItemize}
 \item 
-program \mbox{\hyperlink{test__outputlog__freqn_8F90_a8a499721783fa02a2e5b7a4855adddb5}{test\+\_\+outputlog\+\_\+freqn}}
-\begin{DoxyCompactList}\small\item\em Narrow orchestration test for the outputlog\+\_\+freqn machinery. \end{DoxyCompactList}\item 
-subroutine \mbox{\hyperlink{test__outputlog__freqn_8F90_a3157ed1a1a774892cfb1e549f6df11c7}{run\+\_\+case}} (test, freq, start\+\_\+hour, ring\+\_\+hours, ring\+\_\+ticks, expected\+\_\+completions, is\+\_\+passing, timereduce, use\+\_\+filesize)
-\begin{DoxyCompactList}\small\item\em Drives get\+\_\+ring\+\_\+state/check\+\_\+file\+\_\+completion through a sequence of abstract "{}hours"{} (no real clock advances -- this is just an integer counter, matched against ring\+\_\+hours(\+:) to decide when a ring "{}happens"{}). ring\+\_\+ticks(i) controls when ring\+\_\+hours(i)\textquotesingle{}s fixture completes\+: a positive N schedules the fixture\textquotesingle{}s completing write N hours after that ring; -\/1 means never. Counts how many completions are reported and compares to expected\+\_\+completions. \end{DoxyCompactList}\item 
-integer function \mbox{\hyperlink{test__outputlog__freqn_8F90_ac4c0283fe1799cefc1c9b34f747666ce}{findloc\+\_\+int}} (arr, target)
-\begin{DoxyCompactList}\small\item\em Index of target in arr, or 0 if not present -- plain integer lookup, no ESMF/production logic involved. \end{DoxyCompactList}\end{DoxyCompactItemize}
-
-
-\doxysubsection{Function/\+Subroutine Documentation}
-\Hypertarget{test__outputlog__freqn_8F90_ac4c0283fe1799cefc1c9b34f747666ce}\label{test__outputlog__freqn_8F90_ac4c0283fe1799cefc1c9b34f747666ce} 
-\index{test\_outputlog\_freqn.F90@{test\_outputlog\_freqn.F90}!findloc\_int@{findloc\_int}}
-\index{findloc\_int@{findloc\_int}!test\_outputlog\_freqn.F90@{test\_outputlog\_freqn.F90}}
-\doxysubsubsection{\texorpdfstring{findloc\_int()}{findloc\_int()}}
-{\footnotesize\ttfamily integer function test\+\_\+outputlog\+\_\+freqn\+::findloc\+\_\+int (\begin{DoxyParamCaption}\item[{integer, dimension(\+:), intent(in)}]{arr,  }\item[{integer, intent(in)}]{target }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
-
-
-
-Index of target in arr, or 0 if not present -- plain integer lookup, no ESMF/production logic involved. 
-
-\Hypertarget{test__outputlog__freqn_8F90_a3157ed1a1a774892cfb1e549f6df11c7}\label{test__outputlog__freqn_8F90_a3157ed1a1a774892cfb1e549f6df11c7} 
-\index{test\_outputlog\_freqn.F90@{test\_outputlog\_freqn.F90}!run\_case@{run\_case}}
-\index{run\_case@{run\_case}!test\_outputlog\_freqn.F90@{test\_outputlog\_freqn.F90}}
-\doxysubsubsection{\texorpdfstring{run\_case()}{run\_case()}}
-{\footnotesize\ttfamily subroutine test\+\_\+outputlog\+\_\+freqn\+::run\+\_\+case (\begin{DoxyParamCaption}\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{test,  }\item[{integer, intent(in)}]{freq,  }\item[{integer, intent(in)}]{start\+\_\+hour,  }\item[{integer, dimension(\+:), intent(in)}]{ring\+\_\+hours,  }\item[{integer, dimension(\+:), intent(in)}]{ring\+\_\+ticks,  }\item[{integer, intent(in)}]{expected\+\_\+completions,  }\item[{logical, intent(out)}]{is\+\_\+passing,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in), optional}]{timereduce,  }\item[{logical, intent(in), optional}]{use\+\_\+filesize }\end{DoxyParamCaption})}
-
-
-
-Drives get\+\_\+ring\+\_\+state/check\+\_\+file\+\_\+completion through a sequence of abstract "{}hours"{} (no real clock advances -- this is just an integer counter, matched against ring\+\_\+hours(\+:) to decide when a ring "{}happens"{}). ring\+\_\+ticks(i) controls when ring\+\_\+hours(i)\textquotesingle{}s fixture completes\+: a positive N schedules the fixture\textquotesingle{}s completing write N hours after that ring; -\/1 means never. Counts how many completions are reported and compares to expected\+\_\+completions. 
-
 \Hypertarget{test__outputlog__freqn_8F90_a8a499721783fa02a2e5b7a4855adddb5}\label{test__outputlog__freqn_8F90_a8a499721783fa02a2e5b7a4855adddb5} 
-\index{test\_outputlog\_freqn.F90@{test\_outputlog\_freqn.F90}!test\_outputlog\_freqn@{test\_outputlog\_freqn}}
-\index{test\_outputlog\_freqn@{test\_outputlog\_freqn}!test\_outputlog\_freqn.F90@{test\_outputlog\_freqn.F90}}
-\doxysubsubsection{\texorpdfstring{test\_outputlog\_freqn()}{test\_outputlog\_freqn()}}
-{\footnotesize\ttfamily program test\+\_\+outputlog\+\_\+freqn}
+program {\bfseries test\+\_\+outputlog\+\_\+freqn}
+\begin{DoxyCompactList}\small\item\em Main program for testing outputlog\+\_\+freqn file trackingprogram test\+\_\+outputlog\+\_\+freqn. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{test__outputlog__freqn_8F90_a03480b01427e8e785ef872a84f6e3053}{run\+\_\+case}} (test, freq, start\+\_\+hour, runhours, timereduce, use\+\_\+filesize, nfiles, completions)
+\begin{DoxyCompactList}\small\item\em Run a single test case through a simulated model\+Clock advance cycle. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+Orchestration test for the outputlog\+\_\+freqn machinery. 
 
-Narrow orchestration test for the outputlog\+\_\+freqn machinery. 
-
-Ring timing (Alarm\+Init/set\+\_\+toffset) is validated in \doxylink{test__alarminit_8F90}{test\+\_\+alarminit.\+F90}. Completion criteria (file\+\_\+is\+\_\+complete/get\+\_\+file\+\_\+state) are validated in \doxylink{test__outputlog__completion_8F90}{test\+\_\+outputlog\+\_\+completion.\+F90}. Given both are already independently trusted, this file\textquotesingle{}s job is to confirm get\+\_\+ring\+\_\+state and check\+\_\+file\+\_\+completion correctly coordinate through state\+\_\+n\+:
-\begin{DoxyEnumerate}
-\item at a ring, computes the right filename (the next\+Time-\/ filename\+\_\+fhoffset lookback) and correctly initializes state\+\_\+n from a real check of that file
-\item correctly reports completion by genuinely polling the real fixture (driving the real code, not re-\/deriving completion logic)
-\item when a second ring fires, correctly re-\/initializes and starts tracking the new file, superseding whatever it was tracking before
-\end{DoxyEnumerate}
-
-DESIGN NOTE\+: this file calls get\+\_\+ring\+\_\+state/check\+\_\+file\+\_\+completion DIRECTLY -- not outputlog\+\_\+freqn itself. outputlog\+\_\+freqn is now just a thin dispatcher (check ringing, call get\+\_\+ring\+\_\+state if so, always call check\+\_\+file\+\_\+completion) with no real logic of its own left to test; all the actual state-\/tracking/completion/supersession behavior lives in the two routines this file exercises directly. Since get\+\_\+ring\+\_\+state takes a plain next\+Time (not a clock), and check\+\_\+file\+\_\+completion needs no clock/alarm at all, this file needs NO real advancing ESMF\+\_\+\+Clock and NO alarm-\/ringing detection -- "{}this is a ring"{} is simply asserted by each case\textquotesingle{}s own ring\+\_\+hours(\+:) data, not derived from ESMF. Ring TIMING correctness itself is out of scope here (owned by \doxylink{test__alarminit_8F90}{test\+\_\+alarminit.\+F90}); ring\+\_\+hours(\+:) values below are literals matching what\textquotesingle{}s already been independently confirmed correct elsewhere, not re-\/derived here.
-
-Explicitly OUT OF SCOPE here, left to their own dedicated tests\+:
-\begin{DoxyItemize}
-\item restart pairing (state\+\_\+ntime\+\_\+lastrestart) -- lastrestart is a fixed dummy value below, never asserted on
-\item finalize behavior (both the plain and lstop-\/specific finalize calls) -- get\+\_\+lstop\+\_\+ring\+\_\+state is never called here; see \doxylink{test__outputlog__finalize_8F90}{test\+\_\+outputlog\+\_\+finalize.\+F90}
-\end{DoxyItemize}
-
-Coverage matrix (timereduce x use\+\_\+filesize) is deliberately complete, not just DATM\+: ATM (use\+\_\+filesize=.true.) is the operational configuration; DATM is a real code path needing correctness coverage but isn\textquotesingle{}t what\textquotesingle{}s actually deployed. Cases 1-\/4 (DATM) each have an ATM sibling (5, 6, 7, 8) rather than being inferred as "{}probably fine"{} from one config alone -- notably case 7, where createsize is functionally inert under DATM (only nlen matters) but load-\/bearing under ATM, meaning DATM\textquotesingle{}s version of that case cannot catch a stale-\/createsize-\/on-\/ supersession bug even in principle.
+Set up a model\+Clock and ring state for a logging frequency; calls into track\+\_\+freqn with fixed curr/next Time, mimicking actual Model\+Advance where the clock itself never advances. Creates and completes files in same sequence as actual production code.
 
 \begin{DoxyDate}{Date}
 08-\/12-\/2026 
 \end{DoxyDate}
+
+
+\doxysubsection{Function/\+Subroutine Documentation}
+\Hypertarget{test__outputlog__freqn_8F90_a03480b01427e8e785ef872a84f6e3053}\label{test__outputlog__freqn_8F90_a03480b01427e8e785ef872a84f6e3053} 
+\index{test\_outputlog\_freqn.F90@{test\_outputlog\_freqn.F90}!run\_case@{run\_case}}
+\index{run\_case@{run\_case}!test\_outputlog\_freqn.F90@{test\_outputlog\_freqn.F90}}
+\doxysubsubsection{\texorpdfstring{run\_case()}{run\_case()}}
+{\footnotesize\ttfamily subroutine test\+\_\+outputlog\+\_\+freqn\+::run\+\_\+case (\begin{DoxyParamCaption}\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{test,  }\item[{integer, intent(in)}]{freq,  }\item[{integer, intent(in)}]{start\+\_\+hour,  }\item[{integer, intent(in)}]{runhours,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in), optional}]{timereduce,  }\item[{logical, intent(in), optional}]{use\+\_\+filesize,  }\item[{integer, intent(in), optional}]{nfiles,  }\item[{integer, intent(out)}]{completions }\end{DoxyParamCaption})}
+
+
+
+Run a single test case through a simulated model\+Clock advance cycle. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em test} & descriptive test name \\
+\hline
+\mbox{\texttt{ in}}  & {\em freq} & output frequency \\
+\hline
+\mbox{\texttt{ in}}  & {\em start\+\_\+hour} & clock start time \\
+\hline
+\mbox{\texttt{ in}}  & {\em runhours} & clock advance length \\
+\hline
+\mbox{\texttt{ in}}  & {\em timereduce} & optional argument to specify average or snapshot mode \\
+\hline
+\mbox{\texttt{ in}}  & {\em use\+\_\+filesize} & optional argument to specify completion type \\
+\hline
+\mbox{\texttt{ in}}  & {\em nfiles} & optional argument to specify io-\/layout file number \\
+\hline
+\mbox{\texttt{ out}}  & {\em completions} & number of file completions found \\
+\hline
+\end{DoxyParams}

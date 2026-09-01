@@ -79,21 +79,31 @@ $(function() {
   <div class="headertitle"><div class="title">test_utils::assert_equal Interface Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Generic interface for asserting equality between expected and actual values.  
+ <a href="interfacetest__utils_1_1assert__equal.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a333aa9f3f0c115814089da6469dea9de" id="r_a333aa9f3f0c115814089da6469dea9de"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacetest__utils_1_1assert__equal.html#a333aa9f3f0c115814089da6469dea9de">assert_int_scalar</a> (actual, expected, msg, rc, returnmsg)</td></tr>
+<tr class="memdesc:a333aa9f3f0c115814089da6469dea9de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert equality between two integer scalars.  <br /></td></tr>
 <tr class="separator:a333aa9f3f0c115814089da6469dea9de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba42960c037ba9d9ee2adb37884cee8d" id="r_aba42960c037ba9d9ee2adb37884cee8d"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacetest__utils_1_1assert__equal.html#aba42960c037ba9d9ee2adb37884cee8d">assert_real_scalar</a> (actual, expected, tol, msg, rc, returnmsg)</td></tr>
+<tr class="memdesc:aba42960c037ba9d9ee2adb37884cee8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert equality between two real scalars within a tolerance.  <br /></td></tr>
 <tr class="separator:aba42960c037ba9d9ee2adb37884cee8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa3c0b9c435d1f38ac7519e35cae43a5d" id="r_aa3c0b9c435d1f38ac7519e35cae43a5d"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacetest__utils_1_1assert__equal.html#aa3c0b9c435d1f38ac7519e35cae43a5d">assert_double_scalar</a> (actual, expected, tol, msg, rc, returnmsg)</td></tr>
+<tr class="memdesc:aa3c0b9c435d1f38ac7519e35cae43a5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert equality between two double precision scalars within a tolerance.  <br /></td></tr>
 <tr class="separator:aa3c0b9c435d1f38ac7519e35cae43a5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a27cc104f96ddee32d4014f8a9546827c" id="r_a27cc104f96ddee32d4014f8a9546827c"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacetest__utils_1_1assert__equal.html#a27cc104f96ddee32d4014f8a9546827c">assert_double_1d</a> (actual, expected, tol, msg, rc, returnmsg)</td></tr>
+<tr class="memdesc:a27cc104f96ddee32d4014f8a9546827c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert equality between two double precision 1D arrays within a tolerance.  <br /></td></tr>
 <tr class="separator:a27cc104f96ddee32d4014f8a9546827c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f75e0f93fcc9be1545cbc55100e3408" id="r_a5f75e0f93fcc9be1545cbc55100e3408"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacetest__utils_1_1assert__equal.html#a5f75e0f93fcc9be1545cbc55100e3408">assert_logical</a> (actual, expected, msg, rc, returnmsg)</td></tr>
+<tr class="memdesc:a5f75e0f93fcc9be1545cbc55100e3408"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert equality between two logical values.  <br /></td></tr>
 <tr class="separator:a5f75e0f93fcc9be1545cbc55100e3408"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function/Subroutine Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Generic interface for asserting equality between expected and actual values. </p>
+</div><h2 class="groupheader">Member Function/Subroutine Documentation</h2>
 <a id="a27cc104f96ddee32d4014f8a9546827c" name="a27cc104f96ddee32d4014f8a9546827c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a27cc104f96ddee32d4014f8a9546827c">&#9670;&#160;</a></span>assert_double_1d()</h2>
 
@@ -143,6 +153,19 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Assert equality between two double precision 1D arrays within a tolerance. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">actual</td><td>The actual double array </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">expected</td><td>The expected double array </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">tol</td><td>The tolerance for equality </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">msg</td><td>Description of the test </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">rc</td><td>Return code (true if pass, false if fail) </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">returnmsg</td><td>Formatted result string </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -196,6 +219,19 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Assert equality between two double precision scalars within a tolerance. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">actual</td><td>The actual double value </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">expected</td><td>The expected double value </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">tol</td><td>The tolerance for equality </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">msg</td><td>Description of the test </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">rc</td><td>Return code (true if pass, false if fail) </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">returnmsg</td><td>Formatted result string </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a333aa9f3f0c115814089da6469dea9de" name="a333aa9f3f0c115814089da6469dea9de"></a>
@@ -242,6 +278,18 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Assert equality between two integer scalars. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">actual</td><td>The actual integer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">expected</td><td>The expected integer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">msg</td><td>Description of the test </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">rc</td><td>Return code (true if pass, false if fail) </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">returnmsg</td><td>Formatted result string </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a5f75e0f93fcc9be1545cbc55100e3408" name="a5f75e0f93fcc9be1545cbc55100e3408"></a>
@@ -287,6 +335,18 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Assert equality between two logical values. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">actual</td><td>The actual boolean result </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">expected</td><td>The expected boolean result </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">msg</td><td>Description of the test </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">rc</td><td>Return code (true if pass, false if fail) </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">returnmsg</td><td>Formatted result string </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -339,6 +399,19 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Assert equality between two real scalars within a tolerance. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">actual</td><td>The actual real value </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">expected</td><td>The expected real value </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">tol</td><td>The tolerance for equality </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">msg</td><td>Description of the test </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">rc</td><td>Return code (true if pass, false if fail) </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">returnmsg</td><td>Formatted result string </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
