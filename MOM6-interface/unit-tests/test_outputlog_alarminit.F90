@@ -10,7 +10,7 @@
 !!
 !> @authorDenise.Worthen@noaa.gov
 !> @date 08-01-2026
-program test_alarminit
+program test_outputlog_alarminit
 
   use test_utils
 
@@ -531,4 +531,4 @@ contains
        val = val + freq
     end do
   end function predicted_ring_offset
-end program test_alarminit
+end program test_outputlog_alarminit
