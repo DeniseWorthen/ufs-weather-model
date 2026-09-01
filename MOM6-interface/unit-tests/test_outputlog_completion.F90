@@ -5,6 +5,8 @@
 !! files (see nc_fixture_mod.F90), independent of the alarm/clock machinery in outputlog_freqn.
 !!
 !! @date 09-01-2026
+
+!> Main program for testing outputlog file completion logic
 program test_outputlog_completion
 
   use mpi_f08,               only : MPI_Init, MPI_Finalize, MPI_Comm, MPI_Comm_rank, MPI_COMM_WORLD
@@ -55,6 +57,7 @@ program test_outputlog_completion
 
 contains
 
+  !> Checks logic for an incomplete DATM file
   subroutine check_datm_incomplete()
     character(len=*), parameter :: fname = "test_datm_incomplete.nc"
     integer :: rc, nlen, fsize
@@ -73,6 +76,7 @@ contains
     call assert_false(complete, "DATM incomplete: should NOT be complete (nlen=0)")
   end subroutine check_datm_incomplete
 
+  !> Checks logic for a complete DATM file
   subroutine check_datm_complete()
     character(len=*), parameter :: fname = "test_datm_complete.nc"
     integer :: rc, nlen, fsize
@@ -92,6 +96,7 @@ contains
     call assert_true(complete, "DATM complete: SHOULD be complete (nlen=1, use_filesize=F)")
   end subroutine check_datm_complete
 
+  !> Checks logic for an incomplete ATM file
   subroutine check_atm_incomplete()
     character(len=*), parameter :: fname = "test_atm_incomplete.nc"
     integer :: rc, nlen, fsize, createsize
@@ -113,6 +118,7 @@ contains
     call assert_false(complete, "ATM incomplete: should NOT be complete (nlen>0 but size==createsize)")
   end subroutine check_atm_incomplete
 
+  !> Checks logic for a complete ATM file
   subroutine check_atm_complete()
     character(len=*), parameter :: fname = "test_atm_complete.nc"
     integer :: rc, nlen, fsize, createsize
@@ -154,6 +160,11 @@ contains
   end subroutine check_file_does_not_exist
 
   ! --- Assertion helpers ---
+
+  !> Asserts a logical condition is true
+  !!
+  !! @param[in] condition  The boolean condition to evaluate
+  !! @param[in] msg        Message printed if assertion fails
   subroutine assert_true(condition, msg)
     logical,          intent(in) :: condition
     character(len=*), intent(in) :: msg
@@ -163,6 +174,10 @@ contains
     end if
   end subroutine assert_true
 
+  !> Asserts a logical condition is false
+  !!
+  !! @param[in] condition  The boolean condition to evaluate
+  !! @param[in] msg        Message printed if assertion fails
   subroutine assert_false(condition, msg)
     logical,          intent(in) :: condition
     character(len=*), intent(in) :: msg
@@ -172,6 +187,11 @@ contains
     end if
   end subroutine assert_false
 
+  !> Asserts equality between two integers
+  !!
+  !! @param[in] expected  The expected integer value
+  !! @param[in] actual    The actual computed integer value
+  !! @param[in] msg       Message printed if assertion fails
   subroutine assert_equal(expected, actual, msg)
     integer,          intent(in) :: expected, actual
     character(len=*), intent(in) :: msg

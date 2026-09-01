@@ -1,12 +1,7 @@
-!> Shared setup/teardown helpers for outputlog unit tests.
+!> @file outputlog_test_helpers.F90
+!> @brief Shared setup for outputlog unit tests.
 !!
-!! Extracted from test_driver2.F90 (freqn test) so that restart-pairing --
-!! and any future outputlog test needing the same real ESMF clock/alarm/
-!! cf_n/state_n setup and fixture-file handling -- doesn't duplicate this
-!! nontrivial setup by hand. Deliberately separate from test_utils (generic
-!! testing infrastructure -- esmf_err/assert_equal/testsummary): these two
-!! routines are specific to the outputlog-testing domain, not generic
-!! utilities.
+!> @date 08-12-2026
 module outputlog_test_helpers
 
   use ESMF
@@ -22,13 +17,11 @@ module outputlog_test_helpers
   public :: base_yy, base_mm, base_dd
   public :: setup_case, handlefiles
 
-  ! Shared arbitrary base date for every outputlog test -- centralized here
-  ! rather than redefined per file, so every test's fixture timestamps stay
-  ! consistent with each other.
-  integer, parameter :: base_yy = 2021, base_mm = 3, base_dd = 22
+  integer, parameter :: base_yy = 2021   !< a standard start year
+  integer, parameter :: base_mm = 3      !< a standard start month
+  integer, parameter :: base_dd = 22     !< a standard start day
 
 contains
-
   !> Build a real ESMF_Clock/alarm plus cf_n/state_n for one test case,
   !! exactly as outputlog_init would.
   !!
@@ -124,7 +117,6 @@ contains
          alarmname = cf_n%alarm_name, rc=rc)
     call esmf_err(rc, subname, "call AlarmInit")
   end subroutine setup_case
-
   !> Create/complete a netCDF fixture file, matching the real DATM/ATM
   !! completion contract.
   !!

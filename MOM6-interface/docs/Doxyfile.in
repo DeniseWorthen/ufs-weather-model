@@ -19,6 +19,7 @@ OPTIMIZE_FOR_FORTRAN   = YES
 EXTRACT_ALL            = YES
 RECURSIVE              = YES
 EXTRACT_PRIVATE        = YES
+SHOW_USED_FILES        = NO
 
 # Handle Fortran #ifdef macros
 ENABLE_PREPROCESSING   = YES

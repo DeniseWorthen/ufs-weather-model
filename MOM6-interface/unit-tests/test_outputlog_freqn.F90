@@ -6,6 +6,8 @@
 !! advances. Creates and completes files in same sequence as actual production code.
 !!
 !> @date 08-12-2026
+
+!> Main program for testing outputlog_freqn file trackingprogram test_outputlog_freqn
 program test_outputlog_freqn
 
   use ESMF

@@ -6,6 +6,8 @@
 !! for start hours which are not multiples of 6 (eg IAU use cases)
 !!
 !> @date 08-01-2026
+
+!> Main program for testing outputlog alarm initialization
 program test_outputlog_alarminit
 
   use test_utils
