@@ -5,54 +5,49 @@
  \hypertarget{index_autotoc_md1}{}\doxysection{\texorpdfstring{Introduction}{Introduction}}\label{index_autotoc_md1}
 The MOM6 output logging feature is designed to track the completion of MOM6 history and restart files during a model run. This feature is specific to UWM operational requirements and configurations (eg specific output frequencies in hours) and may break if used outside the scope of intended use.
 
-The feature is enabled by adding a namelist to the model {\ttfamily input.\+nml} which can be used to define the file names, frequencies and types (snapshot or averages) which are to be tracked. The user is responsible for ensuring that these settings match the contents of the {\ttfamily diag\+\_\+table} in use by the model.
+The feature is enabled by adding a namelist to the model {\ttfamily input.\+nml} which can be used to define the file names, frequencies and types (snapshot or averages) which are to be tracked. The user is responsible for ensuring that these settings match the contents of the {\ttfamily diag\+\_\+table} in use by the model. From the user-\/configuration, one or more Alarms are enabled at the desired frequencies. When an Alarm rings, a filename is constructed referencing the model time and the initial state of the file is recorded. Depending on configuration, an output file can have an unlimited dimension greater than zero at creation time. This necessitates checking for an additional criteria using the filesize at creation. Depending on the characteristics of the file at creation, the criteria to declare a file complete is set.
 
-From the user-\/configuration, one or more Alarms are enabled at the desired frequencies. A filename is constructed referencing the model time and the initial state of the file is recorded. Depending on configuration, an output file can have an unlimited dimension greater than zero at creation time. This necessitates checking for an additional criteria using the filesize at creation. Depending on the characteristics of the file at creation, the criteria to declare a file complete is set.
+The file state will be checked at each suceeding Model\+Advance until the appropriate completion criteria is met\+: either when the unlimited dimension in the file is greater than zero or when the unlimited dimension is greater than zero and the filesize is larger than the initial size. When a file is determined to be complete, a log file is recorded containing the forecast hour, the valid time, the name of the output file and the last completed restart file. Depending on configuration, the final file and the next-\/to-\/final file can be closed at the stop time. Therefore a different log file name is required for the final log file, otherwise the next-\/to-\/final log is overwritten\hypertarget{index_autotoc_md2}{}\doxysubsection{\texorpdfstring{File Sequencing}{File Sequencing}}\label{index_autotoc_md2}
+To illustrate the concepts implemented in the output logging feature, consider the following diagram\+:
 
-The file state will be checked at each suceeding Model\+Advance until the appropriate completion criteria is met\+: either when the unlimited dimension in the file is greater than zero or when the unlimited dimension is greater than zero and the filesize is larger than the initial size. When a file is determined to be complete, a log file is recorded containing the forecast hour, the valid time, the name of the output file and the last completed restart file.
+!\texorpdfstring{$>$}{>}
 
-Depending on configuration, the final file and the next-\/to-\/final file can be closed at the stop time. Therefore a different log file name is required for the final log file, otherwise the next-\/to-\/final log is overwritten\hypertarget{index_autotoc_md2}{}\doxysubsection{\texorpdfstring{Feature Configuration}{Feature Configuration}}\label{index_autotoc_md2}
+In this case, MOM6 is providing 6-\/hourly output; the model begins at hour=00 and runs for 30 hours; the output alarm will ring every 6 hours. It is important to remember that alarms ring at the Model\+Advance next\+Time. If the model in this case is running with a 30 minute coupling frequency, the alarm at hour=12\+:00 will ring at the model\+Advance when the curr\+Time = 11\+:30 and the next\+Time = 12\+:00.
+
+MOM6 history files for time-\/averaged output are timestamped at the middle of the averaging window. The first MOM6 history output file produced is the hour=03 file, representing the average between hours 0 and 6. It will be created when the alarm rings at next\+Time=12\+:00 and be completed on the next timestep. When the model stops, there are two final history files that are written\+: the "{}pending"{} file (h=21) as well as the final 03 file.
+
+Restarts for MOM6 are written by MOM6 directly, not using FMS as for the history files. Model restarts are written, complete, at whatever frequency or hour requested. In the above diagram, restarts written at a 15-\/hour frequency will be written exactly at those hours.
+
+The output log file written at forecast hour=24 for this case ({\ttfamily 20111002.\+000000.\+mom6.\+06h}) would contain the following information\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{completed:\ mom6.06h}
+\DoxyCodeLine{forecast\ hour:\ \ \ \ 24.000}
+\DoxyCodeLine{valid\ time:\ \ \ \ \ 2011\ \ \ \ \ \ 10\ \ \ \ \ \ \ 2\ \ \ \ \ \ \ 0\ \ \ \ \ \ \ 0\ \ \ \ \ \ \ 0}
+\DoxyCodeLine{last\ output:\ ./MOM6\_OUTPUT/ocn\_2011\_10\_01\_15\_00.nc}
+\DoxyCodeLine{last\ restart:\ \ \ \ \ 2011\ \ \ \ \ \ 10\ \ \ \ \ \ \ 1\ \ \ \ \ \ 15\ \ \ \ \ \ \ 0\ \ \ \ \ \ \ 0}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md3}{}\doxysubsection{\texorpdfstring{Feature Configuration}{Feature Configuration}}\label{index_autotoc_md3}
 The output log feature is enabled with a {\ttfamily MOM\+\_\+outputlog\+\_\+nml} namelist added to the {\ttfamily input.\+nml}. For example, the following values will set the logging feature to track 6-\/hourly files, which (using the {\ttfamily diag\+\_\+table}) have a filename prefix of {\ttfamily ocn} and are defined as time-\/averaged values. No debug information will be added to the stdout file.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\&mom\_outputlog\_nml}
+\DoxyCodeLine{\&MOM\_outputlog\_nml}
 \DoxyCodeLine{\ \ outputlog\_fh\ =\ 6}
-\DoxyCodeLine{\ \ outputlog\_fnameprefix\ =\ \textcolor{stringliteral}{'ocn'}}
-\DoxyCodeLine{\ \ outputlog\_treduce\ =\ \textcolor{stringliteral}{'average'}}
+\DoxyCodeLine{\ \ outputlog\_fnameprefix\ =\ 'ocn'}
+\DoxyCodeLine{\ \ outputlog\_treduce\ =\ 'average'}
 \DoxyCodeLine{\ \ outputlog\_debug\ =\ .false.}
 \DoxyCodeLine{/}
 
 \end{DoxyCode}
 
 
-The following rules apply the namelist options for output logging.\hypertarget{index_autotoc_md3}{}\doxysubsubsection{\texorpdfstring{Logging Frequency}{Logging Frequency}}\label{index_autotoc_md3}
-File tracking can be enabled for 1,3,6 or 24 hourly files only. Multiple frequencies can be requested and the listed order is immaterial. However, each logging frequency must be uniquely defined. For example, 6-\/hourly average files and 6-\/hourly snapshot files are not allowed but 6-\/hourly average and 3-\/hourly snapshot files are.\hypertarget{index_autotoc_md4}{}\doxysubsubsection{\texorpdfstring{Filename Prefix}{Filename Prefix}}\label{index_autotoc_md4}
-If a single frequency is requested, no filename prefix is required. A default prefix of {\ttfamily ocn\+\_\+} will be used. It is the user\textquotesingle{}s responsibility that the default matches the specification in the {\ttfamily diag\+\_\+table}. Otherwise, they must set the actual filename prefix called for in the {\ttfamily diag\+\_\+table}.
-
-If more than a single frequency is requested, the user must provide filename prefixes for all frequencies (again ensuring matches to the {\ttfamily diag\+\_\+table}.
-
-The filename prefix can have a maximum length of 12 (not including the trailing underscore, which will be appended).\hypertarget{index_autotoc_md5}{}\doxysubsubsection{\texorpdfstring{File Time Reduction}{File Time Reduction}}\label{index_autotoc_md5}
-Either instantaneous (snapshot) files or time averaged files are supported. These are specified by {\ttfamily treduce} settings of {\ttfamily none} and {\ttfamily average}, respectfully.
-
-The tincrement interval (defined in minutes) is used to construct the output filename the file name must be set as the mid-\/point of the averaging period via the diagtable and the output filename timestrings are given by
-
-T -\/ (interval \texorpdfstring{$\ast$}{*} 60 \texorpdfstring{$\ast$}{*} increment + interval/2 \texorpdfstring{$\ast$}{*} 60 \texorpdfstring{$\ast$}{*} increment )
-
-where T is the time when the file is closed
-
-00 . 03 . 06 . 09 1\+:30 = 6 -\/ (3 + 1\+:30) 4\+:30 = 9 -\/ (3 + 1\+:30)
-
-00 . 06 . 12 . 18 03 = 12 -\/ (6 + 3) 09 = 18 -\/ (6 + 3)
-
-00 . 24 . 48 . 72 12 = 48 -\/ (24 + 12) 36 = 72 -\/ (24 + 12)
-
-when the model reaches the stop time, any \textquotesingle{}pending\textquotesingle{} output file is closed, and the final interval output is also closed \begin{DoxyVerb}              stop
-\end{DoxyVerb}
- 18 . 24 . 30 21 = 30 -\/ (12 + 3) 03 = 30 -\/ (3)
-
-Depending on configuration, the output file can have an unlimited dimension \texorpdfstring{$>$}{>}0 at creation time. This necessitates checking for an additional criteria using the filesize at creation. An output file is declared complete either when the unlimited dimension in the file is \texorpdfstring{$>$}{>}0 or when the unlimited dimension is \texorpdfstring{$>$}{>}0 and the filesize is larger than the initial size.
-
-When a file is determined to be complete, a log file is recorded containing the forecast hour, the valid time, the name of the output file and the last completed restart file.
-
+The following rules apply the namelist options for output logging\+:\hypertarget{index_autotoc_md4}{}\doxysubsubsection{\texorpdfstring{Logging Frequency}{Logging Frequency}}\label{index_autotoc_md4}
+File tracking can be enabled for 1,3,6 or 24 hourly files only. Multiple frequencies can be requested and the listed order is immaterial. However, each logging frequency must be uniquely defined. For example, 6-\/hourly average files and 6-\/hourly snapshot files are not allowed but 6-\/hourly average and 3-\/hourly snapshot files are.\hypertarget{index_autotoc_md5}{}\doxysubsubsection{\texorpdfstring{Filename Prefix}{Filename Prefix}}\label{index_autotoc_md5}
+If a single frequency is requested, no filename prefix is required. A default prefix of {\ttfamily ocn\+\_\+} will be used. It is the user\textquotesingle{}s responsibility that the default matches the specification in the {\ttfamily diag\+\_\+table}. Otherwise, they must set the actual filename prefix called for in the {\ttfamily diag\+\_\+table}. If more than a single frequency is requested, the user must provide filename prefixes for all frequencies (again ensuring matches to the {\ttfamily diag\+\_\+table}). The filename prefix can have a maximum length of 12 (not including the trailing underscore, which will be appended).\hypertarget{index_autotoc_md6}{}\doxysubsubsection{\texorpdfstring{File Time Reduction}{File Time Reduction}}\label{index_autotoc_md6}
+Either instantaneous (snapshot) files or time averaged files are supported. These are specified by {\ttfamily treduce} settings of {\ttfamily none} and {\ttfamily average}, respectfully. The file name format for time averaged output is asssumed to be timestamped with the mid-\/point of the averaging window (i.\+e. hour=09 for the 6h-\/12h average). For snapshot output, the timestamp will be the time of the snapshot. The user is responsible for ensuring that the diag\+\_\+table in use matches these definitions.\hypertarget{index_autotoc_md7}{}\doxysubsection{\texorpdfstring{Feature Initialization}{Feature Initialization}}\label{index_autotoc_md7}
+\hypertarget{index_autotoc_md8}{}\doxysubsection{\texorpdfstring{File Tracking Sequence}{File Tracking Sequence}}\label{index_autotoc_md8}
+\hypertarget{index_autotoc_md9}{}\doxysubsection{\texorpdfstring{File Tracking Example}{File Tracking Example}}\label{index_autotoc_md9}
 !\texorpdfstring{$>$}{>} 
