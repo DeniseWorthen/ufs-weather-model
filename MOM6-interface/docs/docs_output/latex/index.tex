@@ -10,7 +10,7 @@ The feature is enabled by adding a namelist to the model {\ttfamily input.\+nml}
 The file state will be checked at each suceeding Model\+Advance until the appropriate completion criteria is met\+: either when the unlimited dimension in the file is greater than zero or when the unlimited dimension is greater than zero and the filesize is larger than the initial size. When a file is determined to be complete, a log file is recorded containing the forecast hour, the valid time, the name of the output file and the last completed restart file. Depending on configuration, the final file and the next-\/to-\/final file can be closed at the stop time. Therefore a different log file name is required for the final log file, otherwise the next-\/to-\/final log is overwritten\hypertarget{index_autotoc_md2}{}\doxysubsection{\texorpdfstring{File Sequencing}{File Sequencing}}\label{index_autotoc_md2}
 To illustrate the concepts implemented in the output logging feature, consider the following diagram\+:
 
-!\texorpdfstring{$>$}{>}
+
 
 In this case, MOM6 is providing 6-\/hourly output; the model begins at hour=00 and runs for 30 hours; the output alarm will ring every 6 hours. It is important to remember that alarms ring at the Model\+Advance next\+Time. If the model in this case is running with a 30 minute coupling frequency, the alarm at hour=12\+:00 will ring at the model\+Advance when the curr\+Time = 11\+:30 and the next\+Time = 12\+:00.
 
@@ -50,4 +50,4 @@ If a single frequency is requested, no filename prefix is required. A default pr
 Either instantaneous (snapshot) files or time averaged files are supported. These are specified by {\ttfamily treduce} settings of {\ttfamily none} and {\ttfamily average}, respectfully. The file name format for time averaged output is asssumed to be timestamped with the mid-\/point of the averaging window (i.\+e. hour=09 for the 6h-\/12h average). For snapshot output, the timestamp will be the time of the snapshot. The user is responsible for ensuring that the diag\+\_\+table in use matches these definitions.\hypertarget{index_autotoc_md7}{}\doxysubsection{\texorpdfstring{Feature Initialization}{Feature Initialization}}\label{index_autotoc_md7}
 \hypertarget{index_autotoc_md8}{}\doxysubsection{\texorpdfstring{File Tracking Sequence}{File Tracking Sequence}}\label{index_autotoc_md8}
 \hypertarget{index_autotoc_md9}{}\doxysubsection{\texorpdfstring{File Tracking Example}{File Tracking Example}}\label{index_autotoc_md9}
-!\texorpdfstring{$>$}{>} 
+ 
