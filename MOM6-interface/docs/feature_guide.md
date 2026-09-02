@@ -6,19 +6,17 @@ The MOM6 output logging feature is designed to track the completion of MOM6 hist
 This feature is specific to UWM operational requirements and configurations (eg specific output frequencies in hours) and may
 break if used outside the scope of intended use.
 
-The feature is enabled by adding a namelist to the model `input.nml` which can be used to define the file names, frequencies
-and types (snapshot or averages) which are to be tracked. The user is responsible for ensuring that these settings match the
-contents of the `diag_table` in use by the model. From the user-configuration, one or more Alarms are enabled at the desired
-frequencies. When an Alarm rings, a filename is constructed referencing the model time and the initial state of the file is
-recorded. Depending on the characteristics of the file at creation, the criteria to declare a file complete is set.
+The feature is enabled by adding a namelist to the model `input.nml` which can be used to define the history output frequencies,
+filenames and types (snapshot or averages) which are to be tracked. The user is responsible for ensuring that these settings match
+the contents of the `diag_table` in use by the model. From the user-configuration, one or more tracking Alarms are enabled at the
+desired frequencies. When an Alarm rings, a filename is constructed referencing the model time and the initial state of the file is
+recorded. Depending on the characteristics of the file at creation, the criteria to declare a file complete is defined.
 
 The file state will be checked at each suceeding ModelAdvance until the appropriate completion criteria is met: either when the
 unlimited dimension in the file is greater than zero or when the unlimited dimension is greater than zero and the filesize is
 larger than the initial size. When a file is determined to be complete, a log file is recorded containing the forecast hour,
 the valid time, the name of the output file and the last completed restart file. The log file can then be used by any
-related workflow (e.g. [global-workflow](https://github.com/NOAA-EMC/global-workflow).
-
-## File Sequencing
+related workflow (e.g. [global-workflow](https://github.com/NOAA-EMC/global-workflow)).
 
 To illustrate the concepts implemented in the output logging feature, consider the following diagram:
 
@@ -66,6 +64,15 @@ as time-averaged values. No debug information will be added to the stdout file.
 /
 ```
 
+At a minimum, the desired tracking frequency must be provided, which will default to time-averaged files with the file prefix `ocn`.
+The following namelist will be treated identically as that above
+
+```text
+&MOM_outputlog_nml
+  outputlog_fh = 6
+/
+```
+
 The following rules apply the namelist options for output logging:
 
 ### Logging Frequency
@@ -84,10 +91,10 @@ the trailing underscore, which will be appended).
 
 ### File Time Reduction
 
-Either instantaneous (snapshot) files or time averaged files are supported. These are specified by `treduce` settings of `none` and
-`average`, respectfully. The file name format for time averaged output is asssumed to be timestamped with the mid-point of the
-averaging window (i.e. hour=09 for the 6h-12h average). For snapshot output, the timestamp will be the time of the snapshot. The user
-is responsible for ensuring that the diag_table in use matches these definitions.
+Either instantaneous (snapshot) files or time averaged files are supported. These are specified by the namelist `treduce` settings
+of `none` and `average`, respectfully. The file name format for time averaged output is asssumed to be timestamped with the mid-point
+of the averaging window (i.e. hour=09 for the 6h-12h average). For snapshot output, the timestamp will be the time of the snapshot.
+The user is responsible for ensuring that the diag_table in use matches these definitions.
 
 ## Feature Initialization
 
