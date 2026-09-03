@@ -2,74 +2,72 @@
 #  DATM_CDEPS_MOM6_CICE_CMEPS_GEFS test
 #
 
-export TEST_DESCR="DATM_CDEPS-MOM6-CICE-WW3-CMEPS_GEFS - 1 deg ocean+ice + rectilinear WW3 "
+TEST_DESCR="DATM_CDEPS-MOM6-CICE-WW3-CMEPS_GEFS - 1 deg ocean+ice + rectilinear WW3 "
 
-export CNTL_DIR=datm_control_s2sw
+CNTL_DIR=datm_control_s2sw
 
-export LIST_FILES=""
-#export LIST_FILES="RESTART/20111002.000000.MOM.res.nc \
+LIST_FILES=""
+#LIST_FILES="RESTART/20111002.000000.MOM.res.nc \
 #                   RESTART/iced.2011-10-02-00000.nc \
 #                   RESTART/DATM_GEFS_NEW.cpl.r.2011-10-02-00000.nc"
 
 export_datm_cdeps
 export_ww3
-export atm_datamode=GEFS
+atm_datamode=GEFS
 
 # atm configure
-export IATM=1536
-export JATM=768
-export ATM_NX_GLB=$IATM
-export ATM_NY_GLB=$JATM
-export ATMRES=${IATM}x${JATM}
-export DATM_SRC=GEFS_NEW
-export FILEBASE_DATM=gefs
-export MESH_ATM=mesh.datm.1536x768.nc
-export stream_files="INPUT/${FILEBASE_DATM}.201110.nc"
-export STREAM_OFFSET=-21600
+IATM=1536
+JATM=768
+ATM_NX_GLB=$IATM
+ATM_NY_GLB=$JATM
+ATMRES=${IATM}x${JATM}
+DATM_SRC=GEFS_NEW
+FILEBASE_DATM=gefs
+MESH_ATM=mesh.datm.1536x768.nc
+stream_files="INPUT/${FILEBASE_DATM}.201110.nc"
+STREAM_OFFSET=-21600
 
-export RESTART_N=12
-export eps_imesh=2.5e-1
-export MOM6_TOPOEDITS=ufs.topo_edits_011818.nc
+RESTART_N=12
+eps_imesh=2.5e-1
+MOM6_TOPOEDITS=ufs.topo_edits_011818.nc
 
 # mom6+waves
-export MOM6_USE_LI2016=True
-export MOM6_USE_WAVES=True
-export MOM6_ALLOW_LANDMASK_CHANGES=True
+MOM6_USE_LI2016=True
+MOM6_USE_WAVES=True
+MOM6_ALLOW_LANDMASK_CHANGES=True
 
 # waves
-export WAV_tasks=${WAV_tasks_cpl_dflt}
-export WW3_OUTDTHR=1
-export WW3_GRD_OUTDIR='./'
-export WW3_PNT_OUTDIR='./'
-export WW3_RST_OUTDIR='./'
+WAV_tasks=${WAV_tasks_cpl_dflt}
+WW3_OUTDTHR=1
+WW3_GRD_OUTDIR='./'
+WW3_PNT_OUTDIR='./'
+WW3_RST_OUTDIR='./'
 WW3_DTFLD="$(printf "%02d" $(( WW3_OUTDTHR*3600 )))"
-export WW3_DTFLD
 WW3_DTPNT="$(printf "%02d" $(( WW3_OUTDTHR*3600 )))"
-export WW3_DTPNT
-export WW3_DOMAIN=glo_1deg
-export MESH_WAV=mesh.${WW3_DOMAIN}.nc
-export WW3_MODDEF=mod_def.${WW3_DOMAIN}
-export WW3_CUR='C'
-export WW3_ICE='C'
-export WW3_IC1='F'
-export WW3_IC5='F'
-export WW3_OUTPARS="WND CUR ICE HS T01 T02 DIR FP DP PHS PTP PDIR CHA"
+WW3_DOMAIN=glo_1deg
+MESH_WAV=mesh.${WW3_DOMAIN}.nc
+WW3_MODDEF=mod_def.${WW3_DOMAIN}
+WW3_CUR='C'
+WW3_ICE='C'
+WW3_IC1='F'
+WW3_IC5='F'
+WW3_OUTPARS="WND CUR ICE HS T01 T02 DIR FP DP PHS PTP PDIR CHA"
 # For default ufs_configure (fast loop), no added fields reqd
-export WW3_RSTFLDS=" "
+WW3_RSTFLDS=" "
 # For either history_nc or restart_nc true
-export WW3_PIO_FORMAT='pnetcdf'
-export WW3_PIO_STRIDE=4
-export WW3_PIO_IOTASKS=-99
-export WW3_PIO_REARR='box'
-export WW3_PIO_ROOT=-99
+WW3_PIO_FORMAT='pnetcdf'
+WW3_PIO_STRIDE=4
+WW3_PIO_IOTASKS=-99
+WW3_PIO_REARR='box'
+WW3_PIO_ROOT=-99
 
-export CMEPS_PIO_FORMAT='pnetcdf'
-export CMEPS_PIO_STRIDE=4
-export CMEPS_PIO_IOTASKS=-99
-export CMEPS_PIO_REARR='box'
-export CMEPS_PIO_ROOT=-99
+CMEPS_PIO_FORMAT='pnetcdf'
+CMEPS_PIO_STRIDE=4
+CMEPS_PIO_IOTASKS=-99
+CMEPS_PIO_REARR='box'
+CMEPS_PIO_ROOT=-99
 
 # used only in cpld_datm_cdeps.IN
-export CPLWAV=.true.
-export FV3_RUN=cpld_datm_cdeps.IN
-export UFS_CONFIGURE=ufs.configure.datm_s2sw_fast.IN
+CPLWAV=.true.
+FV3_RUN=cpld_datm_cdeps.IN
+UFS_CONFIGURE=ufs.configure.datm_s2sw_fast.IN
