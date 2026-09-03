@@ -1,15 +1,12 @@
 #
-#  DATM_CDEPS_WAV test
+#  DATM_WAV test
 #
 
-TEST_DESCR="DATM_CDEPS-WW3-CMEPS - GEFS DATM + rectilinear WW3 "
+TEST_DESCR="DATM-WW3-CMEPS - GEFS DATM + unstr WW3"
 
-CNTL_DIR=datm_control_wav
+CNTL_DIR=datm_wav_control
 
 LIST_FILES=""
-#LIST_FILES="RESTART/20111002.000000.MOM.res.nc \
-#                   RESTART/iced.2011-10-02-00000.nc \
-#                   RESTART/DATM_GEFS_NEW.cpl.r.2011-10-02-00000.nc"
 
 export_datm_cdeps
 export_ww3
@@ -26,23 +23,34 @@ FILEBASE_DATM=gefs
 MESH_ATM=mesh.datm.1536x768.nc
 stream_files="INPUT/${FILEBASE_DATM}.201110.nc"
 STREAM_OFFSET=-21600
+DT_ATMOS=720
+DT_CICE=720
 
 RESTART_N=12
 coupling_interval_sec=${DT_ATMOS}
 
-# waves
-WAV_tasks=${WAV_tasks_cpl_dflt}
+ATM_compute_tasks=80
+OCN_tasks=0
+ICE_tasks=0
+
+#waves
+WAV_tasks=152
 WW3_OUTDTHR=1
+WW3_GRD_OUTDIR='./'
+WW3_PNT_OUTDIR='./'
+WW3_RST_OUTDIR='./'
 WW3_DTFLD="$(printf "%02d" $(( WW3_OUTDTHR*3600 )))"
 WW3_DTPNT="$(printf "%02d" $(( WW3_OUTDTHR*3600 )))"
-WW3_DOMAIN=glo_1deg
+WW3_DOMAIN=global_270k
 MESH_WAV=mesh.${WW3_DOMAIN}.nc
-WW3_MODDEF=mod_def.${WW3_DOMAIN}
+WW3_MODDEF=mod_def.exp.${WW3_DOMAIN}
 WW3_CUR='F'
 WW3_ICE='F'
 WW3_IC1='F'
 WW3_IC5='F'
-WW3_OUTPARS="WND  HS T01 T02 DIR FP DP PHS PTP PDIR CHA"
+WW3_OUTPARS="WND HS T01 T02 DIR FP DP PHS PTP PDIR CHA"
+# For default ufs_configure (fast loop), no added fields reqd
+WW3_RSTFLDS=" "
 
 # For either history_nc or restart_nc true
 WW3_PIO_FORMAT='pnetcdf'
@@ -51,7 +59,12 @@ WW3_PIO_IOTASKS=-99
 WW3_PIO_REARR='box'
 WW3_PIO_ROOT=-99
 
-# used only in cpld_datm_cdeps.IN
+CMEPS_PIO_FORMAT='pnetcdf'
+CMEPS_PIO_STRIDE=4
+CMEPS_PIO_IOTASKS=-99
+CMEPS_PIO_REARR='box'
+CMEPS_PIO_ROOT=-99
+
 CPLWAV=.true.
-FV3_RUN=cpld_datm_cdeps.IN
+FV3_RUN=cpld_datm_wav.IN
 UFS_CONFIGURE=ufs.configure.datm_wav.IN

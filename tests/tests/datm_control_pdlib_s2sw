@@ -1,8 +1,8 @@
 #
-#  DATM_CDEPS_MOM6_CICE_CMEPS_GEFS test
+#  DATM_MOM6_CICE_CMEPS_GEFS test
 #
 
-TEST_DESCR="DATM_CDEPS-MOM6-CICE-WW3-CMEPS_GEFS - 1 deg ocean+ice + unstructured 270K WW3 "
+TEST_DESCR="DATM-MOM6-CICE-WW3-CMEPS - 1 deg ocean+ice + unstructured 270K WW3 "
 
 CNTL_DIR=datm_control_pdlib_s2sw
 

@@ -3,7 +3,7 @@
 #############################################
 
 # ESMF #
-logKindFlag:            @[esmf_logkind]
+logKindFlag:            ESMF_LOGKIND_MULTI_ON_ERROR
 globalResourceControl:  false
 
 # EARTH #
@@ -29,6 +29,11 @@ ATM_attributes::
   stop_option = nhours
   stop_ymd = -999
   write_restart_at_endofrun = .true.
+  pio_typename = pnetcdf
+  pio_numiotasks = -99
+  pio_stride = 4
+  pio_rearranger = box
+  pio_root = -99
 ::
 
 # OCN #

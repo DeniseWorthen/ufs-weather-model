@@ -1,10 +1,17 @@
 ### CDEPS Data Atmosphere tests with OCN+ICE+WAV ###
-COMPILE | datm_s2sw_pdlib | intel | -DAPP=NG-GODAS-WAV -DPDLIB=ON -DDEBUG=ON| - wcoss2         | fv3 |
-RUN | datm_control_pdlib_s2sw                       | - wcoss2                             | baseline |
-#RUN | datm_mx025_pdlib_s2sw                       | - wcoss2                             | baseline |
 
-#COMPILE | datm_s2sw       | intel | -DAPP=DATM-S2SW -DDEBUG=ON           | - wcoss2         | fv3 |
+# unstructured v17
+#COMPILE | datm_s2sw_pdlib | intel | -DAPP=NG-GODAS-WAV -DPDLIB=ON -DDEBUG=ON -DUFS_TRACING=ON | - wcoss2         | fv3 |
+COMPILE | datm_s2sw_pdlib | intel | -DAPP=NG-GODAS-WAV -DPDLIB=ON -DUFS_TRACING=ON | - wcoss2         | fv3 |
+#RUN | datm_control_pdlib_s2sw                       | - wcoss2                             | baseline |
+RUN | datm_mx025_pdlib_s2sw                         | - wcoss2                             | baseline |
+
+# structured wave grid
+#COMPILE | datm_s2sw       | intel | -DAPP=DATM-S2SW -DDEBUG=ON -DUFS_TRACING=ON | - wcoss2         | fv3 |
 #RUN | datm_control_s2sw                             | - wcoss2                             | baseline |
 
-#COMPILE | datmw       | intel | -DAPP=DATM-WAV -DPDLIB=ON -DDEBUG=ON | - wcoss2         | fv3 |
-#RUN | datmwav_270k
+# unstructured
+#COMPILE | datm_wav_pdlib  | intel | -DAPP=DATM-WAV -DPDLIB=ON -DDEBUG=ON -DUFS_TRACING=ON | - wcoss2         | fv3 |
+COMPILE | datm_wav_pdlib  | intel | -DAPP=DATM-WAV -DPDLIB=ON -DUFS_TRACING=ON | - wcoss2         | fv3 |
+RUN | datm_wav_control                             | - wcoss2                             | baseline |
+RUN | datm_wav_v17                                 | - wcoss2                             | baseline |

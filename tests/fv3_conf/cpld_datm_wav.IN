@@ -1,0 +1,48 @@
+mkdir INPUT RESTART
+
+mkdir -p $CMEPS_RESTART_DIR
+
+# DATM fixed input
+cp @[INPUTDATA_ROOT]/DATM_CDEPS/@[MESH_ATM] INPUT/.
+cp @[INPUTDATA_ROOT]/DATM_CDEPS/@[DATM_SRC]/201110/*201110*nc INPUT/.
+
+## WW3 fix/input
+#cp @[INPUTDATA_ROOT_WW3]/@[WW3_MODDEF] mod_def.ww3
+#cp @[INPUTDATA_ROOT_WW3]/@[MESH_WAV] .
+
+if [[ $WW3_DOMAIN == 'uglo_15km' ]]; then
+    cp @[INPUTDATA_GFSv17opn]/WW3_FIX/@[WW3_MODDEF] mod_def.ww3
+    # TODO: when uglo_15km is present in standard input-data location
+    # replace the above line with the following location for the mod_def.ww3
+    # the existing mod_def in the GFSv17opn/WW3_FIX directory should be removed
+    # cp @[INPUTDATA_ROOT_WW3]/@[WW3_MODDEF] mod_def.ww3
+    cp @[INPUTDATA_GFSv17opn]/WW3_FIX/@[MESH_WAV] .
+    cp @[INPUTDATA_GFSv17opn]/WW3_FIX/wave_gfs.buoys.full ww3_points.list
+else
+    cp @[INPUTDATA_ROOT_WW3]/@[WW3_MODDEF] mod_def.ww3
+    cp @[INPUTDATA_ROOT_WW3]/@[MESH_WAV] .
+fi
+
+
+# Both WAV and DATM start cold
+# Restart from checkpoint
+if [ $WARM_START = .true. ]; then
+    # WAVE restart file
+    RFILE=ufs.cpld.ww3.r.${RESTART_FILE_SUFFIX_SECS}.nc
+    cp ../${DEP_RUN}${SUFFIX}/${RFILE} .
+    if [[ $WW3_DOMAIN == 'global_270k' ]]; then
+        if [[ -f ../${DEP_RUN}${SUFFIX}/out.pnt_wght.ww3.nc ]]; then
+            cp ../${DEP_RUN}${SUFFIX}/out.pnt_wght.ww3.nc pnt_wght.ww3.nc
+        fi
+    fi
+
+    # CMEPS restart and pointer files
+    RFILE="DATM_${DATM_SRC}.cpl.r.2011-10-01-43200.nc"
+    cp ../${DEP_RUN}${RT_SUFFIX}/${CMEPS_RESTART_DIR}/${RFILE} .
+    ls -1 ${RFILE}>rpointer.cpl
+
+    # CDEPS restart and pointer files
+    RFILE="DATM_${DATM_SRC}.datm.r.2011-10-01-43200.nc"
+    cp ../${DEP_RUN}${RT_SUFFIX}/${RFILE} ./INPUT
+    ls -1 "./INPUT/"${RFILE}>rpointer.atm
+fi

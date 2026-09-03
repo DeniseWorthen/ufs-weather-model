@@ -1,10 +1,10 @@
 #
-#  DATM_CDEPS_WAV test
+#  DATM_WAV test
 #
 
-TEST_DESCR="DATM_CDEPS-WW3-CMEPS - GEFS DATM + unstr WW3"
+TEST_DESCR="DATM-WW3-CMEPS - GEFS DATM + v17 unstr WW3"
 
-CNTL_DIR=datmwav_270k
+CNTL_DIR=datm_wav_v17
 
 LIST_FILES=""
 
@@ -24,26 +24,27 @@ MESH_ATM=mesh.datm.1536x768.nc
 stream_files="INPUT/${FILEBASE_DATM}.201110.nc"
 STREAM_OFFSET=-21600
 DT_ATMOS=720
+# fails w/o DT_CICE set
 DT_CICE=720
 
 RESTART_N=12
 coupling_interval_sec=${DT_ATMOS}
 
-ATM_compute_tasks=40
+ATM_compute_tasks=80
 OCN_tasks=0
 ICE_tasks=0
+WAV_tasks=2008
 
 #waves
-WAV_tasks=152
 WW3_OUTDTHR=1
 WW3_GRD_OUTDIR='./'
 WW3_PNT_OUTDIR='./'
 WW3_RST_OUTDIR='./'
 WW3_DTFLD="$(printf "%02d" $(( WW3_OUTDTHR*3600 )))"
 WW3_DTPNT="$(printf "%02d" $(( WW3_OUTDTHR*3600 )))"
-WW3_DOMAIN=global_270k
+WW3_DOMAIN=uglo_15km
 MESH_WAV=mesh.${WW3_DOMAIN}.nc
-WW3_MODDEF=mod_def.exp.${WW3_DOMAIN}
+WW3_MODDEF=mod_def.${WW3_DOMAIN}
 WW3_CUR='F'
 WW3_ICE='F'
 WW3_IC1='F'
@@ -65,7 +66,6 @@ CMEPS_PIO_IOTASKS=-99
 CMEPS_PIO_REARR='box'
 CMEPS_PIO_ROOT=-99
 
-# used only in cpld_datm_cdeps.IN
 CPLWAV=.true.
-FV3_RUN=cpld_datm_cdeps.IN
+FV3_RUN=cpld_datm_wav.IN
 UFS_CONFIGURE=ufs.configure.datm_wav.IN

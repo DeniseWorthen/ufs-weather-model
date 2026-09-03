@@ -8,8 +8,8 @@ mkdir -p $CICE_HISTORY_DIR
 mkdir -p $MOM6_OUTPUT_DIR
 
 # DATM fixed input
-ln -s  @[INPUTDATA_ROOT]/DATM_CDEPS/@[MESH_ATM] INPUT
-ln -s  @[INPUTDATA_ROOT]/DATM_CDEPS/@[DATM_SRC]/201110/*201110*nc INPUT
+cp  @[INPUTDATA_ROOT]/DATM_CDEPS/@[MESH_ATM] INPUT/.
+cp  @[INPUTDATA_ROOT]/DATM_CDEPS/@[DATM_SRC]/201110/*201110*nc INPUT/.
 
 # MOM6 fixed input
 ICERES="${OCNRES:0:1}.${OCNRES:1}"
@@ -23,9 +23,20 @@ cp    @[INPUTDATA_ROOT]/CICE_FIX/@[OCNRES]/mesh.mx@[OCNRES].nc .
 
 # WW3 fix/input
 if [[ $CPLWAV == .true. ]]; then
-    cp @[INPUTDATA_ROOT_WW3]/@[WW3_MODDEF] mod_def.ww3
-    if [[ ${WW3_DOMAIN:0:2} != mx ]]; then
-        cp @[INPUTDATA_ROOT_WW3]/@[MESH_WAV] .
+    if [[ $OCNRES == '025' ]]; then
+        cp @[INPUTDATA_GFSv17opn]/WW3_FIX/@[WW3_MODDEF] mod_def.ww3
+        # TODO: when uglo_15km is present in standard input-data location
+        # replace the above line with the following location for the mod_def.ww3
+        # the existing mod_def in the GFSv17opn/WW3_FIX directory should be removed
+        # cp @[INPUTDATA_ROOT_WW3]/@[WW3_MODDEF] mod_def.ww3
+        cp @[INPUTDATA_GFSv17opn]/WW3_FIX/@[MESH_WAV] .
+        cp @[INPUTDATA_GFSv17opn]/WW3_FIX/wave_gfs.buoys.full ww3_points.list
+        cp @[INPUTDATA_GFSv17opn]/WW3_FIX/ww3_shel.nml .
+    else
+        cp @[INPUTDATA_ROOT_WW3]/@[WW3_MODDEF] mod_def.ww3
+        if [[ ${WW3_DOMAIN:0:2} != mx ]]; then
+            cp @[INPUTDATA_ROOT_WW3]/@[MESH_WAV] .
+        fi
     fi
 fi
 
