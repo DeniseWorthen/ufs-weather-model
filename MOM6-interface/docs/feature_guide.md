@@ -33,21 +33,24 @@ nextTime=12:00 and be completed on the next timestep. That file sequencing patte
 there are two final history files that are written: the "pending" file (h=21) as well as the final h=03 file.
 
 Restarts for MOM6 are written by MOM6 directly, not using FMS as for the history files. Model restarts are written, complete, at
-whatever frequency or hour requested. In the above diagram, restarts written at a 15-hour frequency will be written exactly
+whatever frequency or hour requested. In the above diagram, restarts written at a 12-hour frequency will be written exactly
 at those hours.
 
-The output log file written at forecast hour=24 for this case (`20111002.000000.mom6.06h`) would contain the following information:
+The output log file written at forecast hour=24 for this case (`20111001.180000.mom6.06h`) would contain the following information:
 
 ```text
 completed: mom6.06h
-forecast hour:    24.000
-valid time:     2011      10       2       0       0       0
-last output: ./MOM6_OUTPUT/ocn_2011_10_01_15_00.nc
-last restart:     2011      10       1      15       0       0
+forecast hour:    18.000
+valid time:     2011      10       1      18       0       0
+last output: ./MOM6_OUTPUT/ocn_2011_10_01_09_00.nc
+last restart:     2011      10       1      12       0       0
 ```
 
 In the above case, since the log file for both the h=21 and h=03 file are both written at the same model hour (FH=30 in this case),
 the log for the very last file is denoted with `lstop` appended to the file name (`20111002.060000.mom6.lstop.06h`).
+
+The above sample log file also highlights the essential feature of the output sequencing. At FH=18, the only output files which are
+complete are those at hours 03 and 09; the history file for the interval which *ends* at FH=18 has not yet been written.
 
 ## Feature Configuration
 
@@ -95,6 +98,13 @@ Either instantaneous (snapshot) files or time averaged files are supported. Thes
 of `none` and `average`, respectfully. The file name format for time averaged output is asssumed to be timestamped with the mid-point
 of the averaging window (i.e. hour=09 for the 6h-12h average). For snapshot output, the timestamp will be the time of the snapshot.
 The user is responsible for ensuring that the diag_table in use matches these definitions.
+
+### Feature Debugging
+
+When enabled in the namelist, debugging print statements will be written to standard out. These statements track the state of the
+feature tracking at each step through the ModelAdvance. Print statements will be pre-pended with an identifing routine, for example
+`MOM_cap:(track_freqn)`.
+
 
 ## Feature Initialization
 
