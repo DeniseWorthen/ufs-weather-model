@@ -51,10 +51,22 @@ In the above case, since the log file for both the h = 21 and h = 03 file are bo
 the log for the very last file is denoted with `lstop` appended to the file name (`20111002.060000.mom6.lstop.06h`).
 
 @note The above sample log file also highlights the essential feature of the output sequencing. At FH = 18, the only output files
-which are complete are those at hours 03 and 09; the history file for the interval which *ends* at FH = 18 (the h = 15 file) has not yet
-been written.
+which are complete are those at hours 03 and 09; the history file for the interval which *ends* at FH = 18 (the h = 15 file) has not
+yet been written.
 
 # Feature Details
+
+The feature uses types; config is static, the state is time-evolving....blah blah.
+When io_layout is enabled, the IO rootpe is colocated with computational rootpe...blah blah.
+The feature is a stub for CESM
+Run is called each advance and twice at Finalize.
+
+The outputlog feature consists of two additional fortran modules in `config_src/drivers/nuopc_cap`:
+
+* mom_cap_outputlog.F90
+* mom_outputlog_methods.F90
+
+
 
 ## Configuration
 
