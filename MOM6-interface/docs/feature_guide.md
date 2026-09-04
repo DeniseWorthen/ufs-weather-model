@@ -50,7 +50,7 @@ last restart:     2011      10       1      12       0       0
 In the above case, since the log file for both the h = 21 and h = 03 file are both written at the same model hour (FH = 30 in this case),
 the log for the very last file is denoted with `lstop` appended to the file name (`20111002.060000.mom6.lstop.06h`).
 
-\ attention The above sample log file also highlights the essential feature of the output sequencing. At FH = 18, the only output files
+@note The above sample log file also highlights the essential feature of the output sequencing. At FH = 18, the only output files
 which are complete are those at hours 03 and 09; the history file for the interval which *ends* at FH = 18 (the h = 15 file) has not yet
 been written.
 

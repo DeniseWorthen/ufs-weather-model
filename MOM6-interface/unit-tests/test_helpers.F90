@@ -1,8 +1,8 @@
-!> @file outputlog_test_helpers.F90
+!> @file test_helpers.F90
 !> @brief Shared setup for outputlog unit tests.
 !!
 !> @date 08-12-2026
-module outputlog_test_helpers
+module test_helpers
 
   use ESMF
   use mom_outputlog_methods, only : outputlog_config_type, outputlog_state_type
@@ -178,4 +178,4 @@ contains
 
   end subroutine handlefiles
 
-end module outputlog_test_helpers
+end module test_helpers
