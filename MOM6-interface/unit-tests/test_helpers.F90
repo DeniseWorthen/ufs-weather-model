@@ -74,6 +74,13 @@ contains
        print '(/,A)','Clock will run from '//startstr//' to '//stopstr
     endif
 
+    !call init_types(nfiles, freq(n), cf(n), state(n), modeltime%currTime, modeltime%tincrement))
+    !if (trim(l_timereduce) == 'none') then
+    !  cf_n%filename_fhoffset = 60*freq*tincrement
+    !else
+    !   cf_n%filename_fhoffset = 90*freq*tincrement
+    !endif
+
     ! --- Build the rest of cf_n exactly as outputlog_init would ---
     cf_n%alarm_name           = 'test_alarm'
     cf_n%opt_n                = freq
@@ -98,9 +105,7 @@ contains
     state_n%createsize          = 0
     state_n%completesize        = 0
 
-    ! Fixed dummy value -- each test drives/overrides this as needed
-    ! (test_driver2.F90/test_freqn.F90 never asserts on it; the dedicated
-    ! restart-pairing test drives it explicitly to match a real cadence).
+    ! Fixed dummy value
     state_n%time_lastrestart    = startTime
 
     ! the time offset in hours required to ensure the alarm rings at multiples of freq(n)
@@ -121,7 +126,7 @@ contains
   !! completion contract.
   !!
   !! @param[in]  isroot        .true. on the root PE
-  !! @param[in]  fname         the fixture's path
+  !! @param[in]  fname          file name
   !! @param[in]  use_filesize  .true. for ATM-style (fsize-based) completion,
   !!                           .false. for DATM-style (nlen-based)
   !! @param[in]  mode          'create', 'complete', or 'create-complete'

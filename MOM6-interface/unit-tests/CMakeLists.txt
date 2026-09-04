@@ -20,10 +20,10 @@ if(MOM6_INC_DIR)
   target_include_directories(nc_fixture_mod PRIVATE ${MOM6_INC_DIR})
 endif()
 
-add_library(outputlog_test_helpers STATIC outputlog_test_helpers.F90)
-target_link_libraries(outputlog_test_helpers PRIVATE mom6 ESMF::ESMF mom6_test_utils nc_fixture_mod)
+add_library(mom6_test_helpers STATIC test_helpers.F90)
+target_link_libraries(mom6_test_helpers PRIVATE mom6 ESMF::ESMF mom6_test_utils nc_fixture_mod)
 if(MOM6_INC_DIR)
-  target_include_directories(outputlog_test_helpers PRIVATE ${MOM6_INC_DIR})
+  target_include_directories(mom6_test_helpers PRIVATE ${MOM6_INC_DIR})
 endif()
 
 # -----------------------------------------------------------------------------
@@ -88,13 +88,13 @@ add_mom6_unit_test(test_outputlog_completion
 add_mom6_unit_test(test_outputlog_freqn
    CTEST_NAME MOM6_Outputlog_Freqn
    SOURCES test_outputlog_freqn.F90
-   EXTRA_LIBS mom6_test_utils nc_fixture_mod outputlog_test_helpers NetCDF::NetCDF_Fortran MPI::MPI_Fortran
+   EXTRA_LIBS mom6_test_utils nc_fixture_mod mom6_test_helpers NetCDF::NetCDF_Fortran MPI::MPI_Fortran
    USE_MPI)
 
 #add_mom6_unit_test(test_pairing
 #   CTEST_NAME MOM6_Outputlog_RestartPairing
 #   SOURCES cadence.F90
-#   EXTRA_LIBS mom6_test_utils outputlog_test_helpers NetCDF::NetCDF_Fortran MPI::MPI_Fortran
+#   EXTRA_LIBS mom6_test_utils mom6_test_helpers NetCDF::NetCDF_Fortran MPI::MPI_Fortran
 #   USE_MPI)
 
 
