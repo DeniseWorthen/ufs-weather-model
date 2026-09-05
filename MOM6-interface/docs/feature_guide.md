@@ -24,8 +24,8 @@ To illustrate the concepts implemented in the output logging feature, consider t
 
 In this case, MOM6 is providing 6-hourly output; the model begins at hour=00 and runs for 30 hours; the output alarm will
 ring every 6 hours. It is important to remember that alarms ring at the ModelAdvance nextTime. If the model in this case is
-running with a 30 minute coupling frequency, the alarm at hour=12:00 will ring at the modelAdvance when the currTime = 11:30
-and the nextTime = 12:00.
+running with a 30 minute coupling frequency, the alarm at hour=12:00 will ring when the modelAdvance currTime = 11:30
+and the ModelAdvance nextTime = 12:00.
 
 MOM6 history files for time-averaged output are timestamped at the middle of the averaging window. The first MOM6 history output
 file produced is the hour = 03 file, representing the average between hours 0 and 6. It will be created when the alarm rings at
@@ -33,11 +33,11 @@ nextTime = 12:00 and be completed on the next timestep (when the currTime = 12:0
 model stop time. At finalization, there are two final history files that are written: the "pending" file (h = 21) as well as the
 final h = 03 file.
 
-Restarts for MOM6 are written by MOM6 directly, not using FMS as for the history files. Model restarts are written, complete, at
-whatever frequency or hour requested. In the above diagram, restarts written at a 12-hour frequency will be written exactly
-at those hours.
+Restarts for MOM6 are written by MOM6 directly, not using FMS as for the history files. Model restarts are written, complete, when
+the ModelAdance nexTime matches a requested hour. In the above diagram, restarts written at hour = 12  will be when the ModelAdvance
+currTime = 11:30 and the ModelAdvance nextTime = 12:00.
 
-The output log file written at forecast hour=24 for this case (`20111001.180000.mom6.06h`) would contain the following information:
+The output log file written at forecast hour = 18 for this case (`20111001.180000.mom6.06h`) would contain the following information:
 
 ```text
 completed: mom6.06h
@@ -65,7 +65,6 @@ The outputlog feature consists of two additional fortran modules in `config_src/
 
 * mom_cap_outputlog.F90
 * mom_outputlog_methods.F90
-
 
 
 ## Configuration
@@ -103,10 +102,10 @@ files are not allowed but 6-hourly average and 3-hourly snapshot files are.
 ### Filename Prefix
 
 If a single frequency is requested, no filename prefix is required. A default prefix of `ocn` will be used. It is the user's
-responsibility that the default matches the specification in the `diag_table`. Otherwise, they must set the actual filename
-prefix called for in the `diag_table`. If more than a single frequency is requested, the user must provide filename prefixes
-for all frequencies (again ensuring matches to the `diag_table`). The filename prefix can have a maximum length of 12 (not including
-the trailing underscore, which will be appended).
+responsibility that the default matches the specification in the `diag_table`. Otherwise, the filename prefix must be set to
+the actual filename prefix called for in the `diag_table`. If more than a single frequency is requested, the user must provide
+filename prefixes for all frequencies (again ensuring matches to the `diag_table`). The filename prefix can have a maximum
+length of 12 (not including the trailing underscore, which will be appended).
 
 ### File Time Reduction
 
