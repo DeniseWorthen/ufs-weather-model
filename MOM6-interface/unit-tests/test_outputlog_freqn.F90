@@ -16,7 +16,7 @@ program test_outputlog_freqn
   use mom_cap_outputlog,      only : track_freqn
   use mom_outputlog_methods,  only : outputlog_config_type, outputlog_state_type, outputlog_modeltime_type
   use mom_outputlog_methods,  only : get_timestr, get_importexport, set_toffset, get_file_state, debug_info
-  use outputlog_test_helpers, only : base_yy, base_mm, base_dd, setup_case, handlefiles
+  use test_helpers,           only : base_yy, base_mm, base_dd, setup_case, handlefiles
 
   implicit none
 
