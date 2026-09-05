@@ -34,7 +34,7 @@ model stop time. At finalization, there are two final history files that are wri
 final h = 03 file.
 
 Restarts for MOM6 are written by MOM6 directly, not using FMS as for the history files. Model restarts are written, complete, when
-the ModelAdance nexTime matches a requested hour. In the above diagram, restarts written at hour = 12  will be when the ModelAdvance
+the ModelAdance nextTime matches a requested hour. In the above diagram, restarts written at hour = 12  will be when the ModelAdvance
 currTime = 11:30 and the ModelAdvance nextTime = 12:00.
 
 The output log file written at forecast hour = 18 for this case (`20111001.180000.mom6.06h`) would contain the following information:
@@ -56,22 +56,22 @@ yet been written.
 
 # Feature Details
 
-The feature uses types; config is static, the state is time-evolving....blah blah.
-When io_layout is enabled, the IO rootpe is colocated with computational rootpe...blah blah.
-The feature is a stub for CESM
-Run is called each advance and twice at Finalize.
-
-The outputlog feature consists of two additional fortran modules in `config_src/drivers/nuopc_cap`:
+The outputlog feature consists of two fortran modules in `config_src/drivers/nuopc_cap`:
 
 * mom_cap_outputlog.F90
 * mom_outputlog_methods.F90
 
+and three type structures :
+
+* mom_outputlog_methods::outputlog_config_type : the time-invariant configuration at each tracked frequency
+* mom_outputlog_methods::outputlog_state_type : the time-evolving state at each tracked frequency
+* mom_outputlog_methods::outputlog_modeltime_type: the model time state during each ModelAdvance
 
 ## Configuration
 
-The output log feature is enabled with a `MOM_outputlog_nml` namelist added to the `input.nml`. For example, the following values
-will set the logging feature to track 6-hourly files, which (using the `diag_table`) have a filename prefix of `ocn` and are defined
-as time-averaged values. No debug information will be added to the stdout file.
+The output log feature is enabled with a `MOM_outputlog_nml` namelist added to the `input.nml` which will populate the
+outputlog_config_type. For example, the following values will request tracking 6-hourly files, which (using the `diag_table`)
+have a filename prefix of `ocn` and are defined as time-averaged values. No debug information will be added to the stdout file.
 
 ```text
 &MOM_outputlog_nml
@@ -99,6 +99,11 @@ File tracking can be enabled for 1,3,6 or 24 hourly files only. Multiple frequen
 immaterial. However, each logging frequency must be uniquely defined. For example, 6-hourly average files and 6-hourly snapshot
 files are not allowed but 6-hourly average and 3-hourly snapshot files are.
 
+@note Because it is intended for operational purposes, logging frequency is intentionally set to log 3 and 6 hour frequencies
+relative to the operational forecast windows. This means that a 6 hour tracking frequency is always implemenented as starting
+at one of hours 00,06,12 or 18. A similar rule applies to a 3 hour tracking frequency (i.e, 00,03,06 etc). Tracking at 24 hour
+intervals is for consecutive 24 hour periods. For example, hour 09 on day one through to hour 09 on day 2.
+
 ### Filename Prefix
 
 If a single frequency is requested, no filename prefix is required. A default prefix of `ocn` will be used. It is the user's
@@ -120,12 +125,13 @@ When enabled in the namelist, debugging print statements will be written to stan
 feature tracking at each step through the ModelAdvance. Print statements will be pre-pended with an identifing routine, for example
 `MOM_cap:(track_freqn)`.
 
-
-## Feature Initialization
-
-### Configuration, State and Time types
 ### Alarm Initialization
 
+
+
+blah blah When io_layout is enabled, the IO rootpe is colocated with computational rootpe...blah blah.
+
+### Configuration, State and Time types
 ## File Tracking Sequence
 ### File State at Creation
 ### Determining File Completion
