@@ -54,7 +54,7 @@ the log for the very last file is denoted with `lstop` appended to the file name
 which are complete are those at hours 03 and 09; the history file for the interval which *ends* at FH = 18 (the h = 15 file) has not
 yet been written.
 
-# Feature Details
+# Design and Function
 
 The outputlog feature consists of two fortran modules in `config_src/drivers/nuopc_cap`:
 
@@ -127,15 +127,44 @@ feature tracking at each step through the ModelAdvance. Print statements will be
 
 ### Alarm Initialization
 
+An alarm is intialized at each desired tracking frequency. As noted previously, alarms are set to ring at multiples of the tracking
+frequency and intialized with a time-offset to ensure that they ring at on intervals associated of the operational forecast hours.
 
+### IO-layout
 
-blah blah When io_layout is enabled, the IO rootpe is colocated with computational rootpe...blah blah.
+When IO-layout is enabled, the root PE associated with the IO domain is co-located with the root PE of the computation domain. Each IO-domain
+will produce a history file for the domain; the file names will be appended with the IO-domain number, for example `.nc.0000`. The number
+of history files expected obtained using the internal MOM6 function `mpp_get_io_domain_layout`. For a single IO-domain, no file name suffix
+is used; when IO-layout is in use, only the root IO task associated with the `.nc.0000` file will be queried for the model state.
 
-### Configuration, State and Time types
 ## File Tracking Sequence
+
 ### File State at Creation
+
+When an alarm rings for a frequency, the filename for the expected history output is constructed and the initial state of the file, if present,
+is obtained. Two characteristics of the file are obtained: the length of the unlimited dimension and the inital size of the file. For
+configurations using MOM6 and a data atmosphere (DATM), the inital unlimited dimension when the file is created is found to be 0. For active
+atmosphere configurations, an initial unlimited dimension length of 1 is observed. In these cases, file size will also be used to determine
+file completion. This is enabled using the state variable `use_filesize`.
+
+Once the initial file state is obtained at ring time, a flag will be set to check the file on the next ModelAdvance. The file will continue
+to be checked on each advance until it is reported complete. In practice, the file is completed on the next ModelAdvance after creation.
+
 ### Determining File Completion
+
+Depending on the state variable `use_filesize`, a file is determined to be complete in one of two ways. If the initial unlimited dimension was
+zero (a DATM case), file completion occurs when the file state obtains an unlimited dimension of 1. Otherwise, the secondary criteria of file
+size will be used. The criteria here is only that the file size is greater than the initial size.
+
+Once a file is determined complete, the check flag for the next Advance is turned off and the state is updated to store the last restart file
+written.
+
 ### Finalization
+
+When the model completes in the ModelFinalization phase, two calls to the tracking feature are required. Both occur after the IO has been shut
+down. The first call checks the status of the penultimate file; the file which would have completed at the next ModelAdvance timestep. Since
+in this case, there will be no next timestep, this 'pending' file is completed by the IO shutdown. The final file, for the last averaging window,
+is also completed during the IO shutdown.
 
 ## File Tracking Example
 
