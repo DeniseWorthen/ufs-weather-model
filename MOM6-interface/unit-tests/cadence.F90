@@ -1,6 +1,13 @@
-!> Restart/history cadence-pairing test
+!> @file cadence.F90
+!> @brief Test pairing of times for restarts and history files
 !!
-!> @date 08-28-2026
+!! Test to match history file completion time and restart file completion
+!! time, where restarts can either be a specific frequency or a list of hours.
+!! Test cases use specified literals.
+!!
+!> @date 09-10-2026
+
+!> Main program for testing restart pairing with cadence.F90
 program test_restart_history_cadence
 
   use ESMF
@@ -8,7 +15,7 @@ program test_restart_history_cadence
   use test_utils
   use mom_outputlog_methods,  only : outputlog_config_type, outputlog_state_type, outputlog_modeltime_type
   use mom_outputlog_methods,  only : get_importexport, get_timestr
-  use outputlog_test_helpers, only : setup_case
+  use test_helpers, only : setup_case, base_yy, base_mm, base_dd
 
   implicit none
 
@@ -47,17 +54,20 @@ program test_restart_history_cadence
   nt = 0
   ! ===========================================================================
   ! Test cases
+  ! fh_atfilecompletion        : forecast hour when file is complete
+  ! expected_lastrestart_hours : elapsed hour relative to starting day when
+  !                              restart is written
   ! ===========================================================================
 
   !------------------
   nt = nt + 1
   write(testname,'(A,I2.2,A)')'test ',nt,' starthour=6, runhours=36, restart freq=15 '
-  expected = 6  ! 6 file completions, 6 matching lastrestarts
+  expected = 6 ! expected time matches
 
   call run_case(trim(testname), freq=6, start_hour=6, runhours=36, &
        restart_hours             =[15],                            &
        fh_atfilecompletion       =[12,18,24,30,36,36],             &
-       expected_lastrestart_hours=[ 0,15,15,30,30,30],             &
+       expected_lastrestart_hours=[ 6,21,21,36,36,36],             &
        nmatches=nmatches)
 
   call assert_equal(nmatches, expected, testname, assertrc, assertmsg)
@@ -65,13 +75,27 @@ program test_restart_history_cadence
 
   !------------------
   nt = nt + 1
-  write(testname,'(A,I2.2,A)')'test ',nt,' starthour=9, runhours=33, restart freq=3 '
-  expected = 6  ! 6 file completions, 6 matching lastrestarts
+  write(testname,'(A,I2.2,A)')'test ',nt,' starthour=6, runhours=36, restart freq=3 '
+  expected = 5  ! expected time matches
 
-  call run_case(trim(testname), freq=6, start_hour=9, runhours=33, &
+  call run_case(trim(testname), freq=6, start_hour=6, runhours=36, &
        restart_hours             =[3],                             &
-       fh_atfilecompletion       =[12,18,24,30,36,36],             &
-       expected_lastrestart_hours=[18,24,21,27,36,36],             &
+       fh_atfilecompletion       =[18,24,30,36,36],                &
+       expected_lastrestart_hours=[24,30,36,42,42],                &
+       nmatches=nmatches)
+
+  call assert_equal(nmatches, expected, testname, assertrc, assertmsg)
+  call addresult(cadencetests, assertrc, trim(assertmsg), '')
+
+  !------------------
+  nt = nt + 1
+  write(testname,'(A,I2.2,A)')'test ',nt,' starthour=6, runhours=96, restart hours specified '
+  expected = 15  ! expected time matches
+
+  call run_case(trim(testname), freq=6, start_hour=6, runhours=96, &
+       restart_hours             =[6,24,45,78],                    &
+       fh_atfilecompletion       =[18,24,30,36,42,48,54,60,66,72,78,84,90,96,96], &
+       expected_lastrestart_hours=[12,30,30,30,30,51,51,51,51,51,84,84,84,84,84], &
        nmatches=nmatches)
 
   call assert_equal(nmatches, expected, testname, assertrc, assertmsg)
@@ -102,7 +126,17 @@ program test_restart_history_cadence
   endif
 
 contains
-  !> TODO
+  !> Run a single test case to match provided ESMF_Time values
+  !!
+  !! @param[in]      test                        descriptive test name
+  !! @param[in]      freq                        output frequency
+  !! @param[in]      start_hour                  clock start time
+  !! @param[in]      runhours                    clock advance length
+  !! @param[in]      timereduce                  optional argument to specify average or snapshot mode
+  !! @param[in]      restart_hours               restart frequency, either cadence or list of hours
+  !! @param[in]      fh_atfilecompletion         forecast hours when files are complete
+  !! @param[in]      expected_lastrestart_hours  elapsed hour relative to starting day when restart is written
+  !! @param[out]     nmatches                    number of matching times found
   subroutine run_case(test, freq, start_hour, runhours, timereduce, restart_hours, fh_atfilecompletion, &
        expected_lastrestart_hours, nmatches)
 
@@ -134,22 +168,17 @@ contains
     integer :: n, n_restarts, n_completions
 
     character(len=40)  :: importexport
-    character(len=16)  :: timestr_complete, timestr_restart
+    character(len=16)  :: timestr, timestr_complete, timestr_restart
+
+    integer :: day
 
     l_timereduce = 'average'
     if (present(timereduce)) l_timereduce = timereduce
-    ! TODO
     l_nfiles = 1
 
     ! mimic outputlog_init setup
     call setup_case(start_hour, runhours, freq,  l_nfiles, l_timereduce, debug_onroot, &
          modelClock, cf_n, state_n, rc)
-
-    ! call run_case(trim(testname), freq=6, start_hour=6, runhours=36, &
-    !      restart_hours             =[15,30],                         &
-    !      fh_atfilecompletion       =[12,18,24,30,36,36],             &
-    !      expected_lastrestart_hours=[ 0,15,15,30,30,30],             &
-    !      is_passing=assertrc, failmsg=assertmsg)
 
     if (debug_onroot) then
        print '(A)','Running test '//test
@@ -158,6 +187,7 @@ contains
     call esmf_err(rc, subname, "ESMF_ClockGet(currTime)")
     call ESMF_TimeIntervalSet(modeltime%tincrement, m=1, rc=rc)
     call esmf_err(rc, subname, "ESMF_TimeIntervalSet(tincrement)")
+    timestr = get_timestr(modeltime%startTime, rc=rc)
 
     ! defined restart times
     if (size(restart_hours) == 1) then          ! restart_hours are uniform cadence at given frequency
@@ -192,9 +222,9 @@ contains
 
     ! set up expected times based on provided hours
     do n = 1, n_completions
-       expected_completiontimes(n) = modeltime%startTime + fh_atfilecompletion(n)*60*modeltime%tincrement
+       expected_completiontimes(n) = modeltime%startTime + (fh_atfilecompletion(n) )*60*modeltime%tincrement
        call esmf_err(rc, subname, "get expected_completiontimes")
-       expected_lastrestart(n) = modeltime%startTime + expected_lastrestart_hours(n)*60*modeltime%tincrement
+       call ESMF_TimeSet(expected_lastrestart(n), yy=base_yy, mm=base_mm, dd=base_dd, h=expected_lastrestart_hours(n), rc=rc)
        call esmf_err(rc, subname, "get expected_lastrestart")
 
        if (debug_onroot) then

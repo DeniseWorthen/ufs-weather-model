@@ -91,11 +91,11 @@ add_mom6_unit_test(test_outputlog_freqn
    EXTRA_LIBS mom6_test_utils nc_fixture_mod mom6_test_helpers NetCDF::NetCDF_Fortran MPI::MPI_Fortran
    USE_MPI)
 
-#add_mom6_unit_test(test_pairing
-#   CTEST_NAME MOM6_Outputlog_RestartPairing
-#   SOURCES cadence.F90
-#   EXTRA_LIBS mom6_test_utils mom6_test_helpers NetCDF::NetCDF_Fortran MPI::MPI_Fortran
-#   USE_MPI)
+add_mom6_unit_test(test_pairing
+  CTEST_NAME MOM6_Outputlog_RestartPairing
+  SOURCES cadence.F90
+  EXTRA_LIBS mom6_test_utils mom6_test_helpers NetCDF::NetCDF_Fortran MPI::MPI_Fortran
+  USE_MPI)
 
 
 if(POLICY CMP0144)
