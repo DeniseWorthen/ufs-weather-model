@@ -169,4 +169,4 @@ is also completed during the IO shutdown.
 ## File Tracking Example
 
 
-@image html logging_diagram2.png "Logging Architecture Diagram" width=50%
+@image html logging_diagram2.png "Logging Architecture Diagram" width=60%
