@@ -12,6 +12,9 @@
 !! internal variable structure. file_is_complete/get_file_state only look at nlen and fsize, so
 !! that's sufficient for what's under test.
 !!
+!! Restart files test files provide use length of unlimited dim only, since restarts are written
+!! complete at requested time by MOM6 directly (FMS is not used).
+!!
 !> @date 09-01-2026
 module nc_fixture_mod
 
@@ -159,6 +162,45 @@ contains
     call make_atm_incomplete(fname, createsize_out)
     call write_bulk_data(fname)
   end subroutine make_atm_complete
+  ! -------------------------------------------------------------------------------
+  ! Restart-file fixtures.
+  !--------------------------------------------------------------------------------
+  !> Build the filename for restart using base name and  `part_index`
+  !!
+  !! @param[in]  base_fname   base name
+  !! @param[in]  part_index   0 for the base file, 1,2,... for later parts
+  function restart_part_fname(base_fname, part_index) result(fname)
+    character(len=*), intent(in) :: base_fname
+    integer,          intent(in) :: part_index
+    character(len=256) :: fname
+
+    if (part_index == 0) then
+      fname = trim(base_fname)//'.nc'
+    else
+      write(fname,'(A,A,I0,A)') trim(base_fname), '_', part_index, '.nc'
+    end if
+  end function restart_part_fname
+  !> Create a minimal restart-part fixture: just an unlimited "time" dim,
+  !! optionally with record 1 written (nlen 0->1).
+  !!
+  !! @param[in]  fname      filename (see restart_part_fname)
+  !! @param[in]  complete   .true. to also write record 1 (nlen=1);
+  !!                        .false. leaves the file at nlen=0
+  subroutine make_restart_fixture(fname, complete)
+    character(len=*), intent(in) :: fname
+    logical,          intent(in) :: complete
+
+    integer :: ncid, dimid_t, varid_t
+
+    call nf90_err(nf90_create(trim(fname), ior(NF90_CLOBBER, NF90_NETCDF4), ncid), "create (restart)")
+    call nf90_err(nf90_def_dim(ncid, "time", NF90_UNLIMITED, dimid_t), "def_dim time (restart)")
+    call nf90_err(nf90_def_var(ncid, "time", NF90_DOUBLE, [dimid_t], varid_t), "def_var time (restart)")
+    call nf90_err(nf90_enddef(ncid), "enddef (restart)")
+    call nf90_err(nf90_sync(ncid), "sync (restart schema)")
+    call nf90_err(nf90_close(ncid), "close (restart schema)")
+
+    if (complete) call write_record(fname)
+  end subroutine make_restart_fixture
   !> Error return function for NetCDF
   !!
   !! @param[in]    ierr      error return value
@@ -171,5 +213,4 @@ contains
       stop 99
     end if
   end subroutine nf90_err
-
 end module nc_fixture_mod

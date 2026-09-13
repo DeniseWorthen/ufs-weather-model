@@ -13,6 +13,7 @@ program test_outputlog_completion
   use mom_outputlog_methods, only : get_file_state, file_is_complete
   use nc_fixture_mod,        only : make_datm_incomplete, make_datm_complete
   use nc_fixture_mod,        only : make_atm_incomplete,  make_atm_complete
+  use nc_fixture_mod,        only : restart_part_fname, make_restart_fixture
 
   implicit none
 
@@ -37,6 +38,10 @@ program test_outputlog_completion
   call check_atm_incomplete()
   call check_atm_complete()
   call check_file_does_not_exist()
+  call check_restart_single_file_complete()
+  call check_restart_single_file_incomplete()
+  call check_restart_multiple_files_all_complete()
+  call check_restart_multiple_files_partial()
 
   if (isroot) then
     print *, "========================================================"
@@ -159,6 +164,87 @@ contains
     call assert_false(complete_atm, "Nonexistent file: use_filesize=T must not report complete")
   end subroutine check_file_does_not_exist
 
+  !> Restart, num_rest_files=1: the one part is complete (nlen=1).
+  subroutine check_restart_single_file_complete()
+    character(len=*), parameter :: base = "20210322.000000.MOM.res"
+    character(len=256) :: fname
+    integer :: rc, nlen
+    logical :: alldone
+
+    fname = restart_part_fname(base, 0)
+    if (isroot) call make_restart_fixture(fname, complete=.true.)
+    call get_file_state(comm, isroot, rootpe, fname, nlen=nlen, rc=rc)
+
+    call assert_equal(0, rc, "Restart single file complete: get_file_state rc")
+    call assert_equal(1, nlen, "Restart single file complete: nlen should be 1")
+
+    alldone = (nlen > 0)
+    call assert_true(alldone, "Restart single file complete: allDone should be true")
+  end subroutine check_restart_single_file_complete
+
+  !> Restart, num_rest_files=1: the one part is NOT complete (nlen=0).
+  subroutine check_restart_single_file_incomplete()
+    character(len=*), parameter :: base = "20210322.060000.MOM.res"
+    character(len=256) :: fname
+    integer :: rc, nlen
+    logical :: alldone
+
+    fname = restart_part_fname(base, 0)
+    if (isroot) call make_restart_fixture(fname, complete=.false.)
+    call get_file_state(comm, isroot, rootpe, fname, nlen=nlen, rc=rc)
+
+    call assert_equal(0, rc, "Restart single file incomplete: get_file_state rc")
+    call assert_equal(0, nlen, "Restart single file incomplete: nlen should be 0")
+
+    alldone = (nlen > 0)
+    call assert_false(alldone, "Restart single file incomplete: allDone should be false")
+  end subroutine check_restart_single_file_incomplete
+
+  !> Restart, num_rest_files=3: all three parts complete
+  subroutine check_restart_multiple_files_all_complete()
+    character(len=*), parameter :: base = "20210322.120000.MOM.res"
+    integer, parameter :: num_rest_files = 3
+    character(len=256) :: fname
+    integer :: rc, nlen, n
+    logical :: alldone(num_rest_files)
+
+    do n = 0, num_rest_files-1
+      fname = restart_part_fname(base, n)
+      if (isroot) call make_restart_fixture(fname, complete=.true.)
+      call get_file_state(comm, isroot, rootpe, fname, nlen=nlen, rc=rc)
+
+      call assert_equal(0, rc, "Restart multi-file all complete: get_file_state rc")
+      call assert_equal(1, nlen, "Restart multi-file all complete: part nlen should be 1")
+      alldone(n+1) = (nlen > 0)
+    end do
+
+    call assert_true(all(alldone), "Restart multi-file all complete: allDone should be true")
+  end subroutine check_restart_multiple_files_all_complete
+  !> Restart, num_rest_files=3: two parts complete, one not
+  subroutine check_restart_multiple_files_partial()
+    character(len=*), parameter :: base = "20210322.180000.MOM.res"
+    integer, parameter :: num_rest_files = 3
+    logical, parameter :: part_complete(num_rest_files) = [.true., .false., .true.]
+    character(len=256) :: fname
+    integer :: rc, nlen, n
+    logical :: alldone(num_rest_files)
+
+    do n = 0, num_rest_files-1
+      fname = restart_part_fname(base, n)
+      if (isroot) call make_restart_fixture(fname, complete=part_complete(n+1))
+      call get_file_state(comm, isroot, rootpe, fname, nlen=nlen, rc=rc)
+
+      call assert_equal(0, rc, "Restart multi-file partial: get_file_state rc")
+      if (part_complete(n+1)) then
+        call assert_equal(1, nlen, "Restart multi-file partial: expected-complete part nlen should be 1")
+      else
+        call assert_equal(0, nlen, "Restart multi-file partial: expected-incomplete part nlen should be 0")
+      end if
+      alldone(n+1) = (nlen > 0)
+    end do
+
+    call assert_false(all(alldone), "Restart multi-file partial: allDone should be false (one part still incomplete)")
+  end subroutine check_restart_multiple_files_partial
   ! --- Assertion helpers ---
 
   !> Asserts a logical condition is true
