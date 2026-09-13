@@ -9,7 +9,7 @@
 !> Main program for testing outputlog file completion logic
 program test_outputlog_completion
 
-  use mpi_f08,               only : MPI_Init, MPI_Finalize, MPI_Comm, MPI_Comm_rank, MPI_COMM_WORLD
+  use mpi_f08,               only : MPI_Init, MPI_Finalize, MPI_Comm, MPI_Comm_rank, MPI_COMM_WORLD, MPI_Barrier
   use mom_outputlog_methods, only : get_file_state, file_is_complete
   use nc_fixture_mod,        only : make_datm_incomplete, make_datm_complete
   use nc_fixture_mod,        only : make_atm_incomplete,  make_atm_complete
@@ -32,6 +32,9 @@ program test_outputlog_completion
   call MPI_Init(ierr)
   call MPI_Comm_rank(comm, rank, ierr)
   isroot = (rank == rootpe)
+  ! cleanup state files (if run outside of CI)
+  if (isroot) call execute_command_line('rm -f test_*.nc *.MOM.res*.nc', wait=.true.)
+  call MPI_Barrier(comm, ierr)
 
   call check_datm_incomplete()
   call check_datm_complete()
@@ -52,6 +55,8 @@ program test_outputlog_completion
     end if
     print *, "========================================================"
   end if
+  call MPI_Barrier(comm, ierr)
+  if (isroot) call execute_command_line('rm -f test_*.nc *.MOM.res*.nc', wait=.true.)
 
   call MPI_Finalize(ierr)
   if (total_errors == 0) then
@@ -61,8 +66,8 @@ program test_outputlog_completion
   end if
 
 contains
-
   !> Checks logic for an incomplete DATM file
+  !!
   subroutine check_datm_incomplete()
     character(len=*), parameter :: fname = "test_datm_incomplete.nc"
     integer :: rc, nlen, fsize
@@ -80,8 +85,8 @@ contains
     call assert_equal(0, rc, "DATM incomplete: file_is_complete rc")
     call assert_false(complete, "DATM incomplete: should NOT be complete (nlen=0)")
   end subroutine check_datm_incomplete
-
   !> Checks logic for a complete DATM file
+  !!
   subroutine check_datm_complete()
     character(len=*), parameter :: fname = "test_datm_complete.nc"
     integer :: rc, nlen, fsize
@@ -100,8 +105,8 @@ contains
     call assert_equal(0, rc, "DATM complete: file_is_complete rc")
     call assert_true(complete, "DATM complete: SHOULD be complete (nlen=1, use_filesize=F)")
   end subroutine check_datm_complete
-
   !> Checks logic for an incomplete ATM file
+  !!
   subroutine check_atm_incomplete()
     character(len=*), parameter :: fname = "test_atm_incomplete.nc"
     integer :: rc, nlen, fsize, createsize
@@ -122,8 +127,8 @@ contains
     call assert_equal(0, rc, "ATM incomplete: file_is_complete rc")
     call assert_false(complete, "ATM incomplete: should NOT be complete (nlen>0 but size==createsize)")
   end subroutine check_atm_incomplete
-
   !> Checks logic for a complete ATM file
+  !!
   subroutine check_atm_complete()
     character(len=*), parameter :: fname = "test_atm_complete.nc"
     integer :: rc, nlen, fsize, createsize
@@ -144,10 +149,10 @@ contains
     call assert_equal(0, rc, "ATM complete: file_is_complete rc")
     call assert_true(complete, "ATM complete: SHOULD be complete (nlen>0 and size>createsize)")
   end subroutine check_atm_complete
-
   !> Edge case: get_file_state/file_is_complete asked about a file that was
   !> never created. Confirm that propagates correctly and that file_is_complete
   !> treats it as incomplete either way.
+  !!
   subroutine check_file_does_not_exist()
     character(len=*), parameter :: fname = "test_does_not_exist.nc"
     integer :: rc, nlen
@@ -163,8 +168,8 @@ contains
     complete_atm = file_is_complete(comm, isroot, rootpe, fname, .true., 0, rc)
     call assert_false(complete_atm, "Nonexistent file: use_filesize=T must not report complete")
   end subroutine check_file_does_not_exist
-
   !> Restart, num_rest_files=1: the one part is complete (nlen=1).
+  !!
   subroutine check_restart_single_file_complete()
     character(len=*), parameter :: base = "20210322.000000.MOM.res"
     character(len=256) :: fname
@@ -174,6 +179,13 @@ contains
     fname = restart_part_fname(base, 0)
     if (isroot) call make_restart_fixture(fname, complete=.true.)
     call get_file_state(comm, isroot, rootpe, fname, nlen=nlen, rc=rc)
+    if (isroot .and. verbose) then
+       if (nlen==0) then
+          print '(A,i6,A)',trim(fname)//',  nlen = ',nlen,' incomplete'
+       else
+          print '(A,i6,A)',trim(fname)//',  nlen = ',nlen,' complete'
+       endif
+    endif
 
     call assert_equal(0, rc, "Restart single file complete: get_file_state rc")
     call assert_equal(1, nlen, "Restart single file complete: nlen should be 1")
@@ -183,6 +195,7 @@ contains
   end subroutine check_restart_single_file_complete
 
   !> Restart, num_rest_files=1: the one part is NOT complete (nlen=0).
+  !!
   subroutine check_restart_single_file_incomplete()
     character(len=*), parameter :: base = "20210322.060000.MOM.res"
     character(len=256) :: fname
@@ -195,12 +208,19 @@ contains
 
     call assert_equal(0, rc, "Restart single file incomplete: get_file_state rc")
     call assert_equal(0, nlen, "Restart single file incomplete: nlen should be 0")
+    if (isroot .and. verbose) then
+       if (nlen==0) then
+          print '(A,i6,A)',trim(fname)//',  nlen = ',nlen,' incomplete'
+       else
+          print '(A,i6,A)',trim(fname)//',  nlen = ',nlen,' complete'
+       endif
+    endif
 
     alldone = (nlen > 0)
     call assert_false(alldone, "Restart single file incomplete: allDone should be false")
   end subroutine check_restart_single_file_incomplete
-
   !> Restart, num_rest_files=3: all three parts complete
+  !!
   subroutine check_restart_multiple_files_all_complete()
     character(len=*), parameter :: base = "20210322.120000.MOM.res"
     integer, parameter :: num_rest_files = 3
@@ -212,6 +232,13 @@ contains
       fname = restart_part_fname(base, n)
       if (isroot) call make_restart_fixture(fname, complete=.true.)
       call get_file_state(comm, isroot, rootpe, fname, nlen=nlen, rc=rc)
+      if (isroot .and. verbose) then
+         if (nlen==0) then
+            print '(A,i6,A)',trim(fname)//',  nlen = ',nlen,' incomplete'
+         else
+            print '(A,i6,A)',trim(fname)//',  nlen = ',nlen,' complete'
+         endif
+      endif
 
       call assert_equal(0, rc, "Restart multi-file all complete: get_file_state rc")
       call assert_equal(1, nlen, "Restart multi-file all complete: part nlen should be 1")
@@ -221,6 +248,7 @@ contains
     call assert_true(all(alldone), "Restart multi-file all complete: allDone should be true")
   end subroutine check_restart_multiple_files_all_complete
   !> Restart, num_rest_files=3: two parts complete, one not
+  !!
   subroutine check_restart_multiple_files_partial()
     character(len=*), parameter :: base = "20210322.180000.MOM.res"
     integer, parameter :: num_rest_files = 3
@@ -233,6 +261,13 @@ contains
       fname = restart_part_fname(base, n)
       if (isroot) call make_restart_fixture(fname, complete=part_complete(n+1))
       call get_file_state(comm, isroot, rootpe, fname, nlen=nlen, rc=rc)
+      if (isroot .and. verbose) then
+         if (nlen==0) then
+            print '(A,i6,A)',trim(fname)//',  nlen = ',nlen,' incomplete'
+         else
+            print '(A,i6,A)',trim(fname)//',  nlen = ',nlen,' complete'
+         endif
+      endif
 
       call assert_equal(0, rc, "Restart multi-file partial: get_file_state rc")
       if (part_complete(n+1)) then
