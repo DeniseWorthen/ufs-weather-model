@@ -173,6 +173,7 @@ contains
   !> Build a list of restart times from a list of restart hours
   !!
   !! @param[in]     start_hour     clock start hour
+  !! @param[in[     n_restarts     number of restart times specified
   !! @param[in]     restart_hours  restart frequency, either cadence or list of hours
   !! @param[out]    restart_times  restart times
   !! @param[out]    rc             return code

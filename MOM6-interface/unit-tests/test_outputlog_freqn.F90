@@ -325,7 +325,7 @@ contains
   !! @param[in]      timereduce         optional, to specify average or snapshot mode
   !! @param[in]      use_filesize       optional, to specify completion type
   !! @param[in]      nfiles             optional, to specify io-layout file number
-  !! @param[in]      restart_hours      optional, elapsed hour relative to starting day when restart is written
+  !! @param[in]      restart_hours      optional, restart hours or freq
   !! @param[out]     lastrestart_times  optional, last restart available at file completion
   !! @param[out]     completions        number of file completions found
   subroutine run_case(test, freq, start_hour, runhours, timereduce, use_filesize, nfiles, &
