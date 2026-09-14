@@ -176,9 +176,10 @@ contains
   !! @param[in]     restart_hours  restart frequency, either cadence or list of hours
   !! @param[out]    restart_times  restart times
   !! @param[out]    rc             return code
-  subroutine setup_restarttimes(start_hour, restart_hours, restart_times, rc)
+  subroutine setup_restarttimes(start_hour, n_restarts, restart_hours, restart_times, rc)
 
     integer,         intent(in)  :: start_hour
+    integer,         intent(in)  :: n_restarts
     integer,         intent(in)  :: restart_hours(:)
     type(ESMF_Time), intent(out) :: restart_times(:)
     integer,         intent(out) :: rc
@@ -196,14 +197,14 @@ contains
     call ESMF_TimeIntervalSet(tincrement, m=1, rc=rc)
     call esmf_err(rc, subname, "ESMF_TimeIntervalSet(tincrement)")
 
-    restart_times(1) = startTime
     if (size(restart_hours) == 1) then
-       do n = 2, size(restart_times)
+       restart_times(1) = startTime + restart_hours(1)*60*tincrement
+       do n = 2, n_restarts
           restart_times(n) = restart_times(n-1) + restart_hours(1)*60*tincrement
        enddo
     else
-       do n = 2, size(restart_times)
-          restart_times(n) = startTime + restart_hours(n)*60*tincrement
+       do n = 1, size(restart_hours)
+          call ESMF_TimeSet(restart_times(n), yy=base_yy, mm=base_mm, dd=base_dd, h=restart_hours(n), rc=rc)
        enddo
     endif
   end subroutine setup_restarttimes

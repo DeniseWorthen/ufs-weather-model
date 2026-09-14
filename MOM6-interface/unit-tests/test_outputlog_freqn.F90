@@ -170,6 +170,8 @@ program test_outputlog_freqn
 #endif
   ! ===========================================================================
   ! Test cases with restart pairing
+  !   - restart_hours are a frequency if a single value is provided
+  !   - restart_hours are a set value if specific hours are provided
   ! ===========================================================================
 
   ! ------------------
@@ -190,7 +192,7 @@ program test_outputlog_freqn
   call addresult(freqntests, assertrc, trim(assertmsg), '')
 
   if (completions == expected) then
-     testname = trim(testname)//', restart pairing to file completion'
+     testname = trim(testname)//', restart pairing at file completion'
      nmatches = 0
      expected_lastrestart_hours=[ 6,21,21,36,36,36]
      call setup_expected_lastrestart_times(expected_lastrestart_hours, expected_lastrestarts)
@@ -198,7 +200,83 @@ program test_outputlog_freqn
         if (debug_onroot) then
            timestr = get_timestr(expected_lastrestarts(n),rc=rc)
            call esmf_err(rc, subname, "get expected_lastrestart")
-           print *,'expected last restart times '//timestr
+           print '(A)','expected last restart times '//timestr
+        endif
+        if (lastrestart_times(n) == expected_lastrestarts(n)) then
+           nmatches = nmatches + 1
+        endif
+     enddo
+
+     call assert_equal(nmatches, expected, testname, assertrc, assertmsg)
+     call addresult(freqntests, assertrc, trim(assertmsg), '')
+  endif
+  deallocate(lastrestart_times, expected_lastrestarts, expected_lastrestart_hours)
+
+  ! ------------------
+  nt = nt + 1
+  write(testname,'(A,I2.2,A)')'test ',nt,' starthour=6, runhours=30, restart freq=3 '
+  expected = 5 ! expected time matches
+  allocate(lastrestart_times(expected))
+  allocate(expected_lastrestarts(expected))
+  allocate(expected_lastrestart_hours(expected))
+
+  call run_case(trim(testname), freq=6, start_hour=6, runhours=30, &
+       use_filesize              = .true.,                         &
+       restart_hours             =[3],                             &
+       lastrestart_times         =lastrestart_times,               &
+       completions=completions)
+
+  call assert_equal(completions, expected, testname, assertrc, assertmsg)
+  call addresult(freqntests, assertrc, trim(assertmsg), '')
+
+  if (completions == expected) then
+     testname = trim(testname)//', restart pairing at file completion'
+     nmatches = 0
+     expected_lastrestart_hours=[18,24,30,36,36]
+     call setup_expected_lastrestart_times(expected_lastrestart_hours, expected_lastrestarts)
+     do n = 1,expected
+        if (debug_onroot) then
+           timestr = get_timestr(expected_lastrestarts(n),rc=rc)
+           call esmf_err(rc, subname, "get expected_lastrestart")
+           print '(A)','expected last restart times '//timestr
+        endif
+        if (lastrestart_times(n) == expected_lastrestarts(n)) then
+           nmatches = nmatches + 1
+        endif
+     enddo
+
+     call assert_equal(nmatches, expected, testname, assertrc, assertmsg)
+     call addresult(freqntests, assertrc, trim(assertmsg), '')
+  endif
+  deallocate(lastrestart_times, expected_lastrestarts, expected_lastrestart_hours)
+
+  ! ------------------
+  nt = nt + 1
+  write(testname,'(A,I2.2,A)')'test ',nt,' starthour=9, runhours=96, restart hours specified '
+  expected = 15 ! expected time matches
+  allocate(lastrestart_times(expected))
+  allocate(expected_lastrestarts(expected))
+  allocate(expected_lastrestart_hours(expected))
+
+  call run_case(trim(testname), freq=6, start_hour=9, runhours=93, &
+       use_filesize              = .true.,                         &
+       restart_hours             =[12,30,51,84],                    &
+       lastrestart_times         =lastrestart_times,               &
+       completions=completions)
+
+  call assert_equal(completions, expected, testname, assertrc, assertmsg)
+  call addresult(freqntests, assertrc, trim(assertmsg), '')
+
+  if (completions == expected) then
+     testname = trim(testname)//', restart pairing at file completion'
+     nmatches = 0
+     expected_lastrestart_hours=[12,30,30,30,30,51,51,51,51,51,84,84,84,84,84]
+     call setup_expected_lastrestart_times(expected_lastrestart_hours, expected_lastrestarts)
+     do n = 1,expected
+        if (debug_onroot) then
+           timestr = get_timestr(expected_lastrestarts(n),rc=rc)
+           call esmf_err(rc, subname, "get expected_lastrestart")
+           print '(A)','expected last restart times '//timestr
         endif
         if (lastrestart_times(n) == expected_lastrestarts(n)) then
            nmatches = nmatches + 1
@@ -321,25 +399,21 @@ contains
        else
           n_restarts = size(restart_hours)
        endif
-       ! add one for starttime
-       n_restarts = n_restarts + 1
        allocate(restart_times(n_restarts))
-       call setup_restarttimes(start_hour,restart_hours,restart_times,rc)
+       call setup_restarttimes(start_hour,n_restarts,restart_hours,restart_times,rc)
        call esmf_err(rc, subname, "setup_restarttimes")
 
        if (debug_onroot) then
-          do n = 1, n_restarts
+          do n = 1, size(restart_times)
              timestr = get_timestr(restart_times(n), rc=rc)
              call esmf_err(rc, subname, "get restart_times")
              print '(A,i3,A)','Restart time ',n,' defined at '//timestr
           enddo
        endif
-       ! initialize to first restart time (startTime)
-       lastrestart = restart_times(1)
-    else
-       ! dummy value, restart pairing is out of scope for this test
-       lastrestart = modeltime%startTime
     endif
+    call ESMF_ClockGet(modelClock, startTime=modeltime%startTime, rc=rc)
+    call esmf_err(rc, subname, "get start and currTime")
+    lastrestart = modeltime%startTime
 
     if (debug_onroot) then
        print '(A)','Running test '//test
