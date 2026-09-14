@@ -15,7 +15,7 @@ module test_helpers
   private
 
   public :: base_yy, base_mm, base_dd
-  public :: setup_case, handlefiles
+  public :: setup_case, handlefiles, setup_restarttimes, setup_expected_lastrestart_times
 
   integer, parameter :: base_yy = 2021   !< a standard start year
   integer, parameter :: base_mm = 3      !< a standard start month
@@ -73,13 +73,6 @@ contains
     if (debug_onroot) then
        print '(/,A)','Clock will run from '//startstr//' to '//stopstr
     endif
-
-    !call init_types(nfiles, freq(n), cf(n), state(n), modeltime%currTime, modeltime%tincrement))
-    !if (trim(l_timereduce) == 'none') then
-    !  cf_n%filename_fhoffset = 60*freq*tincrement
-    !else
-    !   cf_n%filename_fhoffset = 90*freq*tincrement
-    !endif
 
     ! --- Build the rest of cf_n exactly as outputlog_init would ---
     cf_n%alarm_name           = 'test_alarm'
@@ -177,5 +170,59 @@ contains
     end select
 
   end subroutine handlefiles
+  !> Build a list of restart times from a list of restart hours
+  !!
+  !! @param[in]     start_hour     clock start hour
+  !! @param[in]     restart_hours  restart frequency, either cadence or list of hours
+  !! @param[out]    restart_times  restart times
+  !! @param[out]    rc             return code
+  subroutine setup_restarttimes(start_hour, restart_hours, restart_times, rc)
+
+    integer,         intent(in)  :: start_hour
+    integer,         intent(in)  :: restart_hours(:)
+    type(ESMF_Time), intent(out) :: restart_times(:)
+    integer,         intent(out) :: rc
+
+    integer :: n
+
+    type(ESMF_Time)         :: startTime
+    type(ESMF_TimeInterval) :: tincrement
+    character(len=120)      :: subname = 'setup_restarttimes'
+
+    rc = ESMF_SUCCESS
+
+    call ESMF_TimeSet(startTime, yy=base_yy, mm=base_mm, dd=base_dd, h=start_hour, rc=rc)
+    call esmf_err(rc, subname, "ESMF_TimeSet(startTime)")
+    call ESMF_TimeIntervalSet(tincrement, m=1, rc=rc)
+    call esmf_err(rc, subname, "ESMF_TimeIntervalSet(tincrement)")
+
+    restart_times(1) = startTime
+    if (size(restart_hours) == 1) then
+       do n = 2, size(restart_times)
+          restart_times(n) = restart_times(n-1) + restart_hours(1)*60*tincrement
+       enddo
+    else
+       do n = 2, size(restart_times)
+          restart_times(n) = startTime + restart_hours(n)*60*tincrement
+       enddo
+    endif
+  end subroutine setup_restarttimes
+  !> Build a list of expected lastrestart times
+  !!
+  !! @param[in]    expected_lastrestart_hours  elapsed hour relative to starting day when restart is written
+  !! @param[out]   expected_lastrestarts       expected last restart times
+  subroutine setup_expected_lastrestart_times(expected_lastrestart_hours,expected_lastrestarts)
+
+    integer,         intent(in)  :: expected_lastrestart_hours(:)
+    type(ESMF_Time), intent(out) :: expected_lastrestarts(:)
+
+    integer :: n, rc
+    character(len=120) :: subname = 'setup_lastrestart_times'
+
+    do n = 1,size(expected_lastrestart_hours)
+       call ESMF_TimeSet(expected_lastrestarts(n), yy=base_yy, mm=base_mm, dd=base_dd, h=expected_lastrestart_hours(n), rc=rc)
+       call esmf_err(rc, subname, "get expected_lastrestart")
+    enddo
+  end subroutine setup_expected_lastrestart_times
 
 end module test_helpers

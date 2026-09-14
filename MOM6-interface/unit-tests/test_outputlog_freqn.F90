@@ -16,7 +16,8 @@ program test_outputlog_freqn
   use mom_cap_outputlog,      only : track_freqn
   use mom_outputlog_methods,  only : outputlog_config_type, outputlog_state_type, outputlog_modeltime_type
   use mom_outputlog_methods,  only : get_timestr, get_importexport, set_toffset, get_file_state, debug_info
-  use test_helpers,           only : base_yy, base_mm, base_dd, setup_case, handlefiles
+  use test_helpers,           only : base_yy, base_mm, base_dd, setup_case, handlefiles, setup_restarttimes
+  use test_helpers,           only : setup_expected_lastrestart_times
 
   implicit none
 
@@ -25,6 +26,9 @@ program test_outputlog_freqn
   type(MPI_Comm) :: comm
   integer        :: rank, ierr, rootpe
   logical        :: isroot
+
+  type(ESMF_Time), allocatable :: lastrestart_times(:), expected_lastrestarts(:)
+  integer,         allocatable :: expected_lastrestart_hours(:)
 
   character(len=128) :: testname
   character(len=256) :: assertmsg
@@ -37,8 +41,11 @@ program test_outputlog_freqn
   logical :: debug_onroot
   logical :: assertrc
   integer :: n,nt
-  integer :: expected, completions
+  integer :: expected, completions, nmatches
   logical :: verbose = .true.
+
+  character(len=16) :: timestr
+  integer :: rc
 
   comm = MPI_COMM_WORLD
   rootpe = 0
@@ -54,6 +61,7 @@ program test_outputlog_freqn
 
   debug_onroot = verbose .and. isroot
   nt = 0
+#ifdef test
   ! ===========================================================================
   ! Test cases
   ! ===========================================================================
@@ -159,6 +167,47 @@ program test_outputlog_freqn
 
   call assert_equal(completions, expected, testname, assertrc, assertmsg)
   call addresult(freqntests, assertrc, trim(assertmsg), '')
+#endif
+  ! ===========================================================================
+  ! Test cases with restart pairing
+  ! ===========================================================================
+
+  ! ------------------
+  nt = nt + 1
+  expected = 6
+  write(testname,'(A,I2.2,A)')'test ',nt,' starthour=6, runhours=36, restart freq=15 '
+  allocate(lastrestart_times(expected))
+  allocate(expected_lastrestarts(expected))
+  allocate(expected_lastrestart_hours(expected))
+
+  call run_case(trim(testname), freq=6, start_hour=6, runhours=36, &
+       use_filesize              = .true.,                         &
+       restart_hours             =[15],                            &
+       lastrestart_times         =lastrestart_times,               &
+       completions=completions)
+
+  call assert_equal(completions, expected, testname, assertrc, assertmsg)
+  call addresult(freqntests, assertrc, trim(assertmsg), '')
+
+  if (completions == expected) then
+     testname = trim(testname)//', restart pairing to file completion'
+     nmatches = 0
+     expected_lastrestart_hours=[ 6,21,21,36,36,36]
+     call setup_expected_lastrestart_times(expected_lastrestart_hours, expected_lastrestarts)
+     do n = 1,expected
+        if (debug_onroot) then
+           timestr = get_timestr(expected_lastrestarts(n),rc=rc)
+           call esmf_err(rc, subname, "get expected_lastrestart")
+           print *,'expected last restart times '//timestr
+        endif
+        if (lastrestart_times(n) == expected_lastrestarts(n)) then
+           nmatches = nmatches + 1
+        endif
+     enddo
+
+     call assert_equal(nmatches, expected, testname, assertrc, assertmsg)
+     call addresult(freqntests, assertrc, trim(assertmsg), '')
+  endif
 
   ! ------------------
   ! Test results
@@ -191,33 +240,37 @@ program test_outputlog_freqn
 contains
   !> Run a single test case through a simulated modelClock advance cycle
   !!
-  !! @param[in]      test           descriptive test name
-  !! @param[in]      freq           output frequency
-  !! @param[in]      start_hour     clock start time
-  !! @param[in]      runhours       clock advance length
-  !! @param[in]      timereduce     optional argument to specify average or snapshot mode
-  !! @param[in]      use_filesize   optional argument to specify completion type
-  !! @param[in]      nfiles         optional argument to specify io-layout file number
-  !! @param[out]     completions    number of file completions found
+  !! @param[in]      test               descriptive test name
+  !! @param[in]      freq               output frequency
+  !! @param[in]      start_hour         clock start time
+  !! @param[in]      runhours           clock advance length
+  !! @param[in]      timereduce         optional, to specify average or snapshot mode
+  !! @param[in]      use_filesize       optional, to specify completion type
+  !! @param[in]      nfiles             optional, to specify io-layout file number
+  !! @param[in]      restart_hours      optional, elapsed hour relative to starting day when restart is written
+  !! @param[out]     lastrestart_times  optional, last restart available at file completion
+  !! @param[out]     completions        number of file completions found
   subroutine run_case(test, freq, start_hour, runhours, timereduce, use_filesize, nfiles, &
-       completions)
+       restart_hours, lastrestart_times, completions)
 
-    character(len=*), intent(in)           :: test
-    integer,          intent(in)           :: freq, start_hour, runhours
-    character(len=*), intent(in), optional :: timereduce
-    logical,          intent(in), optional :: use_filesize
-    integer,          intent(in), optional :: nfiles
-    integer,          intent(out)          :: completions
+    character(len=*), intent(in)            :: test
+    integer,          intent(in)            :: freq, start_hour, runhours
+    character(len=*), intent(in), optional  :: timereduce
+    logical,          intent(in), optional  :: use_filesize
+    integer,          intent(in), optional  :: nfiles
+    integer,          intent(in), optional  :: restart_hours(:)
+    type(ESMF_Time),  intent(out), optional :: lastrestart_times(:)
+    integer,          intent(out)           :: completions
 
     character(len=7) :: l_timereduce
     logical          :: l_use_filesize
     integer          :: l_nfiles
 
-    type(ESMF_Clock)         :: modelClock
-    type(ESMF_Time)          :: startTime, currTime, nextTime, stopTime, lastrestart
-    type(ESMF_TimeInterval)  :: timeStep, tincrement
-    type(ESMF_TimeInterval)  :: elapsedtime
-
+    type(ESMF_Clock)             :: modelClock
+    type(ESMF_Time)              :: startTime, currTime, nextTime, stopTime, lastrestart
+    type(ESMF_TimeInterval)      :: timeStep, tincrement
+    type(ESMF_TimeInterval)      :: elapsedtime
+    type(ESMF_Time), allocatable :: restart_times(:)
 
     type(outputlog_config_type)    :: cf_n
     type(outputlog_state_type)     :: state_n
@@ -225,7 +278,7 @@ contains
 
     integer :: ierr, rc
     integer :: toffset, count
-    integer :: minutes, elapsedhours
+    integer :: minutes, elapsedhours, n_restarts
 
     logical :: phantom_file, lstop
     logical :: found_firstcompletion = .false.   ! count only the first time the file completes
@@ -262,8 +315,31 @@ contains
          modelClock, cf_n, state_n, rc)
 
     completions = 0
-    ! dummy value, restart pairing is out of scope for this test
-    lastrestart = state_n%time_lastrestart
+    if (present(restart_hours)) then
+       if (size(restart_hours) == 1) then          ! restart_hours are uniform cadence at given frequency
+          n_restarts = runhours/restart_hours(1)
+       else
+          n_restarts = size(restart_hours)
+       endif
+       ! add one for starttime
+       n_restarts = n_restarts + 1
+       allocate(restart_times(n_restarts))
+       call setup_restarttimes(start_hour,restart_hours,restart_times,rc)
+       call esmf_err(rc, subname, "setup_restarttimes")
+
+       if (debug_onroot) then
+          do n = 1, n_restarts
+             timestr = get_timestr(restart_times(n), rc=rc)
+             call esmf_err(rc, subname, "get restart_times")
+             print '(A,i3,A)','Restart time ',n,' defined at '//timestr
+          enddo
+       endif
+       ! initialize to first restart time (startTime)
+       lastrestart = restart_times(1)
+    else
+       ! dummy value, restart pairing is out of scope for this test
+       lastrestart = modeltime%startTime
+    endif
 
     if (debug_onroot) then
        print '(A)','Running test '//test
@@ -298,6 +374,12 @@ contains
        call esmf_err(rc, subname, "get stopTime")
        lstop = (modeltime%nextTime == stopTime)
 
+       if (present(restart_hours)) then
+          do n = 1, size(restart_times)
+             if (modeltime%nextTime == restart_times(n)) lastrestart = restart_times(n)
+          enddo
+       endif
+
        ! ======================================================================
        ! set up file states to mimic FMS
        ! ======================================================================
@@ -307,9 +389,9 @@ contains
           call handlefiles(isroot, state_n%filename, l_use_filesize, 'complete')
           pending = .false.
           if (debug_onroot) then
-             call get_file_state(comm, isroot, rootpe, state_n%filename, nlen=nlen, fsize=fsize, rc=rc)
-             print '(A,i4,i12,2(A,L))',trim(subname)//' complete file '//state_n%filename//'  '//importexport, &
-                  nlen,fsize,' pending ',pending,' ringing ',state_n%ringing
+             !call get_file_state(comm, isroot, rootpe, state_n%filename, nlen=nlen, fsize=fsize, rc=rc)
+             !print '(A,i4,i12,2(A,L))',trim(subname)//' complete file '//state_n%filename//'  '//importexport, &
+             !     nlen,fsize,' pending ',pending,' ringing ',state_n%ringing
           endif
        endif
 
@@ -332,9 +414,9 @@ contains
              call handlefiles(isroot, state_n%filename, l_use_filesize, 'create')
              pending = .true.
              if (debug_onroot) then
-               call get_file_state(comm, isroot, rootpe, state_n%filename, nlen=nlen, fsize=fsize, rc=rc)
-               print '(A,i4,i12,2(A,L))',trim(subname)//' create file '//state_n%filename//'  '//importexport,  &
-                    nlen,fsize,' pending ',pending,' ringing ',state_n%ringing
+               !call get_file_state(comm, isroot, rootpe, state_n%filename, nlen=nlen, fsize=fsize, rc=rc)
+               !print '(A,i4,i12,2(A,L))',trim(subname)//' create file '//state_n%filename//'  '//importexport,  &
+               !     nlen,fsize,' pending ',pending,' ringing ',state_n%ringing
              endif
           endif
        endif
@@ -348,6 +430,7 @@ contains
        if (state_n%filecomplete .and. .not.found_firstcompletion) then
           completions = completions + 1
           found_firstcompletion = .true.
+          if (present(lastrestart_times)) lastrestart_times(completions) = state_n%time_lastrestart
        endif
 
        ! first call during finalize; io_infra_end/MOM_infra_end finishes any pending file
@@ -357,9 +440,9 @@ contains
              pending = .false.
              found_firstcompletion = .false.
              if (debug_onroot) then
-                call get_file_state(comm, isroot, rootpe, state_n%filename, nlen=nlen, fsize=fsize, rc=rc)
-                print '(A,i4,i12,2(A,L))',trim(subname)//' complete file '//state_n%filename//'  '//importexport, &
-                     nlen,fsize,' pending ',pending,' ringing ',state_n%ringing
+                !call get_file_state(comm, isroot, rootpe, state_n%filename, nlen=nlen, fsize=fsize, rc=rc)
+                !print '(A,i4,i12,2(A,L))',trim(subname)//' complete file '//state_n%filename//'  '//importexport, &
+                !     nlen,fsize,' pending ',pending,' ringing ',state_n%ringing
              endif
 
              state_n%ringing = .false.
@@ -369,6 +452,7 @@ contains
              if (state_n%filecomplete .and. .not.found_firstcompletion) then
                 completions = completions + 1
                 found_firstcompletion = .true.
+                if (present(lastrestart_times)) lastrestart_times(completions) = state_n%time_lastrestart
              endif
           endif
        endif
@@ -397,9 +481,9 @@ contains
              call handlefiles(isroot, state_n%filename, l_use_filesize, 'create-complete')
 
              if (debug_onroot) then
-                call get_file_state(comm, isroot, rootpe, state_n%filename, nlen=nlen, fsize=fsize, rc=rc)
-                print '(A,i4,i12,2(A,L))',trim(subname)//' create-complete file '//state_n%filename//'  '//importexport, &
-                     nlen,fsize,' pending ',pending,' ringing ',state_n%ringing
+                !call get_file_state(comm, isroot, rootpe, state_n%filename, nlen=nlen, fsize=fsize, rc=rc)
+                !print '(A,i4,i12,2(A,L))',trim(subname)//' create-complete file '//state_n%filename//'  '//importexport, &
+                !     nlen,fsize,' pending ',pending,' ringing ',state_n%ringing
              endif
           endif
           ! ======================================================================
@@ -415,6 +499,7 @@ contains
           if (state_n%filecomplete .and. .not.found_firstcompletion) then
              completions = completions + 1
              found_firstcompletion = .true.
+             if (present(lastrestart_times)) lastrestart_times(completions) = state_n%time_lastrestart
           endif
        endif
 
