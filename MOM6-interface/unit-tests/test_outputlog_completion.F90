@@ -179,18 +179,13 @@ contains
     fname = restart_part_fname(base, 0)
     if (isroot) call make_restart_fixture(fname, complete=.true.)
     call get_file_state(comm, isroot, rootpe, fname, nlen=nlen, rc=rc)
-    if (isroot .and. verbose) then
-       if (nlen==0) then
-          print '(A,i6,A)',trim(fname)//',  nlen = ',nlen,' incomplete'
-       else
-          print '(A,i6,A)',trim(fname)//',  nlen = ',nlen,' complete'
-       endif
-    endif
-
     call assert_equal(0, rc, "Restart single file complete: get_file_state rc")
     call assert_equal(1, nlen, "Restart single file complete: nlen should be 1")
 
-    alldone = (nlen > 0)
+    alldone = file_is_complete(comm, isroot, rootpe, fname, .false., 0, rc)
+    if (isroot .and. verbose) print '(A,i6,A,L2)',trim(fname)//',  nlen = ',nlen,', complete = ',alldone
+
+    call assert_equal(0, rc, "Restart single file complete: file_is_complete rc")
     call assert_true(alldone, "Restart single file complete: allDone should be true")
   end subroutine check_restart_single_file_complete
 
@@ -208,15 +203,11 @@ contains
 
     call assert_equal(0, rc, "Restart single file incomplete: get_file_state rc")
     call assert_equal(0, nlen, "Restart single file incomplete: nlen should be 0")
-    if (isroot .and. verbose) then
-       if (nlen==0) then
-          print '(A,i6,A)',trim(fname)//',  nlen = ',nlen,' incomplete'
-       else
-          print '(A,i6,A)',trim(fname)//',  nlen = ',nlen,' complete'
-       endif
-    endif
 
-    alldone = (nlen > 0)
+    alldone = file_is_complete(comm, isroot, rootpe, fname, .false., 0, rc)
+    if (isroot .and. verbose) print '(A,i6,A,L2)',trim(fname)//',  nlen = ',nlen,', complete = ',alldone
+
+    call assert_equal(0, rc, "Restart single file incomplete: file_is_complete rc")
     call assert_false(alldone, "Restart single file incomplete: allDone should be false")
   end subroutine check_restart_single_file_incomplete
   !> Restart, num_rest_files=3: all three parts complete
@@ -232,17 +223,12 @@ contains
       fname = restart_part_fname(base, n)
       if (isroot) call make_restart_fixture(fname, complete=.true.)
       call get_file_state(comm, isroot, rootpe, fname, nlen=nlen, rc=rc)
-      if (isroot .and. verbose) then
-         if (nlen==0) then
-            print '(A,i6,A)',trim(fname)//',  nlen = ',nlen,' incomplete'
-         else
-            print '(A,i6,A)',trim(fname)//',  nlen = ',nlen,' complete'
-         endif
-      endif
-
       call assert_equal(0, rc, "Restart multi-file all complete: get_file_state rc")
       call assert_equal(1, nlen, "Restart multi-file all complete: part nlen should be 1")
-      alldone(n+1) = (nlen > 0)
+
+      alldone(n+1) = file_is_complete(comm, isroot, rootpe, fname, .false., 0, rc)
+      if (isroot .and. verbose) print '(A,i6,A,L2)',trim(fname)//',  nlen = ',nlen,', complete = ',alldone(n+1)
+      call assert_equal(0, rc, "Restart multi-file all complete: file_is_complete rc")
     end do
 
     call assert_true(all(alldone), "Restart multi-file all complete: allDone should be true")
@@ -261,21 +247,16 @@ contains
       fname = restart_part_fname(base, n)
       if (isroot) call make_restart_fixture(fname, complete=part_complete(n+1))
       call get_file_state(comm, isroot, rootpe, fname, nlen=nlen, rc=rc)
-      if (isroot .and. verbose) then
-         if (nlen==0) then
-            print '(A,i6,A)',trim(fname)//',  nlen = ',nlen,' incomplete'
-         else
-            print '(A,i6,A)',trim(fname)//',  nlen = ',nlen,' complete'
-         endif
-      endif
-
       call assert_equal(0, rc, "Restart multi-file partial: get_file_state rc")
       if (part_complete(n+1)) then
         call assert_equal(1, nlen, "Restart multi-file partial: expected-complete part nlen should be 1")
       else
         call assert_equal(0, nlen, "Restart multi-file partial: expected-incomplete part nlen should be 0")
       end if
-      alldone(n+1) = (nlen > 0)
+
+      alldone(n+1) = file_is_complete(comm, isroot, rootpe, fname, .false., 0, rc)
+      if (isroot .and. verbose) print '(A,i6,A,L2)',trim(fname)//',  nlen = ',nlen,', complete = ',alldone(n+1)
+      call assert_equal(0, rc, "Restart multi-file partial: file_is_complete rc")
     end do
 
     call assert_false(all(alldone), "Restart multi-file partial: allDone should be false (one part still incomplete)")

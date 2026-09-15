@@ -83,7 +83,7 @@ contains
     if (l_nfiles == 1) then
        cf_n%fnamesuffix       = ''
     else
-       cf_n%fnamesuffix       = '.000'
+       cf_n%fnamesuffix       = '.0000'
     endif
     if (trim(l_timereduce) == 'none') then
        cf_n%filename_fhoffset = 60*freq*tincrement
