@@ -3,10 +3,9 @@
 !! Probes readnml's logic guards for permitted namelist uses for
 !! configuring the outputlog functionality in the MOM6 NUOPC cap
 !!
-!> @authorDenise.Worthen@noaa.gov
 !> @date 07-01-2026
 
-!! Main program for testing outputlog readnml
+!> Main program for testing outputlog readnml
 program test_outputlog_readnml
 
   use test_utils
