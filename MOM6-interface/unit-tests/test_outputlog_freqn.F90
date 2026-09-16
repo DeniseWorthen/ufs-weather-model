@@ -61,7 +61,6 @@ program test_outputlog_freqn
 
   debug_onroot = verbose .and. isroot
   nt = 0
-#ifdef test
   ! ===========================================================================
   ! Test cases
   ! ===========================================================================
@@ -167,7 +166,7 @@ program test_outputlog_freqn
 
   call assert_equal(completions, expected, testname, assertrc, assertmsg)
   call addresult(freqntests, assertrc, trim(assertmsg), '')
-#endif
+
   ! ===========================================================================
   ! Test cases with restart pairing
   !   - restart_hours are a frequency if a single value is provided
