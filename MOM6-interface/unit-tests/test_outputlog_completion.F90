@@ -9,11 +9,13 @@
 !> Main program for testing outputlog file completion logic
 program test_outputlog_completion
 
+  use ESMF
   use mpi_f08,               only : MPI_Init, MPI_Finalize, MPI_Comm, MPI_Comm_rank, MPI_COMM_WORLD, MPI_Barrier
-  use mom_outputlog_methods, only : get_file_state, file_is_complete
+  use mom_outputlog_methods, only : get_file_state, file_is_complete, set_restfname
   use nc_fixture_mod,        only : make_datm_incomplete, make_datm_complete
   use nc_fixture_mod,        only : make_atm_incomplete,  make_atm_complete
-  use nc_fixture_mod,        only : restart_part_fname, make_restart_fixture
+  use nc_fixture_mod,        only : make_restart_fixture
+  use test_helpers,          only : base_yy, base_mm, base_dd
 
   implicit none
 
@@ -32,6 +34,7 @@ program test_outputlog_completion
   call MPI_Init(ierr)
   call MPI_Comm_rank(comm, rank, ierr)
   isroot = (rank == rootpe)
+  call ESMF_Initialize(defaultCalKind=ESMF_CALKIND_GREGORIAN, rc=ierr)
   ! cleanup state files (if run outside of CI)
   if (isroot) call execute_command_line('rm -f test_*.nc *.MOM.res*.nc', wait=.true.)
   call MPI_Barrier(comm, ierr)
@@ -58,6 +61,7 @@ program test_outputlog_completion
   call MPI_Barrier(comm, ierr)
   if (isroot) call execute_command_line('rm -f test_*.nc *.MOM.res*.nc', wait=.true.)
 
+  call ESMF_Finalize(rc=ierr)
   call MPI_Finalize(ierr)
   if (total_errors == 0) then
     stop 0
@@ -171,12 +175,16 @@ contains
   !> Restart, num_rest_files=1: the one part is complete (nlen=1).
   !!
   subroutine check_restart_single_file_complete()
-    character(len=*), parameter :: base = "20210322.000000.MOM.res"
+    type(ESMF_Time) :: nextTime
     character(len=256) :: fname
     integer :: rc, nlen
     logical :: alldone
 
-    fname = restart_part_fname(base, 0)
+    call ESMF_TimeSet(nextTime, yy=base_yy, mm=base_mm, dd=base_dd, h=0, rc=rc)
+    call assert_equal(0, rc, "Restart single file complete: ESMF_TimeSet rc")
+
+    fname = set_restfname(nextTime, 1, './', rc)
+    call assert_equal(0, rc, "Restart single file complete: set_restfname rc")
     if (isroot) call make_restart_fixture(fname, complete=.true.)
     call get_file_state(comm, isroot, rootpe, fname, nlen=nlen, rc=rc)
     call assert_equal(0, rc, "Restart single file complete: get_file_state rc")
@@ -192,12 +200,16 @@ contains
   !> Restart, num_rest_files=1: the one part is NOT complete (nlen=0).
   !!
   subroutine check_restart_single_file_incomplete()
-    character(len=*), parameter :: base = "20210322.060000.MOM.res"
+    type(ESMF_Time) :: nextTime
     character(len=256) :: fname
     integer :: rc, nlen
     logical :: alldone
 
-    fname = restart_part_fname(base, 0)
+    call ESMF_TimeSet(nextTime, yy=base_yy, mm=base_mm, dd=base_dd, h=6, rc=rc)
+    call assert_equal(0, rc, "Restart single file incomplete: ESMF_TimeSet rc")
+
+    fname = set_restfname(nextTime, 1, './', rc)
+    call assert_equal(0, rc, "Restart single file incomplete: set_restfname rc")
     if (isroot) call make_restart_fixture(fname, complete=.false.)
     call get_file_state(comm, isroot, rootpe, fname, nlen=nlen, rc=rc)
 
@@ -213,21 +225,25 @@ contains
   !> Restart, num_rest_files=3: all three parts complete
   !!
   subroutine check_restart_multiple_files_all_complete()
-    character(len=*), parameter :: base = "20210322.120000.MOM.res"
     integer, parameter :: num_rest_files = 3
+    type(ESMF_Time) :: nextTime
     character(len=256) :: fname
     integer :: rc, nlen, n
     logical :: alldone(num_rest_files)
 
-    do n = 0, num_rest_files-1
-      fname = restart_part_fname(base, n)
+    call ESMF_TimeSet(nextTime, yy=base_yy, mm=base_mm, dd=base_dd, h=12, rc=rc)
+    call assert_equal(0, rc, "Restart multi-file all complete: ESMF_TimeSet rc")
+
+    do n = 1, num_rest_files
+      fname = set_restfname(nextTime, n, './', rc)
+      call assert_equal(0, rc, "Restart multi-file all complete: set_restfname rc")
       if (isroot) call make_restart_fixture(fname, complete=.true.)
       call get_file_state(comm, isroot, rootpe, fname, nlen=nlen, rc=rc)
       call assert_equal(0, rc, "Restart multi-file all complete: get_file_state rc")
       call assert_equal(1, nlen, "Restart multi-file all complete: part nlen should be 1")
 
-      alldone(n+1) = file_is_complete(comm, isroot, rootpe, fname, .false., 0, rc)
-      if (isroot .and. verbose) print '(A,i6,A,L2)',trim(fname)//',  nlen = ',nlen,', complete = ',alldone(n+1)
+      alldone(n) = file_is_complete(comm, isroot, rootpe, fname, .false., 0, rc)
+      if (isroot .and. verbose) print '(A,i6,A,L2)',trim(fname)//',  nlen = ',nlen,', complete = ',alldone(n)
       call assert_equal(0, rc, "Restart multi-file all complete: file_is_complete rc")
     end do
 
@@ -236,26 +252,30 @@ contains
   !> Restart, num_rest_files=3: two parts complete, one not
   !!
   subroutine check_restart_multiple_files_partial()
-    character(len=*), parameter :: base = "20210322.180000.MOM.res"
     integer, parameter :: num_rest_files = 3
     logical, parameter :: part_complete(num_rest_files) = [.true., .false., .true.]
+    type(ESMF_Time) :: nextTime
     character(len=256) :: fname
     integer :: rc, nlen, n
     logical :: alldone(num_rest_files)
 
-    do n = 0, num_rest_files-1
-      fname = restart_part_fname(base, n)
-      if (isroot) call make_restart_fixture(fname, complete=part_complete(n+1))
+    call ESMF_TimeSet(nextTime, yy=base_yy, mm=base_mm, dd=base_dd, h=18, rc=rc)
+    call assert_equal(0, rc, "Restart multi-file partial: ESMF_TimeSet rc")
+
+    do n = 1, num_rest_files
+      fname = set_restfname(nextTime, n, './', rc)
+      call assert_equal(0, rc, "Restart multi-file partial: set_restfname rc")
+      if (isroot) call make_restart_fixture(fname, complete=part_complete(n))
       call get_file_state(comm, isroot, rootpe, fname, nlen=nlen, rc=rc)
       call assert_equal(0, rc, "Restart multi-file partial: get_file_state rc")
-      if (part_complete(n+1)) then
+      if (part_complete(n)) then
         call assert_equal(1, nlen, "Restart multi-file partial: expected-complete part nlen should be 1")
       else
         call assert_equal(0, nlen, "Restart multi-file partial: expected-incomplete part nlen should be 0")
       end if
 
-      alldone(n+1) = file_is_complete(comm, isroot, rootpe, fname, .false., 0, rc)
-      if (isroot .and. verbose) print '(A,i6,A,L2)',trim(fname)//',  nlen = ',nlen,', complete = ',alldone(n+1)
+      alldone(n) = file_is_complete(comm, isroot, rootpe, fname, .false., 0, rc)
+      if (isroot .and. verbose) print '(A,i6,A,L2)',trim(fname)//',  nlen = ',nlen,', complete = ',alldone(n)
       call assert_equal(0, rc, "Restart multi-file partial: file_is_complete rc")
     end do
 
