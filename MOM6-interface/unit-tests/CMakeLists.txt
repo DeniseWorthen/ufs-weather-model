@@ -31,20 +31,30 @@ endif()
 #     SOURCES <src1> [<src2> ...]
 #     [EXTRA_LIBS <lib1> ...]     # anything beyond mom6 + ESMF::ESMF
 #     [CTEST_NAME <name>]         # ctest display name; defaults to <exe_name>
-#     [USE_MPI])                  # launch via MPIEXEC -- required for any
+#     [USE_MPI]                   # launch via MPIEXEC -- required for any
 #                                  # test that makes real MPI calls (Bcast,
 #                                  # Barrier, etc.), not just one that links
 #                                  # MPI::MPI_Fortran
+#     [NPROCS <n>])                # rank count for USE_MPI tests; defaults to
+#                                  # 2, since these tests exist specifically
+#                                  # to verify behavior for real multi-rank
+#                                  # jobs -- a real GHA runner (default 4
+#                                  # cores) comfortably fits this on one
+#                                  # runner, no multi-node setup needed.
+#                                  # Ignored (no effect) without USE_MPI.
 #
 # Registers the executable, its common link libraries / include dir /
 # UNIT_TESTING compile definition, and its ctest entry in one call, so the
 # four test targets below don't each repeat the same five CMake calls.
 # -----------------------------------------------------------------------------
 function(add_mom6_unit_test exe_name)
-  cmake_parse_arguments(ARG "USE_MPI" "CTEST_NAME" "SOURCES;EXTRA_LIBS" ${ARGN})
+  cmake_parse_arguments(ARG "USE_MPI" "CTEST_NAME;NPROCS" "SOURCES;EXTRA_LIBS" ${ARGN})
 
   if(NOT ARG_CTEST_NAME)
     set(ARG_CTEST_NAME ${exe_name})
+  endif()
+  if(NOT ARG_NPROCS)
+    set(ARG_NPROCS 2)
   endif()
 
   add_executable(${exe_name} ${ARG_SOURCES})
@@ -56,7 +66,7 @@ function(add_mom6_unit_test exe_name)
 
   if(ARG_USE_MPI)
     add_test(NAME ${ARG_CTEST_NAME}
-      COMMAND ${MPIEXEC_EXECUTABLE} ${MPIEXEC_NUMPROC_FLAG} 1 $<TARGET_FILE:${exe_name}>)
+      COMMAND ${MPIEXEC_EXECUTABLE} ${MPIEXEC_NUMPROC_FLAG} ${ARG_NPROCS} $<TARGET_FILE:${exe_name}>)
   else()
     add_test(NAME ${ARG_CTEST_NAME} COMMAND ${exe_name})
   endif()

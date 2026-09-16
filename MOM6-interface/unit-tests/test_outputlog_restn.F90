@@ -80,6 +80,7 @@ program test_outputlog_restn
   ! ------------------
   ! Test results
   ! ------------------
+  if (isroot) then
   if (restntests%nfail > 0) then
      print '(A)', 'FAIL: At least one test failed '
      do n = 1,restntests%count
@@ -92,6 +93,7 @@ program test_outputlog_restn
   endif
   print '(3(A,I0))','Total tests = ',restntests%count,' Passing = ',restntests%npass, &
        ' Failing = ',restntests%nfail
+  endif
 
   call MPI_Barrier(comm, ierr)
   if (isroot) call execute_command_line('rm -f '//trim(restartdir)//'*.MOM.res*.nc', wait=.true.)
@@ -100,7 +102,7 @@ program test_outputlog_restn
   call esmf_err(ierr, subname, "ESMF_Finalize")
 
   if (restntests%nfail > 0) then
-     print '(A)','Test failures! '
+     if (isroot) print '(A)','Test failures! '
      stop 1
   endif
 
