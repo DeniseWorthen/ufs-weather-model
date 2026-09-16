@@ -7,7 +7,7 @@
 !!
 !> @date 08-12-2026
 
-!> Main program for testing outputlog_freqn file trackingprogram test_outputlog_freqn
+!> Main program for testing outputlog_freqn file tracking
 program test_outputlog_freqn
 
   use ESMF

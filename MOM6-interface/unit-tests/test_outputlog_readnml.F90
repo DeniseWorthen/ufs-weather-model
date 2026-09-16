@@ -5,6 +5,8 @@
 !!
 !> @authorDenise.Worthen@noaa.gov
 !> @date 07-01-2026
+
+!! Main program for testing outputlog readnml
 program test_outputlog_readnml
 
   use test_utils
