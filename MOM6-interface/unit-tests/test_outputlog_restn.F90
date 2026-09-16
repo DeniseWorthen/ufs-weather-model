@@ -11,7 +11,7 @@
 program test_outputlog_restn
 
   use ESMF
-  use mpi_f08,                only : MPI_Init, MPI_Finalize, MPI_Comm, MPI_Comm_rank, MPI_COMM_WORLD, MPI_Barrier
+  use mpi_f08,                only : MPI_Init, MPI_Comm, MPI_Comm_rank, MPI_COMM_WORLD, MPI_Barrier
   use test_utils
   use mom_outputlog_methods,  only : track_restn
   use nc_fixture_mod,         only : restart_part_fname, make_restart_fixture

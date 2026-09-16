@@ -10,7 +10,7 @@
 program test_outputlog_completion
 
   use ESMF
-  use mpi_f08,               only : MPI_Init, MPI_Finalize, MPI_Comm, MPI_Comm_rank, MPI_COMM_WORLD, MPI_Barrier
+  use mpi_f08,               only : MPI_Init, MPI_Comm, MPI_Comm_rank, MPI_COMM_WORLD, MPI_Barrier
   use mom_outputlog_methods, only : get_file_state, file_is_complete, set_restfname
   use nc_fixture_mod,        only : make_datm_incomplete, make_datm_complete
   use nc_fixture_mod,        only : make_atm_incomplete,  make_atm_complete
@@ -60,7 +60,6 @@ program test_outputlog_completion
   if (isroot) call execute_command_line('rm -f test_*.nc *.MOM.res*.nc', wait=.true.)
 
   call ESMF_Finalize(rc=ierr)
-  call MPI_Finalize(ierr)
   if (total_errors == 0) then
     stop 0
   else
