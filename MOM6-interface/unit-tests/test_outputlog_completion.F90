@@ -23,13 +23,11 @@ program test_outputlog_completion
   integer        :: rank, ierr, rootpe
   logical        :: isroot
   integer        :: total_errors
-  logical        :: verbose
+  logical        :: verbose = .false.
 
   comm   = MPI_COMM_WORLD
   rootpe = 0
   total_errors = 0
-
-  verbose = .true.
 
   call MPI_Init(ierr)
   call MPI_Comm_rank(comm, rank, ierr)

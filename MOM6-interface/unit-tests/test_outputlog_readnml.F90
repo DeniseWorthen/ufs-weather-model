@@ -38,7 +38,7 @@ program test_outputlog_readnml
   logical :: is_passing, assertrc
   integer :: nt,n,ierr
   ! debug printing
-  logical :: verbose = .true.
+  logical :: verbose = .false.
 
   ! initialize test tracker
   call nmltests%init(maxtests)

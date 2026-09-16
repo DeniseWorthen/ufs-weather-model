@@ -42,7 +42,7 @@ program test_outputlog_freqn
   logical :: assertrc
   integer :: n,nt
   integer :: expected, completions, nmatches
-  logical :: verbose = .true.
+  logical :: verbose = .false.
 
   character(len=16) :: timestr
   integer :: rc

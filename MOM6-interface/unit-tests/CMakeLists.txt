@@ -69,34 +69,38 @@ function(add_mom6_unit_test exe_name)
   add_dependencies(mom6_unit_tests ${exe_name})
 endfunction()
 
+# readnml test
 add_mom6_unit_test(test_outputlog_readnml
   CTEST_NAME MOM6_Outputlog_Readnml
   SOURCES test_outputlog_readnml.F90
   EXTRA_LIBS mom6_test_utils)
 
+# alarminit test
 add_mom6_unit_test(test_outputlog_alarm
   CTEST_NAME MOM6_Outputlog_Alarm
   SOURCES test_outputlog_alarminit.F90
   EXTRA_LIBS mom6_test_utils)
 
+# fixture completion test
 add_mom6_unit_test(test_outputlog_completion
  CTEST_NAME MOM6_Outputlog_Completion
  SOURCES test_outputlog_completion.F90
  EXTRA_LIBS nc_fixture_mod mom6_test_helpers NetCDF::NetCDF_Fortran MPI::MPI_Fortran
  USE_MPI)
 
+# track_freqn test
 add_mom6_unit_test(test_outputlog_freqn
    CTEST_NAME MOM6_Outputlog_Freqn
    SOURCES test_outputlog_freqn.F90
    EXTRA_LIBS mom6_test_utils nc_fixture_mod mom6_test_helpers NetCDF::NetCDF_Fortran MPI::MPI_Fortran
    USE_MPI)
 
+# track_restn test
 add_mom6_unit_test(test_outputlog_restn
   CTEST_NAME MOM6_Outputlog_Restn
   SOURCES test_outputlog_restn.F90
   EXTRA_LIBS mom6_test_utils mom6_test_helpers NetCDF::NetCDF_Fortran MPI::MPI_Fortran
   USE_MPI)
-
 
 if(POLICY CMP0144)
     cmake_policy(SET CMP0144 NEW)
