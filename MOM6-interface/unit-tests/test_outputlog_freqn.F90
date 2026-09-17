@@ -400,8 +400,7 @@ contains
     integer          :: l_nfiles
 
     type(ESMF_Clock)             :: modelClock
-    type(ESMF_Time)              :: startTime, currTime, nextTime, stopTime, lastrestart
-    type(ESMF_TimeInterval)      :: timeStep, tincrement
+    type(ESMF_Time)              :: stopTime, lastrestart
     type(ESMF_TimeInterval)      :: elapsedtime
     type(ESMF_Time), allocatable :: restart_times(:)
 
