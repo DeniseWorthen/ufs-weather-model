@@ -160,6 +160,7 @@ contains
     call MPI_Barrier(comm, ierr)
 
     call track_restn(nextTime, num_rest_files, comm, isroot, rootpe, restartdir, allDone, fnames, rc)
+    call esmf_err(rc, subname, "track_restn (partial completion)")
 
     do n = 1, num_rest_files
        call assert_equal(trim(fnames(n))==trim(expected_fname(hour,n-1)), .true., &
@@ -201,6 +202,7 @@ contains
     call MPI_Barrier(comm, ierr)
 
     call track_restn(nextTime, num_rest_files, comm, isroot, rootpe, restartdir, allDone, fnames, rc)
+    call esmf_err(rc, subname, "track_restn (all complete)")
 
     do n = 1, num_rest_files
        call assert_equal(allDone(n), .true., test//', check alldone(n)', assertrc, assertmsg)
@@ -239,6 +241,7 @@ contains
     call MPI_Barrier(comm, ierr)
 
     call track_restn(nextTime, num_rest_files, comm, isroot, rootpe, restartdir, allDone, fnames, rc)
+    call esmf_err(rc, subname, "track_restn (single file)")
 
     if (complete) then
        tag = ' complete'

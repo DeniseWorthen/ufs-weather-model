@@ -33,6 +33,10 @@ program test_outputlog_completion
   call MPI_Comm_rank(comm, rank, ierr)
   isroot = (rank == rootpe)
   call ESMF_Initialize(defaultCalKind=ESMF_CALKIND_GREGORIAN, rc=ierr)
+  if (ierr /= ESMF_SUCCESS) then
+    write(0,'(A)') "FATAL (test_outputlog_completion): ESMF_Initialize failed"
+    stop 99
+  end if
   ! cleanup state files (if run outside of CI)
   if (isroot) call execute_command_line('rm -f test_*.nc *.MOM.res*.nc', wait=.true.)
   call MPI_Barrier(comm, ierr)
@@ -60,6 +64,9 @@ program test_outputlog_completion
   if (isroot) call execute_command_line('rm -f test_*.nc *.MOM.res*.nc', wait=.true.)
 
   call ESMF_Finalize(rc=ierr)
+  if (ierr /= ESMF_SUCCESS .and. isroot) then
+    write(0,'(A)') "WARNING (test_outputlog_completion): ESMF_Finalize returned an error"
+  end if
   if (total_errors == 0) then
     stop 0
   else

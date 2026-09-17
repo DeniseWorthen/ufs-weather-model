@@ -287,6 +287,19 @@ program test_outputlog_freqn
   endif
 
   ! ------------------
+  ! io_layout
+  ! ------------------
+  nt = nt + 1
+  expected = 1 ! ring at hour 18 tracks 09 file for DATM, nfiles=4
+  write(testname,'(A,I2.2,A)')'test ',nt,' io_layout: nfiles>1 uses .0000 suffix, completes correctly'
+  call run_case(trim(testname),               &
+       freq=6, start_hour=6, runhours=13,     &
+       nfiles=4,                              &
+       completions=completions)
+  call assert_equal(completions, expected, testname, assertrc, assertmsg)
+  call addresult(freqntests, assertrc, trim(assertmsg), '')
+
+  ! ------------------
   ! Test results
   ! ------------------
   if (isroot) then
@@ -303,10 +316,11 @@ program test_outputlog_freqn
   print '(3(A,I0))','Total tests = ',freqntests%count,' Passing = ',freqntests%npass,' Failing = ',freqntests%nfail
   endif
 
-  !if (isroot) then
-  !   cmdstr = 'rm -f '//trim(outputdir)//'*.nc '//trim(outputdir)//'*.mom6.*'//'  ./PET*'
-  !   call execute_command_line(trim(cmdstr), wait=.true.)
-  !endif
+  ! cleanup if running locally
+  if (isroot) then
+    cmdstr = 'rm -f '//trim(outputdir)//'*.nc '//trim(outputdir)//'*.mom6.*'//'  ./PET*'
+    call execute_command_line(trim(cmdstr), wait=.true.)
+  endif
 
   call ESMF_Finalize(rc=ierr)
   call esmf_err(ierr, subname, "ESMF_Finalize")
@@ -392,6 +406,7 @@ contains
     ! mimic outputlog_init setup
     call setup_case(start_hour, runhours, freq, l_nfiles, l_timereduce, debug_onroot, &
          modelClock, cf_n, state_n, rc)
+    call esmf_err(rc, subname, "setup_case")
 
     completions = 0
     if (present(restart_hours)) then
@@ -475,6 +490,7 @@ contains
           phantom_file = .false.
           found_firstcompletion = .false.
           timestr = get_timestr(modeltime%nextTime - cf_n%filename_fhoffset, rc=rc)
+          call esmf_err(rc, subname, "get_timestr(ring filename)")
           if (modeltime%nextTime - cf_n%filename_fhoffset <= modeltime%startTime) phantom_file = .true.
 
           state_n%filename = trim(outputdir)//trim(cf_n%fnameprefix)//trim(timestr)//'.nc' &
@@ -502,6 +518,7 @@ contains
 
        call track_freqn(modeltime, cf_n, state_n, comm, isroot, rootpe, outputdir, lastrestart, &
             debug_onroot, .false., rc)
+       call esmf_err(rc, subname, "track_freqn (main loop)")
        if (state_n%filecomplete .and. .not.found_firstcompletion) then
           completions = completions + 1
           found_firstcompletion = .true.
@@ -524,6 +541,7 @@ contains
              state_n%chkfile_nextAdvance = .true.
              call track_freqn(modeltime, cf_n, state_n, comm, isroot, rootpe, outputdir, lastrestart, &
                   debug_onroot, .false., rc)
+             call esmf_err(rc, subname, "track_freqn (plain finalize)")
              if (state_n%filecomplete .and. .not.found_firstcompletion) then
                 completions = completions + 1
                 found_firstcompletion = .true.
@@ -547,8 +565,10 @@ contains
           if (mod(elapsedhours,freq) == 0) then
              if (trim(cf_n%timereduce) == 'none') then
                 timestr = get_timestr(state_n%prevring, rc=rc)
+                call esmf_err(rc, subname, "get_timestr(lstop filename, none)")
              else
                 timestr = get_timestr(state_n%prevring-30*cf_n%opt_n*modeltime%tincrement, rc=rc)
+                call esmf_err(rc, subname, "get_timestr(lstop filename, average)")
              endif
 
              state_n%filename = trim(outputdir)//trim(cf_n%fnameprefix)//trim(timestr)//'.nc' &
@@ -570,6 +590,7 @@ contains
           found_firstcompletion = .false.
           call track_freqn(modeltime, cf_n, state_n, comm, isroot, rootpe, outputdir, lastrestart, &
                debug_onroot, .true., rc)
+          call esmf_err(rc, subname, "track_freqn (lstop)")
 
           if (state_n%filecomplete .and. .not.found_firstcompletion) then
              completions = completions + 1
