@@ -1,0 +1,107 @@
+\doxysection{/work/noaa/nems/dworthen/ufs\+\_\+dw/\+MOM6-\/interface/unit-\/tests/test\+\_\+outputlog\+\_\+restn.F90 File Reference}
+\hypertarget{test__outputlog__restn_8F90}{}\label{test__outputlog__restn_8F90}\index{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/unit-\/tests/test\_outputlog\_restn.F90@{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/unit-\/tests/test\_outputlog\_restn.F90}}
+
+
+Tests track\+\_\+restn -- the real per-\/part restart completion check.  
+
+
+\doxysubsubsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{test__outputlog__restn_8F90_acbea9a247370d7249bffdb1266f1a8ac}\label{test__outputlog__restn_8F90_acbea9a247370d7249bffdb1266f1a8ac} 
+program {\bfseries test\+\_\+outputlog\+\_\+restn}
+\begin{DoxyCompactList}\small\item\em Main program for testing outputlog\+\_\+restn tracking. \end{DoxyCompactList}\item 
+character(len=256) function \mbox{\hyperlink{test__outputlog__restn_8F90_acd7d90e526732fb25700bdc6918fef3f}{expected\+\_\+fname}} (hour, part\+\_\+index)
+\begin{DoxyCompactList}\small\item\em Construct filename independently of track\+\_\+restn. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{test__outputlog__restn_8F90_a783072bc536b98dd402c97b61a1ac3a0}{check\+\_\+partial}} (test, hour)
+\begin{DoxyCompactList}\small\item\em Check partial completion case. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{test__outputlog__restn_8F90_a3910a97daed06a7dbd9ab28449edf1ca}{check\+\_\+all\+\_\+complete}} (test, hour)
+\begin{DoxyCompactList}\small\item\em Check full completion case. \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{test__outputlog__restn_8F90_a9a6be9e9015b2ba2113f527539c3c350}{check\+\_\+single\+\_\+file}} (test, hour, complete)
+\begin{DoxyCompactList}\small\item\em Check single file, either complete or not. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Tests track\+\_\+restn -- the real per-\/part restart completion check. 
+
+Calls track\+\_\+restn directly, against real restart-\/fixture files to verify both per-\/part all\+Done(n) and all(all\+Done). Also tests filenames constructed by track\+\_\+restn
+
+\begin{DoxyDate}{Date}
+09-\/15-\/2026 
+\end{DoxyDate}
+
+
+\doxysubsection{Function/\+Subroutine Documentation}
+\Hypertarget{test__outputlog__restn_8F90_a3910a97daed06a7dbd9ab28449edf1ca}\label{test__outputlog__restn_8F90_a3910a97daed06a7dbd9ab28449edf1ca} 
+\index{test\_outputlog\_restn.F90@{test\_outputlog\_restn.F90}!check\_all\_complete@{check\_all\_complete}}
+\index{check\_all\_complete@{check\_all\_complete}!test\_outputlog\_restn.F90@{test\_outputlog\_restn.F90}}
+\doxysubsubsection{\texorpdfstring{check\_all\_complete()}{check\_all\_complete()}}
+{\footnotesize\ttfamily subroutine test\+\_\+outputlog\+\_\+restn\+::check\+\_\+all\+\_\+complete (\begin{DoxyParamCaption}\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{test,  }\item[{integer, intent(in)}]{hour }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Check full completion case. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em test} & test identifier string \\
+\hline
+\mbox{\texttt{ in}}  & {\em hour} & filename hour \\
+\hline
+\end{DoxyParams}
+\Hypertarget{test__outputlog__restn_8F90_a783072bc536b98dd402c97b61a1ac3a0}\label{test__outputlog__restn_8F90_a783072bc536b98dd402c97b61a1ac3a0} 
+\index{test\_outputlog\_restn.F90@{test\_outputlog\_restn.F90}!check\_partial@{check\_partial}}
+\index{check\_partial@{check\_partial}!test\_outputlog\_restn.F90@{test\_outputlog\_restn.F90}}
+\doxysubsubsection{\texorpdfstring{check\_partial()}{check\_partial()}}
+{\footnotesize\ttfamily subroutine test\+\_\+outputlog\+\_\+restn\+::check\+\_\+partial (\begin{DoxyParamCaption}\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{test,  }\item[{integer, intent(in)}]{hour }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Check partial completion case. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em test} & test identifier string \\
+\hline
+\mbox{\texttt{ in}}  & {\em hour} & filename hour \\
+\hline
+\end{DoxyParams}
+\Hypertarget{test__outputlog__restn_8F90_a9a6be9e9015b2ba2113f527539c3c350}\label{test__outputlog__restn_8F90_a9a6be9e9015b2ba2113f527539c3c350} 
+\index{test\_outputlog\_restn.F90@{test\_outputlog\_restn.F90}!check\_single\_file@{check\_single\_file}}
+\index{check\_single\_file@{check\_single\_file}!test\_outputlog\_restn.F90@{test\_outputlog\_restn.F90}}
+\doxysubsubsection{\texorpdfstring{check\_single\_file()}{check\_single\_file()}}
+{\footnotesize\ttfamily subroutine test\+\_\+outputlog\+\_\+restn\+::check\+\_\+single\+\_\+file (\begin{DoxyParamCaption}\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{test,  }\item[{integer, intent(in)}]{hour,  }\item[{logical, intent(in)}]{complete }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Check single file, either complete or not. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em test} & test identifier string \\
+\hline
+\mbox{\texttt{ in}}  & {\em hour} & filename hour \\
+\hline
+\mbox{\texttt{ in}}  & {\em complete} & logical to stage either complete or incomplete file \\
+\hline
+\end{DoxyParams}
+\Hypertarget{test__outputlog__restn_8F90_acd7d90e526732fb25700bdc6918fef3f}\label{test__outputlog__restn_8F90_acd7d90e526732fb25700bdc6918fef3f} 
+\index{test\_outputlog\_restn.F90@{test\_outputlog\_restn.F90}!expected\_fname@{expected\_fname}}
+\index{expected\_fname@{expected\_fname}!test\_outputlog\_restn.F90@{test\_outputlog\_restn.F90}}
+\doxysubsubsection{\texorpdfstring{expected\_fname()}{expected\_fname()}}
+{\footnotesize\ttfamily character(len=256) function test\+\_\+outputlog\+\_\+restn\+::expected\+\_\+fname (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{hour,  }\item[{integer, intent(in)}]{part\+\_\+index }\end{DoxyParamCaption})}
+
+
+
+Construct filename independently of track\+\_\+restn. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em hour} & filename hour \\
+\hline
+\mbox{\texttt{ in}}  & {\em part\+\_\+index} & filename part \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+fname constructed filename 
+\end{DoxyReturn}

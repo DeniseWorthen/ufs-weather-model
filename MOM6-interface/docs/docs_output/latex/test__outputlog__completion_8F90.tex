@@ -26,6 +26,18 @@ subroutine {\bfseries check\+\_\+atm\+\_\+complete} ()
 \Hypertarget{test__outputlog__completion_8F90_ac8cdf077cb2ee615cd914ce82d195cad}\label{test__outputlog__completion_8F90_ac8cdf077cb2ee615cd914ce82d195cad} 
 subroutine {\bfseries check\+\_\+file\+\_\+does\+\_\+not\+\_\+exist} ()
 \begin{DoxyCompactList}\small\item\em Edge case\+: get\+\_\+file\+\_\+state/file\+\_\+is\+\_\+complete asked about a file that was never created. Confirm that propagates correctly and that file\+\_\+is\+\_\+complete treats it as incomplete either way. \end{DoxyCompactList}\item 
+\Hypertarget{test__outputlog__completion_8F90_a8d7d23d9fb1e9cc0d810a0d9234f18f6}\label{test__outputlog__completion_8F90_a8d7d23d9fb1e9cc0d810a0d9234f18f6} 
+subroutine {\bfseries check\+\_\+restart\+\_\+single\+\_\+file\+\_\+complete} ()
+\begin{DoxyCompactList}\small\item\em Restart, num\+\_\+rest\+\_\+files=1\+: the one part is complete (nlen=1). \end{DoxyCompactList}\item 
+\Hypertarget{test__outputlog__completion_8F90_a6f97957697a47fc3a597d0189f10050b}\label{test__outputlog__completion_8F90_a6f97957697a47fc3a597d0189f10050b} 
+subroutine {\bfseries check\+\_\+restart\+\_\+single\+\_\+file\+\_\+incomplete} ()
+\begin{DoxyCompactList}\small\item\em Restart, num\+\_\+rest\+\_\+files=1\+: the one part is NOT complete (nlen=0). \end{DoxyCompactList}\item 
+\Hypertarget{test__outputlog__completion_8F90_a6fe1b2ec919475e0f8f6f8b9d8ac1614}\label{test__outputlog__completion_8F90_a6fe1b2ec919475e0f8f6f8b9d8ac1614} 
+subroutine {\bfseries check\+\_\+restart\+\_\+multiple\+\_\+files\+\_\+all\+\_\+complete} ()
+\begin{DoxyCompactList}\small\item\em Restart, num\+\_\+rest\+\_\+files=3\+: all three parts complete. \end{DoxyCompactList}\item 
+\Hypertarget{test__outputlog__completion_8F90_a1e2b053d9c996ded72d0e4a791f3149d}\label{test__outputlog__completion_8F90_a1e2b053d9c996ded72d0e4a791f3149d} 
+subroutine {\bfseries check\+\_\+restart\+\_\+multiple\+\_\+files\+\_\+partial} ()
+\begin{DoxyCompactList}\small\item\em Restart, num\+\_\+rest\+\_\+files=3\+: two parts complete, one not. \end{DoxyCompactList}\item 
 subroutine \mbox{\hyperlink{test__outputlog__completion_8F90_a556852a78e1ef9c397eced40873df9aa}{assert\+\_\+true}} (condition, msg)
 \begin{DoxyCompactList}\small\item\em Asserts a logical condition is true. \end{DoxyCompactList}\item 
 subroutine \mbox{\hyperlink{test__outputlog__completion_8F90_aee9c06a3f605e65f0cf5b6077489be2e}{assert\+\_\+false}} (condition, msg)

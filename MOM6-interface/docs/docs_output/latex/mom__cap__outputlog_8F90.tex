@@ -1,51 +1,176 @@
 \doxysection{/work/noaa/nems/dworthen/ufs\+\_\+dw/\+MOM6-\/interface/\+MOM6/config\+\_\+src/drivers/nuopc\+\_\+cap/mom\+\_\+cap\+\_\+outputlog.F90 File Reference}
 \hypertarget{mom__cap__outputlog_8F90}{}\label{mom__cap__outputlog_8F90}\index{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/MOM6/config\_src/drivers/nuopc\_cap/mom\_cap\_outputlog.F90@{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/MOM6/config\_src/drivers/nuopc\_cap/mom\_cap\_outputlog.F90}}
-\doxysubsubsection*{Modules}
-\begin{DoxyCompactItemize}
-\item 
-module \mbox{\hyperlink{namespacemom__cap__outputlog}{mom\+\_\+cap\+\_\+outputlog}}
-\begin{DoxyCompactList}\small\item\em This module contains a set of subroutines that check if MOM restart and history files have been written and closed. This file is specific to UWM operational requirements and configurations (eg specific output frequencies in hours) and may break if used outside the scope of intended use. This module is a stub when CESMCOUPLED is defined. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+The outputlog feature for UFS.  
+
+
 \doxysubsubsection*{Functions/\+Subroutines}
 \begin{DoxyCompactItemize}
 \item 
-subroutine, public \mbox{\hyperlink{namespacemom__cap__outputlog_a772944ef6621c112cfb36b604ba5f75e}{mom\+\_\+cap\+\_\+outputlog\+::outputlog\+\_\+init}} (gcomp, mclock, ocean\+\_\+grid, rc)
+subroutine, public \mbox{\hyperlink{mom__cap__outputlog_8F90_a772944ef6621c112cfb36b604ba5f75e}{mom\+\_\+cap\+\_\+outputlog\+::outputlog\+\_\+init}} (gcomp, mclock, ocean\+\_\+grid, rc)
 \begin{DoxyCompactList}\small\item\em Initialize the configuration of the outputlog feature. \end{DoxyCompactList}\item 
-subroutine, public \mbox{\hyperlink{namespacemom__cap__outputlog_a63c992951482449c83f6bd9c7de49626}{mom\+\_\+cap\+\_\+outputlog\+::outputlog\+\_\+run}} (mclock, atstoptime, rc)
+subroutine, public \mbox{\hyperlink{mom__cap__outputlog_8F90_a63c992951482449c83f6bd9c7de49626}{mom\+\_\+cap\+\_\+outputlog\+::outputlog\+\_\+run}} (mclock, atstoptime, rc)
 \begin{DoxyCompactList}\small\item\em Wrapper for logging output at single frequency. \end{DoxyCompactList}\item 
-subroutine, public \mbox{\hyperlink{namespacemom__cap__outputlog_abf152af2b5ff79377f77ac979555bbac}{mom\+\_\+cap\+\_\+outputlog\+::track\+\_\+freqn}} (mtime, cf\+\_\+n, state\+\_\+n, comm, isroot, rootpe, \mbox{\hyperlink{namespacemom__cap__outputlog_ad845115e7fc26077fee28418fd50a67a}{outputdir}}, \mbox{\hyperlink{namespacemom__cap__outputlog_ab6710c7fd3664719466c5003c2a43278}{lastrestart}}, \mbox{\hyperlink{namespacemom__cap__outputlog_ac1d5119536f4bb3762cf13f6f6b6c029}{debug\+\_\+onroot}}, lstop, rc)
+subroutine, public \mbox{\hyperlink{mom__cap__outputlog_8F90_abf152af2b5ff79377f77ac979555bbac}{mom\+\_\+cap\+\_\+outputlog\+::track\+\_\+freqn}} (mtime, cf\+\_\+n, state\+\_\+n, comm, isroot, rootpe, \mbox{\hyperlink{mom__cap__outputlog_8F90_ad845115e7fc26077fee28418fd50a67a}{outputdir}}, \mbox{\hyperlink{mom__cap__outputlog_8F90_ab6710c7fd3664719466c5003c2a43278}{lastrestart}}, \mbox{\hyperlink{mom__cap__outputlog_8F90_ac1d5119536f4bb3762cf13f6f6b6c029}{debug\+\_\+onroot}}, lstop, rc)
 \begin{DoxyCompactList}\small\item\em Track and log file state at single output-\/frequency alarm. \end{DoxyCompactList}\item 
-subroutine, public \mbox{\hyperlink{namespacemom__cap__outputlog_af85f24b5e98f54d3ac8497288891c97d}{mom\+\_\+cap\+\_\+outputlog\+::outputlog\+\_\+restart}} (mclock, num\+\_\+rest\+\_\+files, rc)
+subroutine, public \mbox{\hyperlink{mom__cap__outputlog_8F90_af85f24b5e98f54d3ac8497288891c97d}{mom\+\_\+cap\+\_\+outputlog\+::outputlog\+\_\+restart}} (mclock, num\+\_\+rest\+\_\+files, rc)
 \begin{DoxyCompactList}\small\item\em Check all restart files to determine if output has been completed. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-integer, parameter \mbox{\hyperlink{namespacemom__cap__outputlog_a0e356492086e39c2bd19be826b9354a0}{mom\+\_\+cap\+\_\+outputlog\+::n\+\_\+freq}} = 4
-\item 
-integer, dimension(\mbox{\hyperlink{namespacemom__cap__outputlog_a0e356492086e39c2bd19be826b9354a0}{n\+\_\+freq}}), parameter \mbox{\hyperlink{namespacemom__cap__outputlog_ac4ea6d5a8480721a9c8191e8d72745bd}{mom\+\_\+cap\+\_\+outputlog\+::freq}} = (/1, 3, 6, 24/)
-\item 
-type(\mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__config__type}{outputlog\+\_\+config\+\_\+type}}), dimension(\mbox{\hyperlink{namespacemom__cap__outputlog_a0e356492086e39c2bd19be826b9354a0}{n\+\_\+freq}}) \mbox{\hyperlink{namespacemom__cap__outputlog_a1e0f7ab6efbb7e2a40f5eea90f7fa018}{mom\+\_\+cap\+\_\+outputlog\+::cf}}
-\item 
-type(\mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__state__type}{outputlog\+\_\+state\+\_\+type}}), dimension(\mbox{\hyperlink{namespacemom__cap__outputlog_a0e356492086e39c2bd19be826b9354a0}{n\+\_\+freq}}) \mbox{\hyperlink{namespacemom__cap__outputlog_a86d1f659c76da888f41c943475f0dbc2}{mom\+\_\+cap\+\_\+outputlog\+::state}}
-\item 
-type(\mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__modeltime__type}{outputlog\+\_\+modeltime\+\_\+type}}) \mbox{\hyperlink{namespacemom__cap__outputlog_a76fb35c8098769b537bd0bad77e82eda}{mom\+\_\+cap\+\_\+outputlog\+::modeltime}}
-\item 
-type(esmf\+\_\+vm) \mbox{\hyperlink{namespacemom__cap__outputlog_a4b49f7e0d0d4508119010fcce92592d2}{mom\+\_\+cap\+\_\+outputlog\+::vm}}
-\item 
-type(esmf\+\_\+time) \mbox{\hyperlink{namespacemom__cap__outputlog_ab6710c7fd3664719466c5003c2a43278}{mom\+\_\+cap\+\_\+outputlog\+::lastrestart}}
-\item 
-type(mpi\+\_\+comm) \mbox{\hyperlink{namespacemom__cap__outputlog_ac63679bf3975761315a17781ce6a4e1b}{mom\+\_\+cap\+\_\+outputlog\+::mpicomm}}
-\item 
-integer \mbox{\hyperlink{namespacemom__cap__outputlog_a4aa380c29aace54850ec4b9965b3bc33}{mom\+\_\+cap\+\_\+outputlog\+::toffset}}
-\item 
-integer \mbox{\hyperlink{namespacemom__cap__outputlog_ace10dd5da2eab29be760a93aab825589}{mom\+\_\+cap\+\_\+outputlog\+::nfiles}}
-\item 
-logical \mbox{\hyperlink{namespacemom__cap__outputlog_ac1d5119536f4bb3762cf13f6f6b6c029}{mom\+\_\+cap\+\_\+outputlog\+::debug\+\_\+onroot}}
-\item 
-character(len=256) \mbox{\hyperlink{namespacemom__cap__outputlog_ac0480a093179e02032d33361dd9769fd}{mom\+\_\+cap\+\_\+outputlog\+::restartdir}}
-\item 
-character(len=256) \mbox{\hyperlink{namespacemom__cap__outputlog_ad845115e7fc26077fee28418fd50a67a}{mom\+\_\+cap\+\_\+outputlog\+::outputdir}}
-\item 
-character(len=256) \mbox{\hyperlink{namespacemom__cap__outputlog_a26de413f515e4563b3de6ab10585ea45}{mom\+\_\+cap\+\_\+outputlog\+::errmsg}}
-\item 
-character(len= \texorpdfstring{$\ast$}{*}), parameter \mbox{\hyperlink{namespacemom__cap__outputlog_a9813ad21e5c7ee0542be1387c38d2f1f}{mom\+\_\+cap\+\_\+outputlog\+::u\+\_\+file\+\_\+u}} = \+\_\+\+\_\+\+FILE\+\_\+\+\_\+
-\end{DoxyCompactItemize}
+\Hypertarget{mom__cap__outputlog_8F90_a0e356492086e39c2bd19be826b9354a0}\label{mom__cap__outputlog_8F90_a0e356492086e39c2bd19be826b9354a0} 
+integer, parameter {\bfseries mom\+\_\+cap\+\_\+outputlog\+::n\+\_\+freq} = 4
+\begin{DoxyCompactList}\small\item\em the number of allowable tracked frequencies \end{DoxyCompactList}\item 
+\Hypertarget{mom__cap__outputlog_8F90_ac4ea6d5a8480721a9c8191e8d72745bd}\label{mom__cap__outputlog_8F90_ac4ea6d5a8480721a9c8191e8d72745bd} 
+integer, dimension(\mbox{\hyperlink{mom__cap__outputlog_8F90_a0e356492086e39c2bd19be826b9354a0}{n\+\_\+freq}}), parameter {\bfseries mom\+\_\+cap\+\_\+outputlog\+::freq} = (/1, 3, 6, 24/)
+\begin{DoxyCompactList}\small\item\em the allowed tracked frequency hours \end{DoxyCompactList}\item 
+\Hypertarget{mom__cap__outputlog_8F90_a1e0f7ab6efbb7e2a40f5eea90f7fa018}\label{mom__cap__outputlog_8F90_a1e0f7ab6efbb7e2a40f5eea90f7fa018} 
+type(\mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__config__type}{outputlog\+\_\+config\+\_\+type}}), dimension(\mbox{\hyperlink{mom__cap__outputlog_8F90_a0e356492086e39c2bd19be826b9354a0}{n\+\_\+freq}}) {\bfseries mom\+\_\+cap\+\_\+outputlog\+::cf}
+\begin{DoxyCompactList}\small\item\em a structure containing the configuration, per frequency \end{DoxyCompactList}\item 
+\Hypertarget{mom__cap__outputlog_8F90_a86d1f659c76da888f41c943475f0dbc2}\label{mom__cap__outputlog_8F90_a86d1f659c76da888f41c943475f0dbc2} 
+type(\mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__state__type}{outputlog\+\_\+state\+\_\+type}}), dimension(\mbox{\hyperlink{mom__cap__outputlog_8F90_a0e356492086e39c2bd19be826b9354a0}{n\+\_\+freq}}) {\bfseries mom\+\_\+cap\+\_\+outputlog\+::state}
+\begin{DoxyCompactList}\small\item\em a structure containing the time dependent file state, per frequency \end{DoxyCompactList}\item 
+\Hypertarget{mom__cap__outputlog_8F90_a76fb35c8098769b537bd0bad77e82eda}\label{mom__cap__outputlog_8F90_a76fb35c8098769b537bd0bad77e82eda} 
+type(\mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__modeltime__type}{outputlog\+\_\+modeltime\+\_\+type}}) {\bfseries mom\+\_\+cap\+\_\+outputlog\+::modeltime}
+\begin{DoxyCompactList}\small\item\em a structure containing the current model time state \end{DoxyCompactList}\item 
+\Hypertarget{mom__cap__outputlog_8F90_a4b49f7e0d0d4508119010fcce92592d2}\label{mom__cap__outputlog_8F90_a4b49f7e0d0d4508119010fcce92592d2} 
+type(esmf\+\_\+vm) {\bfseries mom\+\_\+cap\+\_\+outputlog\+::vm}
+\begin{DoxyCompactList}\small\item\em the component VM \end{DoxyCompactList}\item 
+\Hypertarget{mom__cap__outputlog_8F90_ab6710c7fd3664719466c5003c2a43278}\label{mom__cap__outputlog_8F90_ab6710c7fd3664719466c5003c2a43278} 
+type(esmf\+\_\+time) {\bfseries mom\+\_\+cap\+\_\+outputlog\+::lastrestart}
+\begin{DoxyCompactList}\small\item\em an ESMF\+\_\+\+Time of the last written restart \end{DoxyCompactList}\item 
+\Hypertarget{mom__cap__outputlog_8F90_ac63679bf3975761315a17781ce6a4e1b}\label{mom__cap__outputlog_8F90_ac63679bf3975761315a17781ce6a4e1b} 
+type(mpi\+\_\+comm) {\bfseries mom\+\_\+cap\+\_\+outputlog\+::mpicomm}
+\begin{DoxyCompactList}\small\item\em the model communicator \end{DoxyCompactList}\item 
+\Hypertarget{mom__cap__outputlog_8F90_a4aa380c29aace54850ec4b9965b3bc33}\label{mom__cap__outputlog_8F90_a4aa380c29aace54850ec4b9965b3bc33} 
+integer {\bfseries mom\+\_\+cap\+\_\+outputlog\+::toffset}
+\begin{DoxyCompactList}\small\item\em the timeoffset in hours \end{DoxyCompactList}\item 
+\Hypertarget{mom__cap__outputlog_8F90_ace10dd5da2eab29be760a93aab825589}\label{mom__cap__outputlog_8F90_ace10dd5da2eab29be760a93aab825589} 
+integer {\bfseries mom\+\_\+cap\+\_\+outputlog\+::nfiles}
+\begin{DoxyCompactList}\small\item\em the number of history files when io\+\_\+layout is used \end{DoxyCompactList}\item 
+\Hypertarget{mom__cap__outputlog_8F90_ac1d5119536f4bb3762cf13f6f6b6c029}\label{mom__cap__outputlog_8F90_ac1d5119536f4bb3762cf13f6f6b6c029} 
+logical {\bfseries mom\+\_\+cap\+\_\+outputlog\+::debug\+\_\+onroot}
+\begin{DoxyCompactList}\small\item\em a logical to enable debug message printing \end{DoxyCompactList}\item 
+\Hypertarget{mom__cap__outputlog_8F90_ac0480a093179e02032d33361dd9769fd}\label{mom__cap__outputlog_8F90_ac0480a093179e02032d33361dd9769fd} 
+character(len=256) {\bfseries mom\+\_\+cap\+\_\+outputlog\+::restartdir}
+\begin{DoxyCompactList}\small\item\em the restart directory for MOM6 restarts \end{DoxyCompactList}\item 
+\Hypertarget{mom__cap__outputlog_8F90_ad845115e7fc26077fee28418fd50a67a}\label{mom__cap__outputlog_8F90_ad845115e7fc26077fee28418fd50a67a} 
+character(len=256) {\bfseries mom\+\_\+cap\+\_\+outputlog\+::outputdir}
+\begin{DoxyCompactList}\small\item\em the output directory for MOM6 history output \end{DoxyCompactList}\item 
+\Hypertarget{mom__cap__outputlog_8F90_a26de413f515e4563b3de6ab10585ea45}\label{mom__cap__outputlog_8F90_a26de413f515e4563b3de6ab10585ea45} 
+character(len=256) {\bfseries mom\+\_\+cap\+\_\+outputlog\+::errmsg}
+\begin{DoxyCompactList}\small\item\em an error message \end{DoxyCompactList}\item 
+\Hypertarget{mom__cap__outputlog_8F90_a9813ad21e5c7ee0542be1387c38d2f1f}\label{mom__cap__outputlog_8F90_a9813ad21e5c7ee0542be1387c38d2f1f} 
+character(len= \texorpdfstring{$\ast$}{*}), parameter {\bfseries mom\+\_\+cap\+\_\+outputlog\+::u\+\_\+file\+\_\+u} = \+\_\+\+\_\+\+FILE\+\_\+\+\_\+
+\begin{DoxyCompactList}\small\item\em an ESMF message tracker \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The outputlog feature for UFS. 
+
+This module contains a set of subroutines that check if MOM restart and history files have been written and closed. This file is specific to UWM operational requirements and configurations (eg specific output frequencies in hours) and may break if used outside the scope of intended use.
+
+This module is a stub when CESMCOUPLED is defined 
+
+\doxysubsection{Function/\+Subroutine Documentation}
+\Hypertarget{mom__cap__outputlog_8F90_a772944ef6621c112cfb36b604ba5f75e}\label{mom__cap__outputlog_8F90_a772944ef6621c112cfb36b604ba5f75e} 
+\index{mom\_cap\_outputlog.F90@{mom\_cap\_outputlog.F90}!outputlog\_init@{outputlog\_init}}
+\index{outputlog\_init@{outputlog\_init}!mom\_cap\_outputlog.F90@{mom\_cap\_outputlog.F90}}
+\doxysubsubsection{\texorpdfstring{outputlog\_init()}{outputlog\_init()}}
+{\footnotesize\ttfamily subroutine, public mom\+\_\+cap\+\_\+outputlog\+::outputlog\+\_\+init (\begin{DoxyParamCaption}\item[{type(esmf\+\_\+gridcomp)}]{gcomp,  }\item[{type(esmf\+\_\+clock)}]{mclock,  }\item[{type(ocean\+\_\+grid\+\_\+type), intent(in), pointer}]{ocean\+\_\+grid,  }\item[{integer, intent(out)}]{rc }\end{DoxyParamCaption})}
+
+
+
+Initialize the configuration of the outputlog feature. 
+
+{\ttfamily outputlog\+\_\+init} is called from \href{https://github.com/NOAA-EMC/MOM6/blob/9b0576b47f8d464c70b12eb28763463644a37de4/config_src/drivers/nuopc_cap/mom_cap.F90\#L2095}{\texttt{ MOM\+\_\+cap\+\_\+mod\+::\+Model\+Set\+Run\+Clock}}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em gcomp} & an ESMF\+\_\+\+Grid\+Comp object \\
+\hline
+\mbox{\texttt{ in}}  & {\em mclock} & an ESMF\+\_\+\+Clock object \\
+\hline
+\mbox{\texttt{ in}}  & {\em ocean\+\_\+grid} & ocean grid \\
+\hline
+\mbox{\texttt{ out}}  & {\em rc} & return code \\
+\hline
+\end{DoxyParams}
+\Hypertarget{mom__cap__outputlog_8F90_af85f24b5e98f54d3ac8497288891c97d}\label{mom__cap__outputlog_8F90_af85f24b5e98f54d3ac8497288891c97d} 
+\index{mom\_cap\_outputlog.F90@{mom\_cap\_outputlog.F90}!outputlog\_restart@{outputlog\_restart}}
+\index{outputlog\_restart@{outputlog\_restart}!mom\_cap\_outputlog.F90@{mom\_cap\_outputlog.F90}}
+\doxysubsubsection{\texorpdfstring{outputlog\_restart()}{outputlog\_restart()}}
+{\footnotesize\ttfamily subroutine, public mom\+\_\+cap\+\_\+outputlog\+::outputlog\+\_\+restart (\begin{DoxyParamCaption}\item[{type(esmf\+\_\+clock)}]{mclock,  }\item[{integer, intent(in)}]{num\+\_\+rest\+\_\+files,  }\item[{integer, intent(out)}]{rc }\end{DoxyParamCaption})}
+
+
+
+Check all restart files to determine if output has been completed. 
+
+{\ttfamily outputlog\+\_\+restart} is called whenever restart-\/writing is triggered in \href{https://github.com/NOAA-EMC/MOM6/blob/9b0576b47f8d464c70b12eb28763463644a37de4/config_src/drivers/nuopc_cap/mom_cap.F90\#L1746)}{\texttt{ MOM\+\_\+cap\+\_\+mod\+::\+Model\+Advance}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em mclock} & an ESMF\+\_\+\+Clock object \\
+\hline
+\mbox{\texttt{ in}}  & {\em num\+\_\+rest\+\_\+files} & the number of restart files \\
+\hline
+\mbox{\texttt{ out}}  & {\em rc} & return code \\
+\hline
+\end{DoxyParams}
+\Hypertarget{mom__cap__outputlog_8F90_a63c992951482449c83f6bd9c7de49626}\label{mom__cap__outputlog_8F90_a63c992951482449c83f6bd9c7de49626} 
+\index{mom\_cap\_outputlog.F90@{mom\_cap\_outputlog.F90}!outputlog\_run@{outputlog\_run}}
+\index{outputlog\_run@{outputlog\_run}!mom\_cap\_outputlog.F90@{mom\_cap\_outputlog.F90}}
+\doxysubsubsection{\texorpdfstring{outputlog\_run()}{outputlog\_run()}}
+{\footnotesize\ttfamily subroutine, public mom\+\_\+cap\+\_\+outputlog\+::outputlog\+\_\+run (\begin{DoxyParamCaption}\item[{type(esmf\+\_\+clock)}]{mclock,  }\item[{logical, intent(in), optional}]{atstoptime,  }\item[{integer, intent(out)}]{rc }\end{DoxyParamCaption})}
+
+
+
+Wrapper for logging output at single frequency. 
+
+{\ttfamily outputlog\+\_\+run} is called during once during each \href{https://github.com/NOAA-EMC/MOM6/blob/9b0576b47f8d464c70b12eb28763463644a37de4/config_src/drivers/nuopc_cap/mom_cap.F90\#L1746}{\texttt{ MOM\+\_\+cap\+\_\+mod\+::\+Model\+Advance}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em mclock} & an ESMF\+\_\+\+Clock object \\
+\hline
+{\em at\+Stop\+Time} & when present, checks for final output file \\
+\hline
+{\em rc} & return code \\
+\hline
+\end{DoxyParams}
+\Hypertarget{mom__cap__outputlog_8F90_abf152af2b5ff79377f77ac979555bbac}\label{mom__cap__outputlog_8F90_abf152af2b5ff79377f77ac979555bbac} 
+\index{mom\_cap\_outputlog.F90@{mom\_cap\_outputlog.F90}!track\_freqn@{track\_freqn}}
+\index{track\_freqn@{track\_freqn}!mom\_cap\_outputlog.F90@{mom\_cap\_outputlog.F90}}
+\doxysubsubsection{\texorpdfstring{track\_freqn()}{track\_freqn()}}
+{\footnotesize\ttfamily subroutine, public mom\+\_\+cap\+\_\+outputlog\+::track\+\_\+freqn (\begin{DoxyParamCaption}\item[{type(\mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__modeltime__type}{outputlog\+\_\+modeltime\+\_\+type}}), intent(in)}]{mtime,  }\item[{type(\mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__config__type}{outputlog\+\_\+config\+\_\+type}}), intent(inout)}]{cf\+\_\+n,  }\item[{type(\mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__state__type}{outputlog\+\_\+state\+\_\+type}}), intent(inout)}]{state\+\_\+n,  }\item[{type(mpi\+\_\+comm), intent(in)}]{comm,  }\item[{logical, intent(in)}]{isroot,  }\item[{integer, intent(in)}]{rootpe,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{outputdir,  }\item[{type(esmf\+\_\+time), intent(in)}]{lastrestart,  }\item[{logical, intent(in)}]{debug\+\_\+onroot,  }\item[{logical, intent(in)}]{lstop,  }\item[{integer, intent(out)}]{rc }\end{DoxyParamCaption})}
+
+
+
+Track and log file state at single output-\/frequency alarm. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em mtime} & the model time state \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em cf\+\_\+n} & configuration for this frequency \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em state\+\_\+n} & tracked state for this frequency \\
+\hline
+\mbox{\texttt{ in}}  & {\em comm} & MPI communicator \\
+\hline
+\mbox{\texttt{ in}}  & {\em isroot} & logical flag for root PE \\
+\hline
+\mbox{\texttt{ in}}  & {\em rootpe} & root rank in communicator \\
+\hline
+\mbox{\texttt{ in}}  & {\em outputdir} & output directory path \\
+\hline
+\mbox{\texttt{ in}}  & {\em lastrestart} & last restart write time \\
+\hline
+\mbox{\texttt{ in}}  & {\em debug\+\_\+onroot} & logical flag to enable debug printing \\
+\hline
+\mbox{\texttt{ in}}  & {\em lstop} & logical flag for checking files at finalize \\
+\hline
+\mbox{\texttt{ out}}  & {\em rc} & return code \\
+\hline
+\end{DoxyParams}

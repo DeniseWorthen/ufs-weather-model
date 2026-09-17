@@ -13,6 +13,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -109,6 +110,12 @@ Functions/Subroutines</h2></td></tr>
 <tr class="memitem:aaef8977c70f696bed84aaaa874b59e0f" id="r_aaef8977c70f696bed84aaaa874b59e0f"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nc__fixture__mod_8F90.html#aaef8977c70f696bed84aaaa874b59e0f">nc_fixture_mod::make_atm_complete</a> (fname, createsize_out)</td></tr>
 <tr class="memdesc:aaef8977c70f696bed84aaaa874b59e0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper for ATM complete.  <br /></td></tr>
 <tr class="separator:aaef8977c70f696bed84aaaa874b59e0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac929fbb2f42d21534065ae0f8c6e74d3" id="r_ac929fbb2f42d21534065ae0f8c6e74d3"><td class="memItemLeft" align="right" valign="top">character(len=256) function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nc__fixture__mod_8F90.html#ac929fbb2f42d21534065ae0f8c6e74d3">nc_fixture_mod::restart_part_fname</a> (base_fname, part_index)</td></tr>
+<tr class="memdesc:ac929fbb2f42d21534065ae0f8c6e74d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build the filename for restart using base name and <code>part_index</code>  <br /></td></tr>
+<tr class="separator:ac929fbb2f42d21534065ae0f8c6e74d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe6d037d9f7747a3d1506e83d95f1bfe" id="r_afe6d037d9f7747a3d1506e83d95f1bfe"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nc__fixture__mod_8F90.html#afe6d037d9f7747a3d1506e83d95f1bfe">nc_fixture_mod::make_restart_fixture</a> (fname, complete)</td></tr>
+<tr class="memdesc:afe6d037d9f7747a3d1506e83d95f1bfe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a minimal restart-part fixture: just an unlimited "time" dim, optionally with record 1 written (nlen 0-&gt;1).  <br /></td></tr>
+<tr class="separator:afe6d037d9f7747a3d1506e83d95f1bfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7ac05ec01ccf9c85a21ee8ecbb38394d" id="r_a7ac05ec01ccf9c85a21ee8ecbb38394d"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nc__fixture__mod_8F90.html#a7ac05ec01ccf9c85a21ee8ecbb38394d">nc_fixture_mod::nf90_err</a> (ierr, context)</td></tr>
 <tr class="memdesc:a7ac05ec01ccf9c85a21ee8ecbb38394d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error return function for NetCDF.  <br /></td></tr>
 <tr class="separator:a7ac05ec01ccf9c85a21ee8ecbb38394d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -128,6 +135,7 @@ integer, parameter&#160;</td><td class="memItemRight" valign="bottom"><b>nc_fixt
 <div class="textblock"><p>NetCDF fixture to generate files with established behaviour of file creation and completion. This feature creates files and then writes files with one of two observed patterns: </p>
 <p>1) in DATM mode, nlen flips from 0 at creation to 1 at completion; file size is ~constant 2) in ATM mode, nlen&gt;0 at creation and completion is determined by the file size increase</p>
 <p>For 1) we can't reproduce the observed behaviour using a variable that actually shares "time" (writing any such variable immediately advances nlen) so this is a deliberate stand-in that reproduces the observable nlen/fsize progression without replicating the real file's internal variable structure. file_is_complete/get_file_state only look at nlen and fsize, so that's sufficient for what's under test.</p>
+<p>Restart files test files provide use length of unlimited dim only, since restarts are written complete at requested time by MOM6 directly (FMS is not used).</p>
 <dl class="section date"><dt>Date</dt><dd>09-01-2026 </dd></dl>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
 <a id="a33163f82ef2f3c15497085369acfe643" name="a33163f82ef2f3c15497085369acfe643"></a>
@@ -293,6 +301,43 @@ integer, parameter&#160;</td><td class="memItemRight" valign="bottom"><b>nc_fixt
 
 </div>
 </div>
+<a id="afe6d037d9f7747a3d1506e83d95f1bfe" name="afe6d037d9f7747a3d1506e83d95f1bfe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe6d037d9f7747a3d1506e83d95f1bfe">&#9670;&#160;</a></span>make_restart_fixture()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine nc_fixture_mod::make_restart_fixture </td>
+          <td>(</td>
+          <td class="paramtype">character(len=*), intent(in)&#160;</td>
+          <td class="paramname"><em>fname</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">logical, intent(in)&#160;</td>
+          <td class="paramname"><em>complete</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a minimal restart-part fixture: just an unlimited "time" dim, optionally with record 1 written (nlen 0-&gt;1). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">fname</td><td>filename (see restart_part_fname) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">complete</td><td>.true. to also write record 1 (nlen=1); .false. leaves the file at nlen=0 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a7ac05ec01ccf9c85a21ee8ecbb38394d" name="a7ac05ec01ccf9c85a21ee8ecbb38394d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7ac05ec01ccf9c85a21ee8ecbb38394d">&#9670;&#160;</a></span>nf90_err()</h2>
 
@@ -324,6 +369,43 @@ integer, parameter&#160;</td><td class="memItemRight" valign="bottom"><b>nc_fixt
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">ierr</td><td>error return value </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">context</td><td>failure identifier </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac929fbb2f42d21534065ae0f8c6e74d3" name="ac929fbb2f42d21534065ae0f8c6e74d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac929fbb2f42d21534065ae0f8c6e74d3">&#9670;&#160;</a></span>restart_part_fname()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">character(len=256) function nc_fixture_mod::restart_part_fname </td>
+          <td>(</td>
+          <td class="paramtype">character(len=*), intent(in)&#160;</td>
+          <td class="paramname"><em>base_fname</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer, intent(in)&#160;</td>
+          <td class="paramname"><em>part_index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Build the filename for restart using base name and <code>part_index</code> </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">base_fname</td><td>base name </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">part_index</td><td>0 for the base file, 1,2,... for later parts </td></tr>
   </table>
   </dd>
 </dl>

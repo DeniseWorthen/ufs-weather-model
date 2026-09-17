@@ -1,0 +1,135 @@
+\doxysection{/work/noaa/nems/dworthen/ufs\+\_\+dw/\+MOM6-\/interface/unit-\/tests/test\+\_\+helpers.F90 File Reference}
+\hypertarget{test__helpers_8F90}{}\label{test__helpers_8F90}\index{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/unit-\/tests/test\_helpers.F90@{/work/noaa/nems/dworthen/ufs\_dw/MOM6-\/interface/unit-\/tests/test\_helpers.F90}}
+
+
+Shared setup for outputlog unit tests.  
+
+
+\doxysubsubsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+subroutine, public \mbox{\hyperlink{test__helpers_8F90_a65a2f5ed9dd65fce13ea447294d8316a}{test\+\_\+helpers\+::setup\+\_\+case}} (start\+\_\+hour, runhours, freq, l\+\_\+nfiles, l\+\_\+timereduce, debug\+\_\+onroot, modelclock, cf\+\_\+n, state\+\_\+n, rc)
+\begin{DoxyCompactList}\small\item\em Build a real ESMF\+\_\+\+Clock/alarm plus cf\+\_\+n/state\+\_\+n for one test case. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{test__helpers_8F90_a78cb53ee028fb2be1a8db5ee9bd08095}{test\+\_\+helpers\+::handlefiles}} (isroot, fname, use\+\_\+filesize, mode)
+\begin{DoxyCompactList}\small\item\em Create/complete a net\+CDF fixture file, matching the real DATM/\+ATM completion contract. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{test__helpers_8F90_a603f03b17bd1cd5c94904aee4c7a4bb9}{test\+\_\+helpers\+::setup\+\_\+restarttimes}} (start\+\_\+hour, n\+\_\+restarts, restart\+\_\+hours, restart\+\_\+times, rc)
+\begin{DoxyCompactList}\small\item\em Build a list of restart times from a list of restart hours. \end{DoxyCompactList}\item 
+subroutine, public \mbox{\hyperlink{test__helpers_8F90_a09619fef71ce8fd78e518cbfec445213}{test\+\_\+helpers\+::setup\+\_\+expected\+\_\+lastrestart\+\_\+times}} (expected\+\_\+lastrestart\+\_\+hours, expected\+\_\+lastrestarts)
+\begin{DoxyCompactList}\small\item\em Build a list of expected lastrestart times. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{test__helpers_8F90_ab19de9095abe29169ea99bc12d50a22b}\label{test__helpers_8F90_ab19de9095abe29169ea99bc12d50a22b} 
+integer, parameter, public {\bfseries test\+\_\+helpers\+::base\+\_\+yy} = 2021
+\begin{DoxyCompactList}\small\item\em a standard start year \end{DoxyCompactList}\item 
+\Hypertarget{test__helpers_8F90_ac202d882093368f0ada81262a4c4769a}\label{test__helpers_8F90_ac202d882093368f0ada81262a4c4769a} 
+integer, parameter, public {\bfseries test\+\_\+helpers\+::base\+\_\+mm} = 3
+\begin{DoxyCompactList}\small\item\em a standard start month \end{DoxyCompactList}\item 
+\Hypertarget{test__helpers_8F90_ab61248e5b3d0bbb7f92f63194ae35f3d}\label{test__helpers_8F90_ab61248e5b3d0bbb7f92f63194ae35f3d} 
+integer, parameter, public {\bfseries test\+\_\+helpers\+::base\+\_\+dd} = 22
+\begin{DoxyCompactList}\small\item\em a standard start day \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Shared setup for outputlog unit tests. 
+
+\begin{DoxyDate}{Date}
+08-\/12-\/2026 
+\end{DoxyDate}
+
+
+\doxysubsection{Function/\+Subroutine Documentation}
+\Hypertarget{test__helpers_8F90_a78cb53ee028fb2be1a8db5ee9bd08095}\label{test__helpers_8F90_a78cb53ee028fb2be1a8db5ee9bd08095} 
+\index{test\_helpers.F90@{test\_helpers.F90}!handlefiles@{handlefiles}}
+\index{handlefiles@{handlefiles}!test\_helpers.F90@{test\_helpers.F90}}
+\doxysubsubsection{\texorpdfstring{handlefiles()}{handlefiles()}}
+{\footnotesize\ttfamily subroutine, public test\+\_\+helpers\+::handlefiles (\begin{DoxyParamCaption}\item[{logical, intent(in)}]{isroot,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{fname,  }\item[{logical, intent(in)}]{use\+\_\+filesize,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{mode }\end{DoxyParamCaption})}
+
+
+
+Create/complete a net\+CDF fixture file, matching the real DATM/\+ATM completion contract. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em isroot} & .true. on the root PE \\
+\hline
+\mbox{\texttt{ in}}  & {\em fname} & file name \\
+\hline
+\mbox{\texttt{ in}}  & {\em use\+\_\+filesize} & .true. for ATM-\/style (fsize-\/based) completion, .false. for DATM-\/style (nlen-\/based) \\
+\hline
+\mbox{\texttt{ in}}  & {\em mode} & \textquotesingle{}create\textquotesingle{}, \textquotesingle{}complete\textquotesingle{}, or \textquotesingle{}create-\/complete\textquotesingle{} \\
+\hline
+\end{DoxyParams}
+\Hypertarget{test__helpers_8F90_a65a2f5ed9dd65fce13ea447294d8316a}\label{test__helpers_8F90_a65a2f5ed9dd65fce13ea447294d8316a} 
+\index{test\_helpers.F90@{test\_helpers.F90}!setup\_case@{setup\_case}}
+\index{setup\_case@{setup\_case}!test\_helpers.F90@{test\_helpers.F90}}
+\doxysubsubsection{\texorpdfstring{setup\_case()}{setup\_case()}}
+{\footnotesize\ttfamily subroutine, public test\+\_\+helpers\+::setup\+\_\+case (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{start\+\_\+hour,  }\item[{integer, intent(in)}]{runhours,  }\item[{integer, intent(in)}]{freq,  }\item[{integer, intent(in)}]{l\+\_\+nfiles,  }\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{l\+\_\+timereduce,  }\item[{logical, intent(in)}]{debug\+\_\+onroot,  }\item[{type(esmf\+\_\+clock), intent(out)}]{modelclock,  }\item[{type(\mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__config__type}{outputlog\+\_\+config\+\_\+type}}), intent(out)}]{cf\+\_\+n,  }\item[{type(\mbox{\hyperlink{structmom__outputlog__methods_1_1outputlog__state__type}{outputlog\+\_\+state\+\_\+type}}), intent(out)}]{state\+\_\+n,  }\item[{integer, intent(out)}]{rc }\end{DoxyParamCaption})}
+
+
+
+Build a real ESMF\+\_\+\+Clock/alarm plus cf\+\_\+n/state\+\_\+n for one test case. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em start\+\_\+hour} & model start hour \\
+\hline
+\mbox{\texttt{ in}}  & {\em runhours} & total run length in hours \\
+\hline
+\mbox{\texttt{ in}}  & {\em freq} & output frequency in hours \\
+\hline
+\mbox{\texttt{ in}}  & {\em l\+\_\+nfiles} & number of IO-\/layout files (1 = single file) \\
+\hline
+\mbox{\texttt{ in}}  & {\em l\+\_\+timereduce} & \textquotesingle{}average\textquotesingle{} or \textquotesingle{}none\textquotesingle{} \\
+\hline
+\mbox{\texttt{ in}}  & {\em debug\+\_\+onroot} & enable verbose setup printing \\
+\hline
+\mbox{\texttt{ out}}  & {\em model\+Clock} & the constructed ESMF\+\_\+\+Clock \\
+\hline
+\mbox{\texttt{ out}}  & {\em cf\+\_\+n} & this frequency\textquotesingle{}s config \\
+\hline
+\mbox{\texttt{ out}}  & {\em state\+\_\+n} & this frequency\textquotesingle{}s state \\
+\hline
+\mbox{\texttt{ out}}  & {\em rc} & return code \\
+\hline
+\end{DoxyParams}
+\Hypertarget{test__helpers_8F90_a09619fef71ce8fd78e518cbfec445213}\label{test__helpers_8F90_a09619fef71ce8fd78e518cbfec445213} 
+\index{test\_helpers.F90@{test\_helpers.F90}!setup\_expected\_lastrestart\_times@{setup\_expected\_lastrestart\_times}}
+\index{setup\_expected\_lastrestart\_times@{setup\_expected\_lastrestart\_times}!test\_helpers.F90@{test\_helpers.F90}}
+\doxysubsubsection{\texorpdfstring{setup\_expected\_lastrestart\_times()}{setup\_expected\_lastrestart\_times()}}
+{\footnotesize\ttfamily subroutine, public test\+\_\+helpers\+::setup\+\_\+expected\+\_\+lastrestart\+\_\+times (\begin{DoxyParamCaption}\item[{integer, dimension(\+:), intent(in)}]{expected\+\_\+lastrestart\+\_\+hours,  }\item[{type(esmf\+\_\+time), dimension(\+:), intent(out)}]{expected\+\_\+lastrestarts }\end{DoxyParamCaption})}
+
+
+
+Build a list of expected lastrestart times. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em expected\+\_\+lastrestart\+\_\+hours} & elapsed hour relative to starting day when restart is written \\
+\hline
+\mbox{\texttt{ out}}  & {\em expected\+\_\+lastrestarts} & expected last restart times \\
+\hline
+\end{DoxyParams}
+\Hypertarget{test__helpers_8F90_a603f03b17bd1cd5c94904aee4c7a4bb9}\label{test__helpers_8F90_a603f03b17bd1cd5c94904aee4c7a4bb9} 
+\index{test\_helpers.F90@{test\_helpers.F90}!setup\_restarttimes@{setup\_restarttimes}}
+\index{setup\_restarttimes@{setup\_restarttimes}!test\_helpers.F90@{test\_helpers.F90}}
+\doxysubsubsection{\texorpdfstring{setup\_restarttimes()}{setup\_restarttimes()}}
+{\footnotesize\ttfamily subroutine, public test\+\_\+helpers\+::setup\+\_\+restarttimes (\begin{DoxyParamCaption}\item[{integer, intent(in)}]{start\+\_\+hour,  }\item[{integer, intent(in)}]{n\+\_\+restarts,  }\item[{integer, dimension(\+:), intent(in)}]{restart\+\_\+hours,  }\item[{type(esmf\+\_\+time), dimension(\+:), intent(out)}]{restart\+\_\+times,  }\item[{integer, intent(out)}]{rc }\end{DoxyParamCaption})}
+
+
+
+Build a list of restart times from a list of restart hours. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em start\+\_\+hour} & clock start hour \\
+\hline
+\mbox{\texttt{ in}}  & {\em n\+\_\+restarts} & number of restart times specified \\
+\hline
+\mbox{\texttt{ in}}  & {\em restart\+\_\+hours} & restart frequency, either cadence or list of hours \\
+\hline
+\mbox{\texttt{ out}}  & {\em restart\+\_\+times} & restart times \\
+\hline
+\mbox{\texttt{ out}}  & {\em rc} & return code \\
+\hline
+\end{DoxyParams}

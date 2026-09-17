@@ -24,6 +24,10 @@ subroutine \mbox{\hyperlink{nc__fixture__mod_8F90_a93bc72eff1df153d9999613099227
 \begin{DoxyCompactList}\small\item\em Wrapper for ATM incomplete. \end{DoxyCompactList}\item 
 subroutine \mbox{\hyperlink{nc__fixture__mod_8F90_aaef8977c70f696bed84aaaa874b59e0f}{nc\+\_\+fixture\+\_\+mod\+::make\+\_\+atm\+\_\+complete}} (fname, createsize\+\_\+out)
 \begin{DoxyCompactList}\small\item\em Wrapper for ATM complete. \end{DoxyCompactList}\item 
+character(len=256) function \mbox{\hyperlink{nc__fixture__mod_8F90_ac929fbb2f42d21534065ae0f8c6e74d3}{nc\+\_\+fixture\+\_\+mod\+::restart\+\_\+part\+\_\+fname}} (base\+\_\+fname, part\+\_\+index)
+\begin{DoxyCompactList}\small\item\em Build the filename for restart using base name and {\ttfamily part\+\_\+index} \end{DoxyCompactList}\item 
+subroutine \mbox{\hyperlink{nc__fixture__mod_8F90_afe6d037d9f7747a3d1506e83d95f1bfe}{nc\+\_\+fixture\+\_\+mod\+::make\+\_\+restart\+\_\+fixture}} (fname, complete)
+\begin{DoxyCompactList}\small\item\em Create a minimal restart-\/part fixture\+: just an unlimited "{}time"{} dim, optionally with record 1 written (nlen 0-\/\texorpdfstring{$>$}{>}1). \end{DoxyCompactList}\item 
 subroutine \mbox{\hyperlink{nc__fixture__mod_8F90_a7ac05ec01ccf9c85a21ee8ecbb38394d}{nc\+\_\+fixture\+\_\+mod\+::nf90\+\_\+err}} (ierr, context)
 \begin{DoxyCompactList}\small\item\em Error return function for Net\+CDF. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Variables}
@@ -43,6 +47,8 @@ Net\+CDF fixture to generate files with established behaviour of file creation a
 1) in DATM mode, nlen flips from 0 at creation to 1 at completion; file size is \texorpdfstring{$\sim$}{\string~}constant 2) in ATM mode, nlen\texorpdfstring{$>$}{>}0 at creation and completion is determined by the file size increase
 
 For 1) we can\textquotesingle{}t reproduce the observed behaviour using a variable that actually shares "{}time"{} (writing any such variable immediately advances nlen) so this is a deliberate stand-\/in that reproduces the observable nlen/fsize progression without replicating the real file\textquotesingle{}s internal variable structure. file\+\_\+is\+\_\+complete/get\+\_\+file\+\_\+state only look at nlen and fsize, so that\textquotesingle{}s sufficient for what\textquotesingle{}s under test.
+
+Restart files test files provide use length of unlimited dim only, since restarts are written complete at requested time by MOM6 directly (FMS is not used).
 
 \begin{DoxyDate}{Date}
 09-\/01-\/2026 
@@ -131,6 +137,23 @@ Wrapper for DATM incomplete.
 \mbox{\texttt{ in}}  & {\em fname} & filename \\
 \hline
 \end{DoxyParams}
+\Hypertarget{nc__fixture__mod_8F90_afe6d037d9f7747a3d1506e83d95f1bfe}\label{nc__fixture__mod_8F90_afe6d037d9f7747a3d1506e83d95f1bfe} 
+\index{nc\_fixture\_mod.F90@{nc\_fixture\_mod.F90}!make\_restart\_fixture@{make\_restart\_fixture}}
+\index{make\_restart\_fixture@{make\_restart\_fixture}!nc\_fixture\_mod.F90@{nc\_fixture\_mod.F90}}
+\doxysubsubsection{\texorpdfstring{make\_restart\_fixture()}{make\_restart\_fixture()}}
+{\footnotesize\ttfamily subroutine nc\+\_\+fixture\+\_\+mod\+::make\+\_\+restart\+\_\+fixture (\begin{DoxyParamCaption}\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{fname,  }\item[{logical, intent(in)}]{complete }\end{DoxyParamCaption})}
+
+
+
+Create a minimal restart-\/part fixture\+: just an unlimited "{}time"{} dim, optionally with record 1 written (nlen 0-\/\texorpdfstring{$>$}{>}1). 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em fname} & filename (see restart\+\_\+part\+\_\+fname) \\
+\hline
+\mbox{\texttt{ in}}  & {\em complete} & .true. to also write record 1 (nlen=1); .false. leaves the file at nlen=0 \\
+\hline
+\end{DoxyParams}
 \Hypertarget{nc__fixture__mod_8F90_a7ac05ec01ccf9c85a21ee8ecbb38394d}\label{nc__fixture__mod_8F90_a7ac05ec01ccf9c85a21ee8ecbb38394d} 
 \index{nc\_fixture\_mod.F90@{nc\_fixture\_mod.F90}!nf90\_err@{nf90\_err}}
 \index{nf90\_err@{nf90\_err}!nc\_fixture\_mod.F90@{nc\_fixture\_mod.F90}}
@@ -146,6 +169,23 @@ Error return function for Net\+CDF.
 \mbox{\texttt{ in}}  & {\em ierr} & error return value \\
 \hline
 \mbox{\texttt{ in}}  & {\em context} & failure identifier \\
+\hline
+\end{DoxyParams}
+\Hypertarget{nc__fixture__mod_8F90_ac929fbb2f42d21534065ae0f8c6e74d3}\label{nc__fixture__mod_8F90_ac929fbb2f42d21534065ae0f8c6e74d3} 
+\index{nc\_fixture\_mod.F90@{nc\_fixture\_mod.F90}!restart\_part\_fname@{restart\_part\_fname}}
+\index{restart\_part\_fname@{restart\_part\_fname}!nc\_fixture\_mod.F90@{nc\_fixture\_mod.F90}}
+\doxysubsubsection{\texorpdfstring{restart\_part\_fname()}{restart\_part\_fname()}}
+{\footnotesize\ttfamily character(len=256) function nc\+\_\+fixture\+\_\+mod\+::restart\+\_\+part\+\_\+fname (\begin{DoxyParamCaption}\item[{character(len=\texorpdfstring{$\ast$}{*}), intent(in)}]{base\+\_\+fname,  }\item[{integer, intent(in)}]{part\+\_\+index }\end{DoxyParamCaption})}
+
+
+
+Build the filename for restart using base name and {\ttfamily part\+\_\+index} 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em base\+\_\+fname} & base name \\
+\hline
+\mbox{\texttt{ in}}  & {\em part\+\_\+index} & 0 for the base file, 1,2,... for later parts \\
 \hline
 \end{DoxyParams}
 \Hypertarget{nc__fixture__mod_8F90_afe19d49dcceb26ddd76443b510d2f39f}\label{nc__fixture__mod_8F90_afe19d49dcceb26ddd76443b510d2f39f} 

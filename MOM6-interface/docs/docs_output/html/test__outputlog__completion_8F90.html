@@ -13,6 +13,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="custom.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -108,6 +109,22 @@ subroutine&#160;</td><td class="memItemRight" valign="bottom"><b>check_atm_compl
 subroutine&#160;</td><td class="memItemRight" valign="bottom"><b>check_file_does_not_exist</b> ()</td></tr>
 <tr class="memdesc:ac8cdf077cb2ee615cd914ce82d195cad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Edge case: get_file_state/file_is_complete asked about a file that was never created. Confirm that propagates correctly and that file_is_complete treats it as incomplete either way. <br /></td></tr>
 <tr class="separator:ac8cdf077cb2ee615cd914ce82d195cad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d7d23d9fb1e9cc0d810a0d9234f18f6" id="r_a8d7d23d9fb1e9cc0d810a0d9234f18f6"><td class="memItemLeft" align="right" valign="top"><a id="a8d7d23d9fb1e9cc0d810a0d9234f18f6" name="a8d7d23d9fb1e9cc0d810a0d9234f18f6"></a>
+subroutine&#160;</td><td class="memItemRight" valign="bottom"><b>check_restart_single_file_complete</b> ()</td></tr>
+<tr class="memdesc:a8d7d23d9fb1e9cc0d810a0d9234f18f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restart, num_rest_files=1: the one part is complete (nlen=1). <br /></td></tr>
+<tr class="separator:a8d7d23d9fb1e9cc0d810a0d9234f18f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f97957697a47fc3a597d0189f10050b" id="r_a6f97957697a47fc3a597d0189f10050b"><td class="memItemLeft" align="right" valign="top"><a id="a6f97957697a47fc3a597d0189f10050b" name="a6f97957697a47fc3a597d0189f10050b"></a>
+subroutine&#160;</td><td class="memItemRight" valign="bottom"><b>check_restart_single_file_incomplete</b> ()</td></tr>
+<tr class="memdesc:a6f97957697a47fc3a597d0189f10050b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restart, num_rest_files=1: the one part is NOT complete (nlen=0). <br /></td></tr>
+<tr class="separator:a6f97957697a47fc3a597d0189f10050b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fe1b2ec919475e0f8f6f8b9d8ac1614" id="r_a6fe1b2ec919475e0f8f6f8b9d8ac1614"><td class="memItemLeft" align="right" valign="top"><a id="a6fe1b2ec919475e0f8f6f8b9d8ac1614" name="a6fe1b2ec919475e0f8f6f8b9d8ac1614"></a>
+subroutine&#160;</td><td class="memItemRight" valign="bottom"><b>check_restart_multiple_files_all_complete</b> ()</td></tr>
+<tr class="memdesc:a6fe1b2ec919475e0f8f6f8b9d8ac1614"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restart, num_rest_files=3: all three parts complete. <br /></td></tr>
+<tr class="separator:a6fe1b2ec919475e0f8f6f8b9d8ac1614"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e2b053d9c996ded72d0e4a791f3149d" id="r_a1e2b053d9c996ded72d0e4a791f3149d"><td class="memItemLeft" align="right" valign="top"><a id="a1e2b053d9c996ded72d0e4a791f3149d" name="a1e2b053d9c996ded72d0e4a791f3149d"></a>
+subroutine&#160;</td><td class="memItemRight" valign="bottom"><b>check_restart_multiple_files_partial</b> ()</td></tr>
+<tr class="memdesc:a1e2b053d9c996ded72d0e4a791f3149d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restart, num_rest_files=3: two parts complete, one not. <br /></td></tr>
+<tr class="separator:a1e2b053d9c996ded72d0e4a791f3149d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a556852a78e1ef9c397eced40873df9aa" id="r_a556852a78e1ef9c397eced40873df9aa"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__outputlog__completion_8F90.html#a556852a78e1ef9c397eced40873df9aa">assert_true</a> (condition, msg)</td></tr>
 <tr class="memdesc:a556852a78e1ef9c397eced40873df9aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asserts a logical condition is true.  <br /></td></tr>
 <tr class="separator:a556852a78e1ef9c397eced40873df9aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
