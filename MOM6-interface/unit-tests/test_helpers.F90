@@ -5,8 +5,8 @@
 module test_helpers
 
   use ESMF
-  use mom_outputlog_methods, only : outputlog_config_type, outputlog_state_type
-  use mom_outputlog_methods, only : get_timestr, set_toffset
+  use mom_outputlog_methods, only : outputlog_config_type, outputlog_state_type, outputlog_modeltime_type
+  use mom_outputlog_methods, only : setup_freq_config, get_timestr, set_toffset
   use MOM_cap_time,          only : AlarmInit
   use nc_fixture_mod,        only : create_schema, write_record, write_padding, write_bulk_data
   use test_utils,            only : esmf_err
@@ -22,8 +22,7 @@ module test_helpers
   integer, parameter :: base_dd = 22     !< a standard start day
 
 contains
-  !> Build a real ESMF_Clock/alarm plus cf_n/state_n for one test case,
-  !! exactly as outputlog_init would.
+  !> Build a real ESMF_Clock/alarm plus cf_n/state_n for one test case
   !!
   !! @param[in]     start_hour     model start hour
   !! @param[in]     runhours       total run length in hours
@@ -46,11 +45,11 @@ contains
     type(outputlog_state_type),  intent(out) :: state_n
     integer,                     intent(out) :: rc
 
-    type(ESMF_TimeInterval) :: alarmoffset
-    type(ESMF_Time)         :: startTime, currTime, stopTime
-    type(ESMF_TimeInterval) :: timeStep, tincrement
+    type(outputlog_modeltime_type) :: modeltime
+    type(ESMF_Time)         :: startTime, stopTime
+    type(ESMF_TimeInterval) :: timeStep, alarmoffset
 
-    integer :: toffset
+    integer :: toffset, hour
     character(len=16)  :: startstr, stopstr
     character(len=120) :: subname = 'setup_case'
 
@@ -63,12 +62,12 @@ contains
 
     call ESMF_TimeIntervalSet(timeStep, s=1800, rc=rc)
     call esmf_err(rc, subname, "ESMF_TimeIntervalSet(timeStep)")
-    call ESMF_TimeIntervalSet(tincrement, m=1, rc=rc)
+    call ESMF_TimeIntervalSet(modeltime%tincrement, m=1, rc=rc)
     call esmf_err(rc, subname, "ESMF_TimeIntervalSet(tincrement)")
     modelClock  = ESMF_ClockCreate(name="Model",timeStep=timeStep, startTime=startTime, stopTime=stopTime, rc=rc)
     call esmf_err(rc, subname, "ESMF_ClockCreate")
 
-    call ESMF_ClockGet(modelclock, currTime=currTime, startTime=startTime, stopTime=stopTime, rc=rc)
+    call ESMF_ClockGet(modelclock, currTime=modeltime%currTime, startTime=startTime, stopTime=stopTime, rc=rc)
     call esmf_err(rc, subname, "ESMF_ClockGet start,stop time")
     startstr = get_timestr(startTime, rc=rc)
     call esmf_err(rc, subname, "get_timestr(startTime)")
@@ -78,46 +77,29 @@ contains
        print '(/,A)','Clock will run from '//startstr//' to '//stopstr
     endif
 
-    ! --- Build the rest of cf_n exactly as outputlog_init would ---
-    cf_n%alarm_name           = 'test_alarm'
-    cf_n%opt_n                = freq
-    cf_n%requested            = .true.
-    cf_n%timereduce           = l_timereduce
-    cf_n%fnameprefix          = 'ocn_'
-    if (l_nfiles == 1) then
-       cf_n%fnamesuffix       = ''
-    else
-       cf_n%fnamesuffix       = '.0000'
-    endif
-    if (trim(l_timereduce) == 'none') then
-       cf_n%filename_fhoffset = 60*freq*tincrement
-    else
-       cf_n%filename_fhoffset = 90*freq*tincrement
-    endif
+    ! initialize as in production
+    cf_n%opt_n       = freq
+    cf_n%requested   = .true.
+    cf_n%timereduce  = l_timereduce
+    cf_n%fnameprefix = 'ocn_'
 
-    state_n%filename            = ' '
-    state_n%chkfile_nextAdvance = .false.
-    state_n%use_filesize        = .false.
-    state_n%filecomplete        = .false.
-    state_n%createsize          = 0
-    state_n%completesize        = 0
+    call setup_freq_config(freq, l_nfiles, modeltime, cf_n, state_n, rc)
+    call esmf_err(rc, subname, "setup_freq_config")
 
-    ! Fixed dummy value
-    state_n%time_lastrestart    = startTime
-
-    ! the time offset in hours required to ensure the alarm rings at multiples of freq(n)
-    ! regardless of start day/hour
-    toffset = set_toffset(start_hour, freq)
-    alarmoffset = toffset*60*tincrement
+    call ESMF_TimeGet(modeltime%currTime, h=hour, rc=rc)
+    call esmf_err(rc, subname, "ESMF_TimeGet(hour)")
+    toffset = set_toffset(hour, freq)
+    alarmoffset = toffset*60*modeltime%tincrement
 
     call AlarmInit(modelclock,              &
          alarm     = cf_n%alarm,            &
          option    = 'nhours',              &
-         opt_n     = cf_n%opt_n,            &
+         opt_n     = freq,                  &
          opt_ymd   = -999,                  &
-         RefTime   = currTime+alarmoffset,  &
+         RefTime   = modeltime%currTime+alarmoffset,  &
          alarmname = cf_n%alarm_name, rc=rc)
     call esmf_err(rc, subname, "call AlarmInit")
+
   end subroutine setup_case
   !> Create/complete a netCDF fixture file, matching the real DATM/ATM
   !! completion contract.
