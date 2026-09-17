@@ -167,6 +167,19 @@ program test_outputlog_freqn
   call assert_equal(completions, expected, testname, assertrc, assertmsg)
   call addresult(freqntests, assertrc, trim(assertmsg), '')
 
+  ! ------------------
+  ! io_layout
+  ! ------------------
+  nt = nt + 1
+  expected = 1 ! ring at hour 18 tracks 09 file for DATM, nfiles=4
+  write(testname,'(A,I2.2,A)')'test ',nt,' io_layout: nfiles>1 uses .0000 suffix, completes correctly'
+  call run_case(trim(testname),               &
+       freq=6, start_hour=6, runhours=13,     &
+       nfiles=4,                              &
+       completions=completions)
+  call assert_equal(completions, expected, testname, assertrc, assertmsg)
+  call addresult(freqntests, assertrc, trim(assertmsg), '')
+
   ! ===========================================================================
   ! Test cases with restart pairing
   !   - restart_hours are a frequency if a single value is provided
@@ -259,7 +272,7 @@ program test_outputlog_freqn
 
   call run_case(trim(testname), freq=6, start_hour=9, runhours=93, &
        use_filesize              = .true.,                         &
-       restart_hours             =[12,30,51,84],                    &
+       restart_hours             =[12,30,51,84],                   &
        lastrestart_times         =lastrestart_times,               &
        completions=completions)
 
@@ -285,19 +298,46 @@ program test_outputlog_freqn
      call assert_equal(nmatches, expected, testname, assertrc, assertmsg)
      call addresult(freqntests, assertrc, trim(assertmsg), '')
   endif
+  deallocate(lastrestart_times, expected_lastrestarts, expected_lastrestart_hours)
 
   ! ------------------
-  ! io_layout
-  ! ------------------
   nt = nt + 1
-  expected = 1 ! ring at hour 18 tracks 09 file for DATM, nfiles=4
-  write(testname,'(A,I2.2,A)')'test ',nt,' io_layout: nfiles>1 uses .0000 suffix, completes correctly'
-  call run_case(trim(testname),               &
-       freq=6, start_hour=6, runhours=13,     &
-       nfiles=4,                              &
+  expected = 4 ! rings at hour=8,9 complete 07,08 files; first finalize completes 09, second complete 10; restart freq=1
+  write(testname,'(A,I2.2,A)')'test ',nt,' snapshots, multiple rings complete correctly; 2 at finalize'
+  allocate(lastrestart_times(expected))
+  allocate(expected_lastrestarts(expected))
+  allocate(expected_lastrestart_hours(expected))
+
+  call run_case(trim(testname), freq=1, start_hour=6, runhours=4, &
+       use_filesize             =.true.,                          &
+       timereduce               ='none',                          &
+       restart_hours            =[1],                             &
+       lastrestart_times        =lastrestart_times,               &
        completions=completions)
+
   call assert_equal(completions, expected, testname, assertrc, assertmsg)
   call addresult(freqntests, assertrc, trim(assertmsg), '')
+
+  if (completions == expected) then
+     testname = trim(testname)//', restart pairing at file completion'
+     nmatches = 0
+     expected_lastrestart_hours=[8,9,10,10]
+     call setup_expected_lastrestart_times(expected_lastrestart_hours, expected_lastrestarts)
+     do n = 1,expected
+        if (debug_onroot) then
+           timestr = get_timestr(expected_lastrestarts(n),rc=rc)
+           call esmf_err(rc, subname, "get expected_lastrestart")
+           print '(A)','expected last restart times '//timestr
+        endif
+        if (lastrestart_times(n) == expected_lastrestarts(n)) then
+           nmatches = nmatches + 1
+        endif
+     enddo
+
+     call assert_equal(nmatches, expected, testname, assertrc, assertmsg)
+     call addresult(freqntests, assertrc, trim(assertmsg), '')
+  endif
+  deallocate(lastrestart_times, expected_lastrestarts, expected_lastrestart_hours)
 
   ! ------------------
   ! Test results
@@ -479,9 +519,9 @@ contains
           call handlefiles(isroot, state_n%filename, l_use_filesize, 'complete')
           pending = .false.
           if (debug_onroot) then
-             !call get_file_state(comm, isroot, rootpe, state_n%filename, nlen=nlen, fsize=fsize, rc=rc)
-             !print '(A,i4,i12,2(A,L))',trim(subname)//' complete file '//state_n%filename//'  '//importexport, &
-             !     nlen,fsize,' pending ',pending,' ringing ',state_n%ringing
+             call get_file_state(comm, isroot, rootpe, state_n%filename, nlen=nlen, fsize=fsize, rc=rc)
+             print '(A,i4,i12,2(A,L))',trim(subname)//' complete file '//state_n%filename//'  '//importexport, &
+                 nlen,fsize,' pending ',pending,' ringing ',state_n%ringing
           endif
        endif
 
@@ -505,9 +545,9 @@ contains
              call handlefiles(isroot, state_n%filename, l_use_filesize, 'create')
              pending = .true.
              if (debug_onroot) then
-               !call get_file_state(comm, isroot, rootpe, state_n%filename, nlen=nlen, fsize=fsize, rc=rc)
-               !print '(A,i4,i12,2(A,L))',trim(subname)//' create file '//state_n%filename//'  '//importexport,  &
-               !     nlen,fsize,' pending ',pending,' ringing ',state_n%ringing
+               call get_file_state(comm, isroot, rootpe, state_n%filename, nlen=nlen, fsize=fsize, rc=rc)
+               print '(A,i4,i12,2(A,L))',trim(subname)//' create file '//state_n%filename//'  '//importexport,  &
+                   nlen,fsize,' pending ',pending,' ringing ',state_n%ringing
              endif
           endif
        endif
@@ -532,9 +572,9 @@ contains
              pending = .false.
              found_firstcompletion = .false.
              if (debug_onroot) then
-                !call get_file_state(comm, isroot, rootpe, state_n%filename, nlen=nlen, fsize=fsize, rc=rc)
-                !print '(A,i4,i12,2(A,L))',trim(subname)//' complete file '//state_n%filename//'  '//importexport, &
-                !     nlen,fsize,' pending ',pending,' ringing ',state_n%ringing
+                call get_file_state(comm, isroot, rootpe, state_n%filename, nlen=nlen, fsize=fsize, rc=rc)
+                print '(A,i4,i12,2(A,L))',trim(subname)//' complete file '//state_n%filename//'  '//importexport, &
+                    nlen,fsize,' pending ',pending,' ringing ',state_n%ringing
              endif
 
              state_n%ringing = .false.
@@ -576,9 +616,9 @@ contains
              call handlefiles(isroot, state_n%filename, l_use_filesize, 'create-complete')
 
              if (debug_onroot) then
-                !call get_file_state(comm, isroot, rootpe, state_n%filename, nlen=nlen, fsize=fsize, rc=rc)
-                !print '(A,i4,i12,2(A,L))',trim(subname)//' create-complete file '//state_n%filename//'  '//importexport, &
-                !     nlen,fsize,' pending ',pending,' ringing ',state_n%ringing
+                call get_file_state(comm, isroot, rootpe, state_n%filename, nlen=nlen, fsize=fsize, rc=rc)
+                print '(A,i4,i12,2(A,L))',trim(subname)//' create-complete file '//state_n%filename//'  '//importexport, &
+                    nlen,fsize,' pending ',pending,' ringing ',state_n%ringing
              endif
           endif
           ! ======================================================================
