@@ -59,17 +59,21 @@ contains
     call ESMF_TimeSet(startTime, yy=base_yy, mm=base_mm, dd=base_dd, h=start_hour, rc=rc)
     call esmf_err(rc, subname, "ESMF_TimeSet(startTime)")
     call ESMF_TimeSet(stopTime,  yy=base_yy, mm=base_mm, dd=base_dd, h=start_hour+runhours, rc=rc)
+    call esmf_err(rc, subname, "ESMF_TimeSet(stopTime)")
 
     call ESMF_TimeIntervalSet(timeStep, s=1800, rc=rc)
     call esmf_err(rc, subname, "ESMF_TimeIntervalSet(timeStep)")
     call ESMF_TimeIntervalSet(tincrement, m=1, rc=rc)
     call esmf_err(rc, subname, "ESMF_TimeIntervalSet(tincrement)")
     modelClock  = ESMF_ClockCreate(name="Model",timeStep=timeStep, startTime=startTime, stopTime=stopTime, rc=rc)
+    call esmf_err(rc, subname, "ESMF_ClockCreate")
 
     call ESMF_ClockGet(modelclock, currTime=currTime, startTime=startTime, stopTime=stopTime, rc=rc)
     call esmf_err(rc, subname, "ESMF_ClockGet start,stop time")
     startstr = get_timestr(startTime, rc=rc)
+    call esmf_err(rc, subname, "get_timestr(startTime)")
     stopstr = get_timestr(stopTime, rc=rc)
+    call esmf_err(rc, subname, "get_timestr(stopTime)")
     if (debug_onroot) then
        print '(/,A)','Clock will run from '//startstr//' to '//stopstr
     endif
@@ -206,6 +210,7 @@ contains
     else
        do n = 1, size(restart_hours)
           call ESMF_TimeSet(restart_times(n), yy=base_yy, mm=base_mm, dd=base_dd, h=restart_hours(n), rc=rc)
+          call esmf_err(rc, subname, "ESMF_TimeSet(restart_times)")
        enddo
     endif
   end subroutine setup_restarttimes
