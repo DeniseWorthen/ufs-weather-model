@@ -112,5 +112,19 @@ Once a file is determined complete, the check flag for the next Advance is turne
 When the model completes in the Model\+Finalization phase, two calls to the tracking feature are required. Both occur after the IO has been shut down. The first call checks the status of the penultimate file; the file which would have completed at the next Model\+Advance timestep. Since in this case, there will be no next timestep, this \textquotesingle{}pending\textquotesingle{} file is completed by the IO shutdown. The final file, for the last averaging window, is also completed during the IO shutdown.\hypertarget{index_autotoc_md13}{}\doxysubsubsection{\texorpdfstring{Restart Pairing}{Restart Pairing}}\label{index_autotoc_md13}
 The history files for MOM6 are at specific cadences, e.\+g. 6-\/hourly. The restart files, however, can be written at either specific (but different) cadences or at specific forecast hours. There is in general no simple {\itshape a priori} relationship between the writing of restarts and the writing of history files. Therefore, the concept of \textquotesingle{}restart pairing\textquotesingle{} is used to refer to tracking the last restart file which was written at the time a history file is written. The paired restart is written to the log file produced by the feature.
 
-The following example is based on the gfsv17 IAU regression test. History output for MOM6 is set to 6-\/hourly averages output and restarts written at specified hours. In this case, the model is restarting with {\ttfamily FHROT = 3} and since IAU is active, MOM6 averaging begins at {\ttfamily 03-\/22-\/12}. The restarts are requested at {\ttfamily restart\+\_\+interval\+: 6 24 45 78}.\hypertarget{index_autotoc_md14}{}\doxysubsection{\texorpdfstring{File Tracking Example}{File Tracking Example}}\label{index_autotoc_md14}
- 
+The following example is based on the gfsv17 IAU regression test. History output for MOM6 is set to 6-\/hourly averages output and restarts are written at specified hours. In this case, the model is restarting with {\ttfamily FHROT = 3} and since IAU is active, MOM6 averaging begins at {\ttfamily 03-\/22-\/12}. The restarts are requested at {\ttfamily restart\+\_\+interval\+: 6 24 45 78}.
+
+The logfile {\ttfamily 20210324.\+060000.\+mom6.\+06h} will contain\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{completed:\ mom6.06h}
+\DoxyCodeLine{forecast\ hour:\ \ \ \ 48.000}
+\DoxyCodeLine{valid\ time:\ \ \ \ \ 2021\ \ \ \ \ \ \ 3\ \ \ \ \ \ 24\ \ \ \ \ \ \ 6\ \ \ \ \ \ \ 0\ \ \ \ \ \ \ 0}
+\DoxyCodeLine{last\ output:\ ./MOM6\_OUTPUT/ocn\_2021\_03\_23\_21\_00.nc}
+\DoxyCodeLine{last\ restart:\ \ \ \ \ 2021\ \ \ \ \ \ \ 3\ \ \ \ \ \ 24\ \ \ \ \ \ \ 3\ \ \ \ \ \ \ 0\ \ \ \ \ \ \ 0}
+
+\end{DoxyCode}
+
+
+\hypertarget{index_autotoc_md14}{}\doxysubsection{\texorpdfstring{Unit Testing}{Unit Testing}}\label{index_autotoc_md14}
