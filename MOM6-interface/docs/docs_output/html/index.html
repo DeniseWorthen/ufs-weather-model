@@ -159,7 +159,7 @@ Finalization</h3>
 <h3><a class="anchor" id="autotoc_md13"></a>
 Restart Pairing</h3>
 <p>The history files for MOM6 are at specific cadences, e.g. 6-hourly. The restart files, however, can be written at either specific (but different) cadences or at specific forecast hours. There is in general no simple <em>a priori</em> relationship between the writing of restarts and the writing of history files. Therefore, the concept of 'restart pairing' is used to refer to tracking the last restart file which was written at the time a history file is written. The paired restart is written to the log file produced by the feature.</p>
-<p>The following example is based on the gfsv17 IAU regression test. History output for MOM6 is set to 6-hourly averages output and restarts written at specified hours. In this case, the model is restarting with <code>FHROT = 3</code> and since IAU is active, MOM6 averaging begins at <code>03-22-12</code>. The restarts are requested at <code>restart_interval&amp;nbsp:&amp;nbsp 6&amp;nbsp24&amp;nbsp45&amp;nbsp78</code>.</p>
+<p>The following example is based on the gfsv17 IAU regression test. History output for MOM6 is set to 6-hourly averages output and restarts written at specified hours. In this case, the model is restarting with <code>FHROT = 3</code> and since IAU is active, MOM6 averaging begins at <code>03-22-12</code>. The restarts are requested at <code>restart_interval: 6 24 45 78</code>.</p>
 <h2><a class="anchor" id="autotoc_md14"></a>
 File Tracking Example</h2>
 <div class="image">
