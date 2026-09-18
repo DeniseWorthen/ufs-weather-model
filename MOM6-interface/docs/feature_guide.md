@@ -153,9 +153,10 @@ that the default matches the specification in the
 `diag_table`. Otherwise, the filename prefix must be set to the actual
 filename prefix called for in the `diag_table`. If more than a single
 frequency is requested, the user must provide filename prefixes for
-all frequencies (again ensuring matches to the `diag_table`). The
-filename prefix can have a maximum length of 12 (not including the
-trailing underscore, which will be appended).
+all frequencies (again ensuring matches to the `diag_table`); these
+prefixes must also be distinct from one another, or the namelist will
+be rejected. The filename prefix can have a maximum length of 12 (not
+including the trailing underscore, which will be appended).
 
 ### File Time Reduction
 
@@ -199,7 +200,7 @@ inquires on the state of that particular file will be made.
 An alarm is initialized at each desired tracking frequency. As noted
 previously, alarms are set to ring at multiples of the tracking
 frequency and initialized with a time-offset to ensure that they ring
-at on intervals associated with the operational forecast hours.
+on intervals associated with the operational forecast hours.
 
 ### IO-layout
 
