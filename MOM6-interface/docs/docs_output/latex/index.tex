@@ -135,26 +135,28 @@ The logfile {\ttfamily 20210324.\+060000.\+mom6.\+06h} will contain\+:
 \end{DoxyCode}
 
 
-\hypertarget{index_autotoc_md29}{}\doxysubsection{\texorpdfstring{Unit Testing}{Unit Testing}}\label{index_autotoc_md29}
+\hypertarget{index_autotoc_md29}{}\doxysection{\texorpdfstring{Unit Testing}{Unit Testing}}\label{index_autotoc_md29}
 The output logging feature is covered by a suite of unit tests. The tests consist of three supporting routines \+:
 
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Program Name   }&\cellcolor{\tableheadbgcolor}\textbf{ Purpose    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\cellcolor{\tableheadbgcolor}\textbf{ Program Name   }&\cellcolor{\tableheadbgcolor}\textbf{ Purpose    }\\\cline{1-2}
+\endhead
+\doxylink{nc__fixture__mod_8F90}{nc\+\_\+fixture\+\_\+mod.\+F90}   &creates mock net\+CDF files mimicking possible history and restart states    \\\cline{1-2}
+\doxylink{test__helpers_8F90}{test\+\_\+helpers.\+F90}   &convenience module with re-\/used functions    \\\cline{1-2}
+\doxylink{test__utils_8F90}{test\+\_\+utils.\+F90}   &assertion and error utilities   \\\cline{1-2}
+\end{longtabu}
 
-\begin{DoxyItemize}
-\item \doxylink{nc__fixture__mod_8F90}{nc\+\_\+fixture\+\_\+mod.\+F90} \+: creates mock net\+CDF files mimicking possible history and restart states
-\item \doxylink{test__helpers_8F90}{test\+\_\+helpers.\+F90} \+: convenience module with re-\/used functions
-\item \doxylink{test__utils_8F90}{test\+\_\+utils.\+F90} \+: assertion and error utilities
-\end{DoxyItemize}
 
 and five tests\+:
 
-
-\begin{DoxyItemize}
-\item \doxylink{test__outputlog__completion_8F90}{test\+\_\+outputlog\+\_\+completion.\+F90}
-\item \doxylink{test__outputlog__readnml_8F90}{test\+\_\+outputlog\+\_\+readnml.\+F90}
-\item \doxylink{test__outputlog__alarminit_8F90}{test\+\_\+outputlog\+\_\+alarminit.\+F90}
-\item \doxylink{test__outputlog__freqn_8F90}{test\+\_\+outputlog\+\_\+freqn.\+F90}
-\item \doxylink{test__outputlog__restn_8F90}{test\+\_\+outputlog\+\_\+restn.\+F90}
-\end{DoxyItemize}
+\texorpdfstring{$\vert$}{|} Program Name \texorpdfstring{$\vert$}{|} Purpose \texorpdfstring{$\vert$}{|} Target Functions \texorpdfstring{$\vert$}{|} \+:--- \texorpdfstring{$\vert$}{|} \+:--- \texorpdfstring{$\vert$}{|} \+:--- \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \doxylink{test__outputlog__completion_8F90}{test\+\_\+outputlog\+\_\+completion.\+F90} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \doxylink{test__outputlog__readnml_8F90}{test\+\_\+outputlog\+\_\+readnml.\+F90} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \doxylink{test__outputlog__alarminit_8F90}{test\+\_\+outputlog\+\_\+alarminit.\+F90} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \doxylink{test__outputlog__freqn_8F90}{test\+\_\+outputlog\+\_\+freqn.\+F90} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \doxylink{test__outputlog__restn_8F90}{test\+\_\+outputlog\+\_\+restn.\+F90} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}
 
 The completion test is used to verify the {\ttfamily get\+\_\+file\+\_\+state} and {\ttfamily file\+\_\+is\+\_\+complete} functions. It uses the {\ttfamily nc\+\_\+fixture\+\_\+mod} to create the suite of files in various states.
 
