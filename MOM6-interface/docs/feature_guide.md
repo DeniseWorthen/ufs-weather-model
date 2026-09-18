@@ -2,9 +2,9 @@
 
 The MOM6 output logging feature is designed to track the completion of
 MOM6 history and restart files during a model run. This feature is
-specific to UWM operational requirements and configurations (eg
-specific output frequencies in hours) and may break if used outside
-the scope of intended use.
+specific to UFS Weather Model (UWM) operational requirements and
+configurations (eg specific output frequencies in hours) and may break
+if used outside the scope of intended use.
 
 The feature is enabled by adding a namelist to the model `input.nml`
 which can be used to define the history output frequencies, file names
@@ -17,7 +17,7 @@ the initial state of the file is recorded. Depending on the
 characteristics of the file at creation, the criteria to declare a
 file complete is defined.
 
-The file state will be checked at each suceeding ModelAdvance until
+The file state will be checked at each succeeding ModelAdvance until
 the appropriate completion criteria is met. The criteria used are
 either:
 
@@ -199,7 +199,7 @@ inquires on the state of that particular file will be made.
 An alarm is initialized at each desired tracking frequency. As noted
 previously, alarms are set to ring at multiples of the tracking
 frequency and initialized with a time-offset to ensure that they ring
-at on intervals associated of the operational forecast hours.
+at on intervals associated with the operational forecast hours.
 
 ### IO-layout
 
@@ -207,7 +207,7 @@ When IO-layout is enabled, the root PE associated with the IO domain
 is co-located with the root PE of the computation domain. Each
 IO-domain will produce a history file for the domain; the file names
 will be appended with the IO-domain number, for example
-`.nc.0000`. The number of history files expected obtained using the
+`.nc.0000`. The number of history files expected is obtained using the
 internal MOM6 function `mpp_get_io_domain_layout`. For a single
 IO-domain, no file name suffix is used; when IO-layout is in use, only
 the root IO task associated with the `.nc.0000` file will be queried
