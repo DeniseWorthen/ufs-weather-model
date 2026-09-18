@@ -189,7 +189,20 @@ Unit Testing</h1>
 <td class="markdownTableBodyLeft"><a class="el" href="test__utils_8F90.html" title="Common assertion and test summary functions for MOM6 outputlog unit tests.">test_utils.F90</a>   </td><td class="markdownTableBodyLeft">assertion and error utilities   </td></tr>
 </table>
 <p>and five tests:</p>
-<p>| Program Name | Purpose | Target Functions | :&mdash; | :&mdash; | :&mdash; | | <a class="el" href="test__outputlog__completion_8F90.html" title="Tests file completion contract in isolation.">test_outputlog_completion.F90</a> | | | <a class="el" href="test__outputlog__readnml_8F90.html" title="Test file readnml contract.">test_outputlog_readnml.F90</a> | | | <a class="el" href="test__outputlog__alarminit_8F90.html" title="Test code for outputlog Alarm Initialization.">test_outputlog_alarminit.F90</a> | | | <a class="el" href="test__outputlog__freqn_8F90.html" title="Orchestration test for the track_freqn machinery.">test_outputlog_freqn.F90</a> | | | <a class="el" href="test__outputlog__restn_8F90.html" title="Test per-part completion for track_restn.">test_outputlog_restn.F90</a> | |</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadLeft">Program Name   </th><th class="markdownTableHeadLeft">Purpose   </th><th class="markdownTableHeadLeft">Target Functions    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft"><a class="el" href="test__outputlog__completion_8F90.html" title="Tests file completion contract in isolation.">test_outputlog_completion.F90</a>   </td><td class="markdownTableBodyLeft"></td><td class="markdownTableBodyLeft"></td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft"><a class="el" href="test__outputlog__readnml_8F90.html" title="Test file readnml contract.">test_outputlog_readnml.F90</a>   </td><td class="markdownTableBodyLeft"></td><td class="markdownTableBodyLeft"></td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft"><a class="el" href="test__outputlog__alarminit_8F90.html" title="Test code for outputlog Alarm Initialization.">test_outputlog_alarminit.F90</a>   </td><td class="markdownTableBodyLeft"></td><td class="markdownTableBodyLeft"></td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft"><a class="el" href="test__outputlog__freqn_8F90.html" title="Orchestration test for the track_freqn machinery.">test_outputlog_freqn.F90</a>   </td><td class="markdownTableBodyLeft"></td><td class="markdownTableBodyLeft"></td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft"><a class="el" href="test__outputlog__restn_8F90.html" title="Test per-part completion for track_restn.">test_outputlog_restn.F90</a>   </td><td class="markdownTableBodyLeft"></td><td class="markdownTableBodyLeft"></td></tr>
+</table>
 <p>The completion test is used to verify the <code>get_file_state</code> and <code>file_is_complete</code> functions. It uses the <code>nc_fixture_mod</code> to create the suite of files in various states.</p>
 <p>The readnml test is used to ensure that the contract for allowable settings is enforced.</p>
 <p>The alarminit test is used to ensure that the alarm</p>
