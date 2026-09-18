@@ -1,5 +1,5 @@
 !> @file test_outputlog_freqn.F90
-!> @brief Orchestration test for the outputlog_freqn machinery
+!> @brief Orchestration test for the track_freqn machinery
 !!
 !! Set up a modelClock and ring state for a logging frequency; calls into track_freqn
 !! with fixed curr/next Time, mimicking actual ModelAdvance where the clock itself never

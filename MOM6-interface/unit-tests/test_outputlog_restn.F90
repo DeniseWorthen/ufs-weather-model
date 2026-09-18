@@ -1,5 +1,5 @@
 !> @file test_outputlog_restn.F90
-!> @brief Tests track_restn -- the real per-part restart completion check
+!> @brief Test per-part completion for track_restn
 !!
 !! Calls track_restn directly,  against real restart-fixture files to verify
 !! both per-part allDone(n) and all(allDone). Also tests filenames constructed

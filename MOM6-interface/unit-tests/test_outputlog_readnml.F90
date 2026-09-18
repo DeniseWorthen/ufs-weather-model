@@ -1,4 +1,5 @@
-!> Test code for outputlog_methods readnml
+!> @file test_outputlog_readnml.F90
+!> @brief Test file readnml contract
 !!
 !! Probes readnml's logic guards for permitted namelist uses for
 !! configuring the outputlog functionality in the MOM6 NUOPC cap

@@ -1,13 +1,13 @@
 # MOM6 Output Logging User Guide
 
 The MOM6 output logging feature is designed to track the completion of
-MOM6 history and restart files during a model run.  This feature is
+MOM6 history and restart files during a model run. This feature is
 specific to UWM operational requirements and configurations (eg
 specific output frequencies in hours) and may break if used outside
 the scope of intended use.
 
 The feature is enabled by adding a namelist to the model `input.nml`
-which can be used to define the history output frequencies, filenames
+which can be used to define the history output frequencies, file names
 and types (snapshot or averages) which are to be tracked. The user is
 responsible for ensuring that these settings match the contents of the
 `diag_table` in use by the model. From the user-configuration, one or
@@ -18,13 +18,17 @@ characteristics of the file at creation, the criteria to declare a
 file complete is defined.
 
 The file state will be checked at each suceeding ModelAdvance until
-the appropriate completion criteria is met: either when the unlimited
-dimension in the file is greater than zero or when the unlimited
-dimension is greater than zero and the filesize is larger than the
-initial size. When a file is determined to be complete, a log file is
-recorded containing the forecast hour, the valid time, the name of the
-output file and the last completed restart file. The log file can then
-be used by any related workflow
+the appropriate completion criteria is met. The criteria used are
+either:
+
+1. the unlimited dimension in the file is greater than zero,
+2. when the unlimited dimension is greater than zero and the filesize
+is larger than the initial size.
+
+When a file is determined to be complete, a log file is recorded
+containing the forecast hour, the valid time, the name of the output
+file and the last completed restart file. The log file can then be
+used by any related workflow
 (e.g. [global-workflow](https://github.com/NOAA-EMC/global-workflow)).
 
 To illustrate the concepts implemented in the output logging feature,
@@ -50,7 +54,7 @@ written: the "pending" file (h = 21) as well as the final h = 03 file.
 
 Restarts for MOM6 are written by MOM6 directly, not using FMS as for
 the history files. Model restarts are written, complete, when the
-ModelAdance nextTime matches a requested hour. In the above diagram,
+ModelAdvance nextTime matches a requested hour. In the above diagram,
 restarts written at hour = 12 will be when the ModelAdvance currTime =
 11:30 and the ModelAdvance nextTime = 12:00.
 
@@ -65,10 +69,10 @@ last output: ./MOM6_OUTPUT/ocn_2011_10_01_09_00.nc
 last restart:     2011      10       1      12       0       0
 ```
 
-In the above case, since the log file for both the h = 21 and h = 03
-file are both written at the same model hour (FH = 30 in this case),
-the log for the very last file is denoted with `lstop` appended to the
-file name (`20111002.060000.mom6.lstop.06h`).
+In the above case, the log file for both the h = 21 and h = 03 file
+are both written at the same model hour (FH = 30 in this
+case). Therefore, the log for the very last file is denoted with
+`lstop` appended to the file name (`20111002.060000.mom6.lstop.06h`).
 
 @note The above sample log file also highlights the essential feature
 of the output sequencing. At FH = 18, the only output files which are
@@ -78,7 +82,7 @@ written.
 
 # Design and Function
 
-The outputlog feature consists of two fortran modules in
+The outputlog feature consists of two modules in
 `config_src/drivers/nuopc_cap`:
 
 * mom_cap_outputlog.F90
@@ -100,7 +104,7 @@ added to the `input.nml` which will populate the
 outputlog_config_type. For example, the following values will request
 tracking 6-hourly files, which (using the `diag_table`) have a
 filename prefix of `ocn` and are defined as time-averaged values. No
-debug information will be added to the stdout file.
+debug information will be added to the standard output file.
 
 ```text
 &MOM_outputlog_nml
@@ -135,9 +139,9 @@ are.
 @note Because it is intended for operational purposes, logging
 frequency is intentionally set to log 3 and 6 hour frequencies
 relative to the operational forecast windows. This means that a 6 hour
-tracking frequency is always implemenented as starting at one of hours
+tracking frequency is always implemented as starting at one of hours
 00,06,12 or 18. A similar rule applies to a 3 hour tracking frequency
-(i.e, 00,03,06 etc). Tracking at 24 hour intervals is for consecutive
+(i.e., 00,03,06). Tracking at 24 hour intervals is for consecutive
 24 hour periods. For example, hour 09 on day one through to hour 09 on
 day 2.
 
@@ -158,7 +162,7 @@ trailing underscore, which will be appended).
 Either instantaneous (snapshot) files or time averaged files are
 supported. These are specified by the namelist `treduce` settings of
 `none` and `average`, respectfully. The file name format for time
-averaged output is asssumed to be timestamped with the mid-point of
+averaged output is assumed to be timestamped with the midpoint of
 the averaging window (i.e. 09 for the 6h-12h average). For snapshot
 output, the timestamp will be the time of the snapshot.  The user is
 responsible for ensuring that the diag_table in use matches these
@@ -169,14 +173,32 @@ definitions.
 When enabled in the namelist, debugging print statements will be
 written to standard out. These statements track the state of the
 feature tracking at each step through the ModelAdvance. Print
-statements will be pre-pended with an identifing routine, for example
-`MOM_cap:(track_freqn)`.
+statements will be prepended with the routine name, for example
+`MOM_cap:(track_freqn)`. Utilizing this feature for a case with
+tracking of 6-hourly average output produces:
+
+```text
+MOM_cap:(track_freqn) ./MOM6_OUTPUT/ocn_2021_03_22_21_00.nc exists 2021-03-23T05:30:00  2021-03-23T06:00:00 not complete, chkflag  T     9415276      9415276    1
+MOM_cap:(track_freqn) ./MOM6_OUTPUT/ocn_2021_03_22_21_00.nc exists 2021-03-23T06:00:00  2021-03-23T06:30:00     complete, chkflag  F     9415276     90532460    1
+MOM_cap:(track_freqn) ./MOM6_OUTPUT/ocn_2021_03_22_21_00.nc exists 2021-03-23T06:30:00  2021-03-23T07:00:00     complete, chkflag  F     9415276     90532460    1
+MOM_cap:(track_freqn) ./MOM6_OUTPUT/ocn_2021_03_22_21_00.nc exists 2021-03-23T07:00:00  2021-03-23T07:30:00     complete, chkflag  F     9415276     90532460    1
+```
+
+As the model advances, the feature scans for a specific filename. When
+that file is found, the debug print will indicate that the file is
+present at a given `modelAdvance` time pair (the currTime and the
+nextTime). The completion state is given, as well as the status of the
+`chkfile_nextAdvance` logical. The next two columns report the size of the
+file when created and the current size of the file. The final column
+reports the length of the unlimited dimension. Once the file is
+determined complete, the checking flag flips to false and no further
+inquires on the state of that particular file will be made.
 
 ### Alarm Initialization
 
-An alarm is intialized at each desired tracking frequency. As noted
+An alarm is initialized at each desired tracking frequency. As noted
 previously, alarms are set to ring at multiples of the tracking
-frequency and intialized with a time-offset to ensure that they ring
+frequency and initialized with a time-offset to ensure that they ring
 at on intervals associated of the operational forecast hours.
 
 ### IO-layout
@@ -198,7 +220,7 @@ for the model state.
 When an alarm rings for a frequency, the filename for the expected
 history output is constructed and the initial state of the file, if
 present, is obtained. Two characteristics of the file are obtained:
-the length of the unlimited dimension and the inital size of the
+the length of the unlimited dimension and the initial size of the
 file. For configurations using MOM6 and a data atmosphere (DATM), the
 inital unlimited dimension when the file is created is found to be
 0. For active atmosphere configurations, an initial unlimited
@@ -235,6 +257,54 @@ timestep. Since in this case, there will be no next timestep, this
 'pending' file is completed by the IO shutdown. The final file, for
 the last averaging window, is also completed during the IO shutdown.
 
-## File Tracking Example
+### Restart Pairing
 
-@image html logging_diagram2.png "Logging Architecture Diagram" width=60%
+The history files for MOM6 are at specific cadences,
+e.g. 6-hourly. The restart files, however, can be written at either
+specific (but different) cadences or at specific forecast hours. There
+is in general no simple *a priori* relationship between the writing of
+restarts and the writing of history files. Therefore, the concept of
+'restart pairing' is used to refer to tracking the last restart file
+which was written at the time a history file is written. The paired
+restart is written to the log file produced by the feature.
+
+The following example is based on the gfsv17 IAU regression
+test. History output for MOM6 is set to 6-hourly averages output and
+restarts are written at specified hours. In this case, the model is
+restarting with `FHROT = 3` and since IAU is active, MOM6 averaging
+begins at `03-22-12`. The restarts are requested at `restart_interval:
+6 24 45 78`.
+
+The logfile `20210324.060000.mom6.06h` will contain:
+
+```text
+completed: mom6.06h
+forecast hour:    48.000
+valid time:     2021       3      24       6       0       0
+last output: ./MOM6_OUTPUT/ocn_2021_03_23_21_00.nc
+last restart:     2021       3      24       3       0       0
+```
+
+@image html logging_diagram2.png "Restart Pairing Diagram" width=80%
+
+
+# Unit Testing
+
+The output logging feature is covered by a suite of unit tests. The tests
+consist of three supporting modules :
+
+| Module Name | Purpose |
+| :--- | :--- |
+| nc_fixture_mod.F90 | creates mock netCDF files mimicking possible history and restart states |
+| test_helpers.F90 | convenience module with re-used functions |
+| test_utils.F90 | assertion and error utilities |
+
+and five tests:
+
+| Program Name | Purpose | Target Functions |
+| :--- | :--- | :--- |
+| test_outputlog_completion.F90 | tests that nc_fixture_mod creates files of the correct state | get_file_state, file_is_complete |
+| test_outputlog_readnml.F90 | tests that readnml correctly identifies invalid namelist settings | readnml |
+| test_outputlog_alarminit.F90 | tests alarm initialization and ring times against possible start times and frequencies | alarminit |
+| test_outputlog_freqn.F90 | tests the orchestration between file creation and file completion | track_freqn |
+| test_outputlog_restn.F90 | tests the completion check of single and multi-part restart files | track_restn |
