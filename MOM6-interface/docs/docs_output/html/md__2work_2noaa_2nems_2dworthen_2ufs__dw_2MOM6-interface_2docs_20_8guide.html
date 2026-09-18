@@ -47,7 +47,6 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
-</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -69,18 +68,14 @@ $(function() {
 </div>
 </div>
 
+</div><!-- top -->
 <div><div class="header">
-  <div class="headertitle"><div class="title">MOM6 Output Logging User Guide </div></div>
+  <div class="headertitle"><div class="title">MOM6 Output Logging User Guide</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md__2work_2noaa_2nems_2dworthen_2ufs__dw_2MOM6-interface_2docs_2feature__guide"></a> The MOM6 output logging feature is designed to track the completion of MOM6 history and restart files during a model run. This feature is specific to UWM operational requirements and configurations (eg specific output frequencies in hours) and may break if used outside the scope of intended use.</p>
-<p>The feature is enabled by adding a namelist to the model <code>input.nml</code> which can be used to define the history output frequencies, file names and types (snapshot or averages) which are to be tracked. The user is responsible for ensuring that these settings match the contents of the <code>diag_table</code> in use by the model. From the user-configuration, one or more tracking Alarms are enabled at the desired frequencies. When an Alarm rings, a filename is constructed referencing the model time and the initial state of the file is recorded. Depending on the characteristics of the file at creation, the criteria to declare a file complete is defined.</p>
-<p>The file state will be checked at each suceeding ModelAdvance until the appropriate completion criteria is met. The criteria used are either:</p>
-<ol type="1">
-<li>the unlimited dimension in the file is greater than zero,</li>
-<li>when the unlimited dimension is greater than zero and the filesize is larger than the initial size.</li>
-</ol>
-<p>When a file is determined to be complete, a log file is recorded containing the forecast hour, the valid time, the name of the output file and the last completed restart file. The log file can then be used by any related workflow (e.g. <a href="https://github.com/NOAA-EMC/global-workflow">global-workflow</a>).</p>
+<div class="textblock"><p><a class="anchor" id="autotoc_md0"></a> The MOM6 output logging feature is designed to track the completion of MOM6 history and restart files during a model run. This feature is specific to UWM operational requirements and configurations (eg specific output frequencies in hours) and may break if used outside the scope of intended use.</p>
+<p>The feature is enabled by adding a namelist to the model <code>input.nml</code> which can be used to define the history output frequencies, filenames and types (snapshot or averages) which are to be tracked. The user is responsible for ensuring that these settings match the contents of the <code>diag_table</code> in use by the model. From the user-configuration, one or more tracking Alarms are enabled at the desired frequencies. When an Alarm rings, a filename is constructed referencing the model time and the initial state of the file is recorded. Depending on the characteristics of the file at creation, the criteria to declare a file complete is defined.</p>
+<p>The file state will be checked at each suceeding ModelAdvance until the appropriate completion criteria is met: either when the unlimited dimension in the file is greater than zero or when the unlimited dimension is greater than zero and the filesize is larger than the initial size. When a file is determined to be complete, a log file is recorded containing the forecast hour, the valid time, the name of the output file and the last completed restart file. The log file can then be used by any related workflow (e.g. <a href="https://github.com/NOAA-EMC/global-workflow">global-workflow</a>).</p>
 <p>To illustrate the concepts implemented in the output logging feature, consider the following diagram:</p>
 <div class="image">
 <img src="logging_diagram1.png" alt="" width="50%"/>
@@ -88,18 +83,18 @@ $(function() {
 File Sequencing</div></div>
 <p>In this case, MOM6 is providing 6-hourly output; the model begins at hour=00 and runs for 30 hours; the output alarm will ring every 6 hours. It is important to remember that alarms ring at the ModelAdvance nextTime. If the model in this case is running with a 30 minute coupling frequency, the alarm at hour=12:00 will ring when the modelAdvance currTime = 11:30 and the ModelAdvance nextTime = 12:00.</p>
 <p>MOM6 history files for time-averaged output are timestamped at the middle of the averaging window. The first MOM6 history output file produced is the hour = 03 file, representing the average between hours 0 and 6. It will be created when the alarm rings at nextTime = 12:00 and be completed on the next timestep (when the currTime = 12:00). That file sequencing pattern holds until the model stop time. At finalization, there are two final history files that are written: the "pending" file (h = 21) as well as the final h = 03 file.</p>
-<p>Restarts for MOM6 are written by MOM6 directly, not using FMS as for the history files. Model restarts are written, complete, when the ModelAdvance nextTime matches a requested hour. In the above diagram, restarts written at hour = 12 will be when the ModelAdvance currTime = 11:30 and the ModelAdvance nextTime = 12:00.</p>
+<p>Restarts for MOM6 are written by MOM6 directly, not using FMS as for the history files. Model restarts are written, complete, when the ModelAdance nextTime matches a requested hour. In the above diagram, restarts written at hour = 12 will be when the ModelAdvance currTime = 11:30 and the ModelAdvance nextTime = 12:00.</p>
 <p>The output log file written at forecast hour = 18 for this case (<code>20111001.180000.mom6.06h</code>) would contain the following information:</p>
 <div class="fragment"><div class="line">completed: mom6.06h</div>
 <div class="line">forecast hour:    18.000</div>
 <div class="line">valid time:     2011      10       1      18       0       0</div>
 <div class="line">last output: ./MOM6_OUTPUT/ocn_2011_10_01_09_00.nc</div>
 <div class="line">last restart:     2011      10       1      12       0       0</div>
-</div><!-- fragment --><p>In the above case, the log file for both the h = 21 and h = 03 file are both written at the same model hour (FH = 30 in this case). Therefore, the log for the very last file is denoted with <code>lstop</code> appended to the file name (<code>20111002.060000.mom6.lstop.06h</code>).</p>
+</div><!-- fragment --><p>In the above case, since the log file for both the h = 21 and h = 03 file are both written at the same model hour (FH = 30 in this case), the log for the very last file is denoted with <code>lstop</code> appended to the file name (<code>20111002.060000.mom6.lstop.06h</code>).</p>
 <dl class="section note"><dt>Note</dt><dd>The above sample log file also highlights the essential feature of the output sequencing. At FH = 18, the only output files which are complete are those at hours 03 and 09; the history file for the interval which <em>ends</em> at FH = 18 (the h = 15 file) has not yet been written.</dd></dl>
-<h1><a class="anchor" id="autotoc_md16"></a>
+<h1><a class="anchor" id="autotoc_md1"></a>
 Design and Function</h1>
-<p>The outputlog feature consists of two modules in <code>config_src/drivers/nuopc_cap</code>:</p>
+<p>The outputlog feature consists of two fortran modules in <code>config_src/drivers/nuopc_cap</code>:</p>
 <ul>
 <li><a class="el" href="mom__cap__outputlog_8F90.html" title="The outputlog feature for UFS.">mom_cap_outputlog.F90</a></li>
 <li><a class="el" href="mom__outputlog__methods_8F90.html" title="Contains methods for the outputlog feature.">mom_outputlog_methods.F90</a></li>
@@ -110,9 +105,9 @@ Design and Function</h1>
 <li><a class="el" href="structmom__outputlog__methods_1_1outputlog__state__type.html" title="Structure containing the time-dependent state of a tracked file.">mom_outputlog_methods::outputlog_state_type</a> : the time-evolving state at each tracked frequency</li>
 <li><a class="el" href="structmom__outputlog__methods_1_1outputlog__modeltime__type.html" title="Structure containing the model time state during tracking.">mom_outputlog_methods::outputlog_modeltime_type</a>: the model time state during each ModelAdvance</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md17"></a>
+<h2><a class="anchor" id="autotoc_md2"></a>
 Configuration</h2>
-<p>The output log feature is enabled with a <code>MOM_outputlog_nml</code> namelist added to the <code>input.nml</code> which will populate the outputlog_config_type. For example, the following values will request tracking 6-hourly files, which (using the <code>diag_table</code>) have a filename prefix of <code>ocn</code> and are defined as time-averaged values. No debug information will be added to the standard output file.</p>
+<p>The output log feature is enabled with a <code>MOM_outputlog_nml</code> namelist added to the <code>input.nml</code> which will populate the outputlog_config_type. For example, the following values will request tracking 6-hourly files, which (using the <code>diag_table</code>) have a filename prefix of <code>ocn</code> and are defined as time-averaged values. No debug information will be added to the stdout file.</p>
 <div class="fragment"><div class="line">&amp;MOM_outputlog_nml</div>
 <div class="line">  outputlog_fh = 6</div>
 <div class="line">  outputlog_fnameprefix = &#39;ocn&#39;</div>
@@ -124,44 +119,44 @@ Configuration</h2>
 <div class="line">  outputlog_fh = 6</div>
 <div class="line">/</div>
 </div><!-- fragment --><p>The following rules apply the namelist options for output logging:</p>
-<h3><a class="anchor" id="autotoc_md18"></a>
+<h3><a class="anchor" id="autotoc_md3"></a>
 Logging Frequency</h3>
 <p>File tracking can be enabled for 1,3,6 or 24 hourly files only. Multiple frequencies can be requested and the listed order is immaterial. However, each logging frequency must be uniquely defined. For example, 6-hourly average files and 6-hourly snapshot files are not allowed but 6-hourly average and 3-hourly snapshot files are.</p>
-<dl class="section note"><dt>Note</dt><dd>Because it is intended for operational purposes, logging frequency is intentionally set to log 3 and 6 hour frequencies relative to the operational forecast windows. This means that a 6 hour tracking frequency is always implemented as starting at one of hours 00,06,12 or 18. A similar rule applies to a 3 hour tracking frequency (i.e., 00,03,06). Tracking at 24 hour intervals is for consecutive 24 hour periods. For example, hour 09 on day one through to hour 09 on day 2.</dd></dl>
-<h3><a class="anchor" id="autotoc_md19"></a>
+<dl class="section note"><dt>Note</dt><dd>Because it is intended for operational purposes, logging frequency is intentionally set to log 3 and 6 hour frequencies relative to the operational forecast windows. This means that a 6 hour tracking frequency is always implemenented as starting at one of hours 00,06,12 or 18. A similar rule applies to a 3 hour tracking frequency (i.e, 00,03,06 etc). Tracking at 24 hour intervals is for consecutive 24 hour periods. For example, hour 09 on day one through to hour 09 on day 2.</dd></dl>
+<h3><a class="anchor" id="autotoc_md4"></a>
 Filename Prefix</h3>
 <p>If a single frequency is requested, no filename prefix is required. A default prefix of <code>ocn</code> will be used. It is the user's responsibility that the default matches the specification in the <code>diag_table</code>. Otherwise, the filename prefix must be set to the actual filename prefix called for in the <code>diag_table</code>. If more than a single frequency is requested, the user must provide filename prefixes for all frequencies (again ensuring matches to the <code>diag_table</code>). The filename prefix can have a maximum length of 12 (not including the trailing underscore, which will be appended).</p>
-<h3><a class="anchor" id="autotoc_md20"></a>
+<h3><a class="anchor" id="autotoc_md5"></a>
 File Time Reduction</h3>
-<p>Either instantaneous (snapshot) files or time averaged files are supported. These are specified by the namelist <code>treduce</code> settings of <code>none</code> and <code>average</code>, respectfully. The file name format for time averaged output is assumed to be timestamped with the midpoint of the averaging window (i.e. 09 for the 6h-12h average). For snapshot output, the timestamp will be the time of the snapshot. The user is responsible for ensuring that the diag_table in use matches these definitions.</p>
-<h3><a class="anchor" id="autotoc_md21"></a>
+<p>Either instantaneous (snapshot) files or time averaged files are supported. These are specified by the namelist <code>treduce</code> settings of <code>none</code> and <code>average</code>, respectfully. The file name format for time averaged output is asssumed to be timestamped with the mid-point of the averaging window (i.e. 09 for the 6h-12h average). For snapshot output, the timestamp will be the time of the snapshot. The user is responsible for ensuring that the diag_table in use matches these definitions.</p>
+<h3><a class="anchor" id="autotoc_md6"></a>
 Feature Debugging</h3>
-<p>When enabled in the namelist, debugging print statements will be written to standard out. These statements track the state of the feature tracking at each step through the ModelAdvance. Print statements will be prepended with the routine name, for example <code>MOM_cap:(track_freqn)</code>. Utilizing this feature for a case with tracking of 6-hourly average output produces:</p>
-<div class="fragment"><div class="line">MOM_cap:(track_freqn) ./MOM6_OUTPUT/ocn_2021_03_22_21_00.nc exists 2021-03-23T05:30:00  2021-03-23T06:00:00 not complete, chkflag  T     9415276      9415276    1</div>
-<div class="line">MOM_cap:(track_freqn) ./MOM6_OUTPUT/ocn_2021_03_22_21_00.nc exists 2021-03-23T06:00:00  2021-03-23T06:30:00     complete, chkflag  F     9415276     90532460    1</div>
-<div class="line">MOM_cap:(track_freqn) ./MOM6_OUTPUT/ocn_2021_03_22_21_00.nc exists 2021-03-23T06:30:00  2021-03-23T07:00:00     complete, chkflag  F     9415276     90532460    1</div>
-<div class="line">MOM_cap:(track_freqn) ./MOM6_OUTPUT/ocn_2021_03_22_21_00.nc exists 2021-03-23T07:00:00  2021-03-23T07:30:00     complete, chkflag  F     9415276     90532460    1</div>
+<p>When enabled in the namelist, debugging print statements will be written to standard out. These statements track the state of the feature tracking at each step through the ModelAdvance. Print statements will be pre-pended with an identifing routine, for example <code>MOM_cap:(track_freqn)</code>. Utilizing this feature for a case with tracking of 6-hourly average output produces:</p>
+<div class="fragment"><div class="line">304: MOM_cap:(track_freqn)    ./MOM6_OUTPUT/ocn_2021_03_22_21_00.nc exists 2021-03-23T05:30:00  2021-03-23T06:00:00 not complete, chkflag  T         9415276         9415276    1</div>
+<div class="line">304: MOM_cap:(track_freqn)    ./MOM6_OUTPUT/ocn_2021_03_22_21_00.nc exists 2021-03-23T06:00:00  2021-03-23T06:30:00     complete, chkflag  F         9415276        90532460    1</div>
+<div class="line">304: MOM_cap:(track_freqn)    ./MOM6_OUTPUT/ocn_2021_03_22_21_00.nc exists 2021-03-23T06:30:00  2021-03-23T07:00:00     complete, chkflag  F         9415276        90532460    1</div>
+<div class="line">304: MOM_cap:(track_freqn)    ./MOM6_OUTPUT/ocn_2021_03_22_21_00.nc exists 2021-03-23T07:00:00  2021-03-23T07:30:00     complete, chkflag  F         9415276        90532460    1</div>
 </div><!-- fragment --><p>As the model advances, the feature scans for a specific filename. When that file is found, the debug print will indicate that the file is present at a given <code>modelAdvance</code> time pair (the currTime and the nextTime). The completion state is given, as well as the status of the <code>chkfile_nextAdvance</code> logical. The next two columns report the size of the file when created and the current size of the file. The final column reports the length of the unlimited dimension. Once the file is determined complete, the checking flag flips to false and no further inquires on the state of that particular file will be made.</p>
-<h3><a class="anchor" id="autotoc_md22"></a>
+<h3><a class="anchor" id="autotoc_md7"></a>
 Alarm Initialization</h3>
-<p>An alarm is initialized at each desired tracking frequency. As noted previously, alarms are set to ring at multiples of the tracking frequency and initialized with a time-offset to ensure that they ring at on intervals associated of the operational forecast hours.</p>
-<h3><a class="anchor" id="autotoc_md23"></a>
+<p>An alarm is intialized at each desired tracking frequency. As noted previously, alarms are set to ring at multiples of the tracking frequency and intialized with a time-offset to ensure that they ring at on intervals associated of the operational forecast hours.</p>
+<h3><a class="anchor" id="autotoc_md8"></a>
 IO-layout</h3>
 <p>When IO-layout is enabled, the root PE associated with the IO domain is co-located with the root PE of the computation domain. Each IO-domain will produce a history file for the domain; the file names will be appended with the IO-domain number, for example <code>.nc.0000</code>. The number of history files expected obtained using the internal MOM6 function <code>mpp_get_io_domain_layout</code>. For a single IO-domain, no file name suffix is used; when IO-layout is in use, only the root IO task associated with the <code>.nc.0000</code> file will be queried for the model state.</p>
-<h2><a class="anchor" id="autotoc_md24"></a>
+<h2><a class="anchor" id="autotoc_md9"></a>
 File Tracking Sequence</h2>
-<h3><a class="anchor" id="autotoc_md25"></a>
+<h3><a class="anchor" id="autotoc_md10"></a>
 File State at Creation</h3>
-<p>When an alarm rings for a frequency, the filename for the expected history output is constructed and the initial state of the file, if present, is obtained. Two characteristics of the file are obtained: the length of the unlimited dimension and the initial size of the file. For configurations using MOM6 and a data atmosphere (DATM), the inital unlimited dimension when the file is created is found to be 0. For active atmosphere configurations, an initial unlimited dimension length of 1 is observed. In these cases, file size will also be used to determine file completion. This is enabled using the state variable <code>use_filesize</code>.</p>
+<p>When an alarm rings for a frequency, the filename for the expected history output is constructed and the initial state of the file, if present, is obtained. Two characteristics of the file are obtained: the length of the unlimited dimension and the inital size of the file. For configurations using MOM6 and a data atmosphere (DATM), the inital unlimited dimension when the file is created is found to be 0. For active atmosphere configurations, an initial unlimited dimension length of 1 is observed. In these cases, file size will also be used to determine file completion. This is enabled using the state variable <code>use_filesize</code>.</p>
 <p>Once the initial file state is obtained at ring time, a flag will be set to check the file on the next ModelAdvance. The file will continue to be checked on each advance until it is reported complete. In practice, the file is completed on the next ModelAdvance after creation.</p>
-<h3><a class="anchor" id="autotoc_md26"></a>
+<h3><a class="anchor" id="autotoc_md11"></a>
 Determining File Completion</h3>
 <p>Depending on the state variable <code>use_filesize</code>, a file is determined to be complete in one of two ways. If the initial unlimited dimension was zero (a DATM case), file completion occurs when the file state obtains an unlimited dimension of 1. Otherwise, the secondary criteria of file size will be used. The criteria here is only that the file size is greater than the initial size.</p>
 <p>Once a file is determined complete, the check flag for the next Advance is turned off and the state is updated to store the last restart file written.</p>
-<h3><a class="anchor" id="autotoc_md27"></a>
+<h3><a class="anchor" id="autotoc_md12"></a>
 Finalization</h3>
 <p>When the model completes in the ModelFinalization phase, two calls to the tracking feature are required. Both occur after the IO has been shut down. The first call checks the status of the penultimate file; the file which would have completed at the next ModelAdvance timestep. Since in this case, there will be no next timestep, this 'pending' file is completed by the IO shutdown. The final file, for the last averaging window, is also completed during the IO shutdown.</p>
-<h3><a class="anchor" id="autotoc_md28"></a>
+<h3><a class="anchor" id="autotoc_md13"></a>
 Restart Pairing</h3>
 <p>The history files for MOM6 are at specific cadences, e.g. 6-hourly. The restart files, however, can be written at either specific (but different) cadences or at specific forecast hours. There is in general no simple <em>a priori</em> relationship between the writing of restarts and the writing of history files. Therefore, the concept of 'restart pairing' is used to refer to tracking the last restart file which was written at the time a history file is written. The paired restart is written to the log file produced by the feature.</p>
 <p>The following example is based on the gfsv17 IAU regression test. History output for MOM6 is set to 6-hourly averages output and restarts are written at specified hours. In this case, the model is restarting with <code>FHROT = 3</code> and since IAU is active, MOM6 averaging begins at <code>03-22-12</code>. The restarts are requested at <code>restart_interval: 6 24 45 78</code>.</p>
@@ -175,28 +170,11 @@ Restart Pairing</h3>
 <img src="logging_diagram2.png" alt="" width="80%"/>
 <div class="caption">
 Restart Pairing Diagram</div></div>
-<h2><a class="anchor" id="autotoc_md29"></a>
+<h2><a class="anchor" id="autotoc_md14"></a>
 Unit Testing</h2>
-<p>The output logging feature is covered by a suite of unit tests. The tests consist of three supporting routines :</p>
-<ul>
-<li><a class="el" href="nc__fixture__mod_8F90.html" title="NetCDF fixture to generate files with established behaviour of file creation and completion....">nc_fixture_mod.F90</a> : creates mock netCDF files mimicking possible history and restart states</li>
-<li><a class="el" href="test__helpers_8F90.html" title="Shared setup for outputlog unit tests.">test_helpers.F90</a> : convenience module with re-used functions</li>
-<li><a class="el" href="test__utils_8F90.html" title="Common assertion and test summary functions for MOM6 outputlog unit tests.">test_utils.F90</a> : assertion and error utilities</li>
-</ul>
-<p>and five tests:</p>
-<ul>
-<li><a class="el" href="test__outputlog__completion_8F90.html" title="Tests file completion contract in isolation.">test_outputlog_completion.F90</a></li>
-<li>test_outputlog_readnml.F90</li>
-<li><a class="el" href="test__outputlog__alarminit_8F90.html" title="Test code for outputlog Alarm Initialization.">test_outputlog_alarminit.F90</a></li>
-<li><a class="el" href="test__outputlog__freqn_8F90.html" title="Orchestration test for the track_freqn machinery.">test_outputlog_freqn.F90</a></li>
-<li><a class="el" href="test__outputlog__restn_8F90.html" title="Test per-part completion for track_restn.">test_outputlog_restn.F90</a></li>
-</ul>
-<p>The completion test is used to verify the <code>get_file_state</code> and <code>file_is_complete</code> functions. It uses the <code>nc_fixture_mod</code> to create the suite of files in various states.</p>
-<p>The readnml test is used to ensure that the contract for allowable settings is enforced.</p>
-<p>The alarminit test is used to ensure that the alarm</p>
-<p>The <code>nc_fixture_mod</code> creates mock netCDF files which mimic the possible states of the history and restart files. The </p>
-</div></div><!-- PageDoc -->
-</div><!-- contents -->
+<p>The output logging feature is covered by a suite of unit tests. Since </p>
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
