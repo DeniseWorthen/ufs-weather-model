@@ -136,17 +136,17 @@ The logfile {\ttfamily 20210324.\+060000.\+mom6.\+06h} will contain\+:
 
 
 \hypertarget{index_autotoc_md29}{}\doxysection{\texorpdfstring{Unit Testing}{Unit Testing}}\label{index_autotoc_md29}
-The output logging feature is covered by a suite of unit tests. The tests consist of three supporting routines \+:
+The output logging feature is covered by a suite of unit tests. The tests consist of three supporting modules \+:
 
 \tabulinesep=1mm
 \begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
 \hline
-\cellcolor{\tableheadbgcolor}\textbf{ Program Name   }&\cellcolor{\tableheadbgcolor}\textbf{ Purpose    }\\\cline{1-2}
+\cellcolor{\tableheadbgcolor}\textbf{ Module Name   }&\cellcolor{\tableheadbgcolor}\textbf{ Purpose    }\\\cline{1-2}
 \endfirsthead
 \hline
 \endfoot
 \hline
-\cellcolor{\tableheadbgcolor}\textbf{ Program Name   }&\cellcolor{\tableheadbgcolor}\textbf{ Purpose    }\\\cline{1-2}
+\cellcolor{\tableheadbgcolor}\textbf{ Module Name   }&\cellcolor{\tableheadbgcolor}\textbf{ Purpose    }\\\cline{1-2}
 \endhead
 \doxylink{nc__fixture__mod_8F90}{nc\+\_\+fixture\+\_\+mod.\+F90}   &creates mock net\+CDF files mimicking possible history and restart states    \\\cline{1-2}
 \doxylink{test__helpers_8F90}{test\+\_\+helpers.\+F90}   &convenience module with re-\/used functions    \\\cline{1-2}
@@ -166,18 +166,9 @@ and five tests\+:
 \hline
 \cellcolor{\tableheadbgcolor}\textbf{ Program Name   }&\cellcolor{\tableheadbgcolor}\textbf{ Purpose   }&\cellcolor{\tableheadbgcolor}\textbf{ Target Functions    }\\\cline{1-3}
 \endhead
-\doxylink{test__outputlog__completion_8F90}{test\+\_\+outputlog\+\_\+completion.\+F90}   &&\\\cline{1-3}
-\doxylink{test__outputlog__readnml_8F90}{test\+\_\+outputlog\+\_\+readnml.\+F90}   &&\\\cline{1-3}
-\doxylink{test__outputlog__alarminit_8F90}{test\+\_\+outputlog\+\_\+alarminit.\+F90}   &&\\\cline{1-3}
-\doxylink{test__outputlog__freqn_8F90}{test\+\_\+outputlog\+\_\+freqn.\+F90}   &&\\\cline{1-3}
-\doxylink{test__outputlog__restn_8F90}{test\+\_\+outputlog\+\_\+restn.\+F90}   &&\\\cline{1-3}
+\doxylink{test__outputlog__completion_8F90}{test\+\_\+outputlog\+\_\+completion.\+F90}   &tests nc\+\_\+fixture\+\_\+mod files   &get\+\_\+file\+\_\+state, file\+\_\+is\+\_\+complete    \\\cline{1-3}
+\doxylink{test__outputlog__readnml_8F90}{test\+\_\+outputlog\+\_\+readnml.\+F90}   &tests that readnml correctly identifies invalid namelist settings   &readnml    \\\cline{1-3}
+\doxylink{test__outputlog__alarminit_8F90}{test\+\_\+outputlog\+\_\+alarminit.\+F90}   &tests alarm initialization and ring times against possible start times and frequencies   &alaraminit    \\\cline{1-3}
+\doxylink{test__outputlog__freqn_8F90}{test\+\_\+outputlog\+\_\+freqn.\+F90}   &tests orchestration between file creation and file completion   &track\+\_\+freqn    \\\cline{1-3}
+\doxylink{test__outputlog__restn_8F90}{test\+\_\+outputlog\+\_\+restn.\+F90}   &tests completion check of single and multi-\/part restart files   &track\+\_\+restn   \\\cline{1-3}
 \end{longtabu}
-
-
-The completion test is used to verify the {\ttfamily get\+\_\+file\+\_\+state} and {\ttfamily file\+\_\+is\+\_\+complete} functions. It uses the {\ttfamily nc\+\_\+fixture\+\_\+mod} to create the suite of files in various states.
-
-The readnml test is used to ensure that the contract for allowable settings is enforced.
-
-The alarminit test is used to ensure that the alarm
-
-The {\ttfamily nc\+\_\+fixture\+\_\+mod} creates mock net\+CDF files which mimic the possible states of the history and restart files. The 
