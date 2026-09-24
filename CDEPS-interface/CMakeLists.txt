@@ -58,6 +58,9 @@ set_target_properties(datm PROPERTIES Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_B
 target_include_directories(datm PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/mod>)
 target_link_libraries(datm PRIVATE dshr share streams)
 target_link_libraries(datm PRIVATE ESMF::ESMF PIO::PIO_Fortran)
+if(UFS_TRACING)
+  target_link_libraries(datm PRIVATE ufs_tracing)
+endif()
 
 # CDEPS/dice
 add_library(dice OBJECT ${cdeps_dice_files})
@@ -122,6 +125,9 @@ add_library(cdeps::cdeps ALIAS cdeps)
 target_include_directories(cdeps PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/mod>
                                         $<INSTALL_INTERFACE:mod>)
 target_link_libraries(cdeps PUBLIC ESMF::ESMF PIO::PIO_Fortran)
+if(UFS_TRACING)
+  target_link_libraries(cdeps PUBLIC ufs_tracing)
+endif()
 list(APPEND LIB_TARGETS cdeps)
 
 ###############################################################################
