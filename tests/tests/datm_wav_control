@@ -27,7 +27,8 @@ DT_ATMOS=720
 DT_CICE=720
 
 RESTART_N=12
-coupling_interval_sec=${DT_ATMOS}
+coupling_interval_slow_sec=${DT_THERM_MOM6}
+coupling_interval_fast_sec=${DT_ATMOS}
 
 ATM_compute_tasks=80
 OCN_tasks=0
