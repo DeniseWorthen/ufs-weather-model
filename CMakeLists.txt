@@ -422,6 +422,10 @@ endif()
 target_link_libraries(ufs_model ufs ESMF::ESMF w3emc::w3emc_d)
 set_target_properties(ufs_model PROPERTIES LINKER_LANGUAGE Fortran)
 
+if(CMAKE_Fortran_COMPILER_ID STREQUAL "IntelLLVM")
+  target_link_options(ufs_model PRIVATE -no-intel-lib=libimf)
+  set(CMAKE_Fortran_STANDARD_LIBRARIES "${CMAKE_Fortran_STANDARD_LIBRARIES} -lm -limf")
+endif()
 ###############################################################################
 ### Install
 ###############################################################################
