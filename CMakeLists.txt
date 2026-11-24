@@ -411,6 +411,17 @@ add_dependencies(ufs_model ufs)
 target_link_libraries(ufs_model ufs ESMF::ESMF w3emc::w3emc_d)
 set_target_properties(ufs_model PROPERTIES LINKER_LANGUAGE Fortran)
 
+# With ifx, the compiler driver links Intel's math library (libimf) ahead of
+# glibc's libm, so math functions such as pow, clog and csqrt come from libimf,
+# which is slower for the ATM physics. Stop the driver from adding libimf, then
+# add glibc's libm followed by libimf at the end of the link line. libm is then
+# searched first, and libimf still provides Intel-only routines that some
+# libraries need (e.g. __powi4i4 in w3emc).
+if(CMAKE_Fortran_COMPILER_ID STREQUAL "IntelLLVM")
+  target_link_options(ufs_model PRIVATE -no-intel-lib=libimf)
+  set(CMAKE_Fortran_STANDARD_LIBRARIES "${CMAKE_Fortran_STANDARD_LIBRARIES} -lm -limf")
+endif()
+
 ###############################################################################
 ### Install
 ###############################################################################
