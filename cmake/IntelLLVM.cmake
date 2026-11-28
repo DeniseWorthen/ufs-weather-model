@@ -44,6 +44,10 @@ else()
         set(CMAKE_Fortran_FLAGS_RELEASE "${CMAKE_Fortran_FLAGS_RELEASE} -march=core-avx-i")
         set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -march=core-avx-i")
     endif()
+    # Route all math calls (scalar and vector) to bitwise-reproducible SVML, so no loop
+    # mixes Intel and glibc math under the link fix (-no-intel-lib=libimf ... -lm -limf)
+    # (layout reproducibility). The dycore and UPP set the same flags in their own files.
+    set(CMAKE_Fortran_FLAGS_RELEASE "${CMAKE_Fortran_FLAGS_RELEASE} -fimf-use-svml=true -fimf-arch-consistency=true")
 endif()
 
 if(APPLE)
